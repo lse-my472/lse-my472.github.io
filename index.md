@@ -96,35 +96,35 @@ TBA
 
 ### Schedule
 
-#### Week 1 (PB). [Introduction to data](https://github.com/lse-my472/lectures/blob/master/week01/)
+#### Week 1, October 2 (PB). [Introduction to data](https://github.com/lse-my472/lectures/blob/master/week01/)
 
-#### Week 2 (PB). [The shape of data](https://github.com/lse-my472/lectures/blob/master/week02/)
-
-
-#### Week 3 (AM). [Cloud computing](https://github.com/lse-my472/lectures/blob/master/week03/)
+#### Week 2, October 9 (PB). [The shape of data](https://github.com/lse-my472/lectures/blob/master/week02/)
 
 
-#### Week 4 (AM). [Basics of HTML and CSS](https://github.com/lse-my472/lectures/blob/master/week04/)
+#### Week 3, October 16 (AM). [Cloud computing](https://github.com/lse-my472/lectures/blob/master/week03/)
 
 
-#### Week 5 (AM). [Using data from the internet](https://github.com/lse-my472/lectures/blob/master/week05/)
+#### Week 4, October 23 (AM). [Basics of HTML and CSS](https://github.com/lse-my472/lectures/blob/master/week04/)
 
 
-#### Week 6. Reading week. No class.
+#### Week 5, October 30 (AM). [Using data from the internet](https://github.com/lse-my472/lectures/blob/master/week05/)
 
 
-#### Week 7 (PB). [Working with APIs](https://github.com/lse-my472/lectures/blob/master/week07/)
+#### Week 6, November 6. Reading week. No class.
 
 
-#### Week 8 (PB). [Creating and managing databases](https://github.com/lse-my472/lectures/blob/master/week08/)
+#### Week 7, November 13 (PB). [Working with APIs](https://github.com/lse-my472/lectures/blob/master/week07/)
 
 
-#### Week 9 (AM). [Interacting with online databases](https://github.com/lse-my472/lectures/blob/master/week09/)
+#### Week 8, November 20 (PB). [Creating and managing databases](https://github.com/lse-my472/lectures/blob/master/week08/)
 
 
-#### Week 10 (PB). [Exploratory data analysis](https://github.com/lse-my472/lectures/blob/master/week10/)
+#### Week 9, November 27 (AM). [Interacting with online databases](https://github.com/lse-my472/lectures/blob/master/week09/)
 
 
-#### Week 11 (PB). [Parallel computing](https://github.com/lse-my472/lectures/blob/master/week11/)
+#### Week 10, December 4 (PB). [Exploratory data analysis](https://github.com/lse-my472/lectures/blob/master/week10/)
+
+
+#### Week 11, December 4 (PB). [Parallel computing](https://github.com/lse-my472/lectures/blob/master/week11/)
 
 
