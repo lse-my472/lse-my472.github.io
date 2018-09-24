@@ -12,7 +12,7 @@ colorlinks: true
 
 ### Instructors
 
-* [Pablo Barberá](mailto:P.Barbera@lse.ac.uk), Department of Methodology.  *Office hours*: TBA, COL.7.10 (book via LSE for You)
+* [Pablo Barberá](mailto:P.Barbera@lse.ac.uk), Department of Methodology.  *Office hours*: Fridays 12.30-14.30, COL.7.10 (book via LSE for You)
 
 * [Akitaka Matsuo](mailto:A.Matsuo@lse.ac.uk), Department of Methodology.  *Office hours*: TBA, COL.8.02 (book via LSE for You)
 
@@ -38,10 +38,6 @@ group­-based collaboration, essential ingredients of modern data science projec
 The coverage of data sharing will include key skills in on-line publishing, including
 the elements of web design, the technical elements of web technologies and web programming,
 as well as the use of revision-control and group collaboration tools such as GitHub.
-[//]: # (Aki: the following lines may have to be changed, but I leave it as it is for the timebeing.)
-Each student will build one or more interactive website based on content relevant to
-his/her domain­-related interests, and will use GitHub for accessing and submitting
-course materials and assignments.
 
 ### Objectives
 
@@ -90,17 +86,14 @@ particular focus on parallel computing.
 Students will be expected to produce five weekly, structured problem sets with a
 beginning component to be started in the staff-led lab sessions, to be
 completed by the student outside of class. Answers should be formatted and
-submitted for assessment.
+submitted for assessment. One or more of these problem sets will be completed
+in collaboration with other students.
 
 #### Summative Assignments
 
 Take home exam (50%) and in class assessment (50%).
 
 Student problem sets will be marked and will provide 50% of the mark.
-
-### Recommended Texts
-
-TBA
 
 
 ### Schedule
