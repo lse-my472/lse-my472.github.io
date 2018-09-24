@@ -20,7 +20,7 @@ colorlinks: true
 
 * Lectures on Tuesdays 09:00–11:00 in 32L.LG.03
 * Classes on:
-    - Thursdays 9:30-11:00 STC.S08
+    - Thursdays 9:30-11:00 TW2.4.03
     - Fridays 15:00-16:30 STC.S018
 
 No lectures or classes will take place during School Reading Week 6.
