@@ -145,13 +145,15 @@ Lecture notes:
 
 *Lab*: **Reshaping data in R**
 
-*Assignment 1*: **Introduction to data cleaning in R**
+*Assignment 1*: **Data cleaning in R**. Deadline: October 19.
 
 
 #### Week 3, October 16 (AM). [Cloud computing](https://github.com/lse-my472/lectures/blob/master/week03/)
 
 
 #### Week 4, October 23 (AM). [Basics of HTML and CSS](https://github.com/lse-my472/lectures/blob/master/week04/)
+
+*Assignment 2*: **Webscraping**. Deadline: November 2.
 
 
 #### Week 5, October 30 (AM). [Using data from the internet](https://github.com/lse-my472/lectures/blob/master/week05/)
@@ -163,13 +165,21 @@ Lecture notes:
 #### Week 7, November 13 (PB). [Working with APIs](https://github.com/lse-my472/lectures/blob/master/week07/)
 
 
+*Assignment 3*: **APIs**. Deadline: November 23.
+
 #### Week 8, November 20 (PB). [Creating and managing databases](https://github.com/lse-my472/lectures/blob/master/week08/)
 
 
 #### Week 9, November 27 (AM). [Interacting with online databases](https://github.com/lse-my472/lectures/blob/master/week09/)
+
+*Assignment 4*: **Databases**. Deadline: December 7.
 
 
 #### Week 10, December 4 (PB; classes with AM). [Exploratory data analysis](https://github.com/lse-my472/lectures/blob/master/week10/)
 
 
 #### Week 11, December 11 (PB). [Parallel computing](https://github.com/lse-my472/lectures/blob/master/week11/)
+
+*Assignment 5*: **Data analysis**. Deadline: December 21.
+
+*Take-home exam*. Deadline: January 18.
