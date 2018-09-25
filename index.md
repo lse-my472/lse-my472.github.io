@@ -123,10 +123,10 @@ Readings:
 * Jim McGlone, "[Creating and Hosting a Personal Site on GitHub
 A step-by-step beginner's guide to creating a personal website and blog using Jekyll and hosting it for free using GitHub Pages.](http://jmcglone.com/guides/github-pages/)".
 
-*Lab*: **Working with git and GitHub**
+*Lab*: [**Working with git and GitHub**](https://github.com/lse-my472/pset1)
 * Installing git and setting up an account on GitHub
 * How to complete and submit assignments using GitHub Classroom
-* Forking and correcting a broken Jupyter notebook
+* Forking and correcting a broken RMarkdown file
 * Cloning a website repository, modifying it, and publishing a personal webpage
 
 
@@ -169,7 +169,7 @@ Lecture notes:
 #### Week 9, November 27 (AM). [Interacting with online databases](https://github.com/lse-my472/lectures/blob/master/week09/)
 
 
-#### Week 10, December 4 (PB). [Exploratory data analysis](https://github.com/lse-my472/lectures/blob/master/week10/)
+#### Week 10, December 4 (PB; classes with AM). [Exploratory data analysis](https://github.com/lse-my472/lectures/blob/master/week10/)
 
 
-#### Week 11, December 4 (PB). [Parallel computing](https://github.com/lse-my472/lectures/blob/master/week11/)
+#### Week 11, December 11 (PB). [Parallel computing](https://github.com/lse-my472/lectures/blob/master/week11/)
