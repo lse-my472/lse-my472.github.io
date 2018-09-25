@@ -150,6 +150,33 @@ Lecture notes:
 
 #### Week 3, October 16 (AM). [Cloud computing](https://github.com/lse-my472/lectures/blob/master/week03/)
 
+In this week, we focus on the setup of computation environments on the Internet. We will introduce the cloud computing concepts and learn why the big shift to the cloud computing is occurring in the industry and how it is relevant to us as data scientists. In the lab, we will have an introduction to the cloud environment setup using Amazon Web Services. We will sign up an account, launch a cloud computing environment, create a webpage, and set up a statistical computing environment. 
+
+Lecture notes:
+
+- Lecture week 3: Cloud computing overview
+
+Readings:
+
+*Required readings*:
+* Rajaraman, V. 2014. "[Cloud Computing.](https://www.ias.ac.in/article/fulltext/reso/019/03/0242-0258)" Resonance 19(3): 242–58.
+* AWS: [What is cloud computing](https://aws.amazon.com/what-is-cloud-computing/).
+* Azure: [Developer guide](https://docs.microsoft.com/en-us/azure/guides/developer/azure-developer-guide).
+
+*Further Readings*:
+* Puparelia, Nayan. 2016. "Cloud Computing." MIT Press. Ch. 1-6.
+* Botta, Alessio, Walter De Donato, Valerio Persico, and Antonio Pescapé. 2016. "[Integration of Cloud Computing and Internet of Things: A Survey.](http://iranarze.ir/wp-content/uploads/2017/03/6229-English-IranArze.pdf)" Future Generation Computer Systems 56: 684–700.
+
+*Lab*: **Working with AWS**
+* Setup AWS account
+* Secure the account
+* Configure EC2 instance
+* Work with EC2 instance
+    - Login EC2-Linux Console
+    - Set up a web server
+    - Install R, some packages
+    - Stop the instance
+
 
 #### Week 4, October 23 (AM). [Basics of HTML and CSS](https://github.com/lse-my472/lectures/blob/master/week04/)
 
