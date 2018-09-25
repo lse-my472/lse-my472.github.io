@@ -14,7 +14,7 @@ colorlinks: true
 
 * [Pablo Barberá](mailto:P.Barbera@lse.ac.uk), Department of Methodology.  *Office hours*: Fridays 12.30-14.30, COL.7.10 (book via LSE for You)
 
-* [Akitaka Matsuo](mailto:A.Matsuo@lse.ac.uk), Department of Methodology.  *Office hours*: TBA, COL.8.02 (book via LSE for You)
+* [Akitaka Matsuo](mailto:A.Matsuo@lse.ac.uk), Department of Methodology.  *Office hours*: Tuesdays 11.30-12.30, COL.8.02 (book via LSE for You. Only weeks 3, 4, 5, 9)
 
 ### Course Information
 
@@ -123,10 +123,10 @@ Readings:
 * Jim McGlone, "[Creating and Hosting a Personal Site on GitHub
 A step-by-step beginner's guide to creating a personal website and blog using Jekyll and hosting it for free using GitHub Pages.](http://jmcglone.com/guides/github-pages/)".
 
-*Lab*: **Working with git and GitHub**
+*Lab*: [**Working with git and GitHub**](https://github.com/lse-my472/pset1)
 * Installing git and setting up an account on GitHub
 * How to complete and submit assignments using GitHub Classroom
-* Forking and correcting a broken Jupyter notebook
+* Forking and correcting a broken RMarkdown file
 * Cloning a website repository, modifying it, and publishing a personal webpage
 
 
@@ -145,7 +145,7 @@ Lecture notes:
 
 *Lab*: **Reshaping data in R**
 
-*Assignment 1*: **Introduction to data cleaning in R**
+*Assignment 1*: **Data cleaning in R**. Deadline: October 19.
 
 
 #### Week 3, October 16 (AM). [Cloud computing](https://github.com/lse-my472/lectures/blob/master/week03/)
@@ -180,6 +180,8 @@ Readings:
 
 #### Week 4, October 23 (AM). [Basics of HTML and CSS](https://github.com/lse-my472/lectures/blob/master/week04/)
 
+*Assignment 2*: **Webscraping**. Deadline: November 2.
+
 
 #### Week 5, October 30 (AM). [Using data from the internet](https://github.com/lse-my472/lectures/blob/master/week05/)
 
@@ -190,13 +192,21 @@ Readings:
 #### Week 7, November 13 (PB). [Working with APIs](https://github.com/lse-my472/lectures/blob/master/week07/)
 
 
+*Assignment 3*: **APIs**. Deadline: November 23.
+
 #### Week 8, November 20 (PB). [Creating and managing databases](https://github.com/lse-my472/lectures/blob/master/week08/)
 
 
 #### Week 9, November 27 (AM). [Interacting with online databases](https://github.com/lse-my472/lectures/blob/master/week09/)
 
+*Assignment 4*: **Databases**. Deadline: December 7.
 
-#### Week 10, December 4 (PB). [Exploratory data analysis](https://github.com/lse-my472/lectures/blob/master/week10/)
+
+#### Week 10, December 4 (PB; classes with AM). [Exploratory data analysis](https://github.com/lse-my472/lectures/blob/master/week10/)
 
 
-#### Week 11, December 4 (PB). [Parallel computing](https://github.com/lse-my472/lectures/blob/master/week11/)
+#### Week 11, December 11 (PB). [Parallel computing](https://github.com/lse-my472/lectures/blob/master/week11/)
+
+*Assignment 5*: **Data analysis**. Deadline: December 21.
+
+*Take-home exam*. Deadline: January 18.
