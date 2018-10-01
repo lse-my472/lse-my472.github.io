@@ -104,11 +104,11 @@ In the first week, we will introduce the basic concepts of the course, including
 
 This week will also introduce basic data types, in a language-agnostic manner, from the perspective of machine implementations through to high-level programming languages. We will then focus on how basic data types are implemented in R.
 
-Lecture notes:
+Lecture materials:
 
-- Overview of the course
-- Lecture week 1: Introduction to data
-- R example: vectors, lists, data frames
+- SLIDES: [Overview of the course and introduction to data](https://github.com/lse-my472/lectures/raw/master/week01/MY472-week01.pdf)
+- R example: [Introduction to RMarkdown](https://github.com/lse-my472/lectures/blob/master/week01/01-RMarkdown.rmd)
+- R example: [vectors, lists, data frames](https://github.com/lse-my472/lectures/blob/master/week01/02-intro-to-R.rmd)
 
 Readings:
 
