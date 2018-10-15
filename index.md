@@ -120,7 +120,7 @@ Lecture materials:
 - R example: [Introduction to RMarkdown](https://github.com/lse-my472/lectures/blob/master/week01/01-RMarkdown.rmd)
 - R example: [vectors, lists, data frames](https://github.com/lse-my472/lectures/blob/master/week01/02-intro-to-R.rmd)
 
-Readings:
+**Readings:**
 
 *Required readings*:
 * Wickham, Hadley.  Nd.  _Advanced R_, 2nd ed.  Ch 3, [Names and values](https://adv-r.hadley.nz/names-values.html), Chapter 4, [Vectors](https://adv-r.hadley.nz/vectors-chap.html), and Chapter 5, [Subsetting](https://adv-r.hadley.nz/subsetting.html). (Ch. 2-3 of the print edition),
@@ -144,7 +144,7 @@ A step-by-step beginner's guide to creating a personal website and blog using Je
 
 This week moves beyond the rectangular format common in statistical datasets, modeled on a spreadsheet, to cover relational structures and the concept of database normalization. We will also cover ways to restructure data from "wide" to "long' format, within strictly rectangular data structures. Additional topics concerning text encoding, date formats, and sparse matrix formats are also covered.
 
-*Readings*:
+**Readings**:
 * Wickham, Hadley and Garett Grolemund.  2017.  _R for Data Science: Import, Tidy, Transform, Visualize, and Model Data_.  Sebastopol, CA: O'Reilly.  [Part II Wrangle](http://r4ds.had.co.nz/wrangle-intro.html), [Tibbles](http://r4ds.had.co.nz/tibbles.html), [Data Import](http://r4ds.had.co.nz/data-import.html), [Tidy Data](http://r4ds.had.co.nz/tidy-data.html) (Ch. 7-9 of the print edition).
 * The [**reshape2** package](http://had.co.nz/reshape/) for R.
 
@@ -166,9 +166,10 @@ Lecture notes:
 
 - Lecture week 3: Cloud computing overview
 
-Readings:
+**Readings**
 
-*Readings*:
+*Required Readings*:
+
 * Rajaraman, V. 2014. "[Cloud Computing.](https://www.ias.ac.in/article/fulltext/reso/019/03/0242-0258)" Resonance 19(3): 242–58.
 * AWS: [What is cloud computing](https://aws.amazon.com/what-is-cloud-computing/).
 * Azure: [Developer guide](https://docs.microsoft.com/en-us/azure/guides/developer/azure-developer-guide).
@@ -192,7 +193,9 @@ Readings:
 
 From week 4 to week 7, we will learn how to get the data from the Internet. This week introduces the basics, including markup languages (HTML, XML, and Markdown) and other common data formats such as JSON (Javascript Object Notation).  We also cover basic web scraping, to turn web data into text or numbers.  We will also cover the client-server model, and how machines and humans transmit data over networks and to and from databases.
 
-*Readings*:
+**Readings**
+
+*Required Readings*:
 
 * Howe, Shay. 2015.  [_Learn to Code HTML and CSS: Develop and Style Websites_](http://learn.shayhowe.com/html-css/).  New Riders.  Chs 1-8.
 * Kingl, Arvid. 2018. [_Web Scraping in R: rvest Tutorial_](https://www.datacamp.com/community/tutorials/r-web-scraping-rvest).
@@ -210,7 +213,9 @@ From week 4 to week 7, we will learn how to get the data from the Internet. This
 
 Continuing from the material covered in Week 4, we will learn the advanced topics in scraping the web. The topics include the scraping documents in XML (such as RSS), scraping websites beyond the authentication, and websites with non-static components.
 
-*Readings*:
+**Readings**
+
+*Required Readings*:
 * Sai Swapna Gollapudi. 2018. [_Learn Web Scraping and Browser Automation Using RSelenium in R_](https://analyticsprofile.com/business-analytics/learn-web-scraping-and-browser-automation-using-rselenium-in-r/).
 * Wickham, Hadley. 2015. [_Parse and process XML (and HTML) with xml2_](https://blog.rstudio.com/2015/04/21/xml2/)
 * Mozilla Developer Web Docs. [_What is JavaScript_](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/First_steps/What_is_JavaScript).
