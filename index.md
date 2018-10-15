@@ -99,7 +99,7 @@ Student problem sets will be marked and will provide 50% of the mark.
 
 Assignments will be marked using the following criteria:
 
-􏰀- 70–100: Very Good to Excellent (Distinction). 􏰀 Perceptive, focused use of a good depth of material with a critical edge. Original ideas or structure of argument. 􏰀 
+􏰀- 70–100: Very Good to Excellent (Distinction). 􏰀 Perceptive, focused use of a good depth of material with a critical edge. Original ideas or structure of argument. 􏰀
 - 60–69: Good (Merit).  Perceptive understanding of the issues plus a coherent well-read and stylish treatment though lacking originality
 􏰀- 50–59: Satisfactory (Pass).􏰀 A “correct” answer based largely on lecture material. Little detail or originality but presented in adequate framework. Small factual errors allowed.
 - 30–49: Unsatisfactory (Fail) and 0–29: Unsatisfactory (Bad fail). 􏰀 Based entirely on lecture material but unstructured and with increasing error component. Concepts are disordered or flawed. Poor presentation. Errors of concept and scope or poor in knowledge, structure and expression.
@@ -160,7 +160,7 @@ Lecture notes:
 
 #### Week 3, October 16 (AM). [Cloud computing](https://github.com/lse-my472/lectures/blob/master/week03/)
 
-In this week, we focus on the setup of computation environments on the Internet. We will introduce the cloud computing concepts and learn why the big shift to the cloud computing is occurring in the industry and how it is relevant to us as data scientists. In the lab, we will have an introduction to the cloud environment setup using Amazon Web Services. We will sign up an account, launch a cloud computing environment, create a webpage, and set up a statistical computing environment. 
+In this week, we focus on the setup of computation environments on the Internet. We will introduce the cloud computing concepts and learn why the big shift to the cloud computing is occurring in the industry and how it is relevant to us as data scientists. In the lab, we will have an introduction to the cloud environment setup using Amazon Web Services. We will sign up an account, launch a cloud computing environment, create a webpage, and set up a statistical computing environment.
 
 Lecture notes:
 
@@ -168,13 +168,13 @@ Lecture notes:
 
 Readings:
 
-*Required readings*:
+*Readings*:
 * Rajaraman, V. 2014. "[Cloud Computing.](https://www.ias.ac.in/article/fulltext/reso/019/03/0242-0258)" Resonance 19(3): 242–58.
 * AWS: [What is cloud computing](https://aws.amazon.com/what-is-cloud-computing/).
 * Azure: [Developer guide](https://docs.microsoft.com/en-us/azure/guides/developer/azure-developer-guide).
 
 *Further Readings*:
-* Puparelia, Nayan. 2016. "Cloud Computing." MIT Press. Ch. 1-6.
+* Puparelia, Nayan. 2016. "Cloud Computing." MIT Press. Ch. 1-3.
 * Botta, Alessio, Walter De Donato, Valerio Persico, and Antonio Pescapé. 2016. "[Integration of Cloud Computing and Internet of Things: A Survey.](http://iranarze.ir/wp-content/uploads/2017/03/6229-English-IranArze.pdf)" Future Generation Computer Systems 56: 684–700.
 
 *Lab*: **Working with AWS**
@@ -190,10 +190,28 @@ Readings:
 
 #### Week 4, October 23 (AM). [Basics of HTML and CSS](https://github.com/lse-my472/lectures/blob/master/week04/)
 
+From week 4 to week 7, we will learn how to get the data from the Internet. This week introduces the basics, including markup languages (HTML, XML, and Markdown) and other common data formats such as JSON (Javascript Object Notation).  We also cover basic web scraping, to turn web data into text or numbers.  We will also cover the client-server model, and how machines and humans transmit data over networks and to and from databases.
+
+*Readings*:
+
+* Howe, Shay. 2015.  [_Learn to Code HTML and CSS: Develop and Style Websites_](http://learn.shayhowe.com/html-css/).  New Riders.  Chs 1-8.
+* Kingl, Arvid. 2018. [_Web Scraping in R: rvest Tutorial_](https://www.datacamp.com/community/tutorials/r-web-scraping-rvest).
+
+*Further Resources*:
+
+* Munzert, Simon, Christian Rubba, Peter Meissner, and Dominic Nyhuis D. 2014. _Automated Data Collection with R: A Practical Guide to Web Scraping and Text Mining_. Hoboken, NJ/Chichester, UK:Wiley & Sons. Ch. 2-4, 9.
+* Severance, Charles Russell. 2015. [_Introduction to Networking: How the Internet Works_](http://www.net-intro.com).  Charles Severance, 2015.
+* Duckett, Jon. 2011. _HTML and CSS: Design and Build Websites_.  New York: Wiley.
+
 *Assignment 2*: **Webscraping**. Deadline: November 2.
 
 
 #### Week 5, October 30 (AM). [Using data from the internet](https://github.com/lse-my472/lectures/blob/master/week05/)
+
+Sai Swapna Gollapudi. 2018. [_Learn Web Scraping and Browser Automation Using RSelenium in R_](https://analyticsprofile.com/business-analytics/learn-web-scraping-and-browser-automation-using-rselenium-in-r/)
+
+
+Schouwenaars, Filip. 2015. [_Web Scraping with R and PhantomJS_](https://www.datacamp.com/community/tutorials/scraping-javascript-generated-data-with-r).
 
 
 #### Week 6, November 6. Reading week. No class.
