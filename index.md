@@ -99,20 +99,10 @@ Student problem sets will be marked and will provide 50% of the mark.
 
 Assignments will be marked using the following criteria:
 
-<<<<<<< HEAD
 􏰀- 70–100: Very Good to Excellent (Distinction). 􏰀 Perceptive, focused use of a good depth of material with a critical edge. Original ideas or structure of argument. 􏰀
 - 60–69: Good (Merit).  Perceptive understanding of the issues plus a coherent well-read and stylish treatment though lacking originality
 􏰀- 50–59: Satisfactory (Pass).􏰀 A “correct” answer based largely on lecture material. Little detail or originality but presented in adequate framework. Small factual errors allowed.
 - 30–49: Unsatisfactory (Fail) and 0–29: Unsatisfactory (Bad fail). 􏰀 Based entirely on lecture material but unstructured and with increasing error component. Concepts are disordered or flawed. Poor presentation. Errors of concept and scope or poor in knowledge, structure and expression.
-=======
-􏰀- 70–100: Very Good to Excellent (Distinction). 􏰀 Perceptive, focused use of a good depth of material with a critical edge. Original ideas or structure of argument.
-
-- 60–69: Good (Merit). Perceptive understanding of the issues plus a coherent well-read and stylish treatment though lacking originality.
-
-􏰀- 50–59: Satisfactory (Pass). A "correct" answer based largely on lecture material. Little detail or originality but presented in adequate framework. Small factual errors allowed.
-
-- 30–49: Unsatisfactory (Fail) and 0–29: Unsatisfactory (Bad fail). Based entirely on lecture material but unstructured and with increasing error component. Concepts are disordered or flawed. Poor presentation. Errors of concept and scope or poor in knowledge, structure and expression.
->>>>>>> 46ddb6a4b9ec1e09059654051c41120b7c3cc8ae
 
 Some of the assignemnts will involve shorter questions, to which the answers can be relatively unambiguously coded as (fully or partially) correct or incorrect. In the marking, these questions may be further broken down into smaller steps and marked step by step. The final mark is then a function of the proportion of parts of the questions which have been answered correctly. In such marking, the principle of partial credit is observed as far as feasible. This means that an answer to a part of a question will be treated as correct when it is correct conditional on answers to other parts of the question, even if those other parts have been answered incorrectly.
 
@@ -218,10 +208,16 @@ From week 4 to week 7, we will learn how to get the data from the Internet. This
 
 #### Week 5, October 30 (AM). [Using data from the internet](https://github.com/lse-my472/lectures/blob/master/week05/)
 
-Sai Swapna Gollapudi. 2018. [_Learn Web Scraping and Browser Automation Using RSelenium in R_](https://analyticsprofile.com/business-analytics/learn-web-scraping-and-browser-automation-using-rselenium-in-r/)
+Continuing from the material covered in Week 4, we will learn the advanced topics in scraping the web. The topics include the scraping documents in XML (such as RSS), scraping websites beyond the authentication, and websites with non-static components.
 
+*Readings*:
+* Sai Swapna Gollapudi. 2018. [_Learn Web Scraping and Browser Automation Using RSelenium in R_](https://analyticsprofile.com/business-analytics/learn-web-scraping-and-browser-automation-using-rselenium-in-r/).
+* Mozilla Developer Web Docs. [_What is JavaScript_](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/First_steps/What_is_JavaScript).
+* TBA
 
-Schouwenaars, Filip. 2015. [_Web Scraping with R and PhantomJS_](https://www.datacamp.com/community/tutorials/scraping-javascript-generated-data-with-r).
+*Further Readings*:
+* Schouwenaars, Filip. 2015. [_Web Scraping with R and PhantomJS_](https://www.datacamp.com/community/tutorials/scraping-javascript-generated-data-with-r).
+* Mozilla Developer Web Docs. [_A First Splash into JavaScript_](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/First_steps/A_first_splash).
 
 
 #### Week 6, November 6. Reading week. No class.
