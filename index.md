@@ -99,10 +99,20 @@ Student problem sets will be marked and will provide 50% of the mark.
 
 Assignments will be marked using the following criteria:
 
+<<<<<<< HEAD
 􏰀- 70–100: Very Good to Excellent (Distinction). 􏰀 Perceptive, focused use of a good depth of material with a critical edge. Original ideas or structure of argument. 􏰀
 - 60–69: Good (Merit).  Perceptive understanding of the issues plus a coherent well-read and stylish treatment though lacking originality
 􏰀- 50–59: Satisfactory (Pass).􏰀 A “correct” answer based largely on lecture material. Little detail or originality but presented in adequate framework. Small factual errors allowed.
 - 30–49: Unsatisfactory (Fail) and 0–29: Unsatisfactory (Bad fail). 􏰀 Based entirely on lecture material but unstructured and with increasing error component. Concepts are disordered or flawed. Poor presentation. Errors of concept and scope or poor in knowledge, structure and expression.
+=======
+􏰀- 70–100: Very Good to Excellent (Distinction). 􏰀 Perceptive, focused use of a good depth of material with a critical edge. Original ideas or structure of argument.
+
+- 60–69: Good (Merit). Perceptive understanding of the issues plus a coherent well-read and stylish treatment though lacking originality.
+
+􏰀- 50–59: Satisfactory (Pass). A "correct" answer based largely on lecture material. Little detail or originality but presented in adequate framework. Small factual errors allowed.
+
+- 30–49: Unsatisfactory (Fail) and 0–29: Unsatisfactory (Bad fail). Based entirely on lecture material but unstructured and with increasing error component. Concepts are disordered or flawed. Poor presentation. Errors of concept and scope or poor in knowledge, structure and expression.
+>>>>>>> 46ddb6a4b9ec1e09059654051c41120b7c3cc8ae
 
 Some of the assignemnts will involve shorter questions, to which the answers can be relatively unambiguously coded as (fully or partially) correct or incorrect. In the marking, these questions may be further broken down into smaller steps and marked step by step. The final mark is then a function of the proportion of parts of the questions which have been answered correctly. In such marking, the principle of partial credit is observed as far as feasible. This means that an answer to a part of a question will be treated as correct when it is correct conditional on answers to other parts of the question, even if those other parts have been answered incorrectly.
 
