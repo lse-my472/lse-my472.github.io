@@ -187,6 +187,7 @@ Lecture notes:
     - Set up a web server
     - Install R, some packages
     - Stop the instance
+* [Link to the github classroom](https://classroom.github.com/a/kHWz58_a)
 
 
 #### Week 4, October 23 (AM). [Basics of HTML and CSS](https://github.com/lse-my472/lectures/blob/master/week04/)
