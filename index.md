@@ -164,7 +164,7 @@ In this week, we focus on the setup of computation environments on the Internet.
 
 Lecture notes:
 
-- Lecture week 3: Cloud computing overview
+- Lecture week 3: [Cloud computing overview](https://github.com/lse-my472/lectures/raw/master/week03/MY472-week03.pdf)
 
 **Readings**
 
@@ -188,6 +188,7 @@ Lecture notes:
     - Install R, some packages
     - Stop the instance
 * [Link to the github classroom](https://classroom.github.com/a/kHWz58_a)
+* [Attendance Survey](https://lse.eu.qualtrics.com/jfe/form/SV_9B6qLasJrI88CJT)
 
 
 #### Week 4, October 23 (AM). [Basics of HTML and CSS](https://github.com/lse-my472/lectures/blob/master/week04/)
