@@ -1,4 +1,4 @@
----
+`x`---
 papersize: a4
 documentclass: scrartcl
 classoption: DIV=14
@@ -221,7 +221,6 @@ Continuing from the material covered in Week 4, we will learn the advanced topic
 * Sai Swapna Gollapudi. 2018. [_Learn Web Scraping and Browser Automation Using RSelenium in R_](https://analyticsprofile.com/business-analytics/learn-web-scraping-and-browser-automation-using-rselenium-in-r/).
 * Wickham, Hadley. 2015. [_Parse and process XML (and HTML) with xml2_](https://blog.rstudio.com/2015/04/21/xml2/)
 * Mozilla Developer Web Docs. [_What is JavaScript_](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/First_steps/What_is_JavaScript).
-* TBA
 
 *Further Readings*:
 * Schouwenaars, Filip. 2015. [_Web Scraping with R and PhantomJS_](https://www.datacamp.com/community/tutorials/scraping-javascript-generated-data-with-r).
