@@ -209,7 +209,16 @@ From week 4 to week 7, we will learn how to get the data from the Internet. This
 * Severance, Charles Russell. 2015. [_Introduction to Networking: How the Internet Works_](http://www.net-intro.com).  Charles Severance, 2015.
 * Duckett, Jon. 2011. _HTML and CSS: Design and Build Websites_.  New York: Wiley.
 
+
+*Lab*: **Web scraping 1**
+- Scraping tables
+- Scraping unstructured data
+- markdown files are in the github repo for **Assignment 2**
+* [Attendance Survey](https://lse.eu.qualtrics.com/jfe/form/SV_5aOLpBO9PluOdmZ)
+
 *Assignment 2*: **Webscraping**. Deadline: November 2.
+* [Link to the github classroom](https://classroom.github.com/a/J2IyaP5t)
+
 
 
 #### Week 5, October 30 (AM). [Using data from the internet](https://github.com/lse-my472/lectures/blob/master/week05/)
