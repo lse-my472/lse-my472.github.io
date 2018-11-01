@@ -213,7 +213,6 @@ From week 4 to week 7, we will learn how to get the data from the Internet. This
 *Lab*: **Web scraping 1**
 - Scraping tables
 - Scraping unstructured data
-- markdown files are in the github repo for **Assignment 2**
 * [Attendance Survey](https://lse.eu.qualtrics.com/jfe/form/SV_5aOLpBO9PluOdmZ)
 
 *Assignment 2*: **Webscraping**. Deadline: November 2.
@@ -235,6 +234,13 @@ Continuing from the material covered in Week 4, we will learn the advanced topic
 *Further Readings*:
 * Schouwenaars, Filip. 2015. [_Web Scraping with R and PhantomJS_](https://www.datacamp.com/community/tutorials/scraping-javascript-generated-data-with-r).
 * Mozilla Developer Web Docs. [_A First Splash into JavaScript_](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/First_steps/A_first_splash).
+
+
+*Lab*: **Web scraping 1**
+- Scraping Newspaper RSS
+- Scraping with Selenium
+* [Attendance Survey](https://lse.eu.qualtrics.com/jfe/form/SV_cZUi4kx7gdQTKzr)
+* [Markdown files](https://classroom.github.com/a/wvnfoMId)
 
 
 #### Week 6, November 6. Reading week. No class.
