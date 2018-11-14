@@ -265,7 +265,7 @@ How to work with Application Programming Interfaces (APIs), which offer develope
 - Interacting with the New York Times API
 - Interacting with Twitter's REST and Streaming API
 
-*Assignment 3*: **APIs**. Deadline: November 27.
+*Assignment 3*: **APIs**. [Link to GitHub classroom](https://classroom.github.com/g/i2TZf65O). Deadline: November 27.
 
 #### Week 8, November 20 (PB). [Creating and managing databases](https://github.com/lse-my472/lectures/blob/master/week08/)
 
