@@ -297,7 +297,7 @@ This week, we will dive deeper into the databases. In particular, this week cove
 * [MongoDB Basics](https://www.edx.org/course/mongodb-basics) on edX
 * [Analyzing Big Data in less time with Google BigQuery](https://www.youtube.com/watch?v=qqbYrQGSibQ) on YouTube
 
-*Assignment 4*: **Databases**. Deadline: December 7.
+*Assignment 4*: **Databases**. Deadline: December 14.
 
 
 #### Week 10, December 4 (PB; classes with AM). [Exploratory data analysis](https://github.com/lse-my472/lectures/blob/master/week10/)
