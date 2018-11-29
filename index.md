@@ -298,6 +298,12 @@ This week, we will dive deeper into the databases. In particular, this week cove
 * [Analyzing Big Data in less time with Google BigQuery](https://www.youtube.com/watch?v=qqbYrQGSibQ) on YouTube
 
 *Assignment 4*: **Databases**. Deadline: December 14.
+- Link: https://classroom.github.com/g/qSg2yP0m
+
+*Lab*
+- SQL JOINs and subqueries (in the [lecture folder](https://github.com/lse-my472/lectures/tree/master/week09))
+- Attendance Survey: https://lse.eu.qualtrics.com/jfe/form/SV_6L3AI5aXVBdnbSZ
+
 
 
 #### Week 10, December 4 (PB; classes with AM). [Exploratory data analysis](https://github.com/lse-my472/lectures/blob/master/week10/)
