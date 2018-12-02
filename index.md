@@ -308,8 +308,31 @@ This week, we will dive deeper into the databases. In particular, this week cove
 
 #### Week 10, December 4 (PB; classes with AM). [Exploratory data analysis](https://github.com/lse-my472/lectures/blob/master/week10/)
 
+The lecture this week will offer an overview of the principles of exploratory data analysis through (good) data visualization. In the seminars, we will practice producing our own graphs using ggplot2.
+
+
+*Required Readings*:
+* Wickham, Hadley and Garett Grolemund.  2017.  _R for Data Science: Import, Tidy, Transform, Visualize, and Model Data_.  Sebastopol, CA: O'Reilly.  [Data visualization](https://r4ds.had.co.nz/data-visualisation.html), [Graphics for communication](https://r4ds.had.co.nz/graphics-for-communication.html) (Ch. 1 and 22 of the print edition).
+* Hughes, A. (2015) ["Visualizing inequality: How graphical emphasis
+shapes public opinion"](https://journals.sagepub.com/doi/abs/10.1177/2053168015622073) Research and Politics.
+
+*Further materials*:
+* Tufte, E. (2002) ["The visual display of quantitative information"](https://www.edwardtufte.com/tufte/books_vdqi).
+
+*Lab*
+- Data visualization with ggplot2.
+
+
 
 #### Week 11, December 11 (PB). [Parallel computing](https://github.com/lse-my472/lectures/blob/master/week11/)
+
+The last week of the semester will cover efficient ways to program in R, as well as the basics of parallel computing.
+
+*Required readings*:
+* Matloff, N. (2011). The art of R programming: A tour of statistical software design. No Starch Press. Chapter 14: "Performance enhancement: Speed and memory."
+
+*Lab*
+- Parallel computing.
 
 *Assignment 5*: **Data analysis**. Deadline: December 21.
 
