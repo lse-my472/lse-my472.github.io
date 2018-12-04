@@ -334,6 +334,6 @@ The last week of the semester will cover efficient ways to program in R, as well
 *Lab*
 - Parallel computing.
 
-*Assignment 5*: **Data analysis**. Deadline: December 21.
+*Assignment 5*: **Data analysis**. Deadline: January 11.
 
 *Take-home exam*. Deadline: January 18.
