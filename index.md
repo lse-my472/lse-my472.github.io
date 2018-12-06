@@ -321,7 +321,8 @@ shapes public opinion"](https://journals.sagepub.com/doi/abs/10.1177/20531680156
 
 *Lab*
 - Data visualization with ggplot2.
-
+- Attendance Survey: [https://lse.eu.qualtrics.com/jfe/form/SV_026nI6GIJtNmuq1](https://lse.eu.qualtrics.com/jfe/form/SV_026nI6GIJtNmuq1)
+- Github Classroom: [https://classroom.github.com/a/lNhyTTip](https://classroom.github.com/a/lNhyTTip)
 
 
 #### Week 11, December 11 (PB). [Parallel computing](https://github.com/lse-my472/lectures/blob/master/week11/)
