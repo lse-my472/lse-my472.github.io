@@ -1,0 +1,129 @@
+---
+title: "Scraping table data"
+author: "Pablo Barbera and Akitaka Matsuo"
+date: October 25, 2018
+output: html_document
+---
+
+### Scraping web data in table format
+
+We will start by loading the `rvest` package, which will help us scrape data from the web.
+
+```{r}
+library(rvest)
+```
+
+The goal of this exercise is to scrape the number of new social security number holders by year in the US, and then clean it so that we can generate a plot showing the evolution in this variable over time.
+
+The first step is to read the html code from the website we want to scrape, using the `read_html()` function. If we want to see the html in text format, we can then use `html_text()`.
+
+```{r}
+url <- "https://www.ssa.gov/oact/babynames/numberUSbirths.html"
+# reading the html code into memory
+html_content <- read_html(url)
+# not very informative
+print(html_content)
+# first 1000 characters
+substr(html_content, 1, 1000)
+
+```
+
+To extract all the tables in the html code automatically, we use `html_table()`. Note that it returns a list of data frames, so in order to work with this dataset, we will have to subset the second element of this list.
+
+```{r}
+tab <- html_table(html_content, fill = TRUE)
+# check the tables
+length(tab)
+str(tab)
+# use the population tables
+data_pop <- tab[[2]]
+```
+
+Now let's clean the data so that we can use it for our analysis. We need to convert the population values into a numeric format, which requires deleting the commas. We will also change the variable names so that it's easier to work with them.
+
+```{r}
+## remove commas and then make variable numeric
+data_pop$Male <-  as.numeric(gsub(",", "", data_pop$Male))
+data_pop$Female <- as.numeric(gsub(",", "", data_pop$Female))
+data_pop$Total <- as.numeric(gsub(",", "", data_pop$Total))
+
+## rename variables
+names(data_pop) <- c('year', 'male', 'female', 'total')
+```
+
+And now we can plot to see how the number of people applying for a Social Security Number in the US has increased over time.
+
+```{r}
+plot(data_pop$year, data_pop$male, type = 'l', col = 'red')
+lines(data_pop$year, data_pop$female, col = 'blue')
+legend(x = 'topleft', col = c("red", "blue"), lty = 1, legend = c("male", "female"))
+
+## or ggplot
+## ggplot requires the data to be in tidy shape. for that we use 
+## melt() function in reshape2
+library(ggplot2)
+data_pop_melt <- reshape2::melt(data_pop[, 1:3], id.vars = "year")
+ggplot(data_pop_melt) + aes(x = year, y = value, group = variable, colour = variable) + 
+  geom_line() + scale_y_log10()
+
+
+```
+
+### Scraping web data in table format: a more advanced example
+
+When there are multiple tables on the website, scraping them becomes a bit more complicated. Let's work through a common case scenario: scraping a table from Wikipedia with a list of the most populated cities in the United States.
+
+```{r}
+url <- 'https://en.wikipedia.org/wiki/List_of_United_States_cities_by_population'
+html <- read_html(url)
+tables <- html_table(html, fill=TRUE)
+length(tables)
+```
+
+The function now returns 12 different tables. I had to use the option `fill=TRUE` because some of the tables appear to have incomplete rows.
+
+In this case, identifying the part of the html code that contains the table is a better approach. To do so, let's take a look at the source code of the website. In Google Chrome, go to _View_ > _Developer_ > _View Source_. All browsers should have similar options to view the source code of a website.
+
+In the source code, search for the text of the page (e.g. _2017 rank_). Right above it you will see: `<table class="wikitable sortable"...">`. This is the CSS selector that contains the table. (You can also find this information by right-clicking anywhere on the table, and choosing _Inspect_).
+
+Now that we now what we're looking for, let's use `html_nodes()` to identify all the elements of the page that have that CSS class. (Note that we need to use a dot before the name of the class to indicate it's CSS.)
+
+```{r}
+wiki <- html_nodes(html, '.wikitable')
+length(wiki)
+```
+
+There are 7 tables in total, and we will extract the first one.
+```{r}
+data_pop <- html_table(wiki[[2]])
+str(data_pop)
+```
+
+As in the previous case, we still need to clean the data before we can use it. For this particular example, let's see if this dataset provides evidence in support of [Zipf's law for population ranks](https://en.wikipedia.org/wiki/Zipf%27s_law).
+
+We'll use regular expressions to remove endnotes and commas in the population numbers, and clean the variable names. (We'll come back to this later in the course.)
+
+```{r}
+data_pop$city_name <- gsub('\\[.*\\]', '', data_pop$City)
+data_pop$population <- data_pop[,"2017estimate"]
+data_pop$population <- as.numeric(gsub(",", "", data_pop$population))
+data_pop$rank <- data_pop[,"2017rank"]
+data_pop <- data_pop[,c("rank", "population", "city_name")]
+```
+
+Now we're ready to generate the figure:
+
+```{r}
+library(ggplot2)
+p <- ggplot(data_pop, aes(x=rank, y=population, label=city_name))
+pq <- p + geom_point() + geom_text(hjust=-.1, size=3) +
+	scale_x_log10("log(rank)") + 
+  scale_y_log10("log(population)", labels=scales::comma) +
+  theme_minimal()
+pq
+```
+
+We can also check if this distribution follows Zipf's law estimating a log-log regression.
+```{r}
+summary(lm(log(rank) ~ log(population), data = data_pop))
+```

@@ -1,0 +1,94 @@
+---
+title: "Scraping data from Twitter's REST API"
+author: "Pablo Barbera"
+date: November 13, 2018
+output: html_document
+---
+
+We'll now turn to a different type of Twitter data -- static data, either recent tweets or user-level information. This type of data can be retrieved with Twitter's REST API. We will use the `tweetscores` package here -- this is a package that I created to facilitate the collection and analysis of Twitter data.
+
+### Searching recent tweets
+
+It is possible to download recent tweets, but only up those less than 7 days old, and in some cases not all of them.
+
+```{r}
+load("~/my_oauth")
+library(tweetscores)
+library(streamR)
+
+searchTweets(q=c("brexit", "survey"), 
+  filename="~/data/recent-brexit-tweets.json",
+  n=1000, until="2018-11-10", 
+  oauth=my_oauth)
+
+tweets <- parseTweets("~/data/recent-brexit-tweets.json")
+```
+
+What are the most popular hashtags?
+```{r}
+library(stringr)
+ht <- str_extract_all(tweets$text, '#[A-Za-z0-9_]+')
+ht <- unlist(ht)
+head(sort(table(ht), decreasing = TRUE))
+```
+
+You can check the documentation about the options for string search [here](https://dev.twitter.com/rest/public/search).
+
+### Extracting users' profile information
+
+This is how you would extract information from user profiles:
+
+```{r}
+wh <- c("realDonaldTrump", "POTUS", "VP", "FLOTUS")
+users <- getUsersBatch(screen_names=wh,
+                       oauth=my_oauth)
+str(users)
+```
+
+Which of these has the most followers?
+```{r}
+users[which.max(users$followers_count),]
+users$screen_name[which.max(users$followers_count)]
+```
+
+### Downloading recent tweets from a specific user
+
+Download up to 3,200 recent tweets from a Twitter account:
+```{r}
+getTimeline(filename="~/data/realDonaldTrump.json", screen_name="realDonaldTrump", n=1000, oauth=my_oauth)
+```
+
+What are the most common hashtags?
+```{r}
+tweets <- parseTweets("~/data/realDonaldTrump.json")
+ht <- str_extract_all(tweets$text, '#[A-Za-z0-9_]+')
+ht <- unlist(ht)
+head(sort(table(ht), decreasing = TRUE))
+```
+
+
+### Other types of data
+
+The REST API offers also a long list of other endpoints that could be of use at some point, depending on your research interests. Here I'm showing you another two that could be useful, but you can read the documentation of the package for more examples
+
+1) If you know the ID of the tweets, you can download it directly from the API. This is useful because tweets cannot be redistributed as part of the replication materials of a published paper, but the list of tweet IDs can be shared:
+
+```{r}
+# Downloading tweets when you know the ID
+getStatuses(ids=c("474134260149157888", "266038556504494082"),
+            filename="~/data/old-tweets.json",
+            oauth=my_oauth)
+parseTweets("~/data/old-tweets.json")
+```
+
+2) Lists of Twitter users, compiled by other users, are also accessible through the API.
+
+```{r}
+# download user information from a list
+MCs <- getList(list_name="new-members-of-congress", 
+               screen_name="cspan", oauth=my_oauth)
+head(MCs)
+```
+
+This is also useful if e.g. you're interested in compiling lists of journalists, because media outlets offer these lists in their profiles.
+
