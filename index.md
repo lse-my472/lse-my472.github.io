@@ -8,33 +8,33 @@ colorlinks: true
 ![LSE](images/lse-logo.jpg)
 # MY472 Data for Data Scientists
 
-### Michaelmas Term 2018
+### Michaelmas Term 2019
 
 ### Instructors
 
-* [Pablo Barberá](mailto:P.Barbera@lse.ac.uk), Department of Methodology.  *Office hours*: Fridays 12.30-14.30, COL.7.10 (book via LSE for You)
+* [Kenneth Benoit](mailto:K.R.Benoit@lse.ac.uk), Department of Methodology.  *Office hours*: Tuesdays 15:30-17:00, Wednesdays 10:00-11:00, COL.8.11 (book via StudentHub)
 
-* [Akitaka Matsuo](mailto:A.Matsuo@lse.ac.uk), Department of Methodology.  *Office hours*: Tuesdays 11.30-12.30, COL.8.02 (book via LSE for You. Only weeks 3, 4, 5, 9)
+* [Milena Tsvetkova](mailto:m.tsvetkova@lse.ac.uk), Department of Methodology.  *Office hours*: TBC, COL.8.03 (book via StudentHub. Only weeks 10, 11)
 
 ### Course Information
 
-* Lectures on Tuesdays 09:00–11:00 in 32L.LG.03
+* Lectures on Tuesdays 09:00–11:00 in CBG.2.01
 * Classes on:
-    - Thursdays 9:30-11:00 TW2.4.03
-    - Fridays 15:00-16:30 STC.S018
+    - Thursdays 9:30-11:00 TBC
+    - Fridays 15:00-16:30 TBC
 
 No lectures or classes will take place during School Reading Week 6.
 
 ### Course Description
 
 This course will cover the principles of digital methods for storing and structuring data,
-including data types, relational and non­relational database design, and query languages.
+including data types, relational and non-relational database design, and query languages.
 Students will learn to build, populate, manipulate and query databases based on datasets
 relevant to their fields of interest. The course will also cover workflow management
 for typical data transformation and cleaning projects, frequently the starting point
-and most time­-consuming part of any data science project.  This course uses a
+and most time-consuming part of any data science project.  This course uses a
 project-based learning approach towards the study of performance computation and
-group­-based collaboration, essential ingredients of modern data science projects.
+group-based collaboration, essential ingredients of modern data science projects.
 The coverage of data sharing will include key skills in on-line publishing, including
 the elements of web design, the technical elements of web technologies and web programming,
 as well as the use of revision-control and group collaboration tools such as GitHub.
