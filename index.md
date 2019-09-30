@@ -12,18 +12,37 @@ colorlinks: true
 
 ### Instructors
 
-* [Kenneth Benoit](mailto:K.R.Benoit@lse.ac.uk), Department of Methodology.  *Office hours*: Tuesdays 15:30-17:00, Wednesdays 10:00-11:00, COL.8.11 (book via StudentHub)
+Office hour slots to be booked via LSE's StudentHub.
 
-* [Milena Tsvetkova](mailto:m.tsvetkova@lse.ac.uk), Department of Methodology.  *Office hours*: TBC, COL.8.03 (book via StudentHub. Only weeks 10, 11)
+* [Kenneth Benoit](mailto:K.R.Benoit@lse.ac.uk), Department of Methodology.  *Office hours*: Tuesdays 15:30-17:00, Wednesdays 10:00-11:00, COL.8.11.
+
+* [Milena Tsvetkova](mailto:m.tsvetkova@lse.ac.uk), Department of Methodology.  *Office hours*: Fridays 10:00–12:00, COL 8.03 (only weeks 10, 11).
 
 ### Course Information
 
 * Lectures on Tuesdays 09:00–11:00 in CBG.2.01
 * Classes on:
-    - Thursdays 9:30-11:00 TBC
-    - Fridays 15:00-16:30 TBC
+    - Thursdays 9:30-11:00, FAW.4.02
+    - Fridays 15:00-16:30, FAW.4.02
 
-No lectures or classes will take place during School Reading Week 6.
+No lectures or classes will take place during (Reading) Week 6.
+
+### Quick links to topics
+
+| Week | Date | Instructor | Topic |
+|:--:|:-------|:--  -------|:------|
+| 1  |  1 Oct | KB         | [Introduction to data](#1-introduction-to-data) |
+| 2  |  8 Oct | KB         | [The Shape of Data](#2-the-shape-of-data) |
+| 3  | 15 Oct | KB         | [Working with Databases](#3-working-with-databases) |
+| 4  | 22 Oct | KB         | [Linear Regression](#4-linear-regression) |
+| 5  | 29 Oct | SM         | [Classification](#5-classification) |
+| 6  |  6 Oct | SM         | [Non-linear models and tree-based methods](#6-non-linear-models-and-tree-based-methods) |
+| 7  | 12 Nov | GC         | [Resampling methods, model selection and regularization](#7-resampling-methods-model-selection-and-regularization) |
+| 8  | 19 Nov | KB         | [Unsupervised learning and dimensional reduction](#8-unsupervised-learning-and-dimensional-reduction) |
+| 9  | 26 Nov | JB         | [Text analysis](#9-text-analysis) |
+| 10 |  3 Dec | GC         | [Text classification and scaling](#10-text-classification-and-scaling) |
+| 11 | 10 Dec | JB         | [Topic modelling](#11-topic-modelling)|
+
 
 ### Course Description
 
@@ -109,38 +128,38 @@ Assignments will be marked using the following criteria:
 
 Some of the assignemnts will involve shorter questions, to which the answers can be relatively unambiguously coded as (fully or partially) correct or incorrect. In the marking, these questions may be further broken down into smaller steps and marked step by step. The final mark is then a function of the proportion of parts of the questions which have been answered correctly. In such marking, the principle of partial credit is observed as far as feasible. This means that an answer to a part of a question will be treated as correct when it is correct conditional on answers to other parts of the question, even if those other parts have been answered incorrectly.
 
+### Detailed Course Schedule
+
 ### Schedule
 
-#### Week 1 (October 1). [Introduction to data](https://github.com/lse-my472/lectures/blob/master/week01/)
+#### 1. Introduction to data
 
 In the first week, we will introduce the basic concepts of the course, including how data is recorded, stored, and shared. Because the course relies fundamentally on GitHub, a collaborative code and data sharing platform, we will introduce the use of git and GitHub, using the lab session to guide students through in setting up an account and subscribing to the course organisation and assignments.
 
 This week will also introduce basic data types, in a language-agnostic manner, from the perspective of machine implementations through to high-level programming languages. We will then focus on how basic data types are implemented in R.
 
-Lecture materials:
+##### Resouces
+- [Lecture slides](week1/MY472-week01.pdf)
+- [git and GitHub notes](week1/MY472-week01-GitHub.pdf)
+- R example: [Introduction to RMarkdown](week01/01-RMarkdown.Rmd)
+- R example: [vectors, lists, data frames]week01/02-intro-to-R.Rmd)
 
-- SLIDES: [Overview of the course and introduction to data](https://github.com/lse-my472/lectures/raw/master/week01/MY472-week01.pdf)
-- R example: [Introduction to RMarkdown](https://github.com/lse-my472/lectures/blob/master/week01/01-RMarkdown.rmd)
-- R example: [vectors, lists, data frames](https://github.com/lse-my472/lectures/blob/master/week01/02-intro-to-R.rmd)
-
-**Readings:**
-
-*Required readings*:
+##### Required reading
 * Wickham, Hadley.  Nd.  _Advanced R_, 2nd ed.  Ch 3, [Names and values](https://adv-r.hadley.nz/names-values.html), Chapter 4, [Vectors](https://adv-r.hadley.nz/vectors-chap.html), and Chapter 5, [Subsetting](https://adv-r.hadley.nz/subsetting.html). (Ch. 2-3 of the print edition),
 * [GitHub Guides](https://guides.github.com), especially: "Understanding the GitHub Flow", "Hello World", and "Getting Started with GitHub Pages".
 * GitHub.  "[Markdown Syntax](https://guides.github.com/pdfs/markdown-cheatsheet-online.pdf)" (a cheatsheet).
 
-*Further Readings*:
+##### Recommended Reading
 * Lake, P. and Crowther, P. 2013. _Concise guide to databases: A Practical Introduction_.  London: Springer-Verlag.  Chapter 1, [Data, an Organizational Asset](https://books.google.co.uk/books?id=SuK2BAAAQBAJ&pg=PA301&lpg=PA301&dq=Concise+Guide+to+Databases+pdf&source=bl&ots=pEJj8miMrf&sig=3nrRgpk3kF7fXzcWUWpJ_uzpfl0&hl=en&sa=X&ved=0ahUKEwiAkM3JrbHWAhXE7xQKHWseCZAQ6AEISzAH#v=onepage&q=Concise%20Guide%20to%20Databases%20pdf&f=false)
 * Nelson, Meghan.  2015.  "[An Intro to Git and GitHub for Beginners (Tutorial).](http://product.hubspot.com/blog/git-and-github-tutorial-for-beginners)"
 * Jim McGlone, "[Creating and Hosting a Personal Site on GitHub
 A step-by-step beginner's guide to creating a personal website and blog using Jekyll and hosting it for free using GitHub Pages.](http://jmcglone.com/guides/github-pages/)".
 
-*Lab*: [**Working with git and GitHub**](https://github.com/lse-my472/pset1)
-* Installing git and setting up an account on GitHub
-* How to complete and submit assignments using GitHub Classroom
-* Forking and correcting a broken RMarkdown file
-* Cloning a website repository, modifying it, and publishing a personal webpage
+##### [Lab: Working with git and GitHub**](https://github.com/lse-my472/pset1)
+*  Installing git and setting up an account on GitHub
+*  How to complete and submit assignments using GitHub Classroom
+*  Forking and correcting a broken RMarkdown file
+*  Cloning a website repository, modifying it, and publishing a personal webpage
 
 
 #### Week 2 (October 8). [The shape of data](https://github.com/lse-my472/lectures/blob/master/week02/)
