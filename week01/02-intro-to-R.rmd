@@ -226,7 +226,3 @@ schools[[1]]
 schools[['faculty']]
 schools$students
 ```
-
-
-
-
