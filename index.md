@@ -5,7 +5,7 @@ classoption: DIV=14
 colorlinks: true
 ---
 
-![LSE](images/lse-logo.jpg)
+<!-- ![LSE](images/lse-logo.jpg) -->
 # MY472 Data for Data Scientists
 
 ### Michaelmas Term 2019
@@ -141,8 +141,8 @@ This week will also introduce basic data types, in a language-agnostic manner, f
 ##### Resources
 - [Lecture slides](week01/MY472-week01.pdf)
 - [git and GitHub notes](week01/MY472-week01-GitHub.pdf)
-- R example: [Introduction to RMarkdown](week01/01-RMarkdown.Rmd)
-- R example: [vectors, lists, data frames]week01/02-intro-to-R.Rmd)
+- R example: [Introduction to RMarkdown](week01/01-RMarkdown.html) and as [Rmarkdown](week01/01-RMarkdown.rmd).
+- R example: [vectors, lists, data frames]week01/02-intro-to-R.rmd)
 
 ##### Required reading
 * Wickham, Hadley.  Nd.  _Advanced R_, 2nd ed.  Ch 3, [Names and values](https://adv-r.hadley.nz/names-values.html), Chapter 4, [Vectors](https://adv-r.hadley.nz/vectors-chap.html), and Chapter 5, [Subsetting](https://adv-r.hadley.nz/subsetting.html). (Ch. 2-3 of the print edition),
@@ -206,7 +206,7 @@ In this week, we focus on the setup of computation environments on the Internet.
     - Install R, some packages
     - Stop the instance
 * [Link to the github classroom]()
-<!-- * [Attendance Survey](https://lse.eu.qualtrics.com/jfe/form/SV_9B6qLasJrI88CJT)>
+<!-- * [Attendance Survey](https://lse.eu.qualtrics.com/jfe/form/SV_9B6qLasJrI88CJT)-->
 
 
 #### 4. HTML and CSS
@@ -301,7 +301,7 @@ We will learn how to work with unstructured data in the form of text, and how to
 - Working with textual data.
 
 
-#### Week 9. Data visualisation
+#### 9. Data visualisation
 
 The lecture this week will offer an overview of the principles of exploratory data analysis through (good) data visualization. In the seminars, we will practice producing our own graphs using ggplot2.
 
@@ -365,4 +365,4 @@ This week, we will dive deeper into the databases. In particular, this week cove
 
 #### Take-home exam
 
-Deadline: January 17.
+Deadline: January 17, 14:00.
