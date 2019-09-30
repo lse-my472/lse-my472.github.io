@@ -1,4 +1,7 @@
-# Introduction to R
+---
+title: "Introduction to R"
+output: github_document
+---
 
 This Rmarkdown script provides a description of some of the building blocks we will rely on throughout this course. If you're having trouble following the code below, make sure you read the required chapters in Wickham's *Advanced R*.
 

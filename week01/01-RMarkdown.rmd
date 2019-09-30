@@ -1,4 +1,7 @@
-# Welcome to MY472 - Data for Data Scientists
+---
+title: "Welcome to MY472 - Data for Data Scientists"
+output: github_document
+---
 
 Before we start our first guided coding session, let's become a bit more familiar with RStudio Server (which we will use to interact with R) and RMarkdown.
 

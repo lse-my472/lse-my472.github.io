@@ -142,7 +142,7 @@ This week will also introduce basic data types, in a language-agnostic manner, f
 - [Lecture slides](week01/MY472-week01.pdf)
 - [git and GitHub notes](week01/MY472-week01-GitHub.pdf)
 - R example: [Introduction to RMarkdown](week01/01-RMarkdown.html) and as [Rmarkdown](week01/01-RMarkdown.rmd).
-- R example: [vectors, lists, data frames]week01/02-intro-to-R.rmd)
+- R example: [vectors, lists, data frames](week01/02-intro-to-R.rmd)
 
 ##### Required reading
 * Wickham, Hadley.  Nd.  _Advanced R_, 2nd ed.  Ch 3, [Names and values](https://adv-r.hadley.nz/names-values.html), Chapter 4, [Vectors](https://adv-r.hadley.nz/vectors-chap.html), and Chapter 5, [Subsetting](https://adv-r.hadley.nz/subsetting.html). (Ch. 2-3 of the print edition),
