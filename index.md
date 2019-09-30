@@ -111,7 +111,7 @@ Some of the assignemnts will involve shorter questions, to which the answers can
 
 ### Schedule
 
-#### Week 1, October 2 (PB). [Introduction to data](https://github.com/lse-my472/lectures/blob/master/week01/)
+#### Week 1 (October 1). [Introduction to data](https://github.com/lse-my472/lectures/blob/master/week01/)
 
 In the first week, we will introduce the basic concepts of the course, including how data is recorded, stored, and shared. Because the course relies fundamentally on GitHub, a collaborative code and data sharing platform, we will introduce the use of git and GitHub, using the lab session to guide students through in setting up an account and subscribing to the course organisation and assignments.
 
@@ -143,9 +143,9 @@ A step-by-step beginner's guide to creating a personal website and blog using Je
 * Cloning a website repository, modifying it, and publishing a personal webpage
 
 
-#### Week 2, October 9 (PB). [The shape of data](https://github.com/lse-my472/lectures/blob/master/week02/)
+#### Week 2 (October 8). [The shape of data](https://github.com/lse-my472/lectures/blob/master/week02/)
 
-This week moves beyond the rectangular format common in statistical datasets, modeled on a spreadsheet, to cover relational structures and the concept of database normalization. We will also cover ways to restructure data from "wide" to "long' format, within strictly rectangular data structures. Additional topics concerning text encoding, date formats, and sparse matrix formats are also covered.
+This week moves beyond the rectangular format common in statistical datasets, modeled on a spreadsheet, to cover relational structures and the concept of database normalization. We will also cover ways to restructure data from "wide" to "long" format, within strictly rectangular data structures.  Additional topics concerning text encoding, date formats, and sparse matrix formats are also covered.
 
 **Readings**:
 * Wickham, Hadley and Garett Grolemund.  2017.  _R for Data Science: Import, Tidy, Transform, Visualize, and Model Data_.  Sebastopol, CA: O'Reilly.  [Part II Wrangle](http://r4ds.had.co.nz/wrangle-intro.html), [Tibbles](http://r4ds.had.co.nz/tibbles.html), [Data Import](http://r4ds.had.co.nz/data-import.html), [Tidy Data](http://r4ds.had.co.nz/tidy-data.html) (Ch. 7-9 of the print edition).
@@ -161,7 +161,7 @@ Lecture notes:
 *Assignment 1*: **Data cleaning in R**. Deadline: October 19.
 
 
-#### Week 3, October 16 (AM). [Cloud computing](https://github.com/lse-my472/lectures/blob/master/week03/)
+#### Week 3 (October 15). [Cloud computing](https://github.com/lse-my472/lectures/blob/master/week03/)
 
 In this week, we focus on the setup of computation environments on the Internet. We will introduce the cloud computing concepts and learn why the big shift to the cloud computing is occurring in the industry and how it is relevant to us as data scientists. In the lab, we will have an introduction to the cloud environment setup using Amazon Web Services. We will sign up an account, launch a cloud computing environment, create a webpage, and set up a statistical computing environment.
 
@@ -194,7 +194,7 @@ Lecture notes:
 * [Attendance Survey](https://lse.eu.qualtrics.com/jfe/form/SV_9B6qLasJrI88CJT)
 
 
-#### Week 4, October 23 (AM). [Basics of HTML and CSS](https://github.com/lse-my472/lectures/blob/master/week04/)
+#### Week 4 (October 22). [HTML and CSS](https://github.com/lse-my472/lectures/blob/master/week04/)
 
 From week 4 to week 7, we will learn how to get the data from the Internet. This week introduces the basics, including markup languages (HTML, XML, and Markdown) and other common data formats such as JSON (Javascript Object Notation).  We also cover basic web scraping, to turn web data into text or numbers.  We will also cover the client-server model, and how machines and humans transmit data over networks and to and from databases.
 
@@ -223,7 +223,7 @@ From week 4 to week 7, we will learn how to get the data from the Internet. This
 
 
 
-#### Week 5, October 30 (AM). [Using data from the internet](https://github.com/lse-my472/lectures/blob/master/week05/)
+#### Week 5 (October 29). [Using data from the Internet](https://github.com/lse-my472/lectures/blob/master/week05/)
 
 Continuing from the material covered in Week 4, we will learn the advanced topics in scraping the web. The topics include the scraping documents in XML (such as RSS), scraping websites beyond the authentication, and websites with non-static components.
 
@@ -246,10 +246,10 @@ Continuing from the material covered in Week 4, we will learn the advanced topic
 * [Markdown files](https://classroom.github.com/a/wvnfoMId)
 
 
-#### Week 6, November 6. Reading week. No class.
+#### Week 6 (November 5). Reading week. No class.
 
 
-#### Week 7, November 13 (PB). [Working with APIs](https://github.com/lse-my472/lectures/blob/master/week07/)
+#### Week 7 (November 12). [Working with APIs](https://github.com/lse-my472/lectures/blob/master/week07/)
 
 How to work with Application Programming Interfaces (APIs), which offer developers and researchers access to data in a structured format. Our running examples will be the New York Times API and the Twitter API.
 
@@ -267,7 +267,42 @@ How to work with Application Programming Interfaces (APIs), which offer develope
 
 *Assignment 3*: **APIs**. [Link to GitHub classroom](https://classroom.github.com/g/i2TZf65O). Deadline: November 27.
 
-#### Week 8, November 20 (PB). [Creating and managing databases](https://github.com/lse-my472/lectures/blob/master/week08/)
+
+
+#### Week 8 (November 19). [Working with textual data](https://github.com/lse-my472/lectures/blob/master/week08/)
+
+We will learn how to work with unstructured data in the form of text, and how to deal with format conversion, encoding problems, and serialization.  We will also cover search and replace operations using regular expressions, as well as the most common textual data types in R and Python.
+
+*Required Readings*:
+* TBC
+
+*Further materials*:
+* TBC
+
+*Lab*
+- Working with textual data.
+
+
+#### Week 9 (November 26).
+[Data visualisation](https://github.com/lse-my472/lectures/blob/master/week09/)
+
+The lecture this week will offer an overview of the principles of exploratory data analysis through (good) data visualization. In the seminars, we will practice producing our own graphs using ggplot2.
+
+*Required Readings*:
+* Wickham, Hadley and Garett Grolemund.  2017.  _R for Data Science: Import, Tidy, Transform, Visualize, and Model Data_.  Sebastopol, CA: O'Reilly.  [Data visualization](https://r4ds.had.co.nz/data-visualisation.html), [Graphics for communication](https://r4ds.had.co.nz/graphics-for-communication.html) (Ch. 1 and 22 of the print edition).
+* Hughes, A. (2015) ["Visualizing inequality: How graphical emphasis
+shapes public opinion"](https://journals.sagepub.com/doi/abs/10.1177/2053168015622073) Research and Politics.
+
+*Further materials*:
+* Tufte, E. (2002) ["The visual display of quantitative information"](https://www.edwardtufte.com/tufte/books_vdqi).
+
+*Lab*
+- Data visualization with ggplot2.
+- Attendance Survey: [https://lse.eu.qualtrics.com/jfe/form/SV_026nI6GIJtNmuq1](https://lse.eu.qualtrics.com/jfe/form/SV_026nI6GIJtNmuq1)
+- Github Classroom: [https://classroom.github.com/a/lNhyTTip](https://classroom.github.com/a/lNhyTTip)
+
+
+#### Week 10 (December 3, MT). [Creating and managing databases](https://github.com/lse-my472/lectures/blob/master/week10/)
 
 This session will offer an introduction to relational databases: structure, logic, and main types. We will learn how to write SQL code, a language designed to query this type of databases that is currently employed by most tech companies; and how to use it from R using the DBI package.
 
@@ -284,7 +319,7 @@ This session will offer an introduction to relational databases: structure, logi
 - Analyzing public Facebook data in a SQLite database
 
 
-#### Week 9, November 27 (AM). [Interacting with online databases](https://github.com/lse-my472/lectures/blob/master/week09/)
+#### Week 11 (December 10, MT). [Interacting with online databases](https://github.com/lse-my472/lectures/blob/master/week11/)
 
 This week, we will dive deeper into the databases. In particular, this week covers following topics: How to set up and use relational databases in the cloud, how to obtain big data analytics through data warehousing services (e.g. Google BigQuery), and fundamentals of noSQL databases.
 
@@ -301,40 +336,9 @@ This week, we will dive deeper into the databases. In particular, this week cove
 - Link: [https://classroom.github.com/g/qSg2yP0m](https://classroom.github.com/g/qSg2yP0m)
 
 *Lab*
-- SQL JOINs and subqueries (in the [lecture folder](https://github.com/lse-my472/lectures/tree/master/week09))
+- SQL JOINs and subqueries (in the [lecture folder](https://github.com/lse-my472/lectures/tree/master/week11))
 - Attendance Survey: [https://lse.eu.qualtrics.com/jfe/form/SV_6L3AI5aXVBdnbSZ](https://lse.eu.qualtrics.com/jfe/form/SV_6L3AI5aXVBdnbSZ)
 
 
 
-#### Week 10, December 4 (PB; classes with AM). [Exploratory data analysis](https://github.com/lse-my472/lectures/blob/master/week10/)
-
-The lecture this week will offer an overview of the principles of exploratory data analysis through (good) data visualization. In the seminars, we will practice producing our own graphs using ggplot2.
-
-
-*Required Readings*:
-* Wickham, Hadley and Garett Grolemund.  2017.  _R for Data Science: Import, Tidy, Transform, Visualize, and Model Data_.  Sebastopol, CA: O'Reilly.  [Data visualization](https://r4ds.had.co.nz/data-visualisation.html), [Graphics for communication](https://r4ds.had.co.nz/graphics-for-communication.html) (Ch. 1 and 22 of the print edition).
-* Hughes, A. (2015) ["Visualizing inequality: How graphical emphasis
-shapes public opinion"](https://journals.sagepub.com/doi/abs/10.1177/2053168015622073) Research and Politics.
-
-*Further materials*:
-* Tufte, E. (2002) ["The visual display of quantitative information"](https://www.edwardtufte.com/tufte/books_vdqi).
-
-*Lab*
-- Data visualization with ggplot2.
-- Attendance Survey: [https://lse.eu.qualtrics.com/jfe/form/SV_026nI6GIJtNmuq1](https://lse.eu.qualtrics.com/jfe/form/SV_026nI6GIJtNmuq1)
-- Github Classroom: [https://classroom.github.com/a/lNhyTTip](https://classroom.github.com/a/lNhyTTip)
-
-
-#### Week 11, December 11 (PB). [Parallel computing](https://github.com/lse-my472/lectures/blob/master/week11/)
-
-The last week of the semester will cover efficient ways to program in R, as well as the basics of parallel computing.
-
-*Required readings*:
-* Matloff, N. (2011). The art of R programming: A tour of statistical software design. No Starch Press. Chapter 14: "Performance enhancement: Speed and memory."
-
-*Lab*
-- Parallel computing.
-
-*Assignment 5*: **Data analysis**. Deadline: January 11.
-
-*Take-home exam*. Deadline: January 18.
+*Take-home exam*. Deadline: January 17.
