@@ -139,7 +139,7 @@ In the first week, we will introduce the basic concepts of the course, including
 This week will also introduce basic data types, in a language-agnostic manner, from the perspective of machine implementations through to high-level programming languages. We will then focus on how basic data types are implemented in R.
 
 ##### Resources
-- [Lecture slides](week01/MY472-week01.pdf)
+- [Lecture slides](week01/MY472-week01-intro.pdf)
 - [git and GitHub notes](week01/MY472-week01-GitHub.pdf)
 - R example: [Introduction to RMarkdown](week01/01-RMarkdown.html) and as [rmd source](https://github.com/lse-my472/lse-my472.github.io/blob/master/week01/01-RMarkdown.rmd)
 - R example: [vectors, lists, data frames](https://github.com/lse-my472/lse-my472.github.io/blob/master/week01/02-intro-to-R.md)
@@ -167,8 +167,8 @@ A step-by-step beginner's guide to creating a personal website and blog using Je
 This week moves beyond the rectangular format common in statistical datasets, modeled on a spreadsheet, to cover relational structures and the concept of database normalization. We will also cover ways to restructure data from "wide" to "long" format, within strictly rectangular data structures.  Additional topics concerning text encoding, date formats, and sparse matrix formats are also covered.
 
 ##### Resources
-- [Lecture slides](week02/MY472-week02.pdf)
-- R examples: [data fames](week02/03-data-frames.Rmd), [merging and reshaping](week02/04-merging-reshaping.Rmd), and [loops and functions](week02/05-loops-functions.Rmd)
+- [Lecture slides](week02/MY472-week02-shape.pdf)
+- R examples: [data frames](week02/03-data-frames.rmd), [merging and reshaping](week02/04-merging-reshaping.rmd), and [loops and functions](week02/05-loops-functions.rmd)
 
 ##### Required reading
 * Wickham, Hadley and Garett Grolemund.  2017.  _R for Data Science: Import, Tidy, Transform, Visualize, and Model Data_.  Sebastopol, CA: O'Reilly.  [Part II Wrangle](http://r4ds.had.co.nz/wrangle-intro.html), [Tibbles](http://r4ds.had.co.nz/tibbles.html), [Data Import](http://r4ds.had.co.nz/data-import.html), [Tidy Data](http://r4ds.had.co.nz/tidy-data.html) (Ch. 7-9 of the print edition).
