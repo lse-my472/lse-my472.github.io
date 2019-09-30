@@ -33,15 +33,15 @@ No lectures or classes will take place during (Reading) Week 6.
 |:--:|:-------|:--  -------|:------|
 | 1  |  1 Oct | KB         | [Introduction to data](#1-introduction-to-data) |
 | 2  |  8 Oct | KB         | [The Shape of Data](#2-the-shape-of-data) |
-| 3  | 15 Oct | KB         | [Working with Databases](#3-working-with-databases) |
-| 4  | 22 Oct | KB         | [Linear Regression](#4-linear-regression) |
-| 5  | 29 Oct | SM         | [Classification](#5-classification) |
-| 6  |  6 Oct | SM         | [Non-linear models and tree-based methods](#6-non-linear-models-and-tree-based-methods) |
-| 7  | 12 Nov | GC         | [Resampling methods, model selection and regularization](#7-resampling-methods-model-selection-and-regularization) |
-| 8  | 19 Nov | KB         | [Unsupervised learning and dimensional reduction](#8-unsupervised-learning-and-dimensional-reduction) |
-| 9  | 26 Nov | JB         | [Text analysis](#9-text-analysis) |
-| 10 |  3 Dec | GC         | [Text classification and scaling](#10-text-classification-and-scaling) |
-| 11 | 10 Dec | JB         | [Topic modelling](#11-topic-modelling)|
+| 3  | 15 Oct | KB         | [Cloud Computing](#3-cloud-computing) |
+| 4  | 22 Oct | KB         | [HTML and CSS](#4-html-and-css) |
+| 5  | 29 Oct | KB         | [Using data from the Internet](#5-using-data-from-the-internet) |
+| 6  |  6 Oct | -          | _reading week_ |
+| 7  | 12 Nov | KB         | [Working with APIs](#7-working-with-apis) |
+| 8  | 19 Nov | KB         | [Textual data](#8-textual-data) |
+| 9  | 26 Nov | KB         | [Data visualisation](#9-data-visualisation) |
+| 10 |  3 Dec | MT         | [Creating and managing databases](#10-creating-and-managing-databases) |
+| 11 | 10 Dec | MT         | [Interacting with online databases](#11-interacting-with-online-databases)|
 
 
 ### Course Description
@@ -139,8 +139,8 @@ In the first week, we will introduce the basic concepts of the course, including
 This week will also introduce basic data types, in a language-agnostic manner, from the perspective of machine implementations through to high-level programming languages. We will then focus on how basic data types are implemented in R.
 
 ##### Resources
-- [Lecture slides](week1/MY472-week01.pdf)
-- [git and GitHub notes](week1/MY472-week01-GitHub.pdf)
+- [Lecture slides](week01/MY472-week01.pdf)
+- [git and GitHub notes](week01/MY472-week01-GitHub.pdf)
 - R example: [Introduction to RMarkdown](week01/01-RMarkdown.Rmd)
 - R example: [vectors, lists, data frames]week01/02-intro-to-R.Rmd)
 
@@ -166,10 +166,9 @@ A step-by-step beginner's guide to creating a personal website and blog using Je
 
 This week moves beyond the rectangular format common in statistical datasets, modeled on a spreadsheet, to cover relational structures and the concept of database normalization. We will also cover ways to restructure data from "wide" to "long" format, within strictly rectangular data structures.  Additional topics concerning text encoding, date formats, and sparse matrix formats are also covered.
 
-
 ##### Resources
-- [Lecture slides](week2/MY472-week02.pdf)
-- R examples: [data fames](week2/03-data-frames.Rmd), [merging and reshaping](week2/04-merging-reshaping.Rmd), and [loops and functions](week2/05-loops-functions.Rmd)
+- [Lecture slides](week02/MY472-week02.pdf)
+- R examples: [data fames](week02/03-data-frames.Rmd), [merging and reshaping](week02/04-merging-reshaping.Rmd), and [loops and functions](week02/05-loops-functions.Rmd)
 
 ##### Required reading
 * Wickham, Hadley and Garett Grolemund.  2017.  _R for Data Science: Import, Tidy, Transform, Visualize, and Model Data_.  Sebastopol, CA: O'Reilly.  [Part II Wrangle](http://r4ds.had.co.nz/wrangle-intro.html), [Tibbles](http://r4ds.had.co.nz/tibbles.html), [Data Import](http://r4ds.had.co.nz/data-import.html), [Tidy Data](http://r4ds.had.co.nz/tidy-data.html) (Ch. 7-9 of the print edition).
@@ -185,8 +184,8 @@ This week moves beyond the rectangular format common in statistical datasets, mo
 In this week, we focus on the setup of computation environments on the Internet. We will introduce the cloud computing concepts and learn why the big shift to the cloud computing is occurring in the industry and how it is relevant to us as data scientists. In the lab, we will have an introduction to the cloud environment setup using Amazon Web Services. We will sign up an account, launch a cloud computing environment, create a webpage, and set up a statistical computing environment.
 
 ##### Resources
-- [Lecture slides](week2/MY472-week03.pdf)
-- [Class slides](week2/MY472-AWS-Lab3.pdf)
+- [Lecture slides](week02/MY472-week03.pdf)
+- [Class slides](week02/MY472-AWS-Lab3.pdf)
 
 ##### Required reading
 * Rajaraman, V. 2014. "[Cloud Computing.](https://www.ias.ac.in/article/fulltext/reso/019/03/0242-0258)" Resonance 19(3): 242–58.
@@ -210,151 +209,160 @@ In this week, we focus on the setup of computation environments on the Internet.
 <!-- * [Attendance Survey](https://lse.eu.qualtrics.com/jfe/form/SV_9B6qLasJrI88CJT)>
 
 
-#### Week 4 (October 22). [HTML and CSS](https://github.com/lse-my472/lectures/blob/master/week04/)
+#### 4. HTML and CSS
 
 From week 4 to week 7, we will learn how to get the data from the Internet. This week introduces the basics, including markup languages (HTML, XML, and Markdown) and other common data formats such as JSON (Javascript Object Notation).  We also cover basic web scraping, to turn web data into text or numbers.  We will also cover the client-server model, and how machines and humans transmit data over networks and to and from databases.
 
-**Readings**
+##### Resources
+- [Lecture slides](week04/MY472-week04.pdf)
+- [Class slides](week04/MY472-AWS-Lab3.pdf)
 
-*Required Readings*:
-
+##### Required Reading
 * Lazer, David, and Jason Radford. 2017. “[Data Ex Machina: Introduction to Big Data.](https://doi.org/10.1146/annurev-soc-060116-053457)” _Annual Review of Sociology_ 43(1): 19–39.
 * Howe, Shay. 2015.  [_Learn to Code HTML and CSS: Develop and Style Websites_](http://learn.shayhowe.com/html-css/).  New Riders.  Chs 1-8.
 * Kingl, Arvid. 2018. [_Web Scraping in R: rvest Tutorial_](https://www.datacamp.com/community/tutorials/r-web-scraping-rvest).
 
-*Further Resources*:
-
+##### Recommended reading
 * Munzert, Simon, Christian Rubba, Peter Meissner, and Dominic Nyhuis D. 2014. _Automated Data Collection with R: A Practical Guide to Web Scraping and Text Mining_. Hoboken, NJ/Chichester, UK:Wiley & Sons. Ch. 2-4, 9.
 * Severance, Charles Russell. 2015. [_Introduction to Networking: How the Internet Works_](http://www.net-intro.com).  Charles Severance, 2015.
 * Duckett, Jon. 2011. _HTML and CSS: Design and Build Websites_.  New York: Wiley.
 
-
-*Lab*: **Web scraping 1**
+##### Lab: Web scraping 1
 - Scraping tables
 - Scraping unstructured data
 * [Attendance Survey](https://lse.eu.qualtrics.com/jfe/form/SV_5aOLpBO9PluOdmZ)
 
-*Assignment 2*: **Webscraping**. Deadline: November 2.
-* [Link to the github classroom](https://classroom.github.com/a/J2IyaP5t)
+##### Assignment 2: Webscraping
+* [Link to the GitHub classroom]().  Deadline: November 1.
 
 
-
-#### Week 5 (October 29). [Using data from the Internet](https://github.com/lse-my472/lectures/blob/master/week05/)
+#### 5. Using data from the Internet
 
 Continuing from the material covered in Week 4, we will learn the advanced topics in scraping the web. The topics include the scraping documents in XML (such as RSS), scraping websites beyond the authentication, and websites with non-static components.
 
-**Readings**
+##### Resources
+- [Lecture slides](week05/MY472-week05.pdf)
 
-*Required Readings*:
+##### Required Reading
 * Sai Swapna Gollapudi. 2018. [_Learn Web Scraping and Browser Automation Using RSelenium in R_](https://analyticsprofile.com/business-analytics/learn-web-scraping-and-browser-automation-using-rselenium-in-r/).
 * Wickham, Hadley. 2015. [_Parse and process XML (and HTML) with xml2_](https://blog.rstudio.com/2015/04/21/xml2/)
 * Mozilla Developer Web Docs. [_What is JavaScript_](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/First_steps/What_is_JavaScript).
 
-*Further Readings*:
+##### Recommended Readings
 * Schouwenaars, Filip. 2015. [_Web Scraping with R and PhantomJS_](https://www.datacamp.com/community/tutorials/scraping-javascript-generated-data-with-r).
 * Mozilla Developer Web Docs. [_A First Splash into JavaScript_](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/First_steps/A_first_splash).
 
-
-*Lab*: **Web scraping 1**
+##### Lab: Web scraping
 - Scraping Newspaper RSS
 - Scraping with Selenium
-* [Attendance Survey](https://lse.eu.qualtrics.com/jfe/form/SV_cZUi4kx7gdQTKzr)
+<!-- * [Attendance Survey](https://lse.eu.qualtrics.com/jfe/form/SV_cZUi4kx7gdQTKzr) -->
 * [Markdown files](https://classroom.github.com/a/wvnfoMId)
 
 
-#### Week 6 (November 5). Reading week. No class.
+#### 6. Reading week
 
 
-#### Week 7 (November 12). [Working with APIs](https://github.com/lse-my472/lectures/blob/master/week07/)
+#### 7. Working with APIs
+
+##### Resources
+- [Lecture slides](week07/MY472-week07.pdf)
 
 How to work with Application Programming Interfaces (APIs), which offer developers and researchers access to data in a structured format. Our running examples will be the New York Times API and the Twitter API.
 
-**Readings**
-
-*Required Readings*:
+##### Required Reading
 * Steinert-Threlkeld. 2018. [_Twitter as Data_](https://www.cambridge.org/core/elements/twitter-as-data/27B3DE20C22E12E162BFB173C5EB2592). Cambridge University Press.
 
-*Further Readings*:
+##### Recommended Reading
 * Ruths and Pfeffer. 2014. [_Social media for large studies of behavior_](http://science.sciencemag.org/content/346/6213/1063.full). Science.
 
-*Lab*: **APIs**
+##### Lab: APIs
 - Interacting with the New York Times API
 - Interacting with Twitter's REST and Streaming API
 
-*Assignment 3*: **APIs**. [Link to GitHub classroom](https://classroom.github.com/g/i2TZf65O). Deadline: November 27.
+##### Assignment 3: APIs
+- [Link to GitHub classroom](). Deadline: November 26.
 
 
-
-#### Week 8 (November 19). [Working with textual data](https://github.com/lse-my472/lectures/blob/master/week08/)
+#### 8. Textual data
 
 We will learn how to work with unstructured data in the form of text, and how to deal with format conversion, encoding problems, and serialization.  We will also cover search and replace operations using regular expressions, as well as the most common textual data types in R and Python.
 
-*Required Readings*:
+##### Resources
+- [Lecture slides](week08/MY472-week08.pdf)
+- [Regular expressions cheat sheet](week08/regular-expressions-cheat-sheet-v2.pdf)
+
+##### Required Reading
 * TBC
 
-*Further materials*:
+##### Recommended Reading
 * TBC
 
-*Lab*
+##### Lab
 - Working with textual data.
 
 
-#### Week 9 (November 26).
-[Data visualisation](https://github.com/lse-my472/lectures/blob/master/week09/)
+#### Week 9. Data visualisation
 
 The lecture this week will offer an overview of the principles of exploratory data analysis through (good) data visualization. In the seminars, we will practice producing our own graphs using ggplot2.
 
-*Required Readings*:
+##### Resources
+- [Lecture slides](week09/MY472-week09.pdf)
+
+##### Required Reading
 * Wickham, Hadley and Garett Grolemund.  2017.  _R for Data Science: Import, Tidy, Transform, Visualize, and Model Data_.  Sebastopol, CA: O'Reilly.  [Data visualization](https://r4ds.had.co.nz/data-visualisation.html), [Graphics for communication](https://r4ds.had.co.nz/graphics-for-communication.html) (Ch. 1 and 22 of the print edition).
 * Hughes, A. (2015) ["Visualizing inequality: How graphical emphasis
 shapes public opinion"](https://journals.sagepub.com/doi/abs/10.1177/2053168015622073) Research and Politics.
 
-*Further materials*:
+##### Recommended Reading
 * Tufte, E. (2002) ["The visual display of quantitative information"](https://www.edwardtufte.com/tufte/books_vdqi).
 
-*Lab*
+##### Lab
 - Data visualization with ggplot2.
 - Attendance Survey: [https://lse.eu.qualtrics.com/jfe/form/SV_026nI6GIJtNmuq1](https://lse.eu.qualtrics.com/jfe/form/SV_026nI6GIJtNmuq1)
 - Github Classroom: [https://classroom.github.com/a/lNhyTTip](https://classroom.github.com/a/lNhyTTip)
 
 
-#### Week 10 (December 3, MT). [Creating and managing databases](https://github.com/lse-my472/lectures/blob/master/week10/)
+#### 10. Creating and managing databases
 
 This session will offer an introduction to relational databases: structure, logic, and main types. We will learn how to write SQL code, a language designed to query this type of databases that is currently employed by most tech companies; and how to use it from R using the DBI package.
 
 
-**Readings**
+##### Resources
+- [Lecture slides](week10/MY472-week10.pdf)
 
-*Required Readings*:
+##### Required Reading
 * Beaulieu. 2009. [_Learning SQL_](https://books.google.co.uk/books?hl=en&lr=&id=1PgCCVryjOQC&oi=fnd&pg=PR3&dq=learning+sql+alan&ots=X6M3Iaz1wO&sig=38Fp1kDlxM8TF7miw0K2CNcKib4#v=onepage&q=learning%20sql%20alan&f=false). O'Reilly. (Chapters 1, 3, 4, 5, 8)
 
-*Further Readings*:
+##### Recommended Readings
 * Stephens et al. 2009. [_Teach yourself SQL in one hour a day_](https://books.google.co.uk/books?hl=en&lr=&id=9fDZ_rVoxx0C&oi=fnd&pg=PR5&dq=%22Sams+Teach+Yourself+SQL+in+24+Hours%22&ots=UkaClJDMem&sig=wgLy-DG3bc7g0LO0_Ojy5Cy2Ejs#v=onepage&q=%22Sams%20Teach%20Yourself%20SQL%20in%2024%20Hours%22&f=false). Sam's Publishing.
 
-*Lab*: **SQL**
+##### Lab: SQL
 - Analyzing public Facebook data in a SQLite database
 
 
-#### Week 11 (December 10, MT). [Interacting with online databases](https://github.com/lse-my472/lectures/blob/master/week11/)
+#### 11. Interacting with online databases
 
 This week, we will dive deeper into the databases. In particular, this week covers following topics: How to set up and use relational databases in the cloud, how to obtain big data analytics through data warehousing services (e.g. Google BigQuery), and fundamentals of noSQL databases.
 
-*Required Readings*:
+##### Resources
+- [Lecture slides](week11/MY472-week11.pdf)
+
+##### Required Reading
 * Beaulieu. 2009. [_Learning SQL_](https://books.google.co.uk/books?hl=en&lr=&id=1PgCCVryjOQC&oi=fnd&pg=PR3&dq=learning+sql+alan&ots=X6M3Iaz1wO&sig=38Fp1kDlxM8TF7miw0K2CNcKib4#v=onepage&q=learning%20sql%20alan&f=false). O'Reilly. (Chapters 2)
 * Hows, Membrey, and Plugge. 2014. [_MongoDB Basics_](https://books.google.co.uk/books?id=kmQnCgAAQBAJ&printsec=frontcover&dq=mongodb+basics&hl=en&sa=X&ved=0ahUKEwjPt7Cnv-PeAhUHBcAKHWQeBe0Q6wEIKzAA#v=onepage&q&f=false). Apress. (Chapter 1)
 * Tigani and Naidu. 2017. [_Google BigQuery Analytics_](https://books.google.co.uk/books?id=LDaiAwAAQBAJ&printsec=frontcover&dq=bigquery&hl=en&sa=X&ved=0ahUKEwj6yZ-MvOPeAhXHCcAKHWJxBSEQ6AEIMzAB#v=onepage&q&f=false). Weily. (Chapters 1-3)
 
-*Further Materials*:
+##### Recommended Reading
 * [MongoDB Basics](https://www.edx.org/course/mongodb-basics) on edX
 * [Analyzing Big Data in less time with Google BigQuery](https://www.youtube.com/watch?v=qqbYrQGSibQ) on YouTube
 
-*Assignment 4*: **Databases**. Deadline: December 14.
-- Link: [https://classroom.github.com/g/qSg2yP0m](https://classroom.github.com/g/qSg2yP0m)
+##### Lab
+- SQL JOINs and subqueries (in the [lecture folder](week11))
 
-*Lab*
-- SQL JOINs and subqueries (in the [lecture folder](https://github.com/lse-my472/lectures/tree/master/week11))
-- Attendance Survey: [https://lse.eu.qualtrics.com/jfe/form/SV_6L3AI5aXVBdnbSZ](https://lse.eu.qualtrics.com/jfe/form/SV_6L3AI5aXVBdnbSZ)
-
+##### Assignment 5: Databases. 
+- Link. Deadline: December 13.
 
 
-*Take-home exam*. Deadline: January 17.
+#### Take-home exam
+
+Deadline: January 17.
