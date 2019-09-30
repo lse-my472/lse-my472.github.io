@@ -138,7 +138,7 @@ In the first week, we will introduce the basic concepts of the course, including
 
 This week will also introduce basic data types, in a language-agnostic manner, from the perspective of machine implementations through to high-level programming languages. We will then focus on how basic data types are implemented in R.
 
-##### Resouces
+##### Resources
 - [Lecture slides](week1/MY472-week01.pdf)
 - [git and GitHub notes](week1/MY472-week01-GitHub.pdf)
 - R example: [Introduction to RMarkdown](week01/01-RMarkdown.Rmd)
@@ -162,46 +162,43 @@ A step-by-step beginner's guide to creating a personal website and blog using Je
 *  Cloning a website repository, modifying it, and publishing a personal webpage
 
 
-#### Week 2 (October 8). [The shape of data](https://github.com/lse-my472/lectures/blob/master/week02/)
+#### 2. The shape of data
 
 This week moves beyond the rectangular format common in statistical datasets, modeled on a spreadsheet, to cover relational structures and the concept of database normalization. We will also cover ways to restructure data from "wide" to "long" format, within strictly rectangular data structures.  Additional topics concerning text encoding, date formats, and sparse matrix formats are also covered.
 
-**Readings**:
+
+##### Resources
+- [Lecture slides](week2/MY472-week02.pdf)
+- R examples: [data fames](week2/03-data-frames.Rmd), [merging and reshaping](week2/04-merging-reshaping.Rmd), and [loops and functions](week2/05-loops-functions.Rmd)
+
+##### Required reading
 * Wickham, Hadley and Garett Grolemund.  2017.  _R for Data Science: Import, Tidy, Transform, Visualize, and Model Data_.  Sebastopol, CA: O'Reilly.  [Part II Wrangle](http://r4ds.had.co.nz/wrangle-intro.html), [Tibbles](http://r4ds.had.co.nz/tibbles.html), [Data Import](http://r4ds.had.co.nz/data-import.html), [Tidy Data](http://r4ds.had.co.nz/tidy-data.html) (Ch. 7-9 of the print edition).
 * The [**reshape2** package](http://had.co.nz/reshape/) for R.
 
-Lecture notes:
+##### [Lab: Reshaping data in R**]
 
-- Lecture week 2: the shape of data
-- R example: reshaping data in R
-
-*Lab*: **Reshaping data in R**
-
-*Assignment 1*: **Data cleaning in R**. Deadline: October 19.
+##### Assignment 1: Data cleaning in R. Deadline: October 18.
 
 
-#### Week 3 (October 15). [Cloud computing](https://github.com/lse-my472/lectures/blob/master/week03/)
+#### 3. Cloud computing
 
 In this week, we focus on the setup of computation environments on the Internet. We will introduce the cloud computing concepts and learn why the big shift to the cloud computing is occurring in the industry and how it is relevant to us as data scientists. In the lab, we will have an introduction to the cloud environment setup using Amazon Web Services. We will sign up an account, launch a cloud computing environment, create a webpage, and set up a statistical computing environment.
 
-Lecture notes:
+##### Resources
+- [Lecture slides](week2/MY472-week03.pdf)
+- [Class slides](week2/MY472-AWS-Lab3.pdf)
 
-- Lecture week 3: [Cloud computing overview](https://github.com/lse-my472/lectures/raw/master/week03/MY472-week03.pdf)
-
-**Readings**
-
-*Required Readings*:
-
+##### Required reading
 * Rajaraman, V. 2014. "[Cloud Computing.](https://www.ias.ac.in/article/fulltext/reso/019/03/0242-0258)" Resonance 19(3): 242–58.
 * AWS: [What is cloud computing](https://aws.amazon.com/what-is-cloud-computing/).
 * Azure: [Developer guide](https://docs.microsoft.com/en-us/azure/guides/developer/azure-developer-guide).
 
-*Further Readings*:
+##### Recommended reading
 * Puparelia, Nayan. 2016. "Cloud Computing." MIT Press. Ch. 1-3.
 * Botta, Alessio, Walter De Donato, Valerio Persico, and Antonio Pescapé. 2016. "[Integration of Cloud Computing and Internet of Things: A Survey.](http://iranarze.ir/wp-content/uploads/2017/03/6229-English-IranArze.pdf)" Future Generation Computer Systems 56: 684–700.
 
-*Lab*: **Working with AWS**
-* Setup AWS account
+##### Lab: Working with AWS
+* Setup an AWS account
 * Secure the account
 * Configure EC2 instance
 * Work with EC2 instance
@@ -209,8 +206,8 @@ Lecture notes:
     - Set up a web server
     - Install R, some packages
     - Stop the instance
-* [Link to the github classroom](https://classroom.github.com/a/kHWz58_a)
-* [Attendance Survey](https://lse.eu.qualtrics.com/jfe/form/SV_9B6qLasJrI88CJT)
+* [Link to the github classroom]()
+<!-- * [Attendance Survey](https://lse.eu.qualtrics.com/jfe/form/SV_9B6qLasJrI88CJT)>
 
 
 #### Week 4 (October 22). [HTML and CSS](https://github.com/lse-my472/lectures/blob/master/week04/)
