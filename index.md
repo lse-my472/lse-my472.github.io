@@ -29,19 +29,19 @@ No lectures or classes will take place during (Reading) Week 6.
 
 ### Quick links to topics
 
-| Week | Date | Instructor | Topic |
-|:--:|:-------|:--  -------|:------|
-| 1  |  1 Oct | KB         | [Introduction to data](#1-introduction-to-data) |
-| 2  |  8 Oct | KB         | [The Shape of Data](#2-the-shape-of-data) |
-| 3  | 15 Oct | KB         | [Cloud Computing](#3-cloud-computing) |
-| 4  | 22 Oct | KB         | [HTML and CSS](#4-html-and-css) |
-| 5  | 29 Oct | KB         | [Using data from the Internet](#5-using-data-from-the-internet) |
-| 6  |  6 Oct | -          | _reading week_ |
-| 7  | 12 Nov | KB         | [Working with APIs](#7-working-with-apis) |
-| 8  | 19 Nov | KB         | [Textual data](#8-textual-data) |
-| 9  | 26 Nov | KB         | [Data visualisation](#9-data-visualisation) |
-| 10 |  3 Dec | MT         | [Creating and managing databases](#10-creating-and-managing-databases) |
-| 11 | 10 Dec | MT         | [Interacting with online databases](#11-interacting-with-online-databases)|
+| Week | Date | Instructor | Topic |  
+|:--:|-------:|:--  -------|:------|  
+| 1  |  1 Oct | KB         | [Introduction to data](#1-introduction-to-data) |  
+| 2  |  8 Oct | KB         | [The Shape of Data](#2-the-shape-of-data) |  
+| 3  | 15 Oct | KB         | [Cloud Computing](#3-cloud-computing) |  
+| 4  | 22 Oct | KB         | [HTML and CSS](#4-html-and-css) |  
+| 5  | 29 Oct | KB         | [Using data from the Internet](#5-using-data-from-the-internet) |  
+| 6  |  6 Nov | -          | _reading week_ |  
+| 7  | 12 Nov | KB         | [Working with APIs](#7-working-with-apis) |  
+| 8  | 19 Nov | KB         | [Textual data](#8-textual-data) |  
+| 9  | 26 Nov | KB         | [Data visualisation](#9-data-visualisation) |  
+| 10 |  3 Dec | MT         | [Creating and managing databases](#10-creating-and-managing-databases) |  
+| 11 | 10 Dec | MT         | [Interacting with online databases](#11-interacting-with-online-databases)|  
 
 
 ### Course Description
