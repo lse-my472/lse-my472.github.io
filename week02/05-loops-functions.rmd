@@ -30,21 +30,23 @@ We use loops whenever we need to run the same function (or chunk of code) across
 "For" loops are probably the most common type of loop and are easily implemented in R
 
 ```{r}
-for (i in 1:10){
-	print(i)
+for (i in 1:10) {
+    print(i)
 }
 ```
 
 Note the structure: 
-```{r, eval=FALSE}
-for (i in VECTOR){ do something with i }
+```{r, eval = FALSE}
+for (i in VECTOR) {
+    # do something with i
+}
 ```
 
 In each iteration, i takes a different value of the VECTOR; "i" can be anything!
 
 ```{r}
-for (number in 1:10){
-	print(number)
+for (number in 1:10) {
+    print(number)
 }
 ```
 
@@ -52,8 +54,8 @@ The nice feature of loops is that it can use values from the  previous iteration
 
 ```{r}
 fib <- c(0, 1, rep(NA, 38)) # initialize fib sequence
-for(i in 3:40) {
-  fib[i] <- fib[i-1] + fib[i-2]
+for (i in 3:40) {
+  fib[i] <- fib[i - 1] + fib[i - 2]
 }
 ```
 
@@ -61,8 +63,8 @@ Note that here we created an empty vector to store the output of each iteration.
 
 ```{r}
 values <- rep(NA, 10)
-for (i in 1:10){
-	values[i] <- i
+for (i in 1:10) {
+    values[i] <- i
 }
 ```
 
@@ -72,12 +74,12 @@ A structure that we will use often in this workshop is a loop that stores some d
 # create empty list
 grades <- list()
 # loop over 5 students
-for (i in 1:5){
+for (i in 1:5) {
   # create data frame with grade/info for this student
-  student <- data.frame(id = i, 
-                        initial = sample(LETTERS, 1), 
-                        grade = runif(n=1, min=0, max=100),
-                        stringsAsFactors=F)
+  student <- data.frame(id = i,
+                        initial = sample(LETTERS, 1),
+                        grade = runif(n = 1, min = 0, max = 100),
+                        stringsAsFactors = FALSE)
   grades[[i]] <- student
 }
 # now we have a list...
@@ -112,7 +114,7 @@ A slightly different type of if statement is the `ifelse` function:
 ```{r}
 numbers <- c(-2, -1, 0, 1, 2)
 # converting them to absolute numbers
-abs_numbers <- ifelse(numbers>0, numbers, -numbers)
+abs_numbers <- ifelse(numbers > 0, numbers, -numbers)
 abs_numbers
 ```
 

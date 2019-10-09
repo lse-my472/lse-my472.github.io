@@ -176,7 +176,7 @@ This week moves beyond the rectangular format common in statistical datasets, mo
 
 ##### [Lab: Reshaping data in R**]
 
-##### Assignment 1: Data cleaning in R. Deadline: October 18.
+##### Assignment 1: Data cleaning in R. Deadline: October 18.   
 
 
 #### 3. Cloud computing
