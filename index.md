@@ -187,8 +187,8 @@ This week moves beyond the rectangular format common in statistical datasets, mo
 In this week, we focus on the setup of computation environments on the Internet. We will introduce the cloud computing concepts and learn why the big shift to the cloud computing is occurring in the industry and how it is relevant to us as data scientists. In the lab, we will have an introduction to the cloud environment setup using Amazon Web Services. We will sign up an account, launch a cloud computing environment, create a webpage, and set up a statistical computing environment.
 
 ##### Resources
-- [Lecture slides](week02/MY472-week03.pdf)
-- [Class slides](week02/MY472-AWS-Lab3.pdf)
+- [Lecture slides](week03/MY472-week03-cloud.html)
+- [Class slides](week03/MY472-week03-AWS-Lab3.pdf)
 
 ##### Required reading
 * Rajaraman, V. 2014. "[Cloud Computing.](https://www.ias.ac.in/article/fulltext/reso/019/03/0242-0258)" Resonance 19(3): 242–58.
@@ -200,7 +200,8 @@ In this week, we focus on the setup of computation environments on the Internet.
 * Botta, Alessio, Walter De Donato, Valerio Persico, and Antonio Pescapé. 2016. "[Integration of Cloud Computing and Internet of Things: A Survey.](http://iranarze.ir/wp-content/uploads/2017/03/6229-English-IranArze.pdf)" Future Generation Computer Systems 56: 684–700.
 
 ##### Lab: Working with AWS
-* Setup an AWS account
+
+* Setup an AWS account (link from Moodle for AWS Educate free account)
 * Secure the account
 * Configure EC2 instance
 * Work with EC2 instance
