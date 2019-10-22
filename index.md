@@ -218,8 +218,9 @@ In this week, we focus on the setup of computation environments on the Internet.
 From week 4 to week 7, we will learn how to get the data from the Internet. This week introduces the basics, including markup languages (HTML, XML, and Markdown) and other common data formats such as JSON (Javascript Object Notation).  We also cover basic web scraping, to turn web data into text or numbers.  We will also cover the client-server model, and how machines and humans transmit data over networks and to and from databases.
 
 ##### Resources
-- [Lecture slides](week04/MY472-week04.pdf)
-- [Class slides](week04/MY472-AWS-Lab3.pdf)
+- [Lecture slides](week04/MY472-week04-HTML.pdf)
+- [Example 1: scraping tables](week04/01-scraping-tables.Rmd)  
+- [Example 2: scraping unstructured data](week04/02-scraping-unstructured-data.Rmd)
 
 ##### Required Reading
 * Lazer, David, and Jason Radford. 2017. “[Data Ex Machina: Introduction to Big Data.](https://doi.org/10.1146/annurev-soc-060116-053457)” _Annual Review of Sociology_ 43(1): 19–39.
@@ -232,12 +233,11 @@ From week 4 to week 7, we will learn how to get the data from the Internet. This
 * Duckett, Jon. 2011. _HTML and CSS: Design and Build Websites_.  New York: Wiley.
 
 ##### Lab: Web scraping 1
-- Scraping tables
-- Scraping unstructured data
-* [Attendance Survey](https://lse.eu.qualtrics.com/jfe/form/SV_5aOLpBO9PluOdmZ)
+- Scraping tables  
+- Scraping unstructured data  
 
 ##### Assignment 2: Webscraping
-* [Link to the GitHub classroom]().  Deadline: November 1.
+* [Link to the GitHub classroom]().  Deadline: Friday, November 1.
 
 
 #### 5. Using data from the Internet
