@@ -1,0 +1,151 @@
+---
+title: "Scraping unstructured data"
+author: "Pablo Barbera and Akitaka Matsuo"
+date: October 25, 2018
+output: html_document
+---
+
+**this is an answer key with tidy coding style**
+
+### Scraping web data in unstructured format
+
+A common scenario for web scraping is when the data we want is available in plain html, but in different parts of the web, and not in a table format. In this scenario, we will need to find a way to extract each element, and then put it together into a data frame manually.
+
+The motivating example here will be the website `ipaidabribe.com`, which contains a database of self-reports of bribes in India. We want to learn how much people were asked to pay for different services, and by which departments.
+
+```{r}
+url <- 'http://ipaidabribe.com/reports/paid'
+```
+
+We will also be using `rvest`, but in a slightly different way: prior to scraping, we need to identify the CSS selector of each element we want to extract. 
+
+A very useful tool for this purpose is `selectorGadget`, an extension to the Google Chrome browser. Go to the following website to install it: `http://selectorgadget.com/`. Now, go back to the ipaidabribe website and open the extension. Then, click on the element you want to extract, and then on the rest of highlighted elements that you do __not__ want to extract. After only the elements you're interested in are highlighted, copy and paste the CSS selector into R.
+
+Now we're ready to scrape the website:
+
+```{r}
+library(tidyverse)
+library(stringi)
+library(rvest)
+# reading the HTML code
+bribe_html <- read_html(url) # reading the HTML code
+# identify the CSS selector
+bribe_nodes <- html_nodes(bribe_html, css = ".paid-amount span")
+# content of CSS selector
+bribe_nodes 
+```
+
+We still need to do some cleaning before the data is usable:
+
+```{r}
+bribe_amount <- html_text(bribe_nodes) %>%
+  stri_replace_first_fixed("Paid INR ", "") %>%
+  stri_replace_first_regex("\\r.+", "") %>%
+  stri_replace_all_fixed(",", "") %>%
+  as.numeric
+
+```
+
+Let's do another one: transactions during which the bribe ocurred
+```{r}
+transaction <- html_nodes(bribe_html, ".transaction a") %>% html_text 
+```
+
+And one more: the department that is responsible for these transactions
+```{r}
+# and one more
+dept <- html_nodes(bribe_html, ".department .name a") %>% html_text 
+
+```
+
+This was just for one page, but note that there are many pages. How do we scrape the rest? First, following the best practices on coding, we will write a function that takes the URL of each page, scrapes it, and returns the information we want.
+
+```{r}
+scrape_bribe <- function(url){
+  c_html <- read_html(url)
+  amount <- c_html %>% html_nodes(".paid-amount span") %>%
+    html_text %>% 
+    stri_replace_first_fixed("Paid INR ", "") %>%
+    stri_replace_all_regex("\\r.+", "") %>%
+    stri_replace_all_regex(",", "") %>%
+    as.numeric()
+  transaction <- html_nodes(c_html, ".transaction a") %>% html_text 
+  dept <- html_nodes(c_html, ".department .name a") %>% html_text 
+  df <- data.frame(amount, transaction, dept, stringsAsFactors = FALSE)
+	return(df)
+}
+scrape_bribe(url)
+```
+
+And we will start a list of data frames, and put the data frame for the initial page in the first position of that list.
+
+```{r}
+data_list <- list(scrape_bribe(url))
+```
+
+How should we go about the following pages? Note that the following urls had `page=XX`, where `XX` is 10, 20, 30... So we will create a base url and then add these additional numbers. (Note that for this exercise we will only scrape the first 5 pages.)
+
+```{r}
+base_url <- "http://ipaidabribe.com/reports/paid?page="
+pages <- seq(0, 40, by=10)
+```
+
+And now we just need to loop over pages, and use the function we created earlier to scrape the information, and add it to the list. Note that we're adding a couple of seconds between HTTP requests to avoid overloading the page, as well as a message that will informs us of the progress of the loop.
+
+```{r}
+for (i in 2:length(pages)){
+	# informative message about progress of loop
+	message(i, '/', length(pages))
+	# prepare URL
+  url <- paste0(base_url, pages[i])
+  # scrape website
+	data_list[[i]] <- scrape_bribe(url)
+  # wait a couple of seconds between URL calls
+	Sys.sleep(2)
+}
+```
+
+The final step is to convert the list of data frames into a single data frame that we can work with, using the function `do.call(rbind, LIST)` (where `LIST` is a list of data frames).
+
+```{r}
+## instaed of do.call, we will use bind_rows in dplyr
+## which is much faster 
+data_all <- bind_rows(data_list)
+## check
+View(data_all)
+```
+
+Let's get some quick descriptive statistics to check everything worked. First, what is the most common transaction during which a bribe was paid?
+
+```{r}
+library(ggplot2)
+# frequency table
+summary(data_all$amount)
+# sorting the table from most to least common
+ggplot(data_all, aes(x = amount)) + geom_histogram() + scale_x_log10()
+
+
+```
+
+What was the average bribe payment?
+
+```{r}
+mean(data_all$amount)
+median(data_all$amount)
+
+```
+
+And what was the average payment for each department? 
+```{r}
+agg <- data_all %>%
+  group_by(dept) %>% # group the data by department
+  summarize(mean_bribe = mean(amount) %>% round(1)) %>% # get the summery statistics
+  arrange(-mean_bribe) # order the data by mean bribe amount from largest to smallest
+## DT will provide a sortable table in knitted document.
+library(DT)
+datatable(agg)
+```
+
+
+
+
