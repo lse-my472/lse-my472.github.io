@@ -64,7 +64,7 @@ legend()
 When there are multiple tables on the website, scraping them becomes a bit more complicated. Let's work through a common case scenario: scraping a table from Wikipedia with a list of the most populated cities in the United States.
 
 ```{r, eval = FALSE}
-url <- 'https://en.wikipedia.org/wiki/List_of_United_States_cities_by_population'
+url <- "https://en.wikipedia.org/wiki/List_of_United_States_cities_by_population"
 html <- read_html(url)
 tables <- 
 length(tables)
@@ -98,14 +98,14 @@ pop$city_name <-
 pop$population <- 
 pop$population <- 
 pop$rank <- 
-pop <- pop[,c("rank", "population", "city_name")]
+pop <- pop[, c("rank", "population", "city_name")]
 ```
 
 Now we're ready to generate the figure:
 
 ```{r, eval = FALSE}
 library(ggplot2)
-p <- ggplot(pop, aes(x=rank, y=population, label=city_name))
+p <- ggplot(pop, aes(x = rank, y = population, label = city_name))
 pq <- p + geom_point() + ...
 ```
 
