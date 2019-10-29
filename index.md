@@ -245,7 +245,7 @@ From week 4 to week 7, we will learn how to get the data from the Internet. This
 Continuing from the material covered in Week 4, we will learn the advanced topics in scraping the web. The topics include the scraping documents in XML (such as RSS), scraping websites beyond the authentication, and websites with non-static components.
 
 ##### Resources
-- [Lecture slides](week05/MY472-week05.pdf)
+- [Lecture slides](week05/MY472-week05-internetdata.pdf)
 
 ##### Required Reading
 * Sai Swapna Gollapudi. 2018. [_Learn Web Scraping and Browser Automation Using RSelenium in R_](https://analyticsprofile.com/business-analytics/learn-web-scraping-and-browser-automation-using-rselenium-in-r/).
@@ -256,11 +256,8 @@ Continuing from the material covered in Week 4, we will learn the advanced topic
 * Schouwenaars, Filip. 2015. [_Web Scraping with R and PhantomJS_](https://www.datacamp.com/community/tutorials/scraping-javascript-generated-data-with-r).
 * Mozilla Developer Web Docs. [_A First Splash into JavaScript_](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/First_steps/A_first_splash).
 
-##### Lab: Web scraping
-- Scraping Newspaper RSS
-- Scraping with Selenium
-<!-- * [Attendance Survey](https://lse.eu.qualtrics.com/jfe/form/SV_cZUi4kx7gdQTKzr) -->
-* [Markdown files](https://classroom.github.com/a/wvnfoMId)
+##### Lab: Group work on first five weeks
+- Coming soon
 
 
 #### 6. Reading week
