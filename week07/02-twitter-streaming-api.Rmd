@@ -1,8 +1,6 @@
 ---
 title: "Twitter's Streaming API"
-author: "Pablo Barbera"
-date: November 13, 2018
-output: html_document
+output: github_document
 ---
 
 #### Authenticating

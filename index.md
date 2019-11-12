@@ -267,7 +267,8 @@ Continuing from the material covered in Week 4, we will learn the advanced topic
 #### 7. Working with APIs
 
 ##### Resources
-- [Lecture slides](week07/MY472-week07.pdf)
+- [Lecture slides](week07/MY472-week07-APIs.pdf)
+- [Examples](https://github.com/lse-my472/lse-my472.github.io/tree/master/week07)
 
 How to work with Application Programming Interfaces (APIs), which offer developers and researchers access to data in a structured format. Our running examples will be the New York Times API and the Twitter API.
 
@@ -282,7 +283,7 @@ How to work with Application Programming Interfaces (APIs), which offer develope
 - Interacting with Twitter's REST and Streaming API
 
 ##### Assignment 3: APIs
-- [Link to GitHub classroom](). Deadline: November 26.
+- TBC
 
 
 #### 8. Textual data
