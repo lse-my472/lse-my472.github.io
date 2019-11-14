@@ -99,7 +99,7 @@ nyt_years_count <- function(q, yearinit, yearend) {
 ```
 ```{r, error = TRUE}
 # and let's see what happens...
-nyt_years_count(q="inequality", yearinit=1990, yearend=2017)
+nyt_years_count(q = "inequality", yearinit = 1990, yearend = 2017)
 ```
 
 Oops! What happened? Why the error? We're querying the API too fast. Let's modify the function to add a `while` loop that will wait a couple of seconds in case there's an error:
