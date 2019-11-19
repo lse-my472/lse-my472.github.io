@@ -1,6 +1,6 @@
 Scraping data from Twitter’s REST API
 ================
-November 14, 2019
+November 19, 2019
 
 We’ll now turn to a different type of Twitter data – static data, either
 recent tweets or user-level information. This type of data can be
@@ -8,107 +8,76 @@ retrieved with Twitter’s REST API. We will use the `tweetscores` package
 here – this is a package that Pablo Barbera created to facilitate the
 collection and analysis of Twitter data.
 
-### Searching recent tweets
+### Searching recent Tweets
 
 It is possible to download recent Tweets, but only up those less than 7
 days old, and in some cases not all of them.
 
+The following code will authorize your token and get the last 1,000
+Tweets mentioning “brexit” and “election”, using the **rtweets**
+package.
+
 ``` r
+library("rtweet")
+
 load("my_oauth.rda")
-library("tweetscores")
+twitter_token <- create_token(app = "Ken's R access", 
+                              consumer_key = my_oauth$consumer_key,
+                              consumer_secret = my_oauth$consumer_secret,
+                              access_token = my_oauth$access_token,
+                              access_secret = my_oauth$access_token_secret)
+
+tweets <- search_tweets("brexit AND election", n = 1000)
+head(tweets)
 ```
 
-    ## Loading required package: R2WinBUGS
-
-    ## Loading required package: coda
-
-    ## Loading required package: boot
-
-    ## ##
-    ## ## tweetscores: tools for the analysis of Twitter data
-
-    ## ## Pablo Barbera (USC)
-
-    ## ## www.tweetscores.com
-    ## ##
-
-``` r
-library("streamR")
-```
-
-    ## Loading required package: RCurl
-
-    ## Loading required package: bitops
-
-    ## Loading required package: rjson
-
-    ## Loading required package: ndjson
-
-``` r
-searchTweets(q = c("brexit", "election"), 
-  filename = "recent-brexit-tweets.json",
-  n = 1000, until = "2019-11-14", 
-  oauth = my_oauth)
-```
-
-    ## 100 tweets. Max id: 1194766890603823104
-
-    ## 148 hits left
-
-    ## 200 tweets. Max id: 1194766726703058944
-
-    ## 147 hits left
-
-    ## 300 tweets. Max id: 1194766533576122368
-
-    ## 146 hits left
-
-    ## 400 tweets. Max id: 1194766322699247616
-
-    ## 145 hits left
-
-    ## 500 tweets. Max id: 1194766145691238400
-
-    ## 144 hits left
-
-    ## 600 tweets. Max id: 1194765962811248640
-
-    ## 143 hits left
-
-    ## 700 tweets. Max id: 1194765774298238976
-
-    ## 142 hits left
-
-    ## 800 tweets. Max id: 1194765608577056768
-
-    ## 141 hits left
-
-    ## 900 tweets. Max id: 1194765424212221952
-
-    ## 140 hits left
-
-    ## 1000 tweets. Max id: 1194765212454273024
-
-``` r
-tweets <- parseTweets("recent-brexit-tweets.json")
-```
-
-    ## 4000 tweets have been parsed.
+    ## # A tibble: 6 x 90
+    ##   user_id status_id created_at          screen_name text  source display_text_wi…
+    ##   <chr>   <chr>     <dttm>              <chr>       <chr> <chr>             <dbl>
+    ## 1 252062… 11968030… 2019-11-19 14:51:03 John_Perry… @Bor… Twitt…              264
+    ## 2 252062… 11968021… 2019-11-19 14:47:16 John_Perry… The … Twitt…              147
+    ## 3 113837… 11968030… 2019-11-19 14:51:02 SheronC015… "“I'… Twitt…              140
+    ## 4 449579… 11968030… 2019-11-19 14:51:01 donanderso… Brex… Twitt…              128
+    ## 5 237991… 11968030… 2019-11-19 14:50:59 BRyvkin     "Why… Twitt…              140
+    ## 6 986712… 11968029… 2019-11-19 14:50:45 ZurichBank… @ant… Twitt…              235
+    ## # … with 83 more variables: reply_to_status_id <chr>, reply_to_user_id <chr>,
+    ## #   reply_to_screen_name <chr>, is_quote <lgl>, is_retweet <lgl>, favorite_count <int>,
+    ## #   retweet_count <int>, quote_count <int>, reply_count <int>, hashtags <list>,
+    ## #   symbols <list>, urls_url <list>, urls_t.co <list>, urls_expanded_url <list>,
+    ## #   media_url <list>, media_t.co <list>, media_expanded_url <list>, media_type <list>,
+    ## #   ext_media_url <list>, ext_media_t.co <list>, ext_media_expanded_url <list>,
+    ## #   ext_media_type <chr>, mentions_user_id <list>, mentions_screen_name <list>,
+    ## #   lang <chr>, quoted_status_id <chr>, quoted_text <chr>, quoted_created_at <dttm>,
+    ## #   quoted_source <chr>, quoted_favorite_count <int>, quoted_retweet_count <int>,
+    ## #   quoted_user_id <chr>, quoted_screen_name <chr>, quoted_name <chr>,
+    ## #   quoted_followers_count <int>, quoted_friends_count <int>,
+    ## #   quoted_statuses_count <int>, quoted_location <chr>, quoted_description <chr>,
+    ## #   quoted_verified <lgl>, retweet_status_id <chr>, retweet_text <chr>,
+    ## #   retweet_created_at <dttm>, retweet_source <chr>, retweet_favorite_count <int>,
+    ## #   retweet_retweet_count <int>, retweet_user_id <chr>, retweet_screen_name <chr>,
+    ## #   retweet_name <chr>, retweet_followers_count <int>, retweet_friends_count <int>,
+    ## #   retweet_statuses_count <int>, retweet_location <chr>, retweet_description <chr>,
+    ## #   retweet_verified <lgl>, place_url <chr>, place_name <chr>, place_full_name <chr>,
+    ## #   place_type <chr>, country <chr>, country_code <chr>, geo_coords <list>,
+    ## #   coords_coords <list>, bbox_coords <list>, status_url <chr>, name <chr>,
+    ## #   location <chr>, description <chr>, url <chr>, protected <lgl>, followers_count <int>,
+    ## #   friends_count <int>, listed_count <int>, statuses_count <int>,
+    ## #   favourites_count <int>, account_created_at <dttm>, verified <lgl>, profile_url <chr>,
+    ## #   profile_expanded_url <chr>, account_lang <lgl>, profile_banner_url <chr>,
+    ## #   profile_background_url <chr>, profile_image_url <chr>
 
 What are the most popular hashtags?
 
 ``` r
 library("stringr")
-ht <- str_extract_all(tweets$text, '#[A-Za-z0-9_]+')
+ht <- str_extract_all(tweets$text, "#[A-Za-z0-9_]+")
 ht <- unlist(ht)
 head(sort(table(ht), decreasing = TRUE))
 ```
 
     ## ht
-    ##              #Brexit          #StopBrexit              #GE2019 
-    ##                  416                  188                  124 
-    ##            #FinalSay              #Labour #GeneralElection2019 
-    ##                   68                   60                   56
+    ##    #GE2019    #Brexit    #ge2019   #r4today #ITVDebate       #NHS 
+    ##         64         55         23         22         19         17
 
 You can check the documentation about the options for string search
 [here](https://dev.twitter.com/rest/public/search).
@@ -118,26 +87,42 @@ You can check the documentation about the options for string search
 This is how you would extract information from user profiles:
 
 ``` r
-wh <- c("realDonaldTrump", "POTUS", "VP", "FLOTUS")
-users <- getUsersBatch(screen_names = wh, oauth = my_oauth)
+users <- lookup_users(c("realDonaldTrump", "POTUS", "VP", "FLOTUS"))
+users
 ```
 
-    ## 1--4 users left
-
-``` r
-str(users)
-```
-
-    ## 'data.frame':    4 obs. of  9 variables:
-    ##  $ id_str         : chr  "818910970567344128" "822215679726100480" "25073877" "818876014390603776"
-    ##  $ screen_name    : chr  "VP" "POTUS" "realDonaldTrump" "FLOTUS"
-    ##  $ name           : chr  "Vice President Mike Pence" "President Trump" "Donald J. Trump" "Melania Trump"
-    ##  $ description    : chr  "Vice President Mike Pence. Husband, father, & honored to serve as the 48th Vice President of the United States."| __truncated__ "45th President of the United States of America, @realDonaldTrump. Tweets archived: https://t.co/eVVzoBb3Zr" "45th President of the United States of America\U0001f1fa\U0001f1f8" "This account is run by the Office of First Lady Melania Trump. Tweets may be archived. More at https://t.co/eVVzoBb3Zr"
-    ##  $ followers_count: int  8075387 27092966 66779231 12606665
-    ##  $ statuses_count : int  7822 7741 46099 737
-    ##  $ friends_count  : int  13 39 47 7
-    ##  $ created_at     : chr  "Tue Jan 10 20:02:44 +0000 2017" "Thu Jan 19 22:54:28 +0000 2017" "Wed Mar 18 13:46:38 +0000 2009" "Tue Jan 10 17:43:50 +0000 2017"
-    ##  $ location       : chr  "Washington, D.C." "Washington, D.C." "Washington, DC" "Washington, D.C."
+    ## # A tibble: 4 x 90
+    ##   user_id status_id created_at          screen_name text  source display_text_wi…
+    ##   <chr>   <chr>     <dttm>              <chr>       <chr> <chr>             <int>
+    ## 1 250738… 11967911… 2019-11-19 14:03:47 realDonald… NASD… Twitt…               NA
+    ## 2 822215… 11967993… 2019-11-19 14:36:22 POTUS       NASD… TheWh…               NA
+    ## 3 818910… 11967945… 2019-11-19 14:17:07 VP          NASD… Twitt…               NA
+    ## 4 818876… 11947597… 2019-11-13 23:31:40 FLOTUS      Grea… Twitt…               NA
+    ## # … with 83 more variables: reply_to_status_id <lgl>, reply_to_user_id <lgl>,
+    ## #   reply_to_screen_name <lgl>, is_quote <lgl>, is_retweet <lgl>, favorite_count <int>,
+    ## #   retweet_count <int>, quote_count <int>, reply_count <int>, hashtags <list>,
+    ## #   symbols <list>, urls_url <list>, urls_t.co <list>, urls_expanded_url <list>,
+    ## #   media_url <list>, media_t.co <list>, media_expanded_url <list>, media_type <list>,
+    ## #   ext_media_url <list>, ext_media_t.co <list>, ext_media_expanded_url <list>,
+    ## #   ext_media_type <chr>, mentions_user_id <list>, mentions_screen_name <list>,
+    ## #   lang <chr>, quoted_status_id <chr>, quoted_text <chr>, quoted_created_at <dttm>,
+    ## #   quoted_source <chr>, quoted_favorite_count <int>, quoted_retweet_count <int>,
+    ## #   quoted_user_id <chr>, quoted_screen_name <chr>, quoted_name <chr>,
+    ## #   quoted_followers_count <int>, quoted_friends_count <int>,
+    ## #   quoted_statuses_count <int>, quoted_location <chr>, quoted_description <chr>,
+    ## #   quoted_verified <lgl>, retweet_status_id <chr>, retweet_text <chr>,
+    ## #   retweet_created_at <dttm>, retweet_source <chr>, retweet_favorite_count <int>,
+    ## #   retweet_retweet_count <int>, retweet_user_id <chr>, retweet_screen_name <chr>,
+    ## #   retweet_name <chr>, retweet_followers_count <int>, retweet_friends_count <int>,
+    ## #   retweet_statuses_count <int>, retweet_location <chr>, retweet_description <chr>,
+    ## #   retweet_verified <lgl>, place_url <chr>, place_name <chr>, place_full_name <chr>,
+    ## #   place_type <chr>, country <chr>, country_code <chr>, geo_coords <list>,
+    ## #   coords_coords <list>, bbox_coords <list>, status_url <chr>, name <chr>,
+    ## #   location <chr>, description <chr>, url <chr>, protected <lgl>, followers_count <int>,
+    ## #   friends_count <int>, listed_count <int>, statuses_count <int>,
+    ## #   favourites_count <int>, account_created_at <dttm>, verified <lgl>, profile_url <chr>,
+    ## #   profile_expanded_url <chr>, account_lang <lgl>, profile_banner_url <chr>,
+    ## #   profile_background_url <chr>, profile_image_url <chr>
 
 Which of these has the most followers?
 
@@ -145,14 +130,35 @@ Which of these has the most followers?
 users[which.max(users$followers_count), ]
 ```
 
-    ##     id_str     screen_name            name
-    ## 3 25073877 realDonaldTrump Donald J. Trump
-    ##                                                          description
-    ## 3 45th President of the United States of America\U0001f1fa\U0001f1f8
-    ##   followers_count statuses_count friends_count
-    ## 3        66779231          46099            47
-    ##                       created_at       location
-    ## 3 Wed Mar 18 13:46:38 +0000 2009 Washington, DC
+    ## # A tibble: 1 x 90
+    ##   user_id status_id created_at          screen_name text  source display_text_wi…
+    ##   <chr>   <chr>     <dttm>              <chr>       <chr> <chr>             <int>
+    ## 1 250738… 11967911… 2019-11-19 14:03:47 realDonald… NASD… Twitt…               NA
+    ## # … with 83 more variables: reply_to_status_id <lgl>, reply_to_user_id <lgl>,
+    ## #   reply_to_screen_name <lgl>, is_quote <lgl>, is_retweet <lgl>, favorite_count <int>,
+    ## #   retweet_count <int>, quote_count <int>, reply_count <int>, hashtags <list>,
+    ## #   symbols <list>, urls_url <list>, urls_t.co <list>, urls_expanded_url <list>,
+    ## #   media_url <list>, media_t.co <list>, media_expanded_url <list>, media_type <list>,
+    ## #   ext_media_url <list>, ext_media_t.co <list>, ext_media_expanded_url <list>,
+    ## #   ext_media_type <chr>, mentions_user_id <list>, mentions_screen_name <list>,
+    ## #   lang <chr>, quoted_status_id <chr>, quoted_text <chr>, quoted_created_at <dttm>,
+    ## #   quoted_source <chr>, quoted_favorite_count <int>, quoted_retweet_count <int>,
+    ## #   quoted_user_id <chr>, quoted_screen_name <chr>, quoted_name <chr>,
+    ## #   quoted_followers_count <int>, quoted_friends_count <int>,
+    ## #   quoted_statuses_count <int>, quoted_location <chr>, quoted_description <chr>,
+    ## #   quoted_verified <lgl>, retweet_status_id <chr>, retweet_text <chr>,
+    ## #   retweet_created_at <dttm>, retweet_source <chr>, retweet_favorite_count <int>,
+    ## #   retweet_retweet_count <int>, retweet_user_id <chr>, retweet_screen_name <chr>,
+    ## #   retweet_name <chr>, retweet_followers_count <int>, retweet_friends_count <int>,
+    ## #   retweet_statuses_count <int>, retweet_location <chr>, retweet_description <chr>,
+    ## #   retweet_verified <lgl>, place_url <chr>, place_name <chr>, place_full_name <chr>,
+    ## #   place_type <chr>, country <chr>, country_code <chr>, geo_coords <list>,
+    ## #   coords_coords <list>, bbox_coords <list>, status_url <chr>, name <chr>,
+    ## #   location <chr>, description <chr>, url <chr>, protected <lgl>, followers_count <int>,
+    ## #   friends_count <int>, listed_count <int>, statuses_count <int>,
+    ## #   favourites_count <int>, account_created_at <dttm>, verified <lgl>, profile_url <chr>,
+    ## #   profile_expanded_url <chr>, account_lang <lgl>, profile_banner_url <chr>,
+    ## #   profile_background_url <chr>, profile_image_url <chr>
 
 ``` r
 users$screen_name[which.max(users$followers_count)]
@@ -160,23 +166,27 @@ users$screen_name[which.max(users$followers_count)]
 
     ## [1] "realDonaldTrump"
 
+``` r
+users[, c("screen_name", "followers_count")]
+```
+
+    ## # A tibble: 4 x 2
+    ##   screen_name     followers_count
+    ##   <chr>                     <int>
+    ## 1 realDonaldTrump        66875155
+    ## 2 POTUS                  27125782
+    ## 3 VP                      8090928
+    ## 4 FLOTUS                 12621020
+
 ### Downloading recent tweets from a specific user
 
-Download up to 3,200 recent tweets from a Twitter
-account:
+Download recent tweets from a specific account:
 
 ``` r
-# getTimeline(filename = "realDonaldTrump.json", screen_name = "realDonaldTrump", 
-#             n = 1000, oauth = my_oauth)
+tweets <- get_timeline("realDonaldTrump", n = 1000)
 ```
 
 What are the most common hashtags?
-
-``` r
-tweets <- parseTweets("realDonaldTrump.json")
-```
-
-    ## 1796 tweets have been parsed.
 
 ``` r
 ht <- str_extract_all(tweets$text, "#[A-Za-z0-9_]+")
@@ -184,11 +194,7 @@ ht <- unlist(ht)
 head(sort(table(ht), decreasing = TRUE))
 ```
 
-    ## ht
-    ##        #MAGA      #MyTake    #VarneyCo #impeachment     #KAG2020 
-    ##           25           23           23           18           16 
-    ##       #USMCA 
-    ##           13
+    ## integer(0)
 
 ### Other types of data
 
@@ -206,11 +212,11 @@ documentation of the package for more examples
 
 ``` r
 # Downloading tweets when you know the ID
-getStatuses(ids = c("1192779653947252736"),
-            filename = "old-tweets.json",
-            oauth = my_oauth)
-parseTweets("old-tweets.json")
+tw <- lookup_tweets(1196148537525977088)
+tw$text
 ```
+
+    ## [1] ".@SteveScalise blew the nasty &amp; obnoxious Chris Wallace (will never be his father, Mike!) away on Chris’s lowest rated (unless I’m on) morning show. This kind of dumb and unfair interview would never have happened in the @FoxNews past. Great job Steve!"
 
 2)  Lists of Twitter users, compiled by other users, are also accessible
     through the API.
@@ -219,75 +225,31 @@ parseTweets("old-tweets.json")
 
 ``` r
 # download user information from a list
-MCs <- getList(list_name = "new-members-of-congress", 
-               screen_name = "cspan", oauth = my_oauth)
+new_congress_members <- lists_members(slug = "new-members-of-congress", owner_user = "cspan")
+head(new_congress_members)
 ```
 
-    ## 894 API calls left
-
-    ## 20 users in list. Next cursor: 5504177645515399168
-
-    ## 893 API calls left
-
-    ## 40 users in list. Next cursor: 5361732962332446720
-
-    ## 892 API calls left
-
-    ## 60 users in list. Next cursor: 4611686019261061818
-
-    ## 891 API calls left
-
-    ## 80 users in list. Next cursor: 4611686018645680191
-
-    ## 890 API calls left
-
-    ## 100 users in list. Next cursor: 4611686018453445113
-
-    ## 889 API calls left
-
-    ## 109 users in list. Next cursor: 0
-
-    ## 888 API calls left
-
-``` r
-head(MCs)
-```
-
-    ##             id              id_str            name    screen_name
-    ## 1 1.029094e+18 1029094268542099457    Lance Gooden    Lancegooden
-    ## 2 9.917210e+17  991721030631780354    Jahana Hayes  JahanaHayesCT
-    ## 3 9.864236e+17  986423555025002497     Bryan Steil     BryanSteil
-    ## 4 9.772474e+17  977247448820305920     Joe Morelle    votemorelle
-    ## 5 9.693281e+17  969328139485802496      John Joyce JohnJoyceForPA
-    ## 6 9.649970e+17  964996994623311874 Kelly Armstrong   Armstrong_ND
-    ##            location
-    ## 1       Terrell, TX
-    ## 2     Waterbury, CT
-    ## 3                  
-    ## 4   Irondequoit, NY
-    ## 5 Pennsylvania, USA
-    ## 6                  
-    ##                                                                                                                                                       description
-    ## 1                                                                                      Husband, Father, and U.S. Congressman for TX's 5th Congressional District.
-    ## 2                                                                                                                     CT 5th Congressional District Congresswoman
-    ## 3                                                                                         Problem Solver. Badger. Manufacturing. Running for Congress. #TeamSteil
-    ## 4 #NY25 Democratic candidate. Husband, father, believer in the promise of a future that is as strong, resilient & bold as the people who call Monroe County home.
-    ## 5                  Father, husband, granddad, doctor, advocate, PSU alum. Congressman representing #PA13. Fighting every day for central Pennsylvania. #TeamJoyce
-    ## 6                                      Lifelong North Dakotan. Proud husband and dad. Republican. U.S. House of Representatives. Real Conservative. Real results.
-    ##                       url followers_count friends_count
-    ## 1 https://t.co/se9SXZNb3A            1853           695
-    ## 2 https://t.co/M3SQ8jj5UE           27402           166
-    ## 3 https://t.co/YCyHtH7BJc            1779           110
-    ## 4 https://t.co/rK3kkPMWMY            1256           218
-    ## 5 https://t.co/jMnrGGJVsx             823           172
-    ## 6 https://t.co/olKerxuUWz            1821           577
-    ##                       created_at time_zone lang
-    ## 1 Mon Aug 13 19:56:08 +0000 2018        NA   NA
-    ## 2 Wed May 02 16:48:13 +0000 2018        NA   NA
-    ## 3 Wed Apr 18 01:57:57 +0000 2018        NA   NA
-    ## 4 Fri Mar 23 18:15:22 +0000 2018        NA   NA
-    ## 5 Thu Mar 01 21:46:52 +0000 2018        NA   NA
-    ## 6 Sat Feb 17 22:56:27 +0000 2018        NA   NA
+    ## # A tibble: 6 x 42
+    ##   user_id name  screen_name location description url   protected followers_count
+    ##   <chr>   <chr> <chr>       <chr>    <chr>       <chr> <lgl>               <int>
+    ## 1 102909… Lanc… Lancegooden Terrell… Husband, F… http… FALSE                1863
+    ## 2 991721… Jaha… JahanaHaye… Waterbu… CT 5th Con… http… FALSE               27436
+    ## 3 986423… Brya… BryanSteil  ""       Problem So… http… FALSE                1781
+    ## 4 977247… Joe … votemorelle Irondeq… #NY25 Demo… http… FALSE                1261
+    ## 5 969328… John… JohnJoyceF… Pennsyl… Father, hu… http… FALSE                 827
+    ## 6 964996… Kell… Armstrong_… ""       Lifelong N… http… FALSE                1818
+    ## # … with 34 more variables: friends_count <int>, listed_count <int>, created_at <dttm>,
+    ## #   favourites_count <int>, utc_offset <lgl>, time_zone <lgl>, geo_enabled <lgl>,
+    ## #   verified <lgl>, statuses_count <int>, lang <lgl>, contributors_enabled <lgl>,
+    ## #   is_translator <lgl>, is_translation_enabled <lgl>, profile_background_color <chr>,
+    ## #   profile_background_image_url <chr>, profile_background_image_url_https <chr>,
+    ## #   profile_background_tile <lgl>, profile_image_url <chr>,
+    ## #   profile_image_url_https <chr>, profile_banner_url <chr>, profile_link_color <chr>,
+    ## #   profile_sidebar_border_color <chr>, profile_sidebar_fill_color <chr>,
+    ## #   profile_text_color <chr>, profile_use_background_image <lgl>,
+    ## #   has_extended_profile <lgl>, default_profile <lgl>, default_profile_image <lgl>,
+    ## #   can_media_tag <lgl>, followed_by <lgl>, following <lgl>, follow_request_sent <lgl>,
+    ## #   notifications <lgl>, translator_type <chr>
 
 This is also useful if e.g. you’re interested in compiling lists of
 journalists, because media outlets offer these lists in their profiles.
