@@ -1,2 +1,0 @@
-This is just an example of a new file.
-I'm adding an extra line of code.
