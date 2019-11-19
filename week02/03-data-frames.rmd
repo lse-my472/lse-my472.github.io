@@ -1,0 +1,136 @@
+### Data structures
+
+Building off of the data types we've learned, *data structures* combine multiple values into a single object. Some common data structures in `R` include:
+
+1. vectors: sequence of values of a certain type
+2. data frame: a table of vectors, all of the same length
+3. list: collection of objects of different types
+
+#### Vectors
+
+We've already seen vectors created by **c**ombining multiple values with the `c` command:
+
+```{r}
+student_names <- c("Bill", "Jane", "Sarah", "Fred", "Paul")
+math_scores <- c(80, 75, 91, 67, 56)
+verbal_scores <- c(72, 90, 99, 60, 68)
+```
+
+There are shortcuts for creating vectors with certain structures, for instance:
+
+```{r}
+nums1 <- 1:100
+# -10, -5, 0, ..., 100
+nums2 <- seq(-10, 100, by = 5)
+# 467 equally spaced numbers between -10 and 100
+nums3 <- seq(-10, 100, length.out = 467)
+```
+
+Notice that we used `seq` to generate both `nums1` and `nums2`. The different behavior is controlled by which arguments (e.g. `by`, `length.out`) are supplied to the function `seq`.
+
+With vectors we can carry out some of the most fundamental tasks in data analysis, such as descriptive statistics
+
+```{r}
+mean(math_scores)
+min(math_scores - verbal_scores)
+summary(verbal_scores)
+```
+
+and plots.
+
+```{r}
+plot(x = math_scores, y = verbal_scores)
+text(x = math_scores, y = verbal_scores, labels = student_names)
+```
+
+It's easy to pull out specific entries in a vector using `[]`. For example,
+
+```{r}
+math_scores[3]
+math_scores[1:3]
+math_scores[-c(4:5)]
+math_scores[which(verbal_scores >= 90)]
+math_scores[3] <- 92
+math_scores
+```
+
+#### Data frames
+
+Data frames allow us to combine many vectors of the same length into a single object.
+
+```{r}
+student_names <- c("Bill", "Jane", "Sarah", "Fred", "Paul")
+math_scores <- c(80, 75, 91, 67, 56)
+verbal_scores <- c(72, 90, 99, 60, 68)
+```
+
+```{r}
+students <- data.frame(student_names, math_scores, verbal_scores)
+students
+summary(students)
+```
+
+Notice that `student_names` is a different class (character) than `math_scores` (numeric), yet a data frame combines their values into a single object. We can also create data frames that include new variables:
+
+```{r}
+students$final_scores <- 0
+students$final_scores <- (students$math_scores + students$verbal_scores) / 2
+
+age <- c(18, 19, 20, 21, 22)
+students2 <- data.frame(student_names, age)
+# merge different data frames
+students3 <- merge(students, students2)
+
+students3
+```
+
+`data.frame` converts character vectors into factors automatically. This will be an endless source of headaches, trust me. We can avoid that behavior by using `stringsAsFactors=FALSE`:
+
+```{r}
+str(students)
+students <- data.frame(student_names, math_scores, verbal_scores,
+                       stringsAsFactors = FALSE)
+str(students)
+```
+
+#### Lists
+
+Lists are an even more flexible way of combining multiple objects into a single object. As you will see throughout the course, we will use lists to store the output of our scraping steps. Using lists, we can combine together vectors of different lengths:
+
+```{r}
+list1 <- list(some_numbers = 1:10, some_letters = c("a", "b", "c"))
+list1
+```
+
+or even vectors and data frames, or multiple data frames:
+
+```{r}
+schools <- list(school_name = "LSE", students = students,
+                    faculty = data.frame(name = c("Kelly Jones", "Matt Smith"),
+                                         age = c(41, 55)))
+schools
+```
+
+You can access a list component in several different ways:
+
+```{r}
+schools[[1]]
+schools[["faculty"]]
+schools$students
+```
+
+#### Installing packages
+
+Packages are libraries of functions that can expand R's capabilities. Some of them come with R's `base` version, such as `maps` and you can load them with `library`:
+
+```{r}
+library(maps)
+```
+
+But many others (over 10,000!) are available on CRAN, the distributed repository of packages contributed by the R community. Let's install the `tidyverse` package, which is actually a set of packages authored by Hadley Wickham that we will heavily use in the course:
+
+```{r}
+install.packages("tidyverse")
+```
+
+

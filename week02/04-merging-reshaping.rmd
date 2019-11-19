@@ -1,0 +1,94 @@
+## Reshaping datasets
+
+We often want to convert the format in which a data frame is structured, from wide to long format, or vice versa. Let's see some examples of how to do this:
+
+```{r}
+d <- read.csv("unvoting.csv", stringsAsFactors = FALSE)
+dd <- d[d$CountryAbb %in% c("HUN", "AUS") & d$Year %in% 2010:2012,
+        c("Year", "CountryAbb", "idealpoint")]
+
+# converting to wide format
+library(reshape2)
+(dc <- dcast(dd, CountryAbb ~ Year, value.var = "idealpoint"))
+
+# converting back to long format
+melt(dc, id.vars = c("CountryAbb"), value.name = "idealpoint")
+```
+
+Another very useful function to reshape datasets (although it's more about computing summary statistics!) is `aggregate`. For example, we can use it to compute the average value of a variable, grouped by values of a different variable. Let's see some examples
+
+```{r}
+aggregate(idealpoint ~ CountryAbb, data = d, FUN = mean)
+
+aggregate(idealpoint ~ CountryAbb, data = d, FUN = median)
+
+aggregate(PctAgreeRUSSIA ~ Year, data = d, FUN = mean)
+plot(aggregate(PctAgreeRUSSIA ~ Year, data = d, FUN = mean), type = "l")
+
+aggregate(idealpoint ~ CountryAbb, data = d, FUN = length)
+
+```
+
+## Merging datasets
+
+Two or more data frames can be combined into a single one according to the values of a single variables using the `merge` function.
+
+```{r}
+students <- data.frame(name = c("Paul", "Peter", "Amy", "Megan", "Selena"),
+                age = c(18, 19, 18, 20, 21),
+                stringsAsFactors = FALSE)
+grades <- data.frame(name = c("Amy", "Megan", "Peter", "Drew"),
+                     grade = c("A", "B+", "A-", "B"),
+                     stringsAsFactors = FALSE)
+
+merge(students, grades)
+# we can be more specific about how to merge
+merge(students, grades, by = "name")
+
+# if the common variable has different names, we need to specify it
+grades <- data.frame(student = c("Amy", "Megan", "Peter", "Drew"),
+                     grade = c("A", "B+", "A-", "B"),
+                     stringsAsFactors = FALSE)
+merge(students, grades, by.x = "name", by.y = "student")
+
+```
+
+Note that by default `merge` will only return rows that are present in both dataset; but we can change that default behavior. For the non-matches, the returned value will be `NA`.
+
+```{r}
+merge(students, grades, by.x = "name", by.y = "student", all.x = TRUE)
+merge(students, grades, by.x = "name", by.y = "student", all.y = TRUE)
+merge(students, grades, by.x = "name", by.y = "student", all = TRUE)
+```
+
+What happens if names do not have exactly the same spelling? We can try some fuzzy string matching based on the Levenshtein (or edit) distance between strings. See `?adist`
+
+```{r}
+students <- data.frame(name = c("Paul", "Pete", "Amie", "Meghan", "Selena"),
+                age = c(18, 19, 18, 20, 21),
+                stringsAsFactors = FALSE)
+grades <- data.frame(name = c("Amy", "Megan", "Peter", "Drew"),
+                     grade = c("A", "B+", "A-", "B"),
+                     stringsAsFactors = FALSE)
+
+# probably there are better ways to code this...
+students$grade <- NA
+
+for (i in seq_len(nrow(students))) {
+  dist <- adist(students$name[i], grades$name)
+  if (any(dist < 4)) {
+    students$grade[i] <- grades$grade[which.min(dist)]
+  }
+}
+
+students
+
+students <- data.frame(name = c("Paul", "Peter", "Amy", "Megan", "Selena"),
+                age = c(18, 19, 18, 20, 21),
+                stringsAsFactors = FALSE)
+merge(students, grades)
+```
+
+To learn more about merging datasets based on strings, see the `RecordLinkage` package.
+
+Another package that is very useful is `countrycode`, which contains a data frame with pretty much every potential country code you may want to use.
