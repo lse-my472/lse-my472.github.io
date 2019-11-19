@@ -12,15 +12,19 @@ After the new API changes, getting a new token requires submitting an applicatio
 This will not work in your computer!
 
 ```{r}
-library("ROAuth")
+library("twitteR")
+# library("ROAuth")
 load("my_oauth.rda")
 ```
 
 Once you have created your token (after your application has been approved), you can check that it worked by running the line below:
 
 ```{r}
-library("tweetscores")
-getUsers(screen_names="LSEnews", oauth = my_oauth)[[1]]$screen_name
+setup_twitter_oauth(consumer_key = my_oauth$consumer_key,
+                    consumer_secret = my_oauth$consumer_secret,
+                    access_token = my_oauth$access_token,
+                    access_secret = my_oauth$access_token_secret)
+getUser("LSEnews")
 ```
 
 If this displays `LSEnews` then we're good to go!
@@ -157,9 +161,9 @@ Follow these steps to create your own token after your application has been appr
 library(ROAuth)
 my_oauth <- list(consumer_key = "CONSUMER_KEY",
    consumer_secret = "CONSUMER_SECRET",
-   access_token="ACCESS_TOKEN",
+   access_token = "ACCESS_TOKEN",
    access_token_secret = "ACCESS_TOKEN_SECRET")
-save(my_oauth, file="my_oauth.rda")
+save(my_oauth, file = "my_oauth.rda")
 ```
 
 To access this data, then you just need to run:
@@ -170,19 +174,3 @@ load("my_oauth.rda")
 What can go wrong here? Make sure all the consumer and token keys are pasted here as is, without any additional space character. If you don't see any output in the console after running the code above, that's a good sign.
 
 Note that the Oauth tokens data is saved as a local file.  That will save us some time later on, but you could also just re-run the code in lines 22 to 27 before connecting to the API in the future.
-
-Note that you will need also to install the **tweetscores** and the development version of **streamR** package from GitHub.  You can do this using this code:
-```{r, eval = FALSE}
-devtools::install_github("pablobarbera/twitter_ideology/pkg/tweetscores")
-devtools::install_github("pablobarbera/streamR/streamR")
-```
-
-
-To check that it worked, try running the line below:
-
-```{r}
-library("tweetscores")
-getUsers(screen_names = "LSEnews", oauth = my_oauth)[[1]]$screen_name
-```
-
-If this displays `LSEnews` then we're good to go!

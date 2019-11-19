@@ -16,7 +16,8 @@ approved. We’ll come back to this during the seminars this week.
 This will not work in your computer\!
 
 ``` r
-library("ROAuth")
+library("twitteR")
+# library("ROAuth")
 load("my_oauth.rda")
 ```
 
@@ -24,25 +25,16 @@ Once you have created your token (after your application has been
 approved), you can check that it worked by running the line below:
 
 ``` r
-library("tweetscores")
+setup_twitter_oauth(consumer_key = my_oauth$consumer_key,
+                    consumer_secret = my_oauth$consumer_secret,
+                    access_token = my_oauth$access_token,
+                    access_secret = my_oauth$access_token_secret)
 ```
 
-    ## Loading required package: R2WinBUGS
-
-    ## Loading required package: coda
-
-    ## Loading required package: boot
-
-    ## ##
-    ## ## tweetscores: tools for the analysis of Twitter data
-
-    ## ## Pablo Barbera (USC)
-
-    ## ## www.tweetscores.com
-    ## ##
+    ## [1] "Using direct authentication"
 
 ``` r
-getUsers(screen_names="LSEnews", oauth = my_oauth)[[1]]$screen_name
+getUser("LSEnews")
 ```
 
     ## [1] "LSEnews"
@@ -77,7 +69,7 @@ filterStream(file.name = "trump-streaming-tweets.json", track = "trump",
 
     ## Capturing tweets...
 
-    ## Connection to Twitter stream was closed after 20 seconds with up to 430 tweets downloaded.
+    ## Connection to Twitter stream was closed after 20 seconds with up to 1957 tweets downloaded.
 
 Note the options: - `file.name` indicates the file in your disk where
 the tweets will be downloaded  
@@ -94,7 +86,7 @@ Once it has finished, we can open it in R as a data frame with the
 tweets <- parseTweets("trump-streaming-tweets.json")
 ```
 
-    ## 570 tweets have been parsed.
+    ## 2208 tweets have been parsed.
 
 ``` r
 tweets[1, ]
@@ -162,7 +154,7 @@ filterStream(file.name="tweets_geo.json", locations=c(-125, 25, -66, 50),
 
     ## Capturing tweets...
 
-    ## Connection to Twitter stream was closed after 30 seconds with up to 94 tweets downloaded.
+    ## Connection to Twitter stream was closed after 30 seconds with up to 500 tweets downloaded.
 
 We can do as before and open the tweets in R
 
@@ -170,7 +162,7 @@ We can do as before and open the tweets in R
 tweets <- parseTweets("tweets_geo.json")
 ```
 
-    ## 183 tweets have been parsed.
+    ## 920 tweets have been parsed.
 
 And use the maps library to see where most tweets are coming from. Note
 that there are two types of geographic information on tweets:
@@ -188,10 +180,10 @@ head(sort(table(states), decreasing = TRUE))
 ```
 
     ## states
-    ##         california              texas            florida 
-    ##                 44                 14                 11 
-    ##            georgia           illinois new york:manhattan 
-    ##                  7                  7                  6
+    ##        texas   california      florida      georgia pennsylvania 
+    ##          102           88           53           44           37 
+    ##      arizona 
+    ##           30
 
 We can also prepare a map of the exact locations of the tweets.
 
@@ -222,6 +214,8 @@ ggplot(map.data) + geom_map(aes(map_id = region), map = map.data, fill = "grey90
         plot.background = element_blank()) 
 ```
 
+    ## Warning: Removed 1 rows containing missing values (geom_point).
+
 ![](02-twitter-streaming-api_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
 
 Finally, it’s also possible to collect a random sample of tweets. That’s
@@ -234,7 +228,7 @@ sampleStream(file.name="tweets_random.json", timeout = 30, oauth = my_oauth)
 
     ## Capturing tweets...
 
-    ## Connection to Twitter stream was closed after 30 seconds with up to 1667 tweets downloaded.
+    ## Connection to Twitter stream was closed after 30 seconds with up to 5978 tweets downloaded.
 
 Here we are collecting 30 seconds of tweets. And once again, to open the
 tweets in R…
@@ -243,7 +237,7 @@ tweets in R…
 tweets <- parseTweets("tweets_random.json")
 ```
 
-    ## 2280 tweets have been parsed.
+    ## 5707 tweets have been parsed.
 
 What is the most retweeted
     tweet?
@@ -290,10 +284,10 @@ head(sort(table(ht), decreasing = TRUE))
 ```
 
     ## ht
-    ##           #GOT7          #Peing #HipWithMamamoo       #MAMAVOTE 
-    ##              13              11               8               8 
-    ##              #G            #NHK 
-    ##               7               6
+    ##          #MAMAVOTE              #GOT7             #Peing 
+    ##                 27                 19                 15 
+    ## #BringBackDuoArena  #TaxPayersWithJNU                 #G 
+    ##                 13                 12                 11
 
 #### Creating your own token
 
@@ -320,9 +314,9 @@ been approved:
 library(ROAuth)
 my_oauth <- list(consumer_key = "CONSUMER_KEY",
    consumer_secret = "CONSUMER_SECRET",
-   access_token="ACCESS_TOKEN",
+   access_token = "ACCESS_TOKEN",
    access_token_secret = "ACCESS_TOKEN_SECRET")
-save(my_oauth, file="my_oauth.rda")
+save(my_oauth, file = "my_oauth.rda")
 ```
 
 To access this data, then you just need to run:
@@ -339,24 +333,3 @@ good sign.
 Note that the Oauth tokens data is saved as a local file. That will save
 us some time later on, but you could also just re-run the code in lines
 22 to 27 before connecting to the API in the future.
-
-Note that you will need also to install the **tweetscores** and the
-development version of **streamR** package from GitHub. You can do this
-using this
-code:
-
-``` r
-devtools::install_github("pablobarbera/twitter_ideology/pkg/tweetscores")
-devtools::install_github("pablobarbera/streamR/streamR")
-```
-
-To check that it worked, try running the line below:
-
-``` r
-library("tweetscores")
-getUsers(screen_names = "LSEnews", oauth = my_oauth)[[1]]$screen_name
-```
-
-    ## [1] "LSEnews"
-
-If this displays `LSEnews` then we’re good to go\!
