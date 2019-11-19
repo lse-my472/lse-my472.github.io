@@ -16,25 +16,23 @@ approved. We’ll come back to this during the seminars this week.
 This will not work in your computer\!
 
 ``` r
-library("twitteR")
-# library("ROAuth")
-load("my_oauth.rda")
+library("rtweet")
 ```
 
 Once you have created your token (after your application has been
 approved), you can check that it worked by running the line below:
 
 ``` r
-setup_twitter_oauth(consumer_key = my_oauth$consumer_key,
-                    consumer_secret = my_oauth$consumer_secret,
-                    access_token = my_oauth$access_token,
-                    access_secret = my_oauth$access_token_secret)
-```
+load("my_oauth.rda")
 
-    ## [1] "Using direct authentication"
+# replace the app name with your own!
+twitter_token <- create_token(app = "Ken's R access", 
+                              consumer_key = my_oauth$consumer_key,
+                              consumer_secret = my_oauth$consumer_secret,
+                              access_token = my_oauth$access_token,
+                              access_secret = my_oauth$access_token_secret)
 
-``` r
-getUser("LSEnews")
+lookup_users("LSEnews")$screen_name
 ```
 
     ## [1] "LSEnews"
@@ -47,90 +45,77 @@ file.
 
 #### Collecting data from Twitter’s Streaming API
 
-Collecting tweets filtering by
-keyword:
+Collecting tweets filtering by keyword:
 
 ``` r
-library("streamR")
+tweets <- stream_tweets("trump", timeout = 10)
 ```
 
-    ## Loading required package: RCurl
+    ## Streaming tweets for 10 seconds...
 
-    ## Loading required package: bitops
-
-    ## Loading required package: rjson
-
-    ## Loading required package: ndjson
+    ## Finished streaming tweets!
 
 ``` r
-filterStream(file.name = "trump-streaming-tweets.json", track = "trump", 
-    timeout = 20, oauth = my_oauth)
+head(tweets)
 ```
 
-    ## Capturing tweets...
-
-    ## Connection to Twitter stream was closed after 20 seconds with up to 1957 tweets downloaded.
-
-Note the options: - `file.name` indicates the file in your disk where
-the tweets will be downloaded  
-\- `track` is the keyword(s) mentioned in the tweets we want to capture.
-- `timeout` is the number of seconds that the connection will remain
-open  
-\- `oauth` is the OAuth token we are using
-
-Once it has finished, we can open it in R as a data frame with the
-`parseTweets`
-    function
-
-``` r
-tweets <- parseTweets("trump-streaming-tweets.json")
-```
-
-    ## 2208 tweets have been parsed.
-
-``` r
-tweets[1, ]
-```
-
-    ##                                                                                                                                                                                                                                                                        text
-    ## 1 RT @Trumpet1984:Do you suffer from Donotrecallitis?\n\nSymptoms include:  Guilt, desire to not perjure yourself, fact avoidance, loss of spine, Republicanism\n\nIf so, you might need Prizon®\n\nAsk your lawyer if Prizon® is right for you!\n\nhttps://t.co/2xnPlE62Pm
-    ##   retweet_count favorite_count favorited truncated              id_str
-    ## 1           369            999     FALSE     FALSE 1194901138082058241
-    ##   in_reply_to_screen_name
-    ## 1                    <NA>
-    ##                                                                               source
-    ## 1 <a href="http://twitter.com/download/iphone" rel="nofollow">Twitter for iPhone</a>
-    ##   retweeted                     created_at in_reply_to_status_id_str
-    ## 1     FALSE Thu Nov 14 08:53:26 +0000 2019                      <NA>
-    ##   in_reply_to_user_id_str lang listed_count verified location user_id_str
-    ## 1                    <NA>   en            2    FALSE     <NA>    25665768
-    ##                                                                                                                                                   description
-    ## 1 \U0001f5fdCongress do your job impeach the criminal. It’s not wrong to call POTUS a mofo. it’s wrong to call this mofo a POTUS. #resistance \U0001f308 #ifb
-    ##   geo_enabled                user_created_at statuses_count
-    ## 1        TRUE Sat Mar 21 11:59:33 +0000 2009          31830
-    ##   followers_count favourites_count protected user_url
-    ## 1            3132            25562     FALSE     <NA>
-    ##                          name time_zone user_lang utc_offset friends_count
-    ## 1 Pickle as in we are in a...        NA        NA         NA          4458
-    ##      screen_name country_code country place_type full_name place_name
-    ## 1 fight4freeAmer         <NA>    <NA>         NA      <NA>       <NA>
-    ##   place_id place_lat place_lon lat lon expanded_url  url
-    ## 1     <NA>       NaN       NaN  NA  NA         <NA> <NA>
+    ## # A tibble: 6 x 90
+    ##   user_id status_id created_at          screen_name text  source
+    ##   <chr>   <chr>     <dttm>              <chr>       <chr> <chr> 
+    ## 1 117005… 11968153… 2019-11-19 15:39:47 thefarwrong "Thi… Twitt…
+    ## 2 108029… 11968153… 2019-11-19 15:39:47 VOTEMAGA20… "Vin… Twitt…
+    ## 3 118562… 11968153… 2019-11-19 15:39:47 RmPilgreen  I wa… Twitt…
+    ## 4 828238… 11968153… 2019-11-19 15:39:47 antiableis… "@Ta… Anti-…
+    ## 5 828238… 11968153… 2019-11-19 15:39:53 antiableis… "@Mi… Anti-…
+    ## 6 330505… 11968153… 2019-11-19 15:39:47 HASJI       "Vin… Twitt…
+    ## # … with 84 more variables: display_text_width <dbl>,
+    ## #   reply_to_status_id <chr>, reply_to_user_id <chr>,
+    ## #   reply_to_screen_name <chr>, is_quote <lgl>, is_retweet <lgl>,
+    ## #   favorite_count <int>, retweet_count <int>, quote_count <int>,
+    ## #   reply_count <int>, hashtags <list>, symbols <list>, urls_url <list>,
+    ## #   urls_t.co <list>, urls_expanded_url <list>, media_url <list>,
+    ## #   media_t.co <list>, media_expanded_url <list>, media_type <list>,
+    ## #   ext_media_url <list>, ext_media_t.co <list>,
+    ## #   ext_media_expanded_url <list>, ext_media_type <chr>,
+    ## #   mentions_user_id <list>, mentions_screen_name <list>, lang <chr>,
+    ## #   quoted_status_id <chr>, quoted_text <chr>, quoted_created_at <dttm>,
+    ## #   quoted_source <chr>, quoted_favorite_count <int>,
+    ## #   quoted_retweet_count <int>, quoted_user_id <chr>,
+    ## #   quoted_screen_name <chr>, quoted_name <chr>,
+    ## #   quoted_followers_count <int>, quoted_friends_count <int>,
+    ## #   quoted_statuses_count <int>, quoted_location <chr>,
+    ## #   quoted_description <chr>, quoted_verified <lgl>,
+    ## #   retweet_status_id <chr>, retweet_text <chr>,
+    ## #   retweet_created_at <dttm>, retweet_source <chr>,
+    ## #   retweet_favorite_count <int>, retweet_retweet_count <int>,
+    ## #   retweet_user_id <chr>, retweet_screen_name <chr>, retweet_name <chr>,
+    ## #   retweet_followers_count <int>, retweet_friends_count <int>,
+    ## #   retweet_statuses_count <int>, retweet_location <chr>,
+    ## #   retweet_description <chr>, retweet_verified <lgl>, place_url <chr>,
+    ## #   place_name <chr>, place_full_name <chr>, place_type <chr>,
+    ## #   country <chr>, country_code <chr>, geo_coords <list>,
+    ## #   coords_coords <list>, bbox_coords <list>, status_url <chr>,
+    ## #   name <chr>, location <chr>, description <chr>, url <chr>,
+    ## #   protected <lgl>, followers_count <int>, friends_count <int>,
+    ## #   listed_count <int>, statuses_count <int>, favourites_count <int>,
+    ## #   account_created_at <dttm>, verified <lgl>, profile_url <chr>,
+    ## #   profile_expanded_url <chr>, account_lang <lgl>,
+    ## #   profile_banner_url <chr>, profile_background_url <chr>,
+    ## #   profile_image_url <chr>
 
 If we want, we could also export it to a csv file to be opened later
-with
-Excel
+with a spreadsheet program.
 
 ``` r
-write.csv(tweets, file = "trump-streaming-tweets.csv", row.names = FALSE)
+write_as_csv(tweets, file_name = "trump-streaming-tweets.csv")
 ```
 
-And this is how we would capture tweets mentioning multiple keywords:
+And this is how we would capture tweets mentioning multiple
+keywords:
 
 ``` r
-filterStream(file.name = "politics-tweets.json", 
-    track=c("impeachment", "hearings", "trump"),
-    timeout = 20, oauth = my_oauth)
+tweets2 <- stream_tweets("impeachment AND hearings AND trump", timeout = 20)
+head(tweets2$text)
 ```
 
 We now turn to tweets collect filtering by location instead. To be able
@@ -142,48 +127,37 @@ The way to do it is to find two pairs of coordinates (longitude and
 latitude) that indicate the southwest corner AND the northeast corner.
 Note the reverse order: it’s not (lat, long), but (long, lat).
 
-In the case of the US, it would be approx. (-125,25) and (-66,50). How
+In the case of the US, it would be approx. (-125, 25) and (-66, 50). How
 to find these coordinates? You can use Google Maps, and right-click on
-the desired location. (Just note that long and lat are reversed
-here\!)
+the desired location. (Just note that long and lat are reversed here\!)
 
 ``` r
-filterStream(file.name="tweets_geo.json", locations=c(-125, 25, -66, 50), 
-    timeout = 30, oauth = my_oauth)
+tweets <- stream_tweets(c(-125, 25, -66, 50), timeout = 10)
 ```
 
-    ## Capturing tweets...
+    ## Streaming tweets for 10 seconds...
 
-    ## Connection to Twitter stream was closed after 30 seconds with up to 500 tweets downloaded.
+    ## Finished streaming tweets!
 
-We can do as before and open the tweets in R
-
-``` r
-tweets <- parseTweets("tweets_geo.json")
-```
-
-    ## 920 tweets have been parsed.
-
-And use the maps library to see where most tweets are coming from. Note
-that there are two types of geographic information on tweets:
+Now we can use the **maps** package to see where most tweets are coming
+from. Note that there are two types of geographic information on tweets:
 `lat`/`lon` (from geolocated tweets) and `place_lat` and `place_lon`
 (from tweets with place information). We will work with whatever is
 available.
 
 ``` r
 library("maps")
-tweets$lat <- ifelse(is.na(tweets$lat), tweets$place_lat, tweets$lat)
-tweets$lon <- ifelse(is.na(tweets$lon), tweets$place_lon, tweets$lon)
-tweets <- tweets[!is.na(tweets$lat),]
-states <- map.where("state", tweets$lon, tweets$lat)
+tweets <- lat_lng(tweets)
+
+states <- map.where("state", tweets$lng, tweets$lat)
 head(sort(table(states), decreasing = TRUE))
 ```
 
     ## states
-    ##        texas   california      florida      georgia pennsylvania 
-    ##          102           88           53           44           37 
-    ##      arizona 
-    ##           30
+    ##           california              georgia                texas 
+    ##                   17                   10                   10 
+    ## new york:long island              florida         pennsylvania 
+    ##                    8                    7                    6
 
 We can also prepare a map of the exact locations of the tweets.
 
@@ -197,12 +171,12 @@ map.data <- map_data("state")
 # 1) map base
 ggplot(map.data) + geom_map(aes(map_id = region), map = map.data, fill = "grey90", 
     color = "grey50", size = 0.25) + expand_limits(x = map.data$long, y = map.data$lat) + 
-    # 2) limits for x and y axis
-    scale_x_continuous(limits=c(-125,-66)) + scale_y_continuous(limits=c(25,50)) +
-    # 3) adding the dot for each tweet
-    geom_point(data = tweets, 
-    aes(x = lon, y = lat), size = 1, alpha = 1/5, color = "darkblue") +
-    # 4) removing unnecessary graph elements
+    # limits for x and y axis
+    scale_x_continuous(limits=c(-125, -66)) + scale_y_continuous(limits = c(25, 50)) +
+    # adding the dot for each tweet
+    geom_point(data = tweets, aes(x = lng, y = lat), size = 5, 
+               alpha = 1/5, color = "red") +
+    # removing unnecessary graph elements
     theme(axis.line = element_blank(), 
         axis.text = element_blank(), 
         axis.ticks = element_blank(), 
@@ -216,78 +190,54 @@ ggplot(map.data) + geom_map(aes(map_id = region), map = map.data, fill = "grey90
 
     ## Warning: Removed 1 rows containing missing values (geom_point).
 
-![](02-twitter-streaming-api_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
+![](02-twitter-streaming-api_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
 
 Finally, it’s also possible to collect a random sample of tweets. That’s
-what the “sampleStream” function
-does:
+what the “sampleStream” function does:
 
 ``` r
-sampleStream(file.name="tweets_random.json", timeout = 30, oauth = my_oauth)
+rand_tweets <- stream_tweets(timeout = 30)
 ```
 
-    ## Capturing tweets...
+    ## Streaming tweets for 30 seconds...
 
-    ## Connection to Twitter stream was closed after 30 seconds with up to 5978 tweets downloaded.
+    ## Finished streaming tweets!
 
-Here we are collecting 30 seconds of tweets. And once again, to open the
-tweets in R…
+What is the most retweeted tweet?
 
 ``` r
-tweets <- parseTweets("tweets_random.json")
+rand_tweets[which.max(rand_tweets$retweet_count), c("screen_name")]
 ```
 
-    ## 5707 tweets have been parsed.
-
-What is the most retweeted
-    tweet?
+    ## # A tibble: 1 x 1
+    ##   screen_name  
+    ##   <chr>        
+    ## 1 Dilan30755708
 
 ``` r
-tweets[which.max(tweets$retweet_count), ]
+rand_tweets[which.max(rand_tweets$retweet_count), c("text")]
 ```
 
-    ##                                                                          text
-    ## 2057 RT @BTS_twt: 그리고 지민씨도 피해갈 수 없습니다. https://t.co/RDTNynQm5y
-    ##      retweet_count favorite_count favorited truncated              id_str
-    ## 2057        641705        1719726     FALSE     FALSE 1194902901761679360
-    ##      in_reply_to_screen_name
-    ## 2057                    <NA>
-    ##                                                                                  source
-    ## 2057 <a href="http://twitter.com/download/iphone" rel="nofollow">Twitter for iPhone</a>
-    ##      retweeted                     created_at in_reply_to_status_id_str
-    ## 2057     FALSE Thu Nov 14 09:00:26 +0000 2019                      <NA>
-    ##      in_reply_to_user_id_str lang listed_count verified        location
-    ## 2057                    <NA>   ko            0    FALSE Zürich, Schweiz
-    ##              user_id_str
-    ## 2057 1023524853813530626
-    ##                                                         description
-    ## 2057 @BTS_twt makes me h\ua67c̈a\ua67c̈p\ua67c̈p\ua67c̈y\ua67c̈ everyday
-    ##      geo_enabled                user_created_at statuses_count
-    ## 2057        TRUE Sun Jul 29 11:05:16 +0000 2018            525
-    ##      followers_count favourites_count protected user_url              name
-    ## 2057              21             2705     FALSE     <NA> Lejindary Bangtan
-    ##      time_zone user_lang utc_offset friends_count     screen_name
-    ## 2057        NA        NA         NA            40 BtsArmyLove_twt
-    ##      country_code country place_type full_name place_name place_id
-    ## 2057         <NA>    <NA>         NA      <NA>       <NA>     <NA>
-    ##      place_lat place_lon lat lon expanded_url  url
-    ## 2057       NaN       NaN  NA  NA         <NA> <NA>
+    ## # A tibble: 1 x 1
+    ##   text                                                          
+    ##   <chr>                                                         
+    ## 1 "Karaca azerdeki seyhan yarasını kapatacak \nZirveSizin AzKar"
 
 What are the most popular hashtags at the moment? We’ll use regular
 expressions to extract hashtags.
 
 ``` r
 library("stringr")
-ht <- str_extract_all(tweets$text, '#[A-Za-z0-9_]+')
+ht <- str_extract_all(rand_tweets$text, "#[A-Za-z0-9_]+")
 ht <- unlist(ht)
 head(sort(table(ht), decreasing = TRUE))
 ```
 
     ## ht
-    ##          #MAMAVOTE              #GOT7             #Peing 
-    ##                 27                 19                 15 
-    ## #BringBackDuoArena  #TaxPayersWithJNU                 #G 
-    ##                 13                 12                 11
+    ##          #EXODEUX        #OBSESSION #ObsessedWithCHEN             #CHEN 
+    ##                19                19                17                16 
+    ##              #EXO      #EXOonearewe 
+    ##                16                14
 
 #### Creating your own token
 
@@ -311,11 +261,10 @@ been approved:
 <!-- end list -->
 
 ``` r
-library(ROAuth)
 my_oauth <- list(consumer_key = "CONSUMER_KEY",
-   consumer_secret = "CONSUMER_SECRET",
-   access_token = "ACCESS_TOKEN",
-   access_token_secret = "ACCESS_TOKEN_SECRET")
+                 consumer_secret = "CONSUMER_SECRET",
+                 access_token = "ACCESS_TOKEN",
+                 access_token_secret = "ACCESS_TOKEN_SECRET")
 save(my_oauth, file = "my_oauth.rda")
 ```
 
