@@ -13,7 +13,7 @@ The example belows shows an __inner join__, but there are other types (left vs r
 
 ```{r}
 library(DBI)
-db <- dbConnect(RSQLite::SQLite(), "~/data/facebook-db.sqlite")
+db <- dbConnect(RSQLite::SQLite(), "data/facebook-db.sqlite")
 
 dbGetQuery(db, 
   "SELECT posts.likes_count, congress.party, posts.date

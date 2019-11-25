@@ -17,10 +17,10 @@ library(DBI)
 
 ```{r, eval=FALSE}
 # create database: this will create a file in our hard drive
-db <- dbConnect(RSQLite::SQLite(), "~/data/facebook-db.sqlite")
+db <- dbConnect(RSQLite::SQLite(), "data/facebook-db.sqlite")
 
 # reading the first file
-congress <- read.csv("~/data/congress-facebook-2017.csv",
+congress <- read.csv("data/congress-facebook-2017.csv",
 	stringsAsFactors=F)
 
 # adding first table: user-level data
@@ -36,7 +36,7 @@ Note that we have used `dbWriteTable` to add the data frame to our database, and
 We now switch to the second table. However, the files are too big to open them all in memory. Instead, we will open them one by one, and then __append__ them to the table. Let's see how that works...
 
 ```{r, eval=FALSE}
-fls <- list.files("~/data/posts", full.names=TRUE)
+fls <- list.files("data/posts", full.names=TRUE)
 
 for (f in fls){
   
@@ -67,7 +67,7 @@ dbDisconnect(db)
 Now that we have our tables in the database, let's see how we can query them. First we connect using `dbConnect` and then we type our query with `dbGetQuery`. Generally, we will write the query __clauses__ in capital letters and the column names in lowercase.
 
 ```{r}
-db <- dbConnect(RSQLite::SQLite(), "~/data/facebook-db.sqlite")
+db <- dbConnect(RSQLite::SQLite(), "data/facebook-db.sqlite")
 test <- dbGetQuery(db, 'SELECT * FROM congress LIMIT 5')
 str(test)
 ```
