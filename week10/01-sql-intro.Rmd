@@ -1,15 +1,15 @@
 ---
-title: "Querying an SQL database"
+title: "Creating and querying a SQL database"
 author: Pablo Barbera
 date: November 20, 2018
 output: html_document
 ---
 
-## Creating an SQL database
+## Creating a SQL database
 
 For this first part of the class, we'll be working with a SQLite database, which is self-contained in a file within our hard drive, without any need to set up a server. The dataset we will work with is all Facebook posts by Members of the U.S. Congress in 2017, as collected from the public Pages API while it was available. You can download the data from Moodle.
 
-We'll start by connecting to the database and adding the first table, with information at the member of congress level. 
+We'll start by connecting to the database and adding the first table, with information at the level of member of congress. 
 
 ```{r}
 library(DBI)
@@ -62,7 +62,7 @@ dbDisconnect(db)
 
 ```
 
-## Querying an SQL database
+## Querying a SQL database
 
 Now that we have our tables in the database, let's see how we can query them. First we connect using `dbConnect` and then we type our query with `dbGetQuery`. Generally, we will write the query __clauses__ in capital letters and the column names in lowercase.
 
@@ -146,7 +146,7 @@ dbGetQuery(db, "SELECT from_name, type, date, likes_count
 # OR operator
 dbGetQuery(db, "SELECT from_name, type, date, comments_count 
            FROM posts
-           WHERE comments_count>100 AND (type = 'photo' OR type = 'video')
+           WHERE comments_count > 100 AND (type = 'photo' OR type = 'video')
            LIMIT 10")
 
 # membership, IN

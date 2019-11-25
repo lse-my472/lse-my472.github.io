@@ -1,5 +1,5 @@
 ---
-title: "Querying an SQL database"
+title: "Querying a SQL database"
 author: Pablo Barbera
 date: November 20, 2018
 output: html_document
@@ -72,7 +72,7 @@ Here's another example. Let's say we want to look at what domains Republicans an
 ```{r}
 dbGetQuery(db, 
   "SELECT congress.party, domain, COUNT(*) AS domain_count
-  FROM posts JOIN Congress
+  FROM posts JOIN congress
     ON congress.screen_name = posts.screen_name
   WHERE congress.party = 'Democrat'
   GROUP BY domain
@@ -81,7 +81,7 @@ dbGetQuery(db,
 
 dbGetQuery(db, 
   "SELECT congress.party, domain, COUNT(*) AS domain_count
-  FROM posts JOIN Congress
+  FROM posts JOIN congress
     ON congress.screen_name = posts.screen_name
   WHERE congress.party = 'Republican'
   GROUP BY domain
@@ -90,7 +90,7 @@ dbGetQuery(db,
 
 ```
 
-There are other functions besides just __COUNT__. We can also compute averages, the maximum and minimum of a column, the sum... We can also functions like __SUBSTR__ to extract parts of a character string.
+There are other functions besides just __COUNT__. We can also compute averages, the maximum and minimum of a column, the sum... We can also use functions like __SUBSTR__ to extract parts of a character string.
 
 ```{r}
 # average number of posts by party
