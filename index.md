@@ -328,7 +328,7 @@ This session will offer an introduction to relational databases: structure, logi
 
 
 ##### Resources
-- [Lecture slides](week10/MY472-week10-databases.pdf)
+- [Lecture slides](week10/MY472-week10.pdf)
 - [Examples](https://github.com/lse-my472/lse-my472.github.io/tree/master/week10)
 
 ##### Required Reading
