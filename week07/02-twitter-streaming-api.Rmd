@@ -12,15 +12,22 @@ After the new API changes, getting a new token requires submitting an applicatio
 This will not work in your computer!
 
 ```{r}
-library(ROAuth)
-load("~/my_oauth")
+library("rtweet")
 ```
 
 Once you have created your token (after your application has been approved), you can check that it worked by running the line below:
 
 ```{r}
-library(tweetscores)
-getUsers(screen_names="LSEnews", oauth = my_oauth)[[1]]$screen_name
+load("my_oauth.rda")
+
+# replace the app name with your own!
+twitter_token <- create_token(app = "Ken's R access", 
+                              consumer_key = my_oauth$consumer_key,
+                              consumer_secret = my_oauth$consumer_secret,
+                              access_token = my_oauth$access_token,
+                              access_secret = my_oauth$access_token_secret)
+
+lookup_users("LSEnews")$screen_name
 ```
 
 If this displays `LSEnews` then we're good to go!
@@ -32,66 +39,45 @@ Some of the functions below will work with more than one token. If you want to s
 Collecting tweets filtering by keyword:
 
 ```{r}
-library(streamR)
-filterStream(file.name="~/data/trump-streaming-tweets.json", track="trump", 
-    timeout=20, oauth=my_oauth)
+tweets <- stream_tweets("trump", timeout = 10)
+head(tweets)
 ```
 
-Note the options:
-- `file.name` indicates the file in your disk where the tweets will be downloaded  
-- `track` is the keyword(s) mentioned in the tweets we want to capture.
-- `timeout` is the number of seconds that the connection will remain open  
-- `oauth` is the OAuth token we are using
-
-Once it has finished, we can open it in R as a data frame with the `parseTweets` function
+If we want, we could also export it to a csv file to be opened later with a spreadsheet program.
 ```{r}
-tweets <- parseTweets("~/data/trump-streaming-tweets.json")
-tweets[1,]
-```
-
-If we want, we could also export it to a csv file to be opened later with Excel
-```{r}
-write.csv(tweets, file="~/data/trump-streaming-tweets.csv", row.names=FALSE)
+write_as_csv(tweets, file_name = "trump-streaming-tweets.csv")
 ```
 
 And this is how we would capture tweets mentioning multiple keywords:
 ```{r, eval=FALSE}
-filterStream(file.name="~/data/politics-tweets.json", 
-	track=c("graham", "sessions", "trump", "clinton"),
-    timeout=20, oauth=my_oauth)
+tweets2 <- stream_tweets("impeachment AND hearings AND trump", timeout = 20)
+head(tweets2$text)
 ```
 
 We now turn to tweets collect filtering by location instead. To be able to apply this type of filter, we need to set a geographical box and collect only the tweets that are coming from that area.
 
 For example, imagine we want to collect tweets from the United States. The way to do it is to find two pairs of coordinates (longitude and latitude) that indicate the southwest corner AND the northeast corner. Note the reverse order: it's not (lat, long), but (long, lat).
 
-In the case of the US, it would be approx. (-125,25) and (-66,50). How to find these coordinates? You can use Google Maps, and right-click on the desired location. (Just note that long and lat are reversed here!)
+In the case of the US, it would be approx. (-125, 25) and (-66, 50). How to find these coordinates? You can use Google Maps, and right-click on the desired location. (Just note that long and lat are reversed here!)
 
 ```{r}
-filterStream(file.name="~/data/tweets_geo.json", locations=c(-125, 25, -66, 50), 
-    timeout=30, oauth=my_oauth)
+tweets <- stream_tweets(c(-125, 25, -66, 50), timeout = 10)
 ```
 
-We can do as before and open the tweets in R
-```{r}
-tweets <- parseTweets("~/data/tweets_geo.json")
-```
-
-And use the maps library to see where most tweets are coming from. Note that there are two types of geographic information on tweets: `lat`/`lon` (from geolocated tweets) and `place_lat` and `place_lon` (from tweets with place information). We will work with whatever is available.
+Now we can use the **maps** package to see where most tweets are coming from. Note that there are two types of geographic information on tweets: `lat`/`lon` (from geolocated tweets) and `place_lat` and `place_lon` (from tweets with place information). We will work with whatever is available.
 
 ```{r}
-library(maps)
-tweets$lat <- ifelse(is.na(tweets$lat), tweets$place_lat, tweets$lat)
-tweets$lon <- ifelse(is.na(tweets$lon), tweets$place_lon, tweets$lon)
-tweets <- tweets[!is.na(tweets$lat),]
-states <- map.where("state", tweets$lon, tweets$lat)
-head(sort(table(states), decreasing=TRUE))
+library("maps")
+tweets <- lat_lng(tweets)
+
+states <- map.where("state", tweets$lng, tweets$lat)
+head(sort(table(states), decreasing = TRUE))
 ```
 
 We can also prepare a map of the exact locations of the tweets.
 
 ```{r, fig.height=6, fig.width=10}
-library(ggplot2)
+library("ggplot2")
 
 ## First create a data frame with the map data 
 map.data <- map_data("state")
@@ -100,12 +86,12 @@ map.data <- map_data("state")
 # 1) map base
 ggplot(map.data) + geom_map(aes(map_id = region), map = map.data, fill = "grey90", 
     color = "grey50", size = 0.25) + expand_limits(x = map.data$long, y = map.data$lat) + 
-    # 2) limits for x and y axis
-    scale_x_continuous(limits=c(-125,-66)) + scale_y_continuous(limits=c(25,50)) +
-    # 3) adding the dot for each tweet
-    geom_point(data = tweets, 
-    aes(x = lon, y = lat), size = 1, alpha = 1/5, color = "darkblue") +
-    # 4) removing unnecessary graph elements
+    # limits for x and y axis
+    scale_x_continuous(limits=c(-125, -66)) + scale_y_continuous(limits = c(25, 50)) +
+    # adding the dot for each tweet
+    geom_point(data = tweets, aes(x = lng, y = lat), size = 5, 
+               alpha = 1/5, color = "red") +
+    # removing unnecessary graph elements
     theme(axis.line = element_blank(), 
     	axis.text = element_blank(), 
     	axis.ticks = element_blank(), 
@@ -120,23 +106,19 @@ ggplot(map.data) + geom_map(aes(map_id = region), map = map.data, fill = "grey90
 Finally, it's also possible to collect a random sample of tweets. That's what the "sampleStream" function does:
 
 ```{r}
-sampleStream(file.name="~/data/tweets_random.json", timeout=30, oauth=my_oauth)
-```
-
-Here I'm collecting 30 seconds of tweets. And once again, to open the tweets in R...
-```{r}
-tweets <- parseTweets("~/data/tweets_random.json")
+rand_tweets <- stream_tweets(timeout = 30)
 ```
 
 What is the most retweeted tweet?
 ```{r}
-tweets[which.max(tweets$retweet_count),]
+rand_tweets[which.max(rand_tweets$retweet_count), c("screen_name")]
+rand_tweets[which.max(rand_tweets$retweet_count), c("text")]
 ```
 
 What are the most popular hashtags at the moment? We'll use regular expressions to extract hashtags.
 ```{r}
-library(stringr)
-ht <- str_extract_all(tweets$text, '#[A-Za-z0-9_]+')
+library("stringr")
+ht <- str_extract_all(rand_tweets$text, "#[A-Za-z0-9_]+")
 ht <- unlist(ht)
 head(sort(table(ht), decreasing = TRUE))
 ```
@@ -154,26 +136,18 @@ Follow these steps to create your own token after your application has been appr
 7. Click on "Create my access token", then copy and paste your access token and access token secret below
 
 ```{r, eval=FALSE}
-library(ROAuth)
 my_oauth <- list(consumer_key = "CONSUMER_KEY",
-   consumer_secret = "CONSUMER_SECRET",
-   access_token="ACCESS_TOKEN",
-   access_token_secret = "ACCESS_TOKEN_SECRET")
-save(my_oauth, file="~/my_oauth")
+                 consumer_secret = "CONSUMER_SECRET",
+                 access_token = "ACCESS_TOKEN",
+                 access_token_secret = "ACCESS_TOKEN_SECRET")
+save(my_oauth, file = "my_oauth.rda")
 ```
+
+To access this data, then you just need to run:
 ```{r}
-load("~/my_oauth")
+load("my_oauth.rda")
 ```
 
 What can go wrong here? Make sure all the consumer and token keys are pasted here as is, without any additional space character. If you don't see any output in the console after running the code above, that's a good sign.
 
-Note that I saved the list as a file in my hard drive. That will save us some time later on, but you could also just re-run the code in lines 22 to 27 before conecting to the API in the future.
-
-To check that it worked, try running the line below:
-
-```{r}
-library(tweetscores)
-getUsers(screen_names="LSEnews", oauth = my_oauth)[[1]]$screen_name
-```
-
-If this displays `LSEnews` then we're good to go!
+Note that the Oauth tokens data is saved as a local file.  That will save us some time later on, but you could also just re-run the code in lines 22 to 27 before connecting to the API in the future.

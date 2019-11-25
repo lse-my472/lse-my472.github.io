@@ -291,17 +291,14 @@ How to work with Application Programming Interfaces (APIs), which offer develope
 We will learn how to work with unstructured data in the form of text, and how to deal with format conversion, encoding problems, and serialization.  We will also cover search and replace operations using regular expressions, as well as the most common textual data types in R and Python.
 
 ##### Resources
-- [Lecture slides](week08/MY472-week08.pdf)
+- [Lecture slides](week08/MY472-week08-text.pdf) and [as HTML](week08/MY472-week08-text.html)
 - [Regular expressions cheat sheet](week08/regular-expressions-cheat-sheet-v2.pdf)
 
 ##### Required Reading
-* TBC
-
-##### Recommended Reading
-* TBC
+* Kenneth Benoit. July 16, 2019. "[Text as Data: An Overview](https://kenbenoit.net/pdfs/28%20Benoit%20Text%20as%20Data%20draft%202.pdf)" Forthcoming in Cuirini, Luigi and Robert Franzese, eds. Handbook of Research Methods in Political Science and International Relations. Thousand Oaks: Sage.
 
 ##### Lab
-- Working with textual data.
+- Group working with textual data.
 
 
 #### 9. Data visualisation
