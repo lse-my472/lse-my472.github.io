@@ -1,16 +1,16 @@
 ---
-title: "Querying an Google BigQuery database"
+title: "Querying a Google BigQuery database"
 author: Pablo Barbera and Akitaka Matsuo
 date: 27 November, 2018
 output: html_document
 ---
 
-You will now continue practicing how to write SQL queries using a Google BigQuery. There are a number of public databases available for testing ([link](https://bigquery.cloud.google.com/welcome/sharp-harbor-223622)). We will use two of such public databases.
+We will now continue practicing how to write SQL queries using a Google BigQuery. There are a number of public databases available for testing ([link](https://bigquery.cloud.google.com/welcome/sharp-harbor-223622)). We will use two of such public databases.
 
 ## London LSOA Crime statistics
 
 https://bigquery.cloud.google.com/table/bigquery-public-data:london_crime.crime_by_lsoa
-This data counts the number of crimes at two different geographic levels of London (LSOA and borough) by year, according to crime type.
+These data count the number of crimes at two different geographic levels of London (LSOA and borough) by year, according to crime type.
 
 
 ```{r}
