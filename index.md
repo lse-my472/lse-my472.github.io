@@ -328,7 +328,8 @@ This session will offer an introduction to relational databases: structure, logi
 
 
 ##### Resources
-- [Lecture slides](week10/MY472-week10.pdf)
+- [Lecture slides](week10/MY472-week10-databases.pdf)
+- [Examples](https://github.com/lse-my472/lse-my472.github.io/tree/master/week10)
 
 ##### Required Reading
 * Beaulieu. 2009. [_Learning SQL_](https://books.google.co.uk/books?hl=en&lr=&id=1PgCCVryjOQC&oi=fnd&pg=PR3&dq=learning+sql+alan&ots=X6M3Iaz1wO&sig=38Fp1kDlxM8TF7miw0K2CNcKib4#v=onepage&q=learning%20sql%20alan&f=false). O'Reilly. (Chapters 1, 3, 4, 5, 8)
@@ -346,6 +347,7 @@ This week, we will dive deeper into the databases. In particular, this week cove
 
 ##### Resources
 - [Lecture slides](week11/MY472-week11.pdf)
+- [Examples](https://github.com/lse-my472/lse-my472.github.io/tree/master/week11)
 
 ##### Required Reading
 * Beaulieu. 2009. [_Learning SQL_](https://books.google.co.uk/books?hl=en&lr=&id=1PgCCVryjOQC&oi=fnd&pg=PR3&dq=learning+sql+alan&ots=X6M3Iaz1wO&sig=38Fp1kDlxM8TF7miw0K2CNcKib4#v=onepage&q=learning%20sql%20alan&f=false). O'Reilly. (Chapters 2)
@@ -357,9 +359,9 @@ This week, we will dive deeper into the databases. In particular, this week cove
 * [Analyzing Big Data in less time with Google BigQuery](https://www.youtube.com/watch?v=qqbYrQGSibQ) on YouTube
 
 ##### Lab
-- SQL JOINs and subqueries (in the [lecture folder](week11))
+- SQL JOINs and subqueries
 
-##### Assignment 5: Databases. 
+##### Assignment 5: Databases.
 - Link. Deadline: December 13.
 
 
