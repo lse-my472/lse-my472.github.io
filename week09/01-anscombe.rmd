@@ -1,6 +1,7 @@
 ---
 title: "MY472 - Anscombe's Quartet"
-author: "Pablo Barbera"
+author: "Week 9, LSE MY472"
+output: github_document
 ---
 
 An example of how summary statistics of a dataset can be misleading:

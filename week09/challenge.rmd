@@ -1,6 +1,7 @@
 ---
-title: 'Week 10 challenge'
-author: "Pablo Barbera"
+title: "Week 10 challenge"
+author: "Week 9, LSE MY472"
+output: github_document
 ---
 
 The goal of this week's class exercise will be to replicate four different graphs (of increasing difficulty!) done using ggplot2. How close do your plots get to the ones below?
@@ -31,7 +32,7 @@ Use the SQLite database with public Facebook data you created two weeks ago firs
 For this second exercise, you will have to produce a graph that displays the average popularity metrics of legislators grouped by gender and party. Note that this example involves some reshaping of the data, which you can do either in SQL or directly in R.
 
 ```{r}
-df <- read.csv("fb-congress-data.csv", stringsAsFactors=FALSE)
+df <- read.csv("data/fb-congress-data.csv", stringsAsFactors=FALSE)
 
 # your code here
 
