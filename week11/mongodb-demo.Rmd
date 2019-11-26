@@ -6,32 +6,32 @@ output: html_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo=TRUE)
 ```
 
 
-## Start Mongo DB (in Mac)
+## Start MongoDB (in Mac)
 
 ```{bash eval=FALSE}
-## Install mongo
+## install mongo
 brew install mongodb
 
-## Start mongo server
+## start mongo server
 brew services start mongodb
 
-## to stop
+## to stop server
 # brew services stop mongodb
 ```
 
-## Start Mongo DB (in Windows)
+## Start MongoDB (in Windows)
 
 Follow the instruction for communitiy edition here:
 https://docs.mongodb.com/manual/tutorial/install-mongodb-on-windows/
 
 
-## Creating an Mongo database
+## Creating a Mongo database
 
-This is to replicate what we did using the sqlite.
+This will replicate what we did using SQLite.
 
 The dataset we will work with is all Facebook posts by Members of the U.S. Congress in 2017, as collected from the public Pages API while it was available. You can download the data from Moodle.
 
@@ -43,61 +43,64 @@ library(microbenchmark)
 
 ```{r, eval=FALSE}
 # create collection
-dbMongo <- mongo("facebook")
+db <- mongo("facebook")
 ```
 
-Since mongoDB does not assume the complex structure of multiple tables. We firstly combine all files so we will create a collection with all information in one table.
+Since mongoDB does not assume the complex structure of multiple tables, we will combine all files and create a collection with all information in one table.
 
 ```{r, eval = FALSE}
-##
-congress <- read.csv("~/Data/my472/congress-facebook-2017.csv",
+# read the congress data first
+congress <- read.csv("~/data/congress-facebook-2017.csv",
 	stringsAsFactors=F)
 ```
 
-Instead, we will open them one by one, merge with member table, and then __append__ them to the collection. To speed up the processing, I will use `data.table` package, but this could be done with other packages.
+We will open the files one by one, merge them with the congress table, and then __append__ them to the collection. To speed up the processing, I will use the `data.table` package, but this could be done with other packages.
 
 ```{r, eval=FALSE}
 library(data.table)
 library(stringi)
-fls <- list.files("~/Data/my472/posts", full.names=TRUE)
+
+fls <- list.files("~/data/posts", full.names=TRUE)
 
 # Let's check the speed difference
 
 congress$screen_name <- as.character(congress$screen_name)
+# convert to Data.table (does so in place)
 setDT(congress)
+
 for (f in fls){
   
   message(f)
   # read file into memory
-  fb <- fread(f, stringsAsFactors=F, encoding = "UTF-8")
+  fb <- fread(f, stringsAsFactors=F, encoding="UTF-8")
   fb$screen_name <- as.character(fb$screen_name)
   fb$datetime <- readr::parse_datetime(fb$datetime)
   #fb <- read.csv(f, stringsAsFactors=F)
   
-  fb <- congress[fb, on = "screen_name"] ## this is equivalent of merge(fb, congress, by = "screen_name", all.x = T)
-  fb$message <- stri_unescape_unicode(fb$message) ## Some encoding error detected, need to unescape to input in the data
-  dbMongo$insert(fb)
+  fb <- congress[fb, on="screen_name"] ## this is equivalent to merge(fb, congress, by="screen_name", all.x=T)
+  fb$message <- stri_unescape_unicode(fb$message) ## some encoding error detected, need to unescape to input in the data
+  db$insert(fb)
   
 }
 # testing that it works
-## dbGetQuery(db, 'SELECT * FROM posts LIMIT 5')
-dbMongo$find("{}", limit = 5) %>% str()
-dbMongo$disconnect()
+## dbGetQuery(dbsql, 'SELECT * FROM posts LIMIT 5')
+db$find('{}', limit=5) %>% str()  # '{}' indicates everything
+db$disconnect()
 ```
 
-## Querying an Mongo database
+## Querying a Mongo database
 
-Now that we have our tables in the database, let's see how we can query them. First we connect to the database using `mongo` and then querying either using `*$find()` (for simple queries) or `*$aggregate()` (for more complex queries). We can also use `*$count()` method.
+Now that we have our documents in the database, let's see how we can query them. First we connect to the database using `mongo` and then query either using `*$find()` (for simple queries) or `*$aggregate()` (for more complex queries). We can also use the `*$count()` method.
 
 ```{r}
-dbMongo <- mongo('facebook')
-#test <- dbGetQuery(db, 'SELECT * FROM congress LIMIT 5')
-test <- dbMongo$find('{}', limit = 5) # '{}' indicates everything
+db <- mongo('facebook')
+#test <- dbGetQuery(dbsql, 'SELECT * FROM congress LIMIT 5')
+test <- db$find('{}', limit=5) # '{}' indicates everything
 str(test)
 
 # For comparison, we will also use RSQlite database
 library(DBI)
-db <- dbConnect(RSQLite::SQLite(), "~/Data/my472/facebook-db.sqlite")
+dbsql <- dbConnect(RSQLite::SQLite(), "~/data/facebook-db.sqlite")
 
 ```
 
@@ -105,76 +108,77 @@ Let's start with some examples of __SELECT__:
 
 ```{r}
 # querying just one column
-dbMongo$find('{}', fields = '{"name": true}', limit = 10)
+db$find('{}', fields = '{"name": true}', limit = 10)
 
-dbGetQuery(db, "SELECT name FROM congress LIMIT 10")
-# adding expressions
+dbGetQuery(dbsql, "SELECT name FROM congress LIMIT 10")
 ```
 
-SQL `WHERE` is the first argment of `*$find()` and then list of variables are specified in `fields` argument with BSON. `limit` is another argument.
+SQL `WHERE` is the first argument of `*$find()` and then a list of variables are specified in the `fields` argument with BSON. `limit` is another argument.
 
 ```{r}
 # selecting based on values of a column
-dbGetQuery(db, "SELECT from_name, type, date
+dbGetQuery(dbsql, "SELECT from_name, type, date
            FROM posts
            WHERE date > '2017-01-01'
            LIMIT 10")
 
 ## specifying the date is a bit too complicated. Basically what it does is convert the 
-## date into an epoc milsecond
+## date into epoch milliseconds
 d <- as.integer(as.POSIXct(strptime("2017-01-01","%Y-%m-%d"))) * 1000
-dbMongo$find(query = paste0('{"datetime":{"$gt": { "$date" : { "$numberLong" : "', d, '" } } } }'), 
+db$find(query = paste0('{"datetime": {"$gt": {"$date: {"$numberLong": "', d, '" } } } }'), 
         fields = '{"from_name": true, "type": true, "date": true}', 
         limit = 10)
 
 # AND operator
-dbGetQuery(db, "SELECT from_name, type, date, likes_count 
+dbGetQuery(dbsql, "SELECT from_name, type, date, likes_count 
            FROM posts
-           WHERE type != 'photo' 
-              AND likes_count > 500
+           WHERE type != 'photo' AND likes_count > 500
            LIMIT 10")
-dbMongo$find(query = '{"type": {"$ne": "photo"}, "likes_count": {"$gt": 500}}', 
+db$find(query = '{"type": {"$ne": "photo"}, "likes_count": {"$gt": 500}}', 
         fields = '{"from_name": true, "type": true, "date": true, "likes_count": true}', 
         limit = 10)
+
 # OR operator
-dbGetQuery(db, "SELECT from_name, type, date, comments_count 
+dbGetQuery(dbsql, "SELECT from_name, type, date, comments_count 
            FROM posts
            WHERE  type = 'photo' OR type = 'video'
            LIMIT 10")
-dbMongo$find(query = '{"$or": [{"type": "photo"}, {"type": "video"}]}', 
+db$find(query = '{"$or": [{"type": "photo"}, {"type": "video"}]}', 
         fields = '{"from_name": true, "type": true, "date": true, "likes_count": true}', 
         limit = 10)
+
 # membership, IN
-dbGetQuery(db, "SELECT from_name, type, date, comments_count 
+dbGetQuery(dbsql, "SELECT from_name, type, date, comments_count 
            FROM posts
            WHERE type IN ('video', 'event')
            LIMIT 10")
-dbMongo$find(query = '{"type": {"$in": ["photo",  "video"]}}', 
+db$find(query = '{"type": {"$in": ["photo",  "video"]}}', 
         fields = '{"from_name": true, "type": true, "date": true, "likes_count": true}', 
         limit = 10)
+
 # MongoDB does support regular expressions
 # We can use regular expressions!
-dbGetQuery(db, "SELECT from_name, type, date, comments_count 
+dbGetQuery(dbsql, "SELECT from_name, type, date, comments_count 
            FROM posts
            WHERE date LIKE '2017-01-__'
            LIMIT 10")
-dbMongo$find(query = '{"date": { "$regex" : "2017-01-.{2}", "$options": "i"}}', 
+db$find(query = '{"date": {"$regex": "2017-01-.{2}", "$options": "i"}}', 
         fields = '{"from_name": true, "type": true, "date": true, "likes_count": true}', 
         limit = 10)
 
-dbGetQuery(db, "SELECT from_name, type, date, comments_count 
+dbGetQuery(dbsql, "SELECT from_name, type, date, comments_count 
            FROM posts
-           WHERE date LIKE '2017-03%'
+           WHERE date LIKE '2017-01%'
            LIMIT 10")
-dbMongo$find(query = '{"date": { "$regex" : "2017-01-.+", "$options": "i"}}', 
+db$find(query = '{"date": {"$regex": "2017-01-.+", "$options": "i"}}', 
         fields = '{"from_name": true, "type": true, "date": true, "likes_count": true}', 
         limit = 10)
 
-dbGetQuery(db, "SELECT from_name, message, date
+dbGetQuery(dbsql, "SELECT from_name, message, date
            FROM posts
            WHERE message LIKE '%london%'
            LIMIT 1")
-dbMongo$find(query = '{"message": { "$regex" : "london", "$options": "i"}}', 
+db$find(query = '{"message": {"$regex": "london", "$options": "i"}}', 
         fields = '{"from_name": true, "type": true, "date": true, "likes_count": true, "message": true}', 
         limit = 10)
 ```
@@ -183,15 +187,15 @@ dbMongo$find(query = '{"message": { "$regex" : "london", "$options": "i"}}',
 When some aggretation is involved (e.g. `COUNT` or `GROUP BY`),  `*$aggregate()` is used. There is an equivalent of __GROUP BY__ in SQL which is `$group`. 
 
 ```{r}
-dbGetQuery(db, 
+dbGetQuery(dbsql, 
   "SELECT from_name, COUNT(*) AS post_count
   FROM posts
   GROUP BY from_name
   LIMIT 10")
-dbMongo$aggregate('[ {"$group": {"_id": "$from_name", "count": {"$sum": 1}}},
+db$aggregate('[ {"$group": {"_id": "$from_name", "count": {"$sum": 1}}},
                   {"$limit": 10}]')
 ## conditional aggregate
-dbMongo$aggregate('[{ "$match" : {"party": "Republican"}}, 
+db$aggregate('[{ "$match" : {"party": "Republican"}}, 
                   {"$group": {"_id": "$from_name", "count": {"$sum": 1}}},
                   {"$limit": 10}]')
 
@@ -201,37 +205,37 @@ Like __ORDER BY__, we can use `"$sort"` condition, after find or aggregate.
 
 ```{r}
 # sort by type_count
-dbGetQuery(db, 
+dbGetQuery(dbsql, 
   "SELECT type, COUNT(type) AS type_count
   FROM posts
   GROUP BY type
   ORDER BY type_count")
-dbMongo$aggregate('[{"$group": {"_id": "$i_type", "type_count": {"$sum": 1}}},
+db$aggregate('[{"$group": {"_id": "$i_type", "type_count": {"$sum": 1}}},
                   {"$sort": {"type_count": 1}}]')
 
 # now in descending orders
-dbGetQuery(db, 
+dbGetQuery(dbsql, 
   "SELECT type, COUNT(type) AS type_count
   FROM posts
   GROUP BY type
   ORDER BY type_count DESC")
-dbMongo$aggregate('[{"$group": {"_id": "$i_type", "type_count": {"$sum": 1}}},
+db$aggregate('[{"$group": {"_id": "$i_type", "type_count": {"$sum": 1}}},
                   {"$sort": {"type_count": -1}}]')
 
 # which was the most popular post?
-dbGetQuery(db, 
+dbGetQuery(dbsql, 
   "SELECT from_name, message, likes_count, datetime
   FROM posts
   ORDER BY likes_count DESC
   LIMIT 1")
-dbMongo$find(query = '{}',
+db$find(query = '{}',
              field = '{"from_name": true, "message": true, "likes_count": true, "datetime": true}',
              sort = '{"likes_count": -1}',
              limit = 1)
                   #{"$sort": {"type_count": -1}}]')
 
 # what was the post with the highest comment to like ratio? We subset only posts with 1000 likes or more to avoid outliers.
-dbGetQuery(db,
+dbGetQuery(dbsql,
   "SELECT from_name, message, likes_count, comments_count, date,   
       comments_count/likes_count AS comment_like_ratio
   FROM posts
@@ -239,7 +243,7 @@ dbGetQuery(db,
   ORDER BY comment_like_ratio DESC
   LIMIT 5")
 
-dbMongo$aggregate('[{ "$match" : {"likes_count": {"$gt": 1000}}},
+db$aggregate('[{ "$match" : {"likes_count": {"$gt": 1000}}},
                   {"$project": {"from_name": 1, "message": 1, "likes_count": 1, "comments_count": 1, "date": 1,
                   "comment_like_ratio": {"$divide": ["$comments_count", {"$add": ["$likes_count", 1]}]}}},
                   {"$sort": {"comment_like_ratio": -1}},
@@ -256,27 +260,26 @@ For both databases, we haven't done any tunings. But let's compare which is fast
 ```{r}
 
 microbenchmark(sqlite = 
-dbGetQuery(db, "SELECT from_name, type, date, likes_count 
+  dbGetQuery(dbsql, "SELECT from_name, type, date, likes_count 
            FROM posts
            WHERE type != 'photo' 
               AND likes_count > 500
            LIMIT 10"),
-mongo = dbMongo$find(query = '{"type": {"$ne": "photo"}, "likes_count": {"$gt": 500}}', 
+  mongo = db$find(query = '{"type": {"$ne": "photo"}, "likes_count": {"$gt": 500}}', 
         fields = '{"from_name": true, "type": true, "date": true, "likes_count": true}', 
         limit = 10), times = 10)
 ```
 
 ```{r}
 microbenchmark(sqlite = 
-dbGetQuery(db,
-  "SELECT from_name, message, likes_count, comments_count, date,   
-      comments_count/likes_count AS comment_like_ratio
-  FROM posts
-  WHERE likes_count > 1000
-  ORDER BY comment_like_ratio DESC
-  LIMIT 5"),
-mongo = 
-dbMongo$aggregate('[{ "$match" : {"likes_count": {"$gt": 1000}}},
+  dbGetQuery(dbsql,
+    "SELECT from_name, message, likes_count, comments_count, date,   
+        comments_count/likes_count AS comment_like_ratio
+    FROM posts
+    WHERE likes_count > 1000
+    ORDER BY comment_like_ratio DESC
+    LIMIT 5"),
+  mongo = db$aggregate('[{ "$match" : {"likes_count": {"$gt": 1000}}},
                   {"$project": {"from_name": 1, "message": 1, "likes_count": 1, "comments_count": 1, "date": 1,
                   "comment_like_ratio": {"$divide": ["$comments_count", {"$add": ["$likes_count", 1]}]}}},
                   {"$sort": {"comment_like_ratio": -1}},

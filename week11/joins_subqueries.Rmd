@@ -5,13 +5,13 @@ date: 27 November, 2018
 output: html_document
 ---
 
-In the class, we have learned simple join. Sometimes, for some of the rows you are joining, you may not be able to find a matching records in another table. In that case, you still want to keep the records from one table after JOIN. In this lab-problem set, we will learn how to do that. 
+In class we learned simple join. Sometimes, for some of the rows you are joining, you may not be able to find matching records in another table. In that case, you still want to keep the records from one table after JOIN. In this challenge, we will learn how to do that. 
 
-The following figure shows different types of joins, and how to run the query for each type.
+The following figure shows different types of joins and how to run the query for each type.
 
 ![joins](joins.png)
 
-## Curtailed FacebookDB
+## Curtailed Facebook dataset
 
 ```{r, eval = F}
 library(DBI)
@@ -104,13 +104,14 @@ dbGetQuery(db,
 dbDisconnect(db)
 ```
 
-## Subquery
+## Subqueries
 
 
-In SQL, you can run a nested query where you use a result from the first query as a condition for the second query. Where we find a top 3 most frequent posters in the congress, and then get all messages from them. 
+In SQL, you can run a nested query where you use a result from the first query as a condition for the second query. Here, we will find the top 3 most frequent posters in congress and then get all messages from them. 
 
 ```{r}
-#connect to the full db
+# connect to the full db
+
 ```
 
 1. What are the screen names of the top 3 posters?
@@ -119,7 +120,7 @@ In SQL, you can run a nested query where you use a result from the first query a
 
 ```
 
-2. (Without subquery) how to get the posts from these congress members?
+2. (Without subquery) how can you get the posts from these congress members?
 
 ```{r}
 
