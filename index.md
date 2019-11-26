@@ -306,7 +306,10 @@ We will learn how to work with unstructured data in the form of text, and how to
 The lecture this week will offer an overview of the principles of exploratory data analysis through (good) data visualization. In the seminars, we will practice producing our own graphs using ggplot2.
 
 ##### Resources
-- [Lecture slides](week09/MY472-week09.pdf)
+- [Lecture slides](week09/MY472-week09-visualisation.pdf)
+- [Anscombe dataset plots](https://github.com/lse-my472/lse-my472.github.io/blob/master/week09/01-anscombe.md)
+- [**ggplot2** basics](https://github.com/lse-my472/lse-my472.github.io/blob/master/week09/02_ggplot2_basics.md)
+- [Scales, axes, and legends in **gplot2**](https://github.com/lse-my472/lse-my472.github.io/blob/master/week09/03_scales_axes_legends.md)
 
 ##### Required Reading
 * Wickham, Hadley and Garett Grolemund.  2017.  _R for Data Science: Import, Tidy, Transform, Visualize, and Model Data_.  Sebastopol, CA: O'Reilly.  [Data visualization](https://r4ds.had.co.nz/data-visualisation.html), [Graphics for communication](https://r4ds.had.co.nz/graphics-for-communication.html) (Ch. 1 and 22 of the print edition).
@@ -318,8 +321,7 @@ shapes public opinion"](https://journals.sagepub.com/doi/abs/10.1177/20531680156
 
 ##### Lab
 - Data visualization with ggplot2.
-- Attendance Survey: [https://lse.eu.qualtrics.com/jfe/form/SV_026nI6GIJtNmuq1](https://lse.eu.qualtrics.com/jfe/form/SV_026nI6GIJtNmuq1)
-- Github Classroom: [https://classroom.github.com/a/lNhyTTip](https://classroom.github.com/a/lNhyTTip)
+- Github Classroom: [TBC]()
 
 
 #### 10. Creating and managing databases
