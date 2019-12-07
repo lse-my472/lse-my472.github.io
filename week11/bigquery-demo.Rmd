@@ -12,29 +12,34 @@ We will now continue practicing how to write SQL queries using a Google BigQuery
 https://bigquery.cloud.google.com/table/bigquery-public-data:london_crime.crime_by_lsoa
 These data count the number of crimes at two different geographic levels of London (LSOA and borough) by year, according to crime type.
 
+First, go to the above link, log into your Google account, and click on "Create a Project". 
+
 
 ```{r}
 library(bigrquery)
-project <- "my472-bigquery"
+project <- "my472-bigquery-261216"
 
 get_table(project="bigquery-public-data",
           dataset="london_crime",
           table="crime_by_lsoa")
 ```
+
 1. First, connect to the database and count how many rows it contains:
 ```{r}
 query_exec("SELECT COUNT(*) FROM [bigquery-public-data:london_crime.crime_by_lsoa]",
            project = project, useLegacySql = TRUE)
 ```
+
 2. Crime by year
 ```{r}
 query_exec("SELECT year, SUM(value) AS count_crime FROM
            [bigquery-public-data:london_crime.crime_by_lsoa]
-           GROUP BY year",
+           GROUP BY year
+           ORDER BY year",
            project = project, useLegacySql = TRUE)
 ```
 
-2. Crime by borough and year
+3. Crime by borough and year
 ```{r}
 dat <- query_exec("SELECT year, borough, SUM(value) AS count_crime FROM
            [bigquery-public-data:london_crime.crime_by_lsoa]
@@ -48,7 +53,7 @@ dat %>% group_by(borough) %>%
 ggplot(aes(x = year, y = ratio, group = borough)) + geom_line()
 ```
 
-3. Crime by year and category
+4. Crime by year and category
 
 ```{r}
 dat_3 <- query_exec("SELECT year, major_category, SUM(value) AS count_crime FROM
@@ -60,7 +65,7 @@ ggplot(dat_3) + aes(x = year, y = count_crime, group = major_category,
                     colour = major_category) + geom_line()
 ```
 
-4. Map?
+5. Map?
 ```{r}
 require(rgdal)
 require(ggplot2)
@@ -103,12 +108,12 @@ get_table(project="bigquery-public-data",
 ```
 
 ```{r}
-# how many trips in database?
+# how many trips in the database?
 query_exec(
   "SELECT COUNT(*) FROM [bigquery-public-data:new_york.citibike_trips]",
 	project = project, useLegacySql = TRUE)
 
-# see first line
+# see the first 10 entries
 query_exec(
   "SELECT *
   FROM [bigquery-public-data:new_york.citibike_trips]
@@ -151,7 +156,7 @@ query_exec(
 )
 ```
 
-5. What is the average trip duration based on the age of the riders?
+5. What is the average trip duration based on the gender of the riders?
 
 ```{r}
 res <- query_exec(
@@ -184,39 +189,13 @@ query_exec(
 query_exec(
   "SELECT AVG( (ABS(start_station_latitude-end_station_latitude) +
       ABS(start_station_longitude-end_station_longitude)) * 111) AS avg_distance_km,
-    gender AS gender
+      gender AS gender
   FROM [bigquery-public-data:new_york.citibike_trips]
   GROUP BY gender",
   project = project)
 ```
 
-8. What is the average speed of a CitiBike trip?
 
-```{r}
-query_exec(
-  "SELECT AVG( 
-      ((ABS(start_station_latitude-end_station_latitude) + 
-        ABS(start_station_longitude-end_station_longitude)) * 111) /
-    ((stoptime-starttime)/1000000/3600) ) AS avg_speed_km_h
-  FROM [bigquery-public-data:new_york.citibike_trips]",
-  project = project)
-```
 
-9 What is the average speed based on age?
 
-```{r}
-res <- query_exec(
-  "SELECT AVG( 
-      ((ABS(start_station_latitude-end_station_latitude) + 
-        ABS(start_station_longitude-end_station_longitude)) * 111) /
-    ((stoptime-starttime)/1000000/3600) ) AS avg_speed_km_h,
-    (2017-birth_year) AS age
-  FROM [bigquery-public-data:new_york.citibike_trips]
-  GROUP BY age
-  ORDER BY age",
-  project = project)
-
-plot(res$age[res$age<100], res$avg_speed_km_h[res$age<100], 
-     xlab="age", ylab="speed (km/h)", type="l")
-```
 

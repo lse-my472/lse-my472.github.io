@@ -13,14 +13,18 @@ knitr::opts_chunk$set(echo=TRUE)
 ## Start MongoDB (in Mac)
 
 ```{bash eval=FALSE}
-## install mongo
-brew install mongodb
+# install mongo using Homebrew
+# if you don't have Homebrew installed already, then start
+# by running the code line below in the Terminal:
+# /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+brew tap mongodb/brew
+brew install mongodb-community@4.2
 
-## start mongo server
-brew services start mongodb
+# start mongo server
+brew services start mongodb-community
 
-## to stop server
-# brew services stop mongodb
+# to stop server
+#brew services stop mongodb-community
 ```
 
 ## Start MongoDB (in Windows)
@@ -33,16 +37,17 @@ https://docs.mongodb.com/manual/tutorial/install-mongodb-on-windows/
 
 This will replicate what we did using SQLite.
 
-The dataset we will work with is all Facebook posts by Members of the U.S. Congress in 2017, as collected from the public Pages API while it was available. You can download the data from Moodle.
+The dataset we will work with is all Facebook posts by Members of the U.S. Congress in 2017, as collected from the public Pages API while it was available. This is the same data we used in week 10. You can download the data from Moodle, in case you have not done so already.
 
 
 ```{r}
+library(dplyr)
 library(mongolite)
 library(microbenchmark)
 ```
 
 ```{r, eval=FALSE}
-# create collection
+# create a collection
 db <- mongo("facebook")
 ```
 
@@ -50,21 +55,19 @@ Since mongoDB does not assume the complex structure of multiple tables, we will 
 
 ```{r, eval = FALSE}
 # read the congress data first
-congress <- read.csv("~/data/congress-facebook-2017.csv",
+congress <- read.csv("~/data/my472/congress-facebook-2017.csv",
 	stringsAsFactors=F)
+congress$screen_name <- as.character(congress$screen_name)
 ```
 
-We will open the files one by one, merge them with the congress table, and then __append__ them to the collection. To speed up the processing, I will use the `data.table` package, but this could be done with other packages.
+We will open the files one by one, merge them with the congress table, and then __append__ them to the collection. To speed up the processing, we will use the `data.table` package, but this could be done with other packages.
 
 ```{r, eval=FALSE}
 library(data.table)
 library(stringi)
 
-fls <- list.files("~/data/posts", full.names=TRUE)
+fls <- list.files("~/data/my472/posts", full.names=TRUE)
 
-# Let's check the speed difference
-
-congress$screen_name <- as.character(congress$screen_name)
 # convert to Data.table (does so in place)
 setDT(congress)
 
@@ -72,19 +75,25 @@ for (f in fls){
   
   message(f)
   # read file into memory
-  fb <- fread(f, stringsAsFactors=F, encoding="UTF-8")
+  fb <- fread(f, stringsAsFactors=F, encoding="UTF-8")  # instead of fb <- read.csv(f, stringsAsFactors=F)
+  # format values 
   fb$screen_name <- as.character(fb$screen_name)
   fb$datetime <- readr::parse_datetime(fb$datetime)
-  #fb <- read.csv(f, stringsAsFactors=F)
   
-  fb <- congress[fb, on="screen_name"] ## this is equivalent to merge(fb, congress, by="screen_name", all.x=T)
-  fb$message <- stri_unescape_unicode(fb$message) ## some encoding error detected, need to unescape to input in the data
+  fb <- congress[fb, on="screen_name"]  # equivalent to fb <- merge(fb, congress, by="screen_name", all.x=T)
+  fb$message <- stri_unescape_unicode(fb$message)  # some encoding errors detected, need to unescape to input the data
   db$insert(fb)
   
 }
+
 # testing that it works
 ## dbGetQuery(dbsql, 'SELECT * FROM posts LIMIT 5')
 db$find('{}', limit=5) %>% str()  # '{}' indicates everything
+db$count()  # count the number of documents
+
+# if you need to undo, remove all documents with:
+#db$remove('{}')
+
 db$disconnect()
 ```
 
@@ -94,13 +103,13 @@ Now that we have our documents in the database, let's see how we can query them.
 
 ```{r}
 db <- mongo('facebook')
-#test <- dbGetQuery(dbsql, 'SELECT * FROM congress LIMIT 5')
+## test <- dbGetQuery(dbsql, 'SELECT * FROM congress LIMIT 5')
 test <- db$find('{}', limit=5) # '{}' indicates everything
 str(test)
 
-# For comparison, we will also use RSQlite database
+# For comparison, we will also use the SQLite database
 library(DBI)
-dbsql <- dbConnect(RSQLite::SQLite(), "~/data/facebook-db.sqlite")
+dbsql <- dbConnect(RSQLite::SQLite(), "~/data/my472/facebook-db.sqlite")
 
 ```
 
@@ -108,12 +117,14 @@ Let's start with some examples of __SELECT__:
 
 ```{r}
 # querying just one column
-db$find('{}', fields = '{"name": true}', limit = 10)
+db$find(query = '{}', fields = '{"name": true}', limit = 10)
 
 dbGetQuery(dbsql, "SELECT name FROM congress LIMIT 10")
 ```
 
-SQL `WHERE` is the first argument of `*$find()` and then a list of variables are specified in the `fields` argument with BSON. `limit` is another argument.
+Notice the field `_id` in the Mongo data. This is the primary key for each document and can be treated as an index.
+
+The SQL `WHERE` is the first argument of `*$find()` and then a list of variables are specified in the `fields` argument with BSON. `limit` is another argument.
 
 ```{r}
 # selecting based on values of a column
@@ -122,10 +133,10 @@ dbGetQuery(dbsql, "SELECT from_name, type, date
            WHERE date > '2017-01-01'
            LIMIT 10")
 
-## specifying the date is a bit too complicated. Basically what it does is convert the 
+## specifying the date is a bit too complicated. Basically, what it does is convert the 
 ## date into epoch milliseconds
-d <- as.integer(as.POSIXct(strptime("2017-01-01","%Y-%m-%d"))) * 1000
-db$find(query = paste0('{"datetime": {"$gt": {"$date: {"$numberLong": "', d, '" } } } }'), 
+d <- as.integer(as.POSIXct(strptime("2017-01-01", "%Y-%m-%d"))) * 1000
+db$find(query = paste0('{"datetime": {"$gt": {"$date": {"$numberLong": "', d, '" } } } }'), 
         fields = '{"from_name": true, "type": true, "date": true}', 
         limit = 10)
 
@@ -157,7 +168,7 @@ db$find(query = '{"type": {"$in": ["photo",  "video"]}}',
         limit = 10)
 
 # MongoDB does support regular expressions
-# We can use regular expressions!
+# We can use regular expressions! For the options, see https://docs.mongodb.com/manual/reference/operator/query/regex/
 dbGetQuery(dbsql, "SELECT from_name, type, date, comments_count 
            FROM posts
            WHERE date LIKE '2017-01-__'
@@ -184,7 +195,7 @@ db$find(query = '{"message": {"$regex": "london", "$options": "i"}}',
 ```
 
 
-When some aggretation is involved (e.g. `COUNT` or `GROUP BY`),  `*$aggregate()` is used. There is an equivalent of __GROUP BY__ in SQL which is `$group`. 
+When some aggretation is involved (e.g. `COUNT` or `GROUP BY`), use `*$aggregate()`. The equivalent of the SQL __GROUP BY__ is `$group`. 
 
 ```{r}
 dbGetQuery(dbsql, 
@@ -195,13 +206,13 @@ dbGetQuery(dbsql,
 db$aggregate('[ {"$group": {"_id": "$from_name", "count": {"$sum": 1}}},
                   {"$limit": 10}]')
 ## conditional aggregate
-db$aggregate('[{ "$match" : {"party": "Republican"}}, 
+db$aggregate('[{ "$match": {"party": "Republican"}}, 
                   {"$group": {"_id": "$from_name", "count": {"$sum": 1}}},
                   {"$limit": 10}]')
 
 ```
 
-Like __ORDER BY__, we can use `"$sort"` condition, after find or aggregate.
+Like __ORDER BY__, we can use `"$sort"` after find or aggregate.
 
 ```{r}
 # sort by type_count
@@ -248,14 +259,13 @@ db$aggregate('[{ "$match" : {"likes_count": {"$gt": 1000}}},
                   "comment_like_ratio": {"$divide": ["$comments_count", {"$add": ["$likes_count", 1]}]}}},
                   {"$sort": {"comment_like_ratio": -1}},
                   {"$limit": 5}]') 
-# this return error as for some
 ```
 
 
 
 ## Performance?
 
-For both databases, we haven't done any tunings. But let's compare which is faster just for fun.
+For both databases, we haven't done any tunings (e.g. indexing). But let's compare which is faster just for fun.
 
 ```{r}
 
@@ -286,6 +296,6 @@ microbenchmark(sqlite =
                   {"$limit": 5}]'),
 times = 10)
 ```
-We need more tuning for mongo (e.g. Add index, etc.), but not bad...
+We need more tuning for mongo (e.g. add index, etc.), but not bad...
 
 
