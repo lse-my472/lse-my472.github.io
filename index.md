@@ -361,10 +361,10 @@ This week, we will dive deeper into the databases. In particular, this week cove
 * [Analyzing Big Data in less time with Google BigQuery](https://www.youtube.com/watch?v=qqbYrQGSibQ) on YouTube
 
 ##### Lab
-- SQL JOINs and subqueries
+- SQL JOINs, subqueries, and BigQuery
 
 ##### Assignment 5: Databases.
-- Link. Deadline: December 13.
+- Deadline: December 19, 15:00.
 
 
 #### Take-home exam
