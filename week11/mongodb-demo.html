@@ -7,7 +7,6 @@
 <meta charset="utf-8" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
-<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
 <meta name="author" content="Akitaka Matsuo and Pablo Barbera" />
@@ -85,6 +84,7 @@ code {
 }
 img {
   max-width:100%;
+  height: auto;
 }
 .tabbed-pane {
   padding-top: 12px;
@@ -157,6 +157,18 @@ summary {
   display: none;
 }
 </style>
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
 
 <!-- code folding -->
 
@@ -296,16 +308,16 @@ dbsql &lt;- dbConnect(RSQLite::SQLite(), &quot;~/data/my472/facebook-db.sqlite&q
 <pre class="r"><code># querying just one column
 db$find(query = '{}', fields = '{&quot;name&quot;: true}', limit = 10)</code></pre>
 <pre><code>##                         _id    name
-## 1  5de8cfda7185b46238132f4c Ted Poe
-## 2  5de8cfda7185b46238132f4d Ted Poe
-## 3  5de8cfda7185b46238132f4e Ted Poe
-## 4  5de8cfda7185b46238132f4f Ted Poe
-## 5  5de8cfda7185b46238132f50 Ted Poe
-## 6  5de8cfda7185b46238132f51 Ted Poe
-## 7  5de8cfda7185b46238132f52 Ted Poe
-## 8  5de8cfda7185b46238132f53 Ted Poe
-## 9  5de8cfda7185b46238132f54 Ted Poe
-## 10 5de8cfda7185b46238132f55 Ted Poe</code></pre>
+## 1  5decf15f6bc7be2e6f6202d2 Ted Poe
+## 2  5decf15f6bc7be2e6f6202d3 Ted Poe
+## 3  5decf15f6bc7be2e6f6202d4 Ted Poe
+## 4  5decf15f6bc7be2e6f6202d5 Ted Poe
+## 5  5decf15f6bc7be2e6f6202d6 Ted Poe
+## 6  5decf15f6bc7be2e6f6202d7 Ted Poe
+## 7  5decf15f6bc7be2e6f6202d8 Ted Poe
+## 8  5decf15f6bc7be2e6f6202d9 Ted Poe
+## 9  5decf15f6bc7be2e6f6202da Ted Poe
+## 10 5decf15f6bc7be2e6f6202db Ted Poe</code></pre>
 <pre class="r"><code>dbGetQuery(dbsql, &quot;SELECT name FROM congress LIMIT 10&quot;)</code></pre>
 <pre><code>##                  name
 ## 1  Robert B. Aderholt
@@ -343,16 +355,16 @@ db$find(query = paste0('{&quot;datetime&quot;: {&quot;$gt&quot;: {&quot;$date&qu
         fields = '{&quot;from_name&quot;: true, &quot;type&quot;: true, &quot;date&quot;: true}', 
         limit = 10)</code></pre>
 <pre><code>##                         _id type from_name       date
-## 1  5de8cfda7185b46238132f4c  rep   Ted Poe 2017-01-03
-## 2  5de8cfda7185b46238132f4d  rep   Ted Poe 2017-01-03
-## 3  5de8cfda7185b46238132f4e  rep   Ted Poe 2017-01-05
-## 4  5de8cfda7185b46238132f4f  rep   Ted Poe 2017-01-05
-## 5  5de8cfda7185b46238132f50  rep   Ted Poe 2017-01-06
-## 6  5de8cfda7185b46238132f51  rep   Ted Poe 2017-01-06
-## 7  5de8cfda7185b46238132f52  rep   Ted Poe 2017-01-09
-## 8  5de8cfda7185b46238132f53  rep   Ted Poe 2017-01-13
-## 9  5de8cfda7185b46238132f54  rep   Ted Poe 2017-01-18
-## 10 5de8cfda7185b46238132f55  rep   Ted Poe 2017-01-18</code></pre>
+## 1  5decf15f6bc7be2e6f6202d2  rep   Ted Poe 2017-01-03
+## 2  5decf15f6bc7be2e6f6202d3  rep   Ted Poe 2017-01-03
+## 3  5decf15f6bc7be2e6f6202d4  rep   Ted Poe 2017-01-05
+## 4  5decf15f6bc7be2e6f6202d5  rep   Ted Poe 2017-01-05
+## 5  5decf15f6bc7be2e6f6202d6  rep   Ted Poe 2017-01-06
+## 6  5decf15f6bc7be2e6f6202d7  rep   Ted Poe 2017-01-06
+## 7  5decf15f6bc7be2e6f6202d8  rep   Ted Poe 2017-01-09
+## 8  5decf15f6bc7be2e6f6202d9  rep   Ted Poe 2017-01-13
+## 9  5decf15f6bc7be2e6f6202da  rep   Ted Poe 2017-01-18
+## 10 5decf15f6bc7be2e6f6202db  rep   Ted Poe 2017-01-18</code></pre>
 <pre class="r"><code># AND operator
 dbGetQuery(dbsql, &quot;SELECT from_name, type, date, likes_count 
            FROM posts
@@ -373,16 +385,16 @@ dbGetQuery(dbsql, &quot;SELECT from_name, type, date, likes_count
         fields = '{&quot;from_name&quot;: true, &quot;type&quot;: true, &quot;date&quot;: true, &quot;likes_count&quot;: true}', 
         limit = 10)</code></pre>
 <pre><code>##                         _id type                from_name       date
-## 1  5de8cfda7185b46238132f4f  rep                  Ted Poe 2017-01-05
-## 2  5de8cfda7185b46238132f56  rep                  Ted Poe 2017-01-19
-## 3  5de8cfda7185b46238132ffd  rep                  Ted Poe 2017-08-30
-## 4  5de8cfda7185b46238133024  rep                  Ted Poe 2017-09-18
-## 5  5de8cfda7185b46238133061  rep                  Ted Poe 2017-11-07
-## 6  5de8cfda7185b462381331d6  rep Congressman Hank Johnson 2017-01-15
-## 7  5de8cfda7185b462381331e2  rep Congressman Hank Johnson 2017-01-29
-## 8  5de8cfda7185b462381334dc  rep       Rep. Steve Stivers 2017-08-15
-## 9  5de8cfda7185b4623813353c  rep               Sam Graves 2017-01-04
-## 10 5de8cfda7185b46238133545  rep               Sam Graves 2017-02-07
+## 1  5decf15f6bc7be2e6f6202d5  rep                  Ted Poe 2017-01-05
+## 2  5decf15f6bc7be2e6f6202dc  rep                  Ted Poe 2017-01-19
+## 3  5decf15f6bc7be2e6f620383  rep                  Ted Poe 2017-08-30
+## 4  5decf15f6bc7be2e6f6203aa  rep                  Ted Poe 2017-09-18
+## 5  5decf15f6bc7be2e6f6203e7  rep                  Ted Poe 2017-11-07
+## 6  5decf15f6bc7be2e6f62055c  rep Congressman Hank Johnson 2017-01-15
+## 7  5decf15f6bc7be2e6f620568  rep Congressman Hank Johnson 2017-01-29
+## 8  5decf15f6bc7be2e6f620862  rep       Rep. Steve Stivers 2017-08-15
+## 9  5decf15f6bc7be2e6f6208c2  rep               Sam Graves 2017-01-04
+## 10 5decf15f6bc7be2e6f6208cb  rep               Sam Graves 2017-02-07
 ##    likes_count
 ## 1         1125
 ## 2          563
@@ -455,16 +467,16 @@ dbGetQuery(dbsql, &quot;SELECT from_name, type, date, comments_count
         fields = '{&quot;from_name&quot;: true, &quot;type&quot;: true, &quot;date&quot;: true, &quot;likes_count&quot;: true}', 
         limit = 10)</code></pre>
 <pre><code>##                         _id type from_name       date likes_count
-## 1  5de8cfda7185b46238132f4c  rep   Ted Poe 2017-01-03         121
-## 2  5de8cfda7185b46238132f4d  rep   Ted Poe 2017-01-03         182
-## 3  5de8cfda7185b46238132f4e  rep   Ted Poe 2017-01-05         137
-## 4  5de8cfda7185b46238132f4f  rep   Ted Poe 2017-01-05        1125
-## 5  5de8cfda7185b46238132f50  rep   Ted Poe 2017-01-06          24
-## 6  5de8cfda7185b46238132f51  rep   Ted Poe 2017-01-06          82
-## 7  5de8cfda7185b46238132f52  rep   Ted Poe 2017-01-09         231
-## 8  5de8cfda7185b46238132f53  rep   Ted Poe 2017-01-13          49
-## 9  5de8cfda7185b46238132f54  rep   Ted Poe 2017-01-18         106
-## 10 5de8cfda7185b46238132f55  rep   Ted Poe 2017-01-18          91</code></pre>
+## 1  5decf15f6bc7be2e6f6202d2  rep   Ted Poe 2017-01-03         121
+## 2  5decf15f6bc7be2e6f6202d3  rep   Ted Poe 2017-01-03         182
+## 3  5decf15f6bc7be2e6f6202d4  rep   Ted Poe 2017-01-05         137
+## 4  5decf15f6bc7be2e6f6202d5  rep   Ted Poe 2017-01-05        1125
+## 5  5decf15f6bc7be2e6f6202d6  rep   Ted Poe 2017-01-06          24
+## 6  5decf15f6bc7be2e6f6202d7  rep   Ted Poe 2017-01-06          82
+## 7  5decf15f6bc7be2e6f6202d8  rep   Ted Poe 2017-01-09         231
+## 8  5decf15f6bc7be2e6f6202d9  rep   Ted Poe 2017-01-13          49
+## 9  5decf15f6bc7be2e6f6202da  rep   Ted Poe 2017-01-18         106
+## 10 5decf15f6bc7be2e6f6202db  rep   Ted Poe 2017-01-18          91</code></pre>
 <pre class="r"><code>dbGetQuery(dbsql, &quot;SELECT from_name, type, date, comments_count 
            FROM posts
            WHERE date LIKE '2017-01%'
@@ -484,16 +496,16 @@ dbGetQuery(dbsql, &quot;SELECT from_name, type, date, comments_count
         fields = '{&quot;from_name&quot;: true, &quot;type&quot;: true, &quot;date&quot;: true, &quot;likes_count&quot;: true}', 
         limit = 10)</code></pre>
 <pre><code>##                         _id type from_name       date likes_count
-## 1  5de8cfda7185b46238132f4c  rep   Ted Poe 2017-01-03         121
-## 2  5de8cfda7185b46238132f4d  rep   Ted Poe 2017-01-03         182
-## 3  5de8cfda7185b46238132f4e  rep   Ted Poe 2017-01-05         137
-## 4  5de8cfda7185b46238132f4f  rep   Ted Poe 2017-01-05        1125
-## 5  5de8cfda7185b46238132f50  rep   Ted Poe 2017-01-06          24
-## 6  5de8cfda7185b46238132f51  rep   Ted Poe 2017-01-06          82
-## 7  5de8cfda7185b46238132f52  rep   Ted Poe 2017-01-09         231
-## 8  5de8cfda7185b46238132f53  rep   Ted Poe 2017-01-13          49
-## 9  5de8cfda7185b46238132f54  rep   Ted Poe 2017-01-18         106
-## 10 5de8cfda7185b46238132f55  rep   Ted Poe 2017-01-18          91</code></pre>
+## 1  5decf15f6bc7be2e6f6202d2  rep   Ted Poe 2017-01-03         121
+## 2  5decf15f6bc7be2e6f6202d3  rep   Ted Poe 2017-01-03         182
+## 3  5decf15f6bc7be2e6f6202d4  rep   Ted Poe 2017-01-05         137
+## 4  5decf15f6bc7be2e6f6202d5  rep   Ted Poe 2017-01-05        1125
+## 5  5decf15f6bc7be2e6f6202d6  rep   Ted Poe 2017-01-06          24
+## 6  5decf15f6bc7be2e6f6202d7  rep   Ted Poe 2017-01-06          82
+## 7  5decf15f6bc7be2e6f6202d8  rep   Ted Poe 2017-01-09         231
+## 8  5decf15f6bc7be2e6f6202d9  rep   Ted Poe 2017-01-13          49
+## 9  5decf15f6bc7be2e6f6202da  rep   Ted Poe 2017-01-18         106
+## 10 5decf15f6bc7be2e6f6202db  rep   Ted Poe 2017-01-18          91</code></pre>
 <pre class="r"><code>dbGetQuery(dbsql, &quot;SELECT from_name, message, date
            FROM posts
            WHERE message LIKE '%london%'
@@ -508,16 +520,16 @@ dbGetQuery(dbsql, &quot;SELECT from_name, type, date, comments_count
         fields = '{&quot;from_name&quot;: true, &quot;type&quot;: true, &quot;date&quot;: true, &quot;likes_count&quot;: true, &quot;message&quot;: true}', 
         limit = 10)</code></pre>
 <pre><code>##                         _id type                              from_name
-## 1  5de8cfda7185b4623813346d  rep                     Rep. Steve Stivers
-## 2  5de8cfda7185b4623813348c  rep                     Rep. Steve Stivers
-## 3  5de8cfda7185b462381334d4  rep                     Rep. Steve Stivers
-## 4  5de8cfda7185b4623813350c  rep                     Rep. Steve Stivers
-## 5  5de8cfda7185b46238133539  rep                     Rep. Steve Stivers
-## 6  5de8cfda7185b46238133705  rep U.S. Congressman Henry Cuellar (TX-28)
-## 7  5de8cfda7185b46238133cc7  rep             Congressman Joaquin Castro
-## 8  5de8cfda7185b46238133d1f  rep             Congressman Joaquin Castro
-## 9  5de8cfda7185b462381344a2  rep          Congressman Alcee L. Hastings
-## 10 5de8cfda7185b462381344d7  rep          Congressman Alcee L. Hastings
+## 1  5decf15f6bc7be2e6f6207f3  rep                     Rep. Steve Stivers
+## 2  5decf15f6bc7be2e6f620812  rep                     Rep. Steve Stivers
+## 3  5decf15f6bc7be2e6f62085a  rep                     Rep. Steve Stivers
+## 4  5decf15f6bc7be2e6f620892  rep                     Rep. Steve Stivers
+## 5  5decf15f6bc7be2e6f6208bf  rep                     Rep. Steve Stivers
+## 6  5decf15f6bc7be2e6f620a8b  rep U.S. Congressman Henry Cuellar (TX-28)
+## 7  5decf15f6bc7be2e6f62104d  rep             Congressman Joaquin Castro
+## 8  5decf15f6bc7be2e6f6210a5  rep             Congressman Joaquin Castro
+## 9  5decf1606bc7be2e6f621828  rep          Congressman Alcee L. Hastings
+## 10 5decf1606bc7be2e6f62185d  rep          Congressman Alcee L. Hastings
 ##          date
 ## 1  2017-03-02
 ## 2  2017-04-28
@@ -570,32 +582,32 @@ dbGetQuery(dbsql, &quot;SELECT from_name, type, date, comments_count
 ## 10 Bonnie Watson Coleman        490</code></pre>
 <pre class="r"><code>db$aggregate('[ {&quot;$group&quot;: {&quot;_id&quot;: &quot;$from_name&quot;, &quot;count&quot;: {&quot;$sum&quot;: 1}}},
                   {&quot;$limit&quot;: 10}]')</code></pre>
-<pre><code>##                                _id count
-## 1    U.S. Representative Will Hurd   750
-## 2            Congressman Mo Brooks   260
-## 3              Rep. Adam Kinzinger   326
-## 4  Representative Stephen F. Lynch   173
-## 5                    Gwen S. Moore   265
-## 6             Senator Richard Burr   219
-## 7      Democratic Whip Steny Hoyer   737
-## 8           U.S. Senator Tim Kaine   446
-## 9          Senator Debbie Stabenow   366
-## 10              Rep. Gus Bilirakis   586</code></pre>
+<pre><code>##                             _id count
+## 1            Senator Mike Crapo   218
+## 2  Congresswoman Betty McCollum   714
+## 3         Congressman Paul Cook    96
+## 4        U.S. Rep. Kathy Castor   352
+## 5                    Sam Graves   123
+## 6          Senator David Perdue   283
+## 7                Glenn Thompson    73
+## 8       Congressman Jim Renacci   546
+## 9      Congressman Buddy Carter   305
+## 10       Rep. Daniel M. Donovan   357</code></pre>
 <pre class="r"><code>## conditional aggregate
 db$aggregate('[{ &quot;$match&quot;: {&quot;party&quot;: &quot;Republican&quot;}}, 
                   {&quot;$group&quot;: {&quot;_id&quot;: &quot;$from_name&quot;, &quot;count&quot;: {&quot;$sum&quot;: 1}}},
                   {&quot;$limit&quot;: 10}]')</code></pre>
-<pre><code>##                           _id count
-## 1                 John Cornyn   137
-## 2  Congressman Mike D. Rogers   449
-## 3              Michael McCaul   279
-## 4            Scott DesJarlais   353
-## 5            Rep. Scott Perry   518
-## 6    U.S. Senator Mike Rounds   503
-## 7           Rep. Jack Bergman   296
-## 8           Speaker Paul Ryan   432
-## 9   Congressman Garret Graves   598
-## 10          Rep. Dan Newhouse   259</code></pre>
+<pre><code>##                               _id count
+## 1                  Glenn Thompson    73
+## 2        Congressman John Shimkus   286
+## 3        Congressman Bill Shuster   199
+## 4               Rep. Evan Jenkins   466
+## 5  United States Senator Mike Lee   237
+## 6            Senator David Perdue   283
+## 7           Congressman Don Bacon   678
+## 8                      Sam Graves   123
+## 9                Rep. Brian Babin   570
+## 10          Congressman Paul Cook    96</code></pre>
 <p>Like <strong>ORDER BY</strong>, we can use <code>&quot;$sort&quot;</code> after find or aggregate.</p>
 <pre class="r"><code># sort by type_count
 dbGetQuery(dbsql, 
@@ -661,8 +673,10 @@ dbGetQuery(dbsql,
              field = '{&quot;from_name&quot;: true, &quot;message&quot;: true, &quot;likes_count&quot;: true, &quot;datetime&quot;: true}',
              sort = '{&quot;likes_count&quot;: -1}',
              limit = 1)</code></pre>
-<pre><code>##                        _id                     from_name            datetime
-## 1 5de8cfe57185b46238157d1e U.S. Senator Elizabeth Warren 2017-01-29 01:59:12
+<pre><code>##                        _id                     from_name
+## 1 5decf1726bc7be2e6f6450a4 U.S. Senator Elizabeth Warren
+##              datetime
+## 1 2017-01-29 01:59:12
 ##                                                                                                                                                                                                                                            message
 ## 1 Tonight we fight for American values at airports all across this country. I'm at Logan Airport tonight to say: our diversity makes our country strong. We will not allow a Muslim ban in the United States of America. #NoBanNoWall #nomuslimban
 ##   likes_count
@@ -701,11 +715,11 @@ dbGetQuery(dbsql,
                   {&quot;$sort&quot;: {&quot;comment_like_ratio&quot;: -1}},
                   {&quot;$limit&quot;: 5}]') </code></pre>
 <pre><code>##                        _id                  from_name       date
-## 1 5de8cfe77185b4623815d0a1 U.S. Senator Susan Collins 2017-12-01
-## 2 5de8cfe67185b4623815b6be       Senator Cory Gardner 2017-02-07
-## 3 5de8cfe67185b4623815b79d       Senator Cory Gardner 2017-12-02
-## 4 5de8cfe57185b46238156edc                John Cornyn 2017-02-06
-## 5 5de8cfe67185b46238159894       Senator Richard Burr 2017-01-18
+## 1 5decf1756bc7be2e6f64a427 U.S. Senator Susan Collins 2017-12-01
+## 2 5decf1746bc7be2e6f648a44       Senator Cory Gardner 2017-02-07
+## 3 5decf1746bc7be2e6f648b23       Senator Cory Gardner 2017-12-02
+## 4 5decf1716bc7be2e6f644262                John Cornyn 2017-02-06
+## 5 5decf1736bc7be2e6f646c1a       Senator Richard Burr 2017-01-18
 ##                                                                                                                                                                                                                                                                                                                                                                                                                                message
 ## 1  After securing significant changes in the bill, as well as commitments to pass legislation to help lower health insurance premiums, I will cast my vote in support of the Senate tax reform bill. As revised, this bill will provide much-needed tax relief and simplification for lower- and middle-income families, while spurring the creation of good jobs and greater economic growth.  Click below to read my full statement:
 ## 2 The teachers in our lives play an outsized role as we grow into adults and throughout our adult life - and for good reason. They taught me that we must work together in common cause for a greater school, community, and nation. I look forward to the great work ahead of us not as parents divided, but as people committed, in spite of these differences, to building a stronger education for our children and grandchildren.
@@ -732,9 +746,9 @@ dbGetQuery(dbsql,
         fields = '{&quot;from_name&quot;: true, &quot;type&quot;: true, &quot;date&quot;: true, &quot;likes_count&quot;: true}', 
         limit = 10), times = 10)</code></pre>
 <pre><code>## Unit: microseconds
-##    expr      min       lq      mean   median       uq      max neval cld
-##  sqlite  428.102  440.341  625.2337  610.548  661.076 1058.428    10  a 
-##   mongo 1486.946 1525.363 1927.5061 1651.943 1901.574 4359.597    10   b</code></pre>
+##    expr      min       lq     mean   median       uq      max neval
+##  sqlite  807.466  950.355 1127.147 1144.264 1294.088 1454.606    10
+##   mongo 2671.896 2733.594 2972.290 2816.684 3072.442 3884.256    10</code></pre>
 <pre class="r"><code>microbenchmark(sqlite = 
   dbGetQuery(dbsql,
     &quot;SELECT from_name, message, likes_count, comments_count, date,   
@@ -750,9 +764,9 @@ dbGetQuery(dbsql,
                   {&quot;$limit&quot;: 5}]'),
 times = 10)</code></pre>
 <pre><code>## Unit: milliseconds
-##    expr       min       lq      mean    median        uq       max neval cld
-##  sqlite  43.09958  43.6104  44.43417  43.79172  44.33288  47.51219    10  a 
-##   mongo 105.60103 106.0192 107.23668 106.96891 107.62928 111.34935    10   b</code></pre>
+##    expr       min        lq      mean   median        uq       max neval
+##  sqlite  68.03823  68.13049  68.61594  68.2406  69.05502  70.73847    10
+##   mongo 159.99361 160.75107 162.29738 161.9984 163.94564 164.27671    10</code></pre>
 <p>We need more tuning for mongo (e.g. add index, etc.), but not bad…</p>
 </div>
 
@@ -773,23 +787,6 @@ $(document).ready(function () {
 
 
 </script>
-
-<!-- tabsets -->
-
-<script>
-$(document).ready(function () {
-  window.buildTabsets("TOC");
-});
-
-$(document).ready(function () {
-  $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open')
-  });
-});
-</script>
-
-<!-- code folding -->
-
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>
