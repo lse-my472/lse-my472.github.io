@@ -8,22 +8,21 @@ colorlinks: true
 <!-- ![LSE](images/lse-logo.jpg) -->
 # MY472 Data for Data Scientists
 
-### Michaelmas Term 2019
+### Michaelmas Term 2020
 
 ### Instructors
 
 Office hour slots to be booked via LSE's StudentHub.
 
-* [Kenneth Benoit](mailto:K.R.Benoit@lse.ac.uk), Department of Methodology.  *Office hours*: Tuesdays 15:30-17:00, Wednesdays 10:00-11:00, COL.8.11.
-
-* [Milena Tsvetkova](mailto:m.tsvetkova@lse.ac.uk), Department of Methodology.  *Office hours*: Fridays 10:00–12:00, COL 8.03 (only weeks 10, 11).
+* [Friedrich Geiecke](f.c.geiecke@lse.ac.uk), Department of Methodology.  *Office hours*: Tuesdays 10:30-12:30 via Zoom
 
 ### Course Information
 
-* Lectures on Tuesdays 09:00–11:00 in CBG.2.01
+* Lectures are prerecorded and available via Moodle
+* Lecture discussions: Tuesdays 09:00–11:00 and 15:00-16:00 via Zoom
 * Classes on:
-    - Thursdays 9:30-11:00, FAW.4.02
-    - Fridays 15:00-16:30, FAW.4.02
+    - Thursdays 10:00-11:00, CLM.3.02
+    - Fridays 16:00-17:00, LRB.R.21
 
 No lectures or classes will take place during (Reading) Week 6.
 
@@ -179,7 +178,7 @@ This week moves beyond the rectangular format common in statistical datasets, mo
 
 ##### [Lab: Reshaping data in R**]
 
-##### Assignment 1: Data cleaning in R. Deadline: October 18.   
+##### Assignment 1: Data cleaning in R. Deadline: Friday, October 16.   
 
 
 #### 3. Cloud computing
@@ -237,7 +236,7 @@ From week 4 to week 7, we will learn how to get the data from the Internet. This
 - Scraping unstructured data  
 
 ##### Assignment 2: Webscraping
-* [Link to the GitHub classroom]().  Deadline: Friday, November 1.
+* [Link to the GitHub classroom]().  Deadline: Friday, October 30.
 
 
 #### 5. Using data from the Internet
@@ -364,9 +363,9 @@ This week, we will dive deeper into the databases. In particular, this week cove
 - SQL JOINs, subqueries, and BigQuery
 
 ##### Assignment 5: Databases.
-- Deadline: December 19, 15:00.
+- Deadline: Thursday, December 17, 15:00.
 
 
 #### Take-home exam
 
-Deadline: January 17, 14:00.
+Deadline: Friday, January 15, 14:00.
