@@ -15,6 +15,7 @@ colorlinks: true
 Office hour slots to be booked via LSE's StudentHub.
 
 * [Friedrich Geiecke](f.c.geiecke@lse.ac.uk), Department of Methodology.  *Office hours*: Tuesdays 10:30-12:30 via Zoom
+* [Martin Lukac](m.lukac@lse.ac.uk), Department of Methodology.  *Office hours*: Mondays 14:00-17:00 via Zoom
 
 ### Course Information
 
