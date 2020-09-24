@@ -29,19 +29,19 @@ No lectures or classes will take place during (Reading) Week 6.
 
 ### Quick links to topics
 
-| Week | Date | Instructor | Topic |  
-|:--:|-------:|:--  -------|:------|  
-| 1  |  29 Sep | KB         | [Introduction to data](#1-introduction-to-data) |  
-| 2  |  6 Oct | KB         | [The Shape of Data](#2-the-shape-of-data) |  
-| 3  | 13 Oct | KB         | [HTML and CSS](#3-html-and-css) |
-| 4  | 21 Oct | KB         | [Using data from the Internet](#4-using-data-from-the-internet) |   
-| 5  | 27 Oct | KB         | [Working with APIs](#5-working-with-apis) |  
-| 6  |  3 Nov | -          | _reading week_ |  
-| 7  | 10 Nov | KB         | [Textual data](#7-textual-data) |  
-| 8  | 17 Nov | KB         | [Data visualisation](#8-data-visualisation) |  
-| 9  | 24 Nov | KB         | [Creating and managing databases](#9-creating-and-managing-databases) |  
-| 10 |  1 Dec | MT         | [Interacting with online databases](#10-interacting-with-online-databases)|  
-| 11 | 8 Dec | MT         | [Cloud Computing](#11-cloud-computing) |  
+| Week | Date |  Topic |  
+|:--:|-------:|:------|  
+| 1  |  29 Sep | [Introduction to data](#1-introduction-to-data) |  
+| 2  |  6 Oct | [The shape of data](#2-the-shape-of-data) |  
+| 3  | 13 Oct | [HTML and CSS](#3-html-and-css) |
+| 4  | 21 Oct | [Using data from the Internet](#4-using-data-from-the-internet) |   
+| 5  | 27 Oct | [Working with APIs](#5-working-with-apis) |  
+| 6  |  3 Nov | _Reading week_ |  
+| 7  | 10 Nov | [Textual data](#7-textual-data) |  
+| 8  | 17 Nov | [Data visualization](#8-data-visualisation) |  
+| 9  | 24 Nov | [Creating and managing databases](#9-creating-and-managing-databases) |  
+| 10 |  1 Dec | [Interacting with online databases](#10-interacting-with-online-databases)|  
+| 11 | 8 Dec | [Cloud Computing](#11-cloud-computing) |  
 
 
 
@@ -179,8 +179,11 @@ This week moves beyond the rectangular format common in statistical datasets, mo
 * The [**reshape2** package](http://had.co.nz/reshape/) for R.
 
 ##### Lab: Reshaping data in R
-- Link to GitHub classroom available on Moodle on ...
-- Deadline: Friday, October 16, 14:00.
+
+
+##### Assignment 1: Data cleaning in R
+- Link to GitHub Classroom available via Moodle on Monday, October 5, 10am
+- Deadline on Friday, October 16, 2pm
 
 
 #### 3. HTML and CSS
@@ -227,9 +230,9 @@ Continuing from the material covered in Week 3, we will learn the advanced topic
 
 ##### Lab: Group work on first five weeks
 
-##### Assignment 2: Webscraping
-- Link to GitHub classroom available on Moodle on ...
-- Deadline: Friday, October 30, 14:00.
+##### Assignment 2: Web scraping
+- Link to GitHub Classroom available via Moodle on Monday, October 19, 10am
+- Deadline on Friday, October 30, 2pm
 
 
 
@@ -252,6 +255,11 @@ How to work with Application Programming Interfaces (APIs), which offer develope
 - Interacting with Twitter's REST and Streaming API
 
 
+##### Assignment 3: APIs
+- Link to GitHub Classroom available via Moodle on Monday, October 26, 10am
+- Deadline on Friday, November 13, 2pm
+
+
 #### 6. Reading week
 
 
@@ -268,11 +276,7 @@ We will learn how to work with unstructured data in the form of text, and how to
 * Kenneth Benoit. July 16, 2019. "[Text as Data: An Overview](https://kenbenoit.net/pdfs/28%20Benoit%20Text%20as%20Data%20draft%202.pdf)" Forthcoming in Cuirini, Luigi and Robert Franzese, eds. Handbook of Research Methods in Political Science and International Relations. Thousand Oaks: Sage.
 
 ##### Lab
-- Group working with textual data.
-
-##### Assignment 3: APIs
-- Link to GitHub classroom available on Moodle on ...
-- Deadline: Friday, November 20, 14:00.
+- Group working with textual data
 
 
 
@@ -295,8 +299,11 @@ shapes public opinion"](https://journals.sagepub.com/doi/abs/10.1177/20531680156
 * Tufte, E. (2002) ["The visual display of quantitative information"](https://www.edwardtufte.com/tufte/books_vdqi).
 
 ##### Lab
-- Data visualization with ggplot2.
-- Github Classroom: [TBC]()
+- Data visualization with ggplot2
+
+##### Assignment 4: Data visualization
+- Link to GitHub Classroom available via Moodle on Monday, November 16, 10am
+- Deadline on Friday, November 27, 2pm
 
 
 #### 9. Creating and managing databases
@@ -339,8 +346,8 @@ This week, we will dive deeper into the databases. In particular, this week cove
 - SQL JOINs, subqueries, and BigQuery
 
 ##### Assignment 5: Databases
-- Link to GitHub classroom available on Moodle on ...
-- Deadline: Friday, December 11, 14:00.
+- Link to GitHub Classroom available via Moodle on Monday, November 30, 10am
+- Deadline on Friday, December 11, 2pm
 
 
 #### 11. Cloud computing
@@ -370,11 +377,9 @@ In this week, we focus on the setup of computation environments on the Internet.
     - Set up a web server
     - Install R, some packages
     - Stop the instance
-* [Link to the github classroom]()
 <!-- * [Attendance Survey](https://lse.eu.qualtrics.com/jfe/form/SV_9B6qLasJrI88CJT)-->
 
 
-
 #### Take-home exam
-- Link to GitHub classroom available on Moodle on ...
-- Deadline: Friday, January 15, 14:00.
+- Link to GitHub Classroom available via Moodle on ...
+- Deadline on Friday, January 15, 2pm
