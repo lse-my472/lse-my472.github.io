@@ -68,7 +68,7 @@ completed by the student outside of class. Answers should be formatted and
 submitted for assessment. One or more of these problem sets will be completed
 in collaboration with other students.
 
-#### Summative Assignments
+#### Summative assignments
 
 Take home exam (50%) and in class assessment (50%).
 
@@ -88,7 +88,7 @@ Assignments will be marked using the following criteria:
 
 Some of the assignemnts will involve shorter questions, to which the answers can be relatively unambiguously coded as (fully or partially) correct or incorrect. In the marking, these questions may be further broken down into smaller steps and marked step by step. The final mark is then a function of the proportion of parts of the questions which have been answered correctly. In such marking, the principle of partial credit is observed as far as feasible. This means that an answer to a part of a question will be treated as correct when it is correct conditional on answers to other parts of the question, even if those other parts have been answered incorrectly.
 
-### Detailed Course Schedule
+### Detailed course schedule
 
 ### Schedule
 
@@ -109,7 +109,7 @@ This week will also introduce basic data types, in a language-agnostic manner, f
 * [GitHub Guides](https://guides.github.com), especially: "Understanding the GitHub Flow", "Hello World", and "Getting Started with GitHub Pages".
 * GitHub.  "[Markdown Syntax](https://guides.github.com/pdfs/markdown-cheatsheet-online.pdf)" (a cheatsheet).
 
-##### Recommended Reading
+##### Recommended reading
 * Lake, P. and Crowther, P. 2013. _Concise guide to databases: A Practical Introduction_.  London: Springer-Verlag.  Chapter 1, [Data, an Organizational Asset](https://books.google.co.uk/books?id=SuK2BAAAQBAJ&pg=PA301&lpg=PA301&dq=Concise+Guide+to+Databases+pdf&source=bl&ots=pEJj8miMrf&sig=3nrRgpk3kF7fXzcWUWpJ_uzpfl0&hl=en&sa=X&ved=0ahUKEwiAkM3JrbHWAhXE7xQKHWseCZAQ6AEISzAH#v=onepage&q=Concise%20Guide%20to%20Databases%20pdf&f=false)
 * Nelson, Meghan.  2015.  "[An Intro to Git and GitHub for Beginners (Tutorial).](http://product.hubspot.com/blog/git-and-github-tutorial-for-beginners)"
 * Jim McGlone, "[Creating and Hosting a Personal Site on GitHub
@@ -151,7 +151,7 @@ From week 3 to week 5, we will learn how to get the data from the Internet. This
 - [Example 1: scraping tables](week03/01-scraping-tables.Rmd)  
 - [Example 2: scraping unstructured data](week03/02-scraping-unstructured-data.Rmd)
 
-##### Required Reading
+##### Required reading
 * Lazer, David, and Jason Radford. 2017. “[Data Ex Machina: Introduction to Big Data.](https://doi.org/10.1146/annurev-soc-060116-053457)” _Annual Review of Sociology_ 43(1): 19–39.
 * Howe, Shay. 2015.  [_Learn to Code HTML and CSS: Develop and Style Websites_](http://learn.shayhowe.com/html-css/).  New Riders.  Chs 1-8.
 * Kingl, Arvid. 2018. [_Web Scraping in R: rvest Tutorial_](https://www.datacamp.com/community/tutorials/r-web-scraping-rvest).
@@ -175,12 +175,12 @@ Continuing from the material covered in Week 3, we will learn the advanced topic
 - [Lecture slides](week04/MY472-week04-internetdata.html)
 - [Example of vectors and list operations in R](vectors-and-lists.R)
 
-##### Required Reading
+##### Required reading
 * Sai Swapna Gollapudi. 2018. [_Learn Web Scraping and Browser Automation Using RSelenium in R_](https://analyticsprofile.com/business-analytics/learn-web-scraping-and-browser-automation-using-rselenium-in-r/).
 * Wickham, Hadley. 2015. [_Parse and process XML (and HTML) with xml2_](https://blog.rstudio.com/2015/04/21/xml2/)
 * Mozilla Developer Web Docs. [_What is JavaScript_](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/First_steps/What_is_JavaScript).
 
-##### Recommended Readings
+##### Recommended reading
 * Schouwenaars, Filip. 2015. [_Web Scraping with R and PhantomJS_](https://www.datacamp.com/community/tutorials/scraping-javascript-generated-data-with-r).
 * Mozilla Developer Web Docs. [_A First Splash into JavaScript_](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/First_steps/A_first_splash).
 
@@ -200,10 +200,10 @@ Continuing from the material covered in Week 3, we will learn the advanced topic
 
 How to work with Application Programming Interfaces (APIs), which offer developers and researchers access to data in a structured format. Our running examples will be the New York Times API and the Twitter API.
 
-##### Required Reading
+##### Required reading
 * Steinert-Threlkeld. 2018. [_Twitter as Data_](https://www.cambridge.org/core/elements/twitter-as-data/27B3DE20C22E12E162BFB173C5EB2592). Cambridge University Press.
 
-##### Recommended Reading
+##### Recommended reading
 * Ruths and Pfeffer. 2014. [_Social media for large studies of behavior_](http://science.sciencemag.org/content/346/6213/1063.full). Science.
 
 ##### Lab: APIs
@@ -228,7 +228,7 @@ We will learn how to work with unstructured data in the form of text, and how to
 - [Lecture slides](week07/MY472-week07-text.pdf) and [as HTML](week07/MY472-week07-text.html)
 - [Regular expressions cheat sheet](week07/regular-expressions-cheat-sheet-v2.pdf)
 
-##### Required Reading
+##### Required reading
 * Kenneth Benoit. July 16, 2019. "[Text as Data: An Overview](https://kenbenoit.net/pdfs/28%20Benoit%20Text%20as%20Data%20draft%202.pdf)" Forthcoming in Cuirini, Luigi and Robert Franzese, eds. Handbook of Research Methods in Political Science and International Relations. Thousand Oaks: Sage.
 
 ##### Lab
@@ -246,12 +246,12 @@ The lecture this week will offer an overview of the principles of exploratory da
 - [**ggplot2** basics](https://github.com/lse-my472/lse-my472.github.io/blob/master/week08/02_ggplot2_basics.md)
 - [Scales, axes, and legends in **gplot2**](https://github.com/lse-my472/lse-my472.github.io/blob/master/week08/03_scales_axes_legends.md)
 
-##### Required Reading
+##### Required reading
 * Wickham, Hadley and Garett Grolemund.  2017.  _R for Data Science: Import, Tidy, Transform, Visualize, and Model Data_.  Sebastopol, CA: O'Reilly.  [Data visualization](https://r4ds.had.co.nz/data-visualisation.html), [Graphics for communication](https://r4ds.had.co.nz/graphics-for-communication.html) (Ch. 1 and 22 of the print edition).
 * Hughes, A. (2015) ["Visualizing inequality: How graphical emphasis
 shapes public opinion"](https://journals.sagepub.com/doi/abs/10.1177/2053168015622073) Research and Politics.
 
-##### Recommended Reading
+##### Recommended reading
 * Tufte, E. (2002) ["The visual display of quantitative information"](https://www.edwardtufte.com/tufte/books_vdqi).
 
 ##### Lab
@@ -271,10 +271,10 @@ This session will offer an introduction to relational databases: structure, logi
 - [Lecture slides](week09/MY472-week09.pdf)
 - [Examples](https://github.com/lse-my472/lse-my472.github.io/tree/master/week09)
 
-##### Required Reading
+##### Required reading
 * Beaulieu. 2009. [_Learning SQL_](https://books.google.co.uk/books?hl=en&lr=&id=1PgCCVryjOQC&oi=fnd&pg=PR3&dq=learning+sql+alan&ots=X6M3Iaz1wO&sig=38Fp1kDlxM8TF7miw0K2CNcKib4#v=onepage&q=learning%20sql%20alan&f=false). O'Reilly. (Chapters 1, 3, 4, 5, 8)
 
-##### Recommended Readings
+##### Recommended readings
 * Stephens et al. 2009. [_Teach yourself SQL in one hour a day_](https://books.google.co.uk/books?hl=en&lr=&id=9fDZ_rVoxx0C&oi=fnd&pg=PR5&dq=%22Sams+Teach+Yourself+SQL+in+24+Hours%22&ots=UkaClJDMem&sig=wgLy-DG3bc7g0LO0_Ojy5Cy2Ejs#v=onepage&q=%22Sams%20Teach%20Yourself%20SQL%20in%2024%20Hours%22&f=false). Sam's Publishing.
 
 ##### Lab: SQL
@@ -289,12 +289,12 @@ This week, we will dive deeper into the databases. In particular, this week cove
 - [Lecture slides](week10/MY472-week10.pdf)
 - [Examples](https://github.com/lse-my472/lse-my472.github.io/tree/master/week10)
 
-##### Required Reading
+##### Required reading
 * Beaulieu. 2009. [_Learning SQL_](https://books.google.co.uk/books?hl=en&lr=&id=1PgCCVryjOQC&oi=fnd&pg=PR3&dq=learning+sql+alan&ots=X6M3Iaz1wO&sig=38Fp1kDlxM8TF7miw0K2CNcKib4#v=onepage&q=learning%20sql%20alan&f=false). O'Reilly. (Chapters 2)
 * Hows, Membrey, and Plugge. 2014. [_MongoDB Basics_](https://books.google.co.uk/books?id=kmQnCgAAQBAJ&printsec=frontcover&dq=mongodb+basics&hl=en&sa=X&ved=0ahUKEwjPt7Cnv-PeAhUHBcAKHWQeBe0Q6wEIKzAA#v=onepage&q&f=false). Apress. (Chapter 1)
 * Tigani and Naidu. 2017. [_Google BigQuery Analytics_](https://books.google.co.uk/books?id=LDaiAwAAQBAJ&printsec=frontcover&dq=bigquery&hl=en&sa=X&ved=0ahUKEwj6yZ-MvOPeAhXHCcAKHWJxBSEQ6AEIMzAB#v=onepage&q&f=false). Weily. (Chapters 1-3)
 
-##### Recommended Reading
+##### Recommended reading
 * [MongoDB Basics](https://www.edx.org/course/mongodb-basics) on edX
 * [Analyzing Big Data in less time with Google BigQuery](https://www.youtube.com/watch?v=qqbYrQGSibQ) on YouTube
 
