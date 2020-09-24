@@ -10,6 +10,10 @@ colorlinks: true
 
 ### Michaelmas Term 2020
 
+### Prerequisites
+
+All students are required to complete the preparatory course 'R Advanced for Methodology' early in Michaelmas Term, ideally in weeks 0 and 1. You will be auto-enrolled into the R course when you enrol into MY472 on Moodle.
+
 ### Instructors
 
 Office hour slots to be booked via LSE's StudentHub.
@@ -17,7 +21,7 @@ Office hour slots to be booked via LSE's StudentHub.
 * [Friedrich Geiecke](f.c.geiecke@lse.ac.uk), Department of Methodology.  *Office hours*: Tuesdays 10:30-12:30 via Zoom
 * [Martin Lukac](m.lukac@lse.ac.uk), Department of Methodology.  *Office hours*: Mondays 14:00-17:00 via Zoom
 
-### Course Information
+### Course information
 
 * Lectures are prerecorded and available via Moodle
 * Lecture discussions: Tuesdays 09:00–11:00 and 15:00-16:00 via Zoom
@@ -45,62 +49,14 @@ No lectures or classes will take place during (Reading) Week 6.
 
 
 
-### Course Description
+### Course description
 
-This course will cover the principles of digital methods for storing and structuring data,
-including data types, relational and non-relational database design, and query languages.
-Students will learn to build, populate, manipulate and query databases based on datasets
-relevant to their fields of interest. The course will also cover workflow management
-for typical data transformation and cleaning projects, frequently the starting point
-and most time-consuming part of any data science project.  This course uses a
-project-based learning approach towards the study of performance computation and
-group-based collaboration, essential ingredients of modern data science projects.
-The coverage of data sharing will include key skills in on-line publishing, including
-the elements of web design, the technical elements of web technologies and web programming,
-as well as the use of revision-control and group collaboration tools such as GitHub.
+This course will cover the principles of digital methods for collecting, processing, and storing data. The course will also cover workflow management for typical data transformation and cleaning projects, frequently the starting point and most time-consuming part of any data science project.  We use a project-based learning approach towards the study of computation and some group-based collaboration, essential ingredients of modern data science work. We will also make frequent use of version control and group collaboration tools such as git and GitHub.
 
-### Objectives
+We begin by discussing concepts in fundamental data types, and how data is stored and recorded electronically. We continue with an introduction of R markdown and the reshaping of data in R. It follows a discussion of various common data types on the internet such as mark­up languages (e.g. HTML and XML) and JSON.  Students also study the fundamentals of acquisition and management of data from the internet through both scraping of websites and accessing APIs of online databases and social network services.
 
-In this course, we introduce principles and applications of the electronic
-storage, structuring, manipulation, transformation, extraction, and
-dissemination of data. This includes data types, database design,
-data base implementation, and data analysis through structured queries.
-Through joining operations, we will also cover the challenges of data
-linkage and how to combine datasets from different sources. We begin
-by discussing concepts in fundamental data types, and how data is stored
-and recorded electronically.
+After the reading week, we will learn how to work with unstructured data in the form of text. Afterwards we continue with an overview of the principles of exploratory data analysis through data visualization e.g. using R's ggplot2. Next, we will cover database design, especially relational databases, using examples across a variety of fields. Students are introduced to SQL through MySQL, and programming assignments in this unit of the course will be designed to ensure that students learn to create, populate and query an SQL database. We will then introduce NoSQL using MongoDB and the JSON data format for comparison. For both types of database, students will be encouraged to work with data relevant to their own interests as they learn to create, populate and query data. The course will be concluded with a discussion of cloud computing. Students will first learn the basics of cloud computing that can serve various purposes such data analysis and then how to set up a cloud computing environment through Amazon Web Services, a popular cloud platform.
 
-Cloud computing and online collaboration tools forms the second part of this
-course, along with the tools and technologies that underlie them. Students will
-firstly learn the basics of cloud computing that can serve various purposes such
-as secure hosting of webpages and web services and on-demand computations for
-data analysis and then learn how to set up a cloud-computing environment through
-Amazon Web Services, a popular cloud platform.  Collaboration and the
-dissemination and submission of course assignments will use GitHub, the popular
-code repository and version control system. The course also provides in­depth
-look at various common data-types on the Internet such as various mark­up languages
-(e.g. HTML and XML) and JSON.  Students also study the fundamentals of
-acquisition and management of the data from the Internet through both scraping of
-websites and accessing APIs of online databases and social network services.
-
-In the third part of the course, we will learn the data management and basic
-methodology of data analysis. We will cover database design, especially
-relational databases, using substantive examples across a variety of fields.
-Students are introduced to SQL through MySQL, and programming assignments in
-this unit of the course will be designed to insure that students learn to
-create, populate and query an SQL database. We will introduce NoSQL using
-MongoDB and the JSON data format for comparison. For both types of database,
-students will be encouraged to work with data relevant to their own interests as
-they learn to create, populate and query data. In the next section of the data
-section of the course, we will step through a complete workflow including data
-cleaning and transformation, illustrating many of the practical challenges faced
-at the outset of any data analysis or data science project. The course will be
-concluded with the discussion of performance issues in computation with the
-particular focus on parallel computing.
-
-### Resources
-
-This class is supported by [DataCamp](https://www.datacamp.com/), the most intuitive learning platform for data science.  Learn R, Python and SQL the way you learn best through a combination of short expert videos and hands-on-the-keyboard exercises. Take over 100+ courses by expert instructors on topics such as importing data, data visualization or machine learning and learn faster through immediate and personalised feedback on every exercise.
 
 ### Assessment
 
@@ -216,7 +172,7 @@ From week 3 to week 5, we will learn how to get the data from the Internet. This
 Continuing from the material covered in Week 3, we will learn the advanced topics in scraping the web. The topics include the scraping documents in XML (such as RSS), scraping websites beyond the authentication, and websites with non-static components.
 
 ##### Resources
-- [Lecture slides](week04/MY472-week05-internetdata.html)
+- [Lecture slides](week04/MY472-week04-internetdata.html)
 - [Example of vectors and list operations in R](vectors-and-lists.R)
 
 ##### Required Reading
@@ -239,7 +195,7 @@ Continuing from the material covered in Week 3, we will learn the advanced topic
 #### 5. Working with APIs
 
 ##### Resources
-- [Lecture slides](week05/MY472-week07-APIs.pdf)
+- [Lecture slides](week05/MY472-week05-APIs.pdf)
 - [Examples](https://github.com/lse-my472/lse-my472.github.io/tree/master/week05)
 
 How to work with Application Programming Interfaces (APIs), which offer developers and researchers access to data in a structured format. Our running examples will be the New York Times API and the Twitter API.
@@ -269,7 +225,7 @@ How to work with Application Programming Interfaces (APIs), which offer develope
 We will learn how to work with unstructured data in the form of text, and how to deal with format conversion, encoding problems, and serialization.  We will also cover search and replace operations using regular expressions, as well as the most common textual data types in R and Python.
 
 ##### Resources
-- [Lecture slides](week07/MY472-week08-text.pdf) and [as HTML](week07/MY472-week08-text.html)
+- [Lecture slides](week07/MY472-week07-text.pdf) and [as HTML](week07/MY472-week07-text.html)
 - [Regular expressions cheat sheet](week07/regular-expressions-cheat-sheet-v2.pdf)
 
 ##### Required Reading
@@ -285,7 +241,7 @@ We will learn how to work with unstructured data in the form of text, and how to
 The lecture this week will offer an overview of the principles of exploratory data analysis through (good) data visualization. In the seminars, we will practice producing our own graphs using ggplot2.
 
 ##### Resources
-- [Lecture slides](week09/MY472-week08-visualisation.pdf)
+- [Lecture slides](week08/MY472-week08-visualisation.pdf)
 - [Anscombe dataset plots](https://github.com/lse-my472/lse-my472.github.io/blob/master/week08/01-anscombe.md)
 - [**ggplot2** basics](https://github.com/lse-my472/lse-my472.github.io/blob/master/week08/02_ggplot2_basics.md)
 - [Scales, axes, and legends in **gplot2**](https://github.com/lse-my472/lse-my472.github.io/blob/master/week08/03_scales_axes_legends.md)
@@ -312,8 +268,8 @@ This session will offer an introduction to relational databases: structure, logi
 
 
 ##### Resources
-- [Lecture slides](week9/MY472-week10.pdf)
-- [Examples](https://github.com/lse-my472/lse-my472.github.io/tree/master/week9)
+- [Lecture slides](week09/MY472-week09.pdf)
+- [Examples](https://github.com/lse-my472/lse-my472.github.io/tree/master/week09)
 
 ##### Required Reading
 * Beaulieu. 2009. [_Learning SQL_](https://books.google.co.uk/books?hl=en&lr=&id=1PgCCVryjOQC&oi=fnd&pg=PR3&dq=learning+sql+alan&ots=X6M3Iaz1wO&sig=38Fp1kDlxM8TF7miw0K2CNcKib4#v=onepage&q=learning%20sql%20alan&f=false). O'Reilly. (Chapters 1, 3, 4, 5, 8)
