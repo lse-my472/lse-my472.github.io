@@ -36,17 +36,17 @@ No lectures or classes will take place during (Reading) Week 6.
 
 | Week | Date |  Topic |  
 |:--:|-------:|:------|  
-| 1  |  29 Sep | [Introduction to data](#1-introduction-to-data) |  
-| 2  |  6 Oct | [The shape of data](#2-the-shape-of-data) |  
-| 3  | 13 Oct | [HTML and CSS](#3-html-and-css) |
-| 4  | 21 Oct | [Using data from the Internet](#4-using-data-from-the-internet) |   
-| 5  | 27 Oct | [Working with APIs](#5-working-with-apis) |  
-| 6  |  3 Nov | _Reading week_ |  
-| 7  | 10 Nov | [Textual data](#7-textual-data) |  
-| 8  | 17 Nov | [Data visualization](#8-data-visualisation) |  
-| 9  | 24 Nov | [Creating and managing databases](#9-creating-and-managing-databases) |  
-| 10 |  1 Dec | [Interacting with online databases](#10-interacting-with-online-databases)|  
-| 11 | 8 Dec | [Cloud Computing](#11-cloud-computing) |  
+| 1  |  28 Sep | [Introduction to data](#1-introduction-to-data) |  
+| 2  |  5 Oct | [The shape of data](#2-the-shape-of-data) |  
+| 3  | 12 Oct | [HTML and CSS](#3-html-and-css) |
+| 4  | 19 Oct | [Using data from the Internet](#4-using-data-from-the-internet) |   
+| 5  | 26 Oct | [Working with APIs](#5-working-with-apis) |  
+| 6  |  2 Nov | _Reading week_ |  
+| 7  | 9 Nov | [Textual data](#7-textual-data) |  
+| 8  | 16 Nov | [Data visualization](#8-data-visualisation) |  
+| 9  | 23 Nov | [Creating and managing databases](#9-creating-and-managing-databases) |  
+| 10 |  30 Nov | [Interacting with online databases](#10-interacting-with-online-databases)|  
+| 11 | 7 Dec | [Cloud Computing](#11-cloud-computing) |  
 
 
 
