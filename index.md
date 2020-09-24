@@ -12,11 +12,11 @@ colorlinks: true
 
 ### Prerequisites
 
-All students are required to complete the preparatory course 'R Advanced for Methodology' early in Michaelmas Term, ideally in weeks 0 and 1. You will be auto-enrolled into the R course when you enrol into MY472 on Moodle.
+All students are required to complete the preparatory course 'R Advanced for Methodology' early in Michaelmas Term, ideally in weeks 0 and 1. You will be auto-enrolled into the R course when enrolling into MY472 on Moodle.
 
 ### Instructors
 
-Office hour slots to be booked via LSE's StudentHub.
+Office hour slots to be booked via LSE's StudentHub
 
 * [Friedrich Geiecke](f.c.geiecke@lse.ac.uk), Department of Methodology.  *Office hours*: Tuesdays 10:30-12:30 via Zoom
 * [Martin Lukac](m.lukac@lse.ac.uk), Department of Methodology.  *Office hours*: Mondays 14:00-17:00 via Zoom
@@ -26,10 +26,11 @@ Office hour slots to be booked via LSE's StudentHub.
 * Lectures are prerecorded and available via Moodle
 * Lecture discussions: Tuesdays 09:00–11:00 and 15:00-16:00 via Zoom
 * Classes on:
-    - Thursdays 10:00-11:00, CLM.3.02
-    - Fridays 16:00-17:00, LRB.R.21
+    - Thursdays 10:00-11:00, CLM.3.02 and via Zoom
+    - Fridays 16:00-17:00, LRB.R.21 and via Zoom
 
 No lectures or classes will take place during (Reading) Week 6.
+
 
 ### Quick links to topics
 
