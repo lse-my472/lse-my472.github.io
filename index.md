@@ -101,7 +101,6 @@ This week will also introduce basic data types, in a language-agnostic manner, f
 
 ##### Resources
 - [Lecture slides](week01/MY472-week01-intro.pdf)
-- [git and GitHub notes](week01/MY472-week01-GitHub.pdf)
 - R example: [Introduction to RMarkdown](week01/01-RMarkdown.html) and as [rmd source](https://github.com/lse-my472/lse-my472.github.io/blob/master/week01/01-RMarkdown.rmd)
 - R example: [vectors, lists, data frames](https://github.com/lse-my472/lse-my472.github.io/blob/master/week01/02-intro-to-R.md)
 
