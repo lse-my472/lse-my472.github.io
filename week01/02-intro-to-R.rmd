@@ -3,7 +3,7 @@ title: "Introduction to R"
 output: github_document
 ---
 
-This Rmarkdown script provides a description of some of the building blocks we will rely on throughout this course. If you're having trouble following the code below, make sure you read the required chapters in Wickham's *Advanced R*.
+This Rmarkdown script provides a description of some of the building blocks we will rely on throughout this course. If you're having trouble following the code below, make sure you have finished the R preparatory course and read the required chapters in Wickham's *Advanced R*.
 
 ### Using R as a calculator
 
@@ -37,15 +37,24 @@ You can also save combinations of objects as new objects
 
 ```{r}
 z <- x * y
+z
 ```
 
 You can also modify existing objects.
 
 ```{r}
 x <- x + 1
+x
 ```
 
-Note that we've used the `<-` sign to assign values to objects. That's the *assignment* operator. You can also use `=`, although `<-` is generally preferred. There's a more technical explanation for this preference, but another is that this way you avoid getting confused with `==`, which is used to compare objects:
+Note that we've used the `<-` sign to assign values to objects. That's the *assignment* operator. Using `<-` instead if `=` also emphasizes that the `=` used in programming is conceptually not a mathematical equal sign.
+
+```{r}
+x = x + 1
+x
+```
+
+You can also use `=`, although `<-` is generally preferred. There's a more technical explanation for this preference, but another is that this way you avoid getting confused with `==`, which is used to compare objects:
 
 ```{r}
 2 == 2
@@ -87,6 +96,7 @@ There are a few special values: `NA`, which denotes a missing value, and `NaN`, 
 0 / 0 # NaN
 1 / 0 # Inf
 x <- c(1, NA, 0)
+x
 ```
 
 Probably one of the most useful functions in R is `str`. It displays the internal structure of an object.
@@ -114,6 +124,7 @@ You can find out the data type for each object in `R` using the function `class`
 
 ```{r}
 class("hello world!")
+class(42)
 is.numeric("hello world!")
 is.character("hello world")
 class(c(1, NA, 0))
@@ -154,7 +165,7 @@ nums2 <- seq(-10, 100, by = 5)
 nums3 <- seq(-10, 100, length.out = 467)
 ```
 
-Notice that we used `seq` to generate both `nums1` and `nums2`. The different behavior is controlled by which arguments (e.g. `by`, `length.out`) are supplied to the function `seq`.
+Notice that we used `seq` to generate both `nums2` and `nums3`. The different behavior is controlled by which arguments (e.g. `by`, `length.out`) are supplied to the function `seq`.
 
 With vectors we can carry out some of the most fundamental tasks in data analysis, such as descriptive statistics
 
@@ -172,6 +183,7 @@ text(x = math_scores, y = verbal_scores, labels = student_names)
 ```
 
 It's easy to pull out specific entries in a vector using `[]`. For example,
+
 
 ```{r}
 math_scores[3]
@@ -197,14 +209,29 @@ Notice that `student_names` is a different class (character) than `math_scores` 
 ```{r}
 students$final_scores <- 0
 students$final_scores <- (students$math_scores + students$verbal_scores) / 2
+students
+```
+
+
+```{r}
 
 age <- c(18, 19, 20, 21, 22)
 students2 <- data.frame(student_names, age)
+students2
+
+
+```
+
+And merge them with other dataframes (here based on the students_name column)
+
+```{r}
+
 # merge different data frames
 students3 <- merge(students, students2)
-
 students3
 ```
+
+
 
 #### Lists
 
@@ -227,7 +254,10 @@ schools
 You can access a list component in several different ways:
 
 ```{r}
+
 schools[[1]]
 schools[["faculty"]]
 schools$students
+schools[["students"]]
+
 ```

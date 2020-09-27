@@ -3,8 +3,8 @@ Introduction to R
 
 This Rmarkdown script provides a description of some of the building
 blocks we will rely on throughout this course. If you’re having trouble
-following the code below, make sure you read the required chapters in
-Wickham’s *Advanced R*.
+following the code below, make sure you have finished the R preparatory
+course and read the required chapters in Wickham’s *Advanced R*.
 
 ### Using R as a calculator
 
@@ -59,19 +59,36 @@ You can also save combinations of objects as new objects
 
 ``` r
 z <- x * y
+z
 ```
+
+    ## [1] 50
 
 You can also modify existing objects.
 
 ``` r
 x <- x + 1
+x
 ```
 
+    ## [1] 6
+
 Note that we’ve used the `<-` sign to assign values to objects. That’s
-the *assignment* operator. You can also use `=`, although `<-` is
-generally preferred. There’s a more technical explanation for this
-preference, but another is that this way you avoid getting confused with
-`==`, which is used to compare objects:
+the *assignment* operator. Using `<-` instead if `=` also emphasizes
+that the `=` used in programming is conceptually not a mathematical
+equal sign.
+
+``` r
+x = x + 1
+x
+```
+
+    ## [1] 7
+
+You can also use `=`, although `<-` is generally preferred. There’s a
+more technical explanation for this preference, but another is that this
+way you avoid getting confused with `==`, which is used to compare
+objects:
 
 ``` r
 2 == 2
@@ -174,7 +191,10 @@ considered numeric. `NULL` denotes a value that is undefined.
 
 ``` r
 x <- c(1, NA, 0)
+x
 ```
+
+    ## [1]  1 NA  0
 
 Probably one of the most useful functions in R is `str`. It displays the
 internal structure of an object.
@@ -214,6 +234,12 @@ class("hello world!")
 ```
 
     ## [1] "character"
+
+``` r
+class(42)
+```
+
+    ## [1] "numeric"
 
 ``` r
 is.numeric("hello world!")
@@ -274,11 +300,13 @@ instance:
 
 ``` r
 nums1 <- 1:100
-nums2 <- seq(-10, 100, by=5) # -10, -5, 0, ..., 100
-nums3 <- seq(-10, 100, length.out=467) # 467 equally spaced numbers between -10 and 100
+# -10, -5, 0, ..., 100
+nums2 <- seq(-10, 100, by = 5)
+# 467 equally spaced numbers between -10 and 100
+nums3 <- seq(-10, 100, length.out = 467)
 ```
 
-Notice that we used `seq` to generate both `nums1` and `nums2`. The
+Notice that we used `seq` to generate both `nums2` and `nums3`. The
 different behavior is controlled by which arguments (e.g. `by`,
 `length.out`) are supplied to the function `seq`.
 
@@ -307,11 +335,11 @@ summary(verbal_scores)
 and plots.
 
 ``` r
-plot(x=math_scores, y=verbal_scores)
-text(x=math_scores, y=verbal_scores, labels=student_names)
+plot(x = math_scores, y = verbal_scores)
+text(x = math_scores, y = verbal_scores, labels = student_names)
 ```
 
-![](02-intro-to-R_files/figure-gfm/unnamed-chunk-18-1.png)<!-- -->
+![](02-intro-to-R_files/figure-gfm/unnamed-chunk-19-1.png)<!-- -->
 
 It’s easy to pull out specific entries in a vector using `[]`. For
 example,
@@ -329,7 +357,7 @@ math_scores[1:3]
     ## [1] 80 75 91
 
 ``` r
-math_scores[-(4:5)]
+math_scores[-c(4:5)]
 ```
 
     ## [1] 80 75 91
@@ -368,13 +396,13 @@ students
 summary(students)
 ```
 
-    ##  student_names  math_scores verbal_scores 
-    ##  Bill :1       Min.   :56   Min.   :60.0  
-    ##  Fred :1       1st Qu.:67   1st Qu.:68.0  
-    ##  Jane :1       Median :75   Median :72.0  
-    ##  Paul :1       Mean   :74   Mean   :77.8  
-    ##  Sarah:1       3rd Qu.:80   3rd Qu.:90.0  
-    ##                Max.   :92   Max.   :99.0
+    ##  student_names       math_scores verbal_scores 
+    ##  Length:5           Min.   :56   Min.   :60.0  
+    ##  Class :character   1st Qu.:67   1st Qu.:68.0  
+    ##  Mode  :character   Median :75   Median :72.0  
+    ##                     Mean   :74   Mean   :77.8  
+    ##                     3rd Qu.:80   3rd Qu.:90.0  
+    ##                     Max.   :92   Max.   :99.0
 
 Notice that `student_names` is a different class (character) than
 `math_scores` (numeric), yet a data frame combines their values into a
@@ -383,13 +411,36 @@ variables:
 
 ``` r
 students$final_scores <- 0
-students$final_scores <- (students$math_scores + students$verbal_scores)/2
+students$final_scores <- (students$math_scores + students$verbal_scores) / 2
+students
+```
 
+    ##   student_names math_scores verbal_scores final_scores
+    ## 1          Bill          80            72         76.0
+    ## 2          Jane          75            90         82.5
+    ## 3         Sarah          92            99         95.5
+    ## 4          Fred          67            60         63.5
+    ## 5          Paul          56            68         62.0
+
+``` r
 age <- c(18, 19, 20, 21, 22)
 students2 <- data.frame(student_names, age)
+students2
+```
+
+    ##   student_names age
+    ## 1          Bill  18
+    ## 2          Jane  19
+    ## 3         Sarah  20
+    ## 4          Fred  21
+    ## 5          Paul  22
+
+And merge them with other dataframes (here based on the students\_name
+column)
+
+``` r
 # merge different data frames
 students3 <- merge(students, students2)
-
 students3
 ```
 
@@ -421,8 +472,8 @@ list1
 or even vectors and data frames, or multiple data frames:
 
 ``` r
-schools <- list(school_name = "LSE", students = students, 
-                    faculty = data.frame(name = c("Kelly Jones", "Matt Smith"), 
+schools <- list(school_name = "LSE", students = students,
+                    faculty = data.frame(name = c("Kelly Jones", "Matt Smith"),
                                          age = c(41, 55)))
 schools
 ```
@@ -452,7 +503,7 @@ schools[[1]]
     ## [1] "LSE"
 
 ``` r
-schools[['faculty']]
+schools[["faculty"]]
 ```
 
     ##          name age
@@ -461,6 +512,17 @@ schools[['faculty']]
 
 ``` r
 schools$students
+```
+
+    ##   student_names math_scores verbal_scores final_scores
+    ## 1          Bill          80            72         76.0
+    ## 2          Jane          75            90         82.5
+    ## 3         Sarah          92            99         95.5
+    ## 4          Fred          67            60         63.5
+    ## 5          Paul          56            68         62.0
+
+``` r
+schools[["students"]]
 ```
 
     ##   student_names math_scores verbal_scores final_scores
