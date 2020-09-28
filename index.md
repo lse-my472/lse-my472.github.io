@@ -115,7 +115,7 @@ This week will also introduce basic data types, in a language-agnostic manner, f
 * Jim McGlone, "[Creating and Hosting a Personal Site on GitHub
 A step-by-step beginner's guide to creating a personal website and blog using Jekyll and hosting it for free using GitHub Pages.](http://jmcglone.com/guides/github-pages/)".
 
-##### [Lab: Working with git and GitHub](https://github.com/lse-my472/pset1)
+##### Lab: Working with git and GitHub
 *  Installing git and setting up an account on GitHub
 *  How to complete and submit assignments using GitHub Classroom
 *  Forking and correcting a broken RMarkdown file
