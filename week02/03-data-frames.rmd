@@ -1,4 +1,11 @@
-### Data structures
+---
+title: "Data structures"
+author: "Kenneth Benoit and Martin Lukac"
+date: "05/10/2020"
+output:
+  html_document: default
+  pdf_document: default
+---
 
 Building off of the data types we've learned, *data structures* combine multiple values into a single object. Some common data structures in `R` include:
 
@@ -129,8 +136,8 @@ library(maps)
 
 But many others (over 10,000!) are available on CRAN, the distributed repository of packages contributed by the R community. Let's install the `tidyverse` package, which is actually a set of packages authored by Hadley Wickham that we will heavily use in the course:
 
-```{r}
-install.packages("tidyverse")
+```{r echo = TRUE, results = 'hide'}
+install.packages("tidyverse", repos = "http://cran.us.r-project.org")
 ```
 
 

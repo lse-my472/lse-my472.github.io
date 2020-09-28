@@ -1,4 +1,11 @@
-## Reshaping datasets
+---
+title: "Reshaping datasets"
+author: "Kenneth Benoit and Martin Lukac"
+date: "05/10/2020"
+output:
+  html_document: default
+  pdf_document: default
+---
 
 We often want to convert the format in which a data frame is structured, from wide to long format, or vice versa. Let's see some examples of how to do this:
 
@@ -83,11 +90,37 @@ for (i in seq_len(nrow(students))) {
 
 students
 
-students <- data.frame(name = c("Paul", "Peter", "Amy", "Megan", "Selena"),
+```
+
+How does it work? What can you do if you have a loop that you don't understand and need to grasp what it does at each step?
+
+Try printing messages with `message()` or `print()`. It is not beautiful, but it is very efficient way of debugging and analysing your code.
+
+For example, to understand the performance of the last loop:
+
+```{r}
+students <- data.frame(name = c("Paul", "Pete", "Amie", "Meghan", "Selena"),
                 age = c(18, 19, 18, 20, 21),
                 stringsAsFactors = FALSE)
-merge(students, grades)
+grades <- data.frame(name = c("Amy", "Megan", "Peter", "Drew"),
+                     grade = c("A", "B+", "A-", "B"),
+                     stringsAsFactors = FALSE)
+students$grade <- NA
+
+# added messages in the loop to show what it does at each step
+for (i in seq_len(nrow(students))) {
+  dist <- adist(students$name[i], grades$name)
+  message(i, ". matching ", students$name[i], ":\n",              # what student
+          "    distances from others: ", dist[1,], "\n")          # distances
+  if (any(dist < 4)) {
+    students$grade[i] <- grades$grade[which.min(dist)]
+    message("    matching with ", grades$name[which.min(dist)])   # outcome A
+  } else {
+    message("    ", students$name[i], " is unmatched!")           # outcome B
+  }
+}
 ```
+
 
 To learn more about merging datasets based on strings, see the `RecordLinkage` package.
 

@@ -1,4 +1,11 @@
-### Functions
+---
+title: "Loops and functions"
+author: "Kenneth Benoit and Martin Lukac"
+date: "05/10/2020"
+output:
+  html_document: default
+  pdf_document: default
+---
 
 Being designed for statistics and data analysis, `R` has powerful built-in functions for data manipulation. However, you can dramatically extend `R`'s functionality by writing your own functions.
 
