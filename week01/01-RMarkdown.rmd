@@ -43,6 +43,7 @@ Or you can also add [hyperlinks](http://www.google.com)
 You can embed R code in chunks like this one:
 
 
+
 ```{r}
 
 1 + 1
