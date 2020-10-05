@@ -128,11 +128,11 @@ This week moves beyond the rectangular format common in statistical datasets, mo
 
 ##### Resources
 - [Lecture slides](week02/MY472-week02-shape.pdf)
-- R examples: [data frames](week02/03-data-frames.rmd), [merging and reshaping](week02/04-merging-reshaping.rmd), and [loops and functions](week02/05-loops-functions.rmd)
+- R examples: [conditionals, loops, and functions](week02/01-conditionals-loops-functions.rmd), [introduction to key tidyverse functions](week02/02-processing-data.rmd), [industrial production dataset](week02/ip.csv), and [industrial production and unemployment dataset](week02/ip_and_unemployment.csv)
 
 ##### Required reading
 * Wickham, Hadley and Garett Grolemund.  2017.  _R for Data Science: Import, Tidy, Transform, Visualize, and Model Data_.  Sebastopol, CA: O'Reilly.  [Part II Wrangle](http://r4ds.had.co.nz/wrangle-intro.html), [Tibbles](http://r4ds.had.co.nz/tibbles.html), [Data Import](http://r4ds.had.co.nz/data-import.html), [Tidy Data](http://r4ds.had.co.nz/tidy-data.html) (Ch. 7-9 of the print edition).
-* The [**reshape2** package](http://had.co.nz/reshape/) for R.
+* The [Tidyverse collection of packages](https://www.tidyverse.org/) for R.
 
 ##### Lab: Reshaping data in R
 

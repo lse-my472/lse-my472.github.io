@@ -1,0 +1,256 @@
+---
+title: "Data processing in R with the tidyverse"
+author: "Friedrich Geiecke"
+date: "05/10/2020"
+output: html_document
+---
+
+### Loading packages
+
+```{r}
+# If the package has not been installed, uncomment the cell below and run it only once on your computer
+#install.packages("tidyverse")
+# Loading the package
+library(tidyverse)
+```
+
+### Data
+
+We will analyze some macroeconomic time series from the US and Europe during the Corona crisis. The data has been downloaded from FRED which is hosted by the Federal Reserve Bank of St. Louis. It contains the years 2019 (as a reference) and 2020. Full series can be found at https://fred.stlouisfed.org/ under the following names:
+
+__Industrial production__
+
+- US: INDPRO
+- UK: GBRPROINDMISMEI
+- Germany: DEUPROINDMISMEI
+- France: FRAPROINDMISMEI
+- Spain: ESPPROINDMISMEI
+- Italy: ITAPROINDMISMEI
+
+__Unemployment rate__
+
+- US: LRHUTTTTUSM156S
+- UK: LRHUTTTTGBM156S
+- Germany: LRHUTTTTDEM156S
+- France: LRHUTTTTFRM156S
+- Spain: LRHUTTTTESM156S
+- Italy: LRHUTTTTITM156S
+
+### Loading data
+
+Make sure to have the data files in the same folder as this script. The data is loaded via the read.csv function, this creates a data frame object:
+
+```{r}
+# Industrial production data in format one
+ip_df <- read.csv("ip.csv")
+# Cleaning column names
+colnames(ip_df) <- str_replace(colnames(ip_df), "X", "")
+head(ip_df)
+```
+
+
+```{r}
+# Industrial production and unemployement data in format two
+ip_and_unemployment_df <- read.csv("ip_and_unemployment.csv")
+head(ip_and_unemployment_df)
+```
+
+### Tibbles
+
+In the the tidyverse there is a function transforming data frames into so called tibbles. This allows to depict them in a more convenient form, particularly in the console and the knitted R markdowns.
+
+```{r}
+# Transforming standard data frames into tibbles
+ip <- as_tibble(ip_df)
+ip_and_unemployment <- as_tibble(ip_and_unemployment_df)
+ip
+ip_and_unemployment
+```
+
+For further features of tibbles, see https://r4ds.had.co.nz/tibbles.html.
+
+Another useful way to view the full dataset can be the function view() in RStudio:
+
+```{r}
+view(ip)
+view(ip_and_unemployment)
+```
+
+
+### The pipe operator
+
+A very frequently used operator for data science in R today is the pipe operator %>%. It pipes an object as the first argument into a subsequent function. This is an alternative notation to writing the object as the first input in the function directly. Let us briefly illustrate this with a simple example, we use the maximum function to determine the largest element in a vector:
+
+```{r}
+
+exemplary_vector <- c(-42, -5, 17, 24, -34, 93, 18)
+
+# Two ways to determine the largest element
+max(exemplary_vector)
+exemplary_vector %>% max()
+
+```
+
+The pipe operator can be used in this example and yields the same outcome as the max function applied in the traditional way. The operator becomes particularly useful, however, if multiple operations are done in a sequence. To get a first idea of this, we define a function which returns the negative elements in a vector, and then compute the mean of only these values:
+
+```{r}
+
+# Create a function which only returns negative elements in a vector
+return_negative_elements <- function(x) {
+  return(x[x<0])
+}
+
+# Mean of only negative values
+exemplary_vector %>%
+  return_negative_elements() %>%
+  mean()
+```
+
+We could have achieved the same with "mean(exemplary_vector[exemplary_vector<0])" or with nested calls of functions such as "mean(return_negative_elements(exemplary_vector))", but using chains of pipe operators is very readable. This becomes particularly helpful when analyzing datasets later.
+
+### Pivoting into a longer form
+
+In the industrial production data frame, column names are months which should be a separate variable:
+
+```{r}
+ip
+```
+
+To bring the data into the "tidy" format, these columns are transformed into a new pair of variables:
+
+```{r}
+ip_long <- pivot_longer(ip, cols = colnames(ip)[2:length(colnames(ip))],
+                        names_to = "date", values_to = "ip")
+ip_long
+```
+
+In the lecture, we solved this problem with the pipe operator %>%. It yields the same outcome:
+
+```{r}
+ip_long <- ip %>% pivot_longer(cols = colnames(ip)[2:length(colnames(ip))],
+                               names_to = "date", values_to = "ip")
+ip_long
+```
+
+### Pivoting into a wider form
+
+Next, let us consider the data frame which contains both industrial production and unemployment rates. In this data frame, a unit of observation is a country-month. Values contained in the series column are actually separate variables.
+
+```{r}
+ip_and_unemployment
+```
+Just like in the lecture example, we use pivot_wider() to generate these variables:
+
+```{r}
+ip_and_unemployment_wide <- ip_and_unemployment %>%
+  pivot_wider(names_from = series, values_from = value)
+ip_and_unemployment_wide
+```
+
+### Some useful functions
+
+Next, we will discuss some commonly used functions in the tidyverse (most of these functions are from the dyplr package).
+
+#### Selecting and dropping columns
+
+A common task is to select or drop columns. This can be done very conveniently with the function "select". Selecting only the date and industrial production columns:
+
+```{r}
+ip_and_unemployment_wide %>% select(date, ip)
+```
+We can also easily drop specific columns, e.g. only the date column:
+
+```{r}
+ip_and_unemployment_wide %>% select(-date)
+```
+#### Selecting rows
+
+Similarly, we might want to select only specific rows that meet certain conditions. This can be achieved with the filter function, e.g. we can select data from only the UK or from both the UK and France:
+
+```{r}
+ip_and_unemployment_wide %>% filter(country == "uk") 
+```
+
+```{r}
+ip_and_unemployment_wide %>% filter(country %in% c("uk", "france")) 
+```
+
+Next, let us get an idea why repeated pipe operations are so useful for data analysis and readability. Say our goal is to determine the largest month to month contraction in industrial production for the UK during the Corona crisis so far. This can e.g. be achieved by combining filter and select functions:
+
+```{r}
+ip_and_unemployment_wide %>%
+  filter(country == "uk") %>%
+  filter(ip == min(ip)) %>%
+  select(date, ip)
+
+```
+
+The strongest contraction in UK industrial production was in April 2020 that saw around a 20% decline in industrial production from the previous month.
+
+Similarly, we can determine the timing and magnitude of the largest US unemployment rate during the sample:
+
+```{r}
+ip_and_unemployment_wide %>%
+  filter(country == "us") %>%
+  filter(unemployment == max(unemployment)) %>%
+  select(date, unemployment)
+```
+
+In April 2020, the US had an unemployment rate of 14.7. When we select the value from the month before, we see that this was an extremely sharp month to month rise:
+
+```{r}
+ip_and_unemployment_wide %>%
+  filter(country == "us") %>%
+  filter(date == "01.03.2020") %>%
+  select(date, unemployment)
+```
+
+
+#### Creating new variables
+
+In some cases we might want to add transformations of variables or features to the data frame. This can be done with the command "mutate()". For example, we might be interested in the percentage change of US unemployment, not just its level.
+
+```{r}
+ip_and_unemployment_wide <- ip_and_unemployment_wide %>%
+  mutate(unemployment_percentage_change = (unemployment/lag(unemployment) - 1) * 100)
+ip_and_unemployment_wide
+```
+When using such an approach with lag() or lead(), it is key that the observations in the dataset are sorted chronologically. In the datasets here, this should already be given, however, you might frequently encounter datasets where it is not the case. In such datasets (and in fact generally) it is key to transform date variables from characters into proper date formats which can be used in operations such as sorting. This is left as an exercise here, for a discussion see https://r4ds.had.co.nz/dates-and-times.html. Dates can then e.g. be sorted like other values with the function "arrange()".
+
+#### Summary statistics
+
+Another frequent goal is to compute summary statistics. This can be done with the "summary" function, the following e.g. depicts the mean and standard deviation of UK industrial production percentage changes since January 2019:
+
+```{r}
+ip_and_unemployment_wide %>%
+  filter(country == "uk") %>% 
+  select(ip) %>% 
+  drop_na() %>% 
+  summarise(uk_ip_mean = mean(ip), uk_ip_sd = sd(ip), uk_observations = n())
+```
+
+
+#### Grouping
+
+Lastly, a very useful function is "group_by()" which creates groups within the data frame:
+
+```{r}
+group_by(ip_and_unemployment_wide, country)
+```
+
+This can then be used to e.g. obtain summary statistics for each of these groups.
+
+```{r}
+ip_and_unemployment_wide %>%
+  group_by(country) %>% 
+  select(country, unemployment) %>% 
+  drop_na() %>% 
+  summarise(unemployment_mean = mean(unemployment),
+            unemployment_sd = sd(unemployment), observations = n())
+```
+
+
+### References
+
+- R for Data Science by Grolemund and Wickham (https://r4ds.had.co.nz/)
+- For a more in-depth discussion than in this file, also see Garrett Grolemund's great video series of key tidyverse functions to process data (note that the pivot commands are called gather and spread as these videos discuss a slightly older version of the package) (https://www.youtube.com/watch?v=jOd65mR1zfw&list=PL9HYL-VRX0oQOWAFoKHFQAsWAI3ImbNPk).

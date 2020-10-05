@@ -1,0 +1,242 @@
+---
+title: "Conditionals, loops, and functions"
+author: "Ken Benoit and Friedrich Geiecke"
+date: "05/10/2020"
+output: html_document
+---
+
+### Conditionals
+
+Conditionals execute blocks of code when certain logical conditions are met or not met. Recall the following list of logical operators also discussed in the first week:
+
+```{r}
+1 != 2 # not equal to
+2 < 2 # less than
+2 <= 2 # less than or equal to
+2 > 2 # greater than
+2 >= 2 # greater than or equal to
+(2 < 2) | (2 <= 2) # or
+(2 < 2) & (2 <= 2) # and
+2 %in% c(0,3,24) # group membership
+is.na(NA) # is NA
+!is.na(42) # is not NA
+```
+
+Using these with "if" and "else" statements allows to run blocks of code depending on whether a logical condition is met or not, i.e. evaluates to true or false. In this course we might for example use conditionals while scraping to run different code depending on which site is currently accessed. The following simple example illustrates an if statement:
+
+```{r}
+x <- 2
+if (x > 4) {
+  print("If code block reached, condition was true.")
+  exemplary_computation <- 73*14
+  }
+```
+
+
+```{r}
+x <- 5
+if (x > 4) {
+  print("If code block reached, condition was true.")
+  exemplary_computation <- 73*14
+  }
+```
+
+There might also be an alternative block of code we would like to run in case the condition is not met. This can be achieved with an if-else structure:
+
+```{r}
+x <- 3
+if (x > 4) {
+  print("If code block reached, condition was true.")
+  exemplary_computation <- 73*14
+} else {
+  print("Else code block reached, condition was false.")
+  exemplary_computation <- 37*41
+  }
+```
+
+Lastly, there can be multiple if conditions and one else condition for all other cases:
+
+```{r}
+x <- 2
+y <- 3
+if (x < y) {
+    print("First if code block reached, associated condition was true: y is greater than x.")
+  } else if (x > y) {
+    print("Second if code block reached, associated condition was true: x is greater than y.")
+  } else {
+    print("Else code block reached, none of the condition were true: x and y are equal.")
+  }
+```
+
+
+### Loops
+
+We use loops whenever we need to run the same function (or chunk of code) across different units. For example, in this course we may use a loop when we have multiple Twitter accounts and we want to run sentiment analysis for tweets posted by each of them, or when scraping data from multiple elements of a webpage.
+
+"For" loops are probably the most common type of loop and are easily implemented in R:
+
+```{r}
+for (i in 1:10) {
+    print(i)
+}
+```
+
+Note the structure: 
+```{r, eval = FALSE}
+for (i in VECTOR) {
+    # do something with i but not necessarily
+}
+```
+
+In each iteration, i takes a different value of the VECTOR; "i" can be anything, we can e.g. also just name it number:
+
+```{r}
+for (number in 1:10) {
+    print(number)
+}
+```
+
+We can also iterate over different vectors than integers sequences with for loops:
+
+```{r}
+vector_of_texts <- c("hello", "world", "in", "a", "for", "loop")
+for (text in vector_of_texts) {
+    print(text)
+}
+```
+
+Another type of loop is the while loop, it runs for as long as a logical condition is true:
+
+```{r}
+x <- 1
+while (x < 11) {
+    print(x)
+    x <- x + 1
+}
+```
+
+Hence, this while loop mimics the for loop above. Yet, while loops are more flexible. For example, you might run a while loop until a certain user input is given and sets a condition to false. One thing to be careful about with while loops is not to create conditions which are always true. This leads to infinite loops. For example "while (2 < 4) {print("hello word")}" would run forever.
+
+A nice feature of loops is that we can use values from the  previous iteration. For instance, we can get the first 40 terms in the Fibonacci sequence using a for loop.
+
+```{r}
+fib <- c(0, 1, rep(NA, 38)) # initialize fib sequence with a vector (0, 1, NA, NA, NA, NA, ...)
+for (i in 3:40) {
+  fib[i] <- fib[i - 1] + fib[i - 2]
+}
+fib
+```
+
+Note that here we created an empty vector to store the output of each iteration. A simpler example:
+
+```{r}
+values <- rep(NA, 10)
+for (i in 1:10) {
+    values[i] <- i
+}
+values
+```
+
+A structure that we will use often in this course is a loop that stores some data in different elements within a list. This will be very useful when the output from each iteration is a data frame, for example while downloading data from an API. For example:
+
+```{r}
+# Create empty list
+grades <- list()
+# Loop over 5 students
+for (i in 1:5) {
+  # Create data frame with grade/info for this student
+  student <- data.frame(id = i,
+                        initial = sample(LETTERS, 1),
+                        grade = runif(n = 1, min = 0, max = 100),
+                        stringsAsFactors = FALSE)
+  grades[[i]] <- student
+}
+# Now we have a list of single line data frames...
+class(grades)
+# We can combine these into a joint data frame
+grades <- do.call(rbind, grades)
+grades
+
+```
+
+### Functions
+
+Functions are objects just like the vectors and data frames we have worked with, so we create them using an assignment. The following function works for a single element as well as element-wise on a vector, because the * operator is defined element-wise.
+
+```{r}
+times_2 <- function(x) {x * 2}
+times_2(6)
+times_2(1:5)
+```
+
+We can also have multivariate inputs into functions, and return more complex objects, such as a vector or list.
+
+```{r}
+two_numbers <- function(x, y) {
+  my_sum <- x + y
+  my_product <- x * y
+  my_ratio <- x / y
+  return(c(my_sum, my_product, my_ratio))
+}
+two_numbers(4, 11.93)
+```
+
+A key conceptual feature of functions is that they have their own environments. What do you think the following cell will return?
+
+```{r}
+my_function <- function(z) {
+  z <- 2*z
+  return(z)
+}
+z <- 10
+
+# First output
+my_function(z)
+
+# Second outpiut
+z
+```
+
+For an in depth discussion of environments, see http://adv-r.had.co.nz/Environments.html.
+
+In modular code, particularly repeated tasks are written as functions. Functions therefore contain a wide range of possible code, e.g. conditions which allow the function to run different chunks depending on the input.
+
+```{r}
+compare_xy <- function(x, y) {
+  if (x < y) {
+    print("y is greater than x")
+  } else if (x > y) {
+    print("x is greater than y")
+  } else {
+    print("x and y are equal")
+  }
+}
+```
+
+
+```{r}
+compare_xy(3, 4)
+compare_xy(4, 3)
+compare_xy(1, 1)
+```
+
+A slightly different type of if statement is the `ifelse` function:
+
+```{r}
+
+# Using an ifelse function to return an absolute value
+x <- -2
+abs_x <- ifelse(x > 0, x, -x)
+abs_x
+
+# This also works with a vector element-wise
+numbers <- c(-2, -1, 0, 1, 2)
+# converting them to absolute numbers
+abs_numbers <- ifelse(numbers > 0, numbers, -numbers)
+abs_numbers
+```
+
+
+
+
+
