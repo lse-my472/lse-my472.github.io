@@ -100,11 +100,20 @@ df_wide_extended
 
 
 # Optional
+# I will calculate monthly comparisons as a first approach
 
+df_uk <- df_wide %>%
+  filter(country == 'uk') %>%
+  mutate(diff_unemp = unemployment - lag(unemployment, n=12L), na.rm=TRUE) %>%
+  mutate(diff_ip = ip - lag(ip, n=12L), na.rm=TRUE) %>%
+  select(date, diff_unemp, diff_ip)%>%
+  filter(!is.na(diff_ip)|!is.na(diff_unemp))
+ 
+df_uk
 
-
-
-
+#dates <- as.Date(df_uk$date, "%d.%m.%Y")
+#year_month <- format(dates, format= '%Y.%m.')
+#year_month
 
 
 ```
