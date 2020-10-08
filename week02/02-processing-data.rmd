@@ -1,10 +1,3 @@
----
-title: "Data processing in R with the tidyverse"
-author: "Friedrich Geiecke"
-date: "05/10/2020"
-output: html_document
----
-
 ### Loading packages
 
 ```{r}
@@ -42,7 +35,7 @@ Make sure to have the data files in the same folder as this script. The data is 
 
 ```{r}
 # Industrial production data in format one
-ip_df <- read.csv("ip.csv")
+ip_df <- read.csv("ip.csv", fileEncoding = 'UTF-8-BOM')
 # Cleaning column names
 colnames(ip_df) <- str_replace(colnames(ip_df), "X", "")
 head(ip_df)
@@ -51,7 +44,7 @@ head(ip_df)
 
 ```{r}
 # Industrial production and unemployement data in format two
-ip_and_unemployment_df <- read.csv("ip_and_unemployment.csv")
+ip_and_unemployment_df <- read.csv("ip_and_unemployment.csv", fileEncoding = 'UTF-8-BOM')
 head(ip_and_unemployment_df)
 ```
 
