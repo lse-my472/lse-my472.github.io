@@ -65,7 +65,7 @@ df_wide %>%
   select(country,ip) %>%
   summarise(means=mean(ip, na.rm=TRUE), observations = n())
 
-# Experimenting along: 
+# Experimenting alone: 
 # I check the number of NA-s in each group, to approach the question from this angle.
 monthly_na <- df_wide %>%
   group_by(country) %>%
