@@ -76,6 +76,26 @@ monthly_na
 correct = identical(monthly_na$observations_all - monthly_na$num_na, monthly_df$observations_non_na)
 correct
 # Indeed, subtracting the number of NA-s from the total number of observations yields the same as counting non-NAs directly.
+
+
+# Martin's solution
+
+ipu_clean <- df_wide %>%
+  group_by(country) %>%
+  summarise(nonNA_ip = sum(!is.na(ip)),
+            nonNA_ue = sum(!is.na(unemployment)))
+ipu_clean
+
+ipu_clean_2 <- df_wide %>%
+  group_by(country) %>%
+  summarise(nonNA_ip = sum(!is.na(ip)),
+            nonNA_ue = sum(!is.na(unemployment)),
+            nonNA_ip_pct = nonNA_ip / length(ip),
+            nonNA_ue_pct = nonNA_ue / length(unemployment))
+ipu_clean_2
+
+```
+
 ```
 -----
 
@@ -94,8 +114,15 @@ df_wide_extended <- df_wide %>%
   mutate(ip_percentage_change_squared = (ip/lag(ip)-1)*100) %>%
   mutate(ln_unemployment = log(unemployment)) %>%
   mutate(interaction_of_ip_and_unemployment = (ip/lag(ip)-1)*100 * unemployment)
+  
+df_wide_extended_2 <- df_wide %>%
+  mutate(ip_sq = (ip/lag(ip)-1)*100,
+          unemployment_ln = log(unemployment),
+          ip_unemployment = ip * unemployment) %>%
+  head()
 
 df_wide_extended
+df_wide_extended_2
 # Is there a way to do this without using mutate only once?
 
 

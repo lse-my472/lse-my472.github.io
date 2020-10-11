@@ -36,9 +36,7 @@ Make sure to have the data files in the same folder as this script. The data is 
 ```{r}
 # Industrial production data in format one
 ip_df <- read.csv("ip.csv", fileEncoding = 'UTF-8-BOM')
-# Cleaning column names
-colnames(ip_df) <- str_replace(colnames(ip_df), "X", "")
-head(ip_df)
+ 
 ```
 
 
