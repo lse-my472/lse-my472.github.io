@@ -1,5 +1,5 @@
 ---
-title: "Week 2: Seminar exercise solution"
+title: "Week 2: Seminar exercise"
 author: "Martin Lukac"
 date: "10/8/2020"
 output: html_document
