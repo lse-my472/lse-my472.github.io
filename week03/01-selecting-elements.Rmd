@@ -1,0 +1,84 @@
+---
+title: "01-selecting-elements"
+author: "Friedrich Geiecke"
+date: "12/10/2020"
+output: html_document
+---
+
+```{r}
+library(rvest)
+```
+
+Let us use our simple self-made website to illustrate how elements of websites can be selected and scraped. First, let us read the HTML content of the site:
+
+```{r}
+url <- "https://lse-my472.github.io/week03/website_5.html"
+html <- read_html(url)
+```
+
+Next, let us scrape all paragraphs from our website. Recall that the CSS selector of a paragraph was "p".
+
+```{r}
+relevant_nodes <- html_nodes(html, css = "p")
+length(relevant_nodes)
+```
+
+The list has length 5, i.e. we obtain 5 nodes as there are 5 paragraphs in our website. In more detail:
+
+```{r}
+relevant_nodes
+```
+
+If we want to return the text without HMTL tags, we can use the function "html_text()". For example, the first element has the following text:
+
+```{r}
+html_text(relevant_nodes[[1]])
+```
+
+We can return the texts of all paragraphs contained in the list with a loop:
+
+```{r}
+for (i in 1:length(relevant_nodes)) {
+  
+  print(html_text(relevant_nodes[[i]]))
+  
+}
+```
+
+Now imagine we do not want to scrape all paragraph texts. Fortunately, paragraphs (or more likely other elements) about certain topics could have been assigned different class names by the developers who built the website. In our example, we made up a class for paragraphs that could discuss topics in web scraping, the associated class was "text-about-web-scraping". In CSS selector notation this is ".text-about-web-scraping". We can scrape only these paragraphs with:
+
+```{r}
+relevant_nodes <- html_nodes(html, css = ".text-about-web-scraping")
+relevant_nodes
+```
+
+```{r}
+# Printing all elements
+for (i in 1:length(relevant_nodes)) {
+  
+  print(html_text(relevant_nodes[[i]]))
+  
+}
+```
+
+Similarly, we can scrape the content from only the second division container. We had given it a class name of "division-two", so in CSS selector notation it is called ".division-two":
+
+```{r}
+relevant_nodes <- html_nodes(html, css = ".division-two")
+length(relevant_nodes)
+```
+
+In fact, only one node is returned in the list. It is the correct division container with text:
+
+```{r}
+html_text(relevant_nodes[[1]])
+```
+
+Lastly, when inspecting an element and copying the CSS selector in your browser, often a so called pseudo class is returned which names the nth child of a parent element. Conceptually, this makes use of the tree representation of such documents. For example, let us select and scrape only the first paragraph in the second division. "Inspect element" (in Firefox) yields exactly such a type of CSS selector ".division-two > p:nth-child(2)". This simply means that the paragraph of interest is the second child of the division parent element "div" which we previously named "division two". Thinking of our website as a tree, what is the first child of this parent element?
+
+Scraping with this CSS selector yields the correct element from our website:
+
+```{r}
+relevant_nodes <- html_nodes(html, css = ".division-two > p:nth-child(2)")
+html_text(relevant_nodes[[1]])
+```
