@@ -144,11 +144,11 @@ This week moves beyond the rectangular format common in statistical datasets, mo
 
 #### 3. HTML and CSS
 
-From week 3 to week 5, we will learn how to get the data from the Internet. This week introduces the basics, including markup languages (HTML, XML, and Markdown) and other common data formats such as JSON (Javascript Object Notation).  We also cover basic web scraping, to turn web data into text or numbers.  We will also cover the client-server model, and how machines and humans transmit data over networks and to and from databases.
+From week 3 to week 5, we will learn how to get the data from the internet. This week we cover basic web scraping to turn web data into text or numbers.  We will also cover the client-server model, and how machines and humans transmit data over networks and to and from databases.
 
 ##### Resources
 - [Lecture slides](week03/MY472-week03-HTML-CSS.pdf)
-- R examples: [Selecting elements](week03/01-scraping-tables.Rmd), [scraping tables](week03/02-scraping-unstructured-data.Rmd)
+- R examples: [Selecting elements](week03/01-selecting-elements.Rmd), [scraping tables](week03/02-scraping-tables.Rmd)
 
 ##### Required reading
 * Lazer, David, and Jason Radford. 2017. “[Data Ex Machina: Introduction to Big Data.](https://doi.org/10.1146/annurev-soc-060116-053457)” _Annual Review of Sociology_ 43(1): 19–39.
@@ -163,7 +163,6 @@ From week 3 to week 5, we will learn how to get the data from the Internet. This
 ##### Lab: Web scraping
 
 - Scraping unstructured data  
-
 
 
 #### 4. Using data from the Internet
