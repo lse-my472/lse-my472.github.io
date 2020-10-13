@@ -39,13 +39,14 @@ To extract all the tables in the html code automatically, we use `html_table()`.
 
 # Extracting tables in the document
 tab <- html_table(html_content, fill = TRUE)
+# tab is a list containing all tables from the website
 
 # Check object
 str(tab)
 # Website only had one table -> list of length 1 containing the dataframe
 
 # Save the dataframe (tibble)
-social_security_data <- tab[[1]]
+social_security_data <- tab[[1]] # first (and only) table in our list of tables assigned to social_security_data
 social_security_data <- as_tibble(social_security_data)
 social_security_data
 ```
@@ -76,6 +77,10 @@ Using ggplot2 first requires the data to be in a tidy long format:
 
 ```{r}
 
+
+social_security_data_long_my <- pivot_longer(data = social_security_data, cols = c('male', 'female'),
+                                             names_to = 'gender', values_to = 'individuals')
+
 # Pivot longer function
 social_security_data_long <- pivot_longer(data = social_security_data[, 1:3],
   cols = c("male", "female"), names_to = "gender", values_to = "individuals")
@@ -83,6 +88,8 @@ social_security_data_long <- pivot_longer(data = social_security_data[, 1:3],
 # Creating the plot
 ggplot(social_security_data_long) +
   aes(x = year, y = individuals, group = gender, colour = gender) + geom_line()
+# + operator adds layer
+# aes (aesthetic operator)
 ```
 
 ### Scraping web data in table format: A more advanced example
@@ -108,6 +115,8 @@ Now that we know what we're looking for, let's use `html_nodes()` to identify al
 
 
 ```{r}
+tables_raw_my <- html_nodes(html, css= '#mw-content-text > div.mw-parser-output > table:nth-child(18)')
+
 tables_raw <- html_nodes(html, css = "table.wikitable:nth-child(18)")
 length(tables_raw)
 ```
@@ -131,6 +140,8 @@ Renaming and cleaning columns:
 ```{r}
 
 # Renaming the columns
+# colnames(data_pop) <- c('city', 'pop', 'ran') # my alternative version, renaming in order
+
 data_pop <- rename(data_pop, city_name = "City", population = "2019estimate",
                    rank = "2019rank")
 

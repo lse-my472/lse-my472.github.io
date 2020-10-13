@@ -6,6 +6,7 @@ output: html_document
 ---
 
 ```{r}
+install.packages('rvest')
 library(rvest)
 ```
 
@@ -81,4 +82,9 @@ Scraping with this CSS selector yields the correct element from our website:
 ```{r}
 relevant_nodes <- html_nodes(html, css = ".division-two > p:nth-child(2)")
 html_text(relevant_nodes[[1]])
+
+relevant_nodes_1  <- html_nodes(html, css = "body > div.division-two > p:nth-child(2)")
+html_text(relevant_nodes_1)
+
 ```
+
