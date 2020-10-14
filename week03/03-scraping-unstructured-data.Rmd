@@ -1,6 +1,6 @@
 ---
 title: "Scraping unstructured data"
-author: "Pablo Barbera and Akitaka Matsuo"
+author: "Pablo Barbera, Akitaka Matsuo, and Martin Lukac"
 date: "15 October 2020"
 output: html_document
 ---
