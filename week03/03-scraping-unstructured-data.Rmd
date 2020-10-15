@@ -5,8 +5,6 @@ date: "15 October 2020"
 output: html_document
 ---
 
-Friday seminar
-
 ### Scraping web data in unstructured format
 
 Loading packages
