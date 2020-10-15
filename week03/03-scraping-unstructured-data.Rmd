@@ -32,10 +32,10 @@ Now we're ready to scrape the website:
 
 ```{r}
 # Reading the HTML code
-bribe_html <- ________(url)
+bribe_html <- read_html(url)
 
 # Identify the CSS selector and add it to the css argument
-bribe_nodes <- html_nodes(bribe_html, css = "___________")
+bribe_nodes <- html_nodes(bribe_html, css = ".paid-amount span")
 
 # Content of CSS selector
 bribe_nodes
@@ -45,7 +45,7 @@ We still need to do some cleaning before the data is usable:
 
 ```{r}
 # Extract the content of the CSS selector as text
-bribe_amount <- ________(bribe_nodes) %>%
+bribe_amount <- html_text(bribe_nodes) %>%
   stri_replace_first_fixed("Paid INR ", "") %>%
   stri_replace_first_regex("\\r.+", "") %>%
   stri_replace_all_fixed(",", "") %>%
@@ -59,7 +59,7 @@ Small note on `stri_replace()`: `first` means to look for the first occurrence, 
 Let's do another one: transactions during which the bribe occurred:
 
 ```{r}
-transaction <- html_nodes(bribe_html, "_____________") %>% 
+transaction <- html_nodes(bribe_html, ".transaction a") %>% 
   html_text
 
 transaction
