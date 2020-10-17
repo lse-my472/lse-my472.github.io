@@ -174,6 +174,8 @@ Continuing from the material covered in Week 3, we will learn the advanced topic
 - R examples: [Scraping RSS](week04/01-tba.Rmd), [introduction to RSelenium](week04/02-tba.Rmd), [RSelenium example with the LSE website](week04/03-tba.Rmd), 
 
 ##### Required reading
+* [_XML_](https://www.w3schools.com/xml/xml_whatis.asp_
+* [_RSS_](https://www.w3schools.com/xml/xml_rss.asp)
 * [_RSelenium vignette_](https://cran.r-project.org/web/packages/RSelenium/vignettes/basics.html).
 * Mozilla Developer Web Docs. [_What is JavaScript_](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/First_steps/What_is_JavaScript).
 
