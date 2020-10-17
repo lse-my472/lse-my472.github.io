@@ -165,21 +165,20 @@ From week 3 to week 5, we will learn how to get the data from the internet. This
 - Scraping unstructured data  
 
 
-#### 4. Using data from the Internet
+#### 4. XML, RSS, and scraping non-static pages
 
-Continuing from the material covered in Week 3, we will learn the advanced topics in scraping the web. The topics include the scraping documents in XML (such as RSS), scraping websites beyond the authentication, and websites with non-static components.
+Continuing from the material covered in Week 3, we will learn the advanced topics in scraping the web. The topics include the scraping documents in XML (such as RSS), and scraping websites with non-static components with Selenium.
 
 ##### Resources
 - [Lecture slides](week04/MY472-week04-internetdata.html)
-- [Example of vectors and list operations in R](vectors-and-lists.R)
+- R examples: [Scraping RSS](week04/01-tba.Rmd), [introduction to RSelenium](week04/02-tba.Rmd), [RSelenium example with the LSE website](week04/03-tba.Rmd), 
 
 ##### Required reading
-* Sai Swapna Gollapudi. 2018. [_Learn Web Scraping and Browser Automation Using RSelenium in R_](https://analyticsprofile.com/business-analytics/learn-web-scraping-and-browser-automation-using-rselenium-in-r/).
-* Wickham, Hadley. 2015. [_Parse and process XML (and HTML) with xml2_](https://blog.rstudio.com/2015/04/21/xml2/)
+* [_RSelenium vignette_](https://cran.r-project.org/web/packages/RSelenium/vignettes/basics.html).
 * Mozilla Developer Web Docs. [_What is JavaScript_](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/First_steps/What_is_JavaScript).
 
 ##### Recommended reading
-* Schouwenaars, Filip. 2015. [_Web Scraping with R and PhantomJS_](https://www.datacamp.com/community/tutorials/scraping-javascript-generated-data-with-r).
+* [_Web Scraping with R and PhantomJS_](https://www.datacamp.com/community/tutorials/scraping-javascript-generated-data-with-r).
 * Mozilla Developer Web Docs. [_A First Splash into JavaScript_](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/First_steps/A_first_splash).
 
 ##### Lab: Group work on first five weeks
