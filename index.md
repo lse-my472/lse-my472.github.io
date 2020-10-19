@@ -174,12 +174,13 @@ Continuing from the material covered in Week 3, we will learn the advanced topic
 - R examples: [Scraping RSS](week04/01-newspaper-rss.Rmd), [introduction to RSelenium](week04/02-introduction-to-selenium.Rmd), [RSelenium example with the LSE website](week04/03-selenium-lse.Rmd), 
 
 ##### Required reading
-* [_XML_](https://www.w3schools.com/xml/xml_whatis.asp_
+* [_XML_](https://www.w3schools.com/xml/xml_whatis.asp)
 * [_RSS_](https://www.w3schools.com/xml/xml_rss.asp)
 * [_RSelenium vignette_](https://cran.r-project.org/web/packages/RSelenium/vignettes/basics.html).
-* Mozilla Developer Web Docs. [_What is JavaScript_](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/First_steps/What_is_JavaScript).
+
 
 ##### Recommended reading
+* Mozilla Developer Web Docs. [_What is JavaScript_](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/First_steps/What_is_JavaScript).
 * [_Web Scraping with R and PhantomJS_](https://www.datacamp.com/community/tutorials/scraping-javascript-generated-data-with-r).
 * Mozilla Developer Web Docs. [_A First Splash into JavaScript_](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/First_steps/A_first_splash).
 
