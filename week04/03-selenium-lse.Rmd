@@ -1,0 +1,254 @@
+---
+title: "Using Selenium to scrape programmes from the LSE website"
+author: "Friedrich Geiecke"
+date: "19/10/2020"
+output: html_document
+---
+
+The LSE website has as section where the user can enter a search term and a list of programmes is displayed potentially on several pages which are related to this term. This R markdown file develops a way to enter a search term, navigate through the resulting pages, and scrape all programmes/courses. The focus is thereby not to use the most efficient way to obtain this information, but rather to illustrate some key functionalities of Selenium when scraping complex web forms.
+
+Loading the packages:
+
+```{r}
+#install.packages("RSelenium") # run just once
+library("RSelenium")
+library("tidyverse")
+```
+
+Launching the driver and browser:
+
+```{r}
+rD<- rsDriver(browser=c("firefox"))
+driver <- rD$client
+```
+
+Navigate to the respective website:
+
+```{r}
+url <- "https://www.lse.ac.uk/Programmes/Search-Courses"
+driver$navigate(url)
+```
+
+First, let us create a list with the main XPath and class selectors which we use. We will need to know the location of the search tag box, the associated button (alternatively we can just use the enter key here), the box that displays which results are on the current page, and the button which leads on the page with the next set of results. The following values have been obtained with Inspect Element in Firefox:
+
+```{r}
+
+# List that stores all selectors
+selector_list = list()
+
+# XPaths
+selector_list$search_box <- '//*[@id="coursesSearch"]'
+selector_list$go_button <- "/html/body/form/main/div/div/div/div[1]/div/div[1]/input[3]"
+selector_list$results_progress_box <- "/html/body/form/main/div/div/div/div[2]/div[2]/p"
+
+# Class name
+selector_list$next_page_button <- "pagination__link--next"
+```
+
+Next, we want to build a helper function which later on e.g. allows us to know whether we are on the last page of a given search. For this we scrape the container which summarises the results on the current page:
+
+```{r}
+results_progress <- driver$findElement(using = "xpath", value = selector_list$results_progress_box)
+results_progress_text = results_progress$getElementText()[[1]]
+results_progress_text
+```
+
+Let us split this string into the following three pieces of information: 1. First result on this page (here: 1), 2. last result this page (here: 10), and the total amount of results (here: 612).
+
+```{r}
+# Split the string in words
+split_string_test <- strsplit(results_progress_text, " ")[[1]]
+split_string_test
+
+first_result_this_page_test = as.numeric(gsub("-.*","", split_string_test[2]))
+last_result_this_page_test = as.numeric(gsub(".*-","", split_string_test[2]))
+total_results_test = as.numeric(split_string_test[4])
+
+# Side note: as.numeric(split_string_test[4]) is just the same as
+# split_string_test[4] %>% as.numeric(), just a different notation.
+# Do you see why?
+
+first_result_this_page_test
+last_result_this_page_test
+total_results_test
+```
+
+This works well. Next, let us write the same content into a function which can be reused and returns a vector of length three with exactly this information:
+
+```{r}
+current_result_counts <- function() {
+
+  results_progress <- driver$findElement(using = "xpath", value = selector_list$results_progress_box)
+  results_progress_text = results_progress$getElementText()[[1]]
+  
+  split_string <- strsplit(results_progress_text, " ")[[1]]
+  
+  first_result_this_page = as.numeric(gsub("-.*","", split_string[2]))
+  last_result_this_page = as.numeric(gsub(".*-","", split_string[2]))
+  total_results = as.numeric(split_string[4])
+  
+  function_output <- c(first_result_this_page, last_result_this_page, total_results)
+  
+  return(function_output)
+}
+
+```
+
+```{r}
+current_result_counts()
+```
+
+We will use this helper function to determine whether we are on the last page of results. You probably already guess that we are on the last page if the second element is equal to the third element in this vector. Next, let us continue to defining some further functions that we will need:
+
+```{r}
+
+next_page <- function() {
+  
+  # Scrolling to the end of the current page. The button is located there and if
+  # we do not scroll down, the RSelenium script sometimes does not seem to find
+  # the element. We run the following code twice as it certainly reaches
+  # the end of the page then.
+  for (i in 1:2) {
+    page_body <- driver$findElement("css", "body")
+    page_body$sendKeysToElement(list(key = "end"))
+    Sys.sleep(0.5)
+  }
+
+  # Find the button element and click on it
+  next_page_button <- driver$findElement(using = "class", value = selector_list$next_page_button)
+  next_page_button$clickElement()
+  
+}
+
+search_for <- function(term) {
+  
+  # Finth the search field and enter the search term, e.g. "data science"
+  search_field <- driver$findElement(using = "xpath", value = selector_list$search_box)
+  search_field$sendKeysToElement(list(term))
+  
+  # Wait for one second and then press the enter key
+  Sys.sleep(1)
+  search_field$sendKeysToElement(list(key = "enter"))
+  
+  
+}
+```
+
+Let us try out these functions:
+
+```{r}
+next_page()
+```
+
+```{r}
+search_for("data science")
+```
+
+Note that for moving to the next page it can be more efficient to figure out the URL structure of subsequent pages and navigate to these URLs directly rather than clicking on a next page button (as e.g. in the example of unstructured data from the lab last week). To further highlight the functionality of Selenium in this file, we choose the approach to click instead.
+
+The last remaining question is how we identify the programme names on the page. One approach is to use XPaths for this. Let us copy the XPath of the first two programmes names for a given page:
+
+/html/body/form/main/div/div/div/div[2]/div[1]/article[1]/a/header/h1
+/html/body/form/main/div/div/div/div[2]/div[1]/article[2]/a/header/h1
+
+Here the knowledge of XPath is very helpful. The second programme element seems to be the second child of the same division. Hence we can just increment this integer to scrape the relevant elements on the page.
+
+Now we can write the main scraping function:
+
+```{r}
+scrape_programmes <- function(term) {
+
+  # Create list that stores results, initialise overall item counts, and define
+  # a logical value that is set to true when we are on the last page
+  programmes_list <- list()
+  item_count <- 1
+  last_page_flag <- FALSE
+  
+  # First, navigate the browser to the main programmes page
+  url <- "https://www.lse.ac.uk/Programmes/Search-Courses"
+  driver$navigate(url)
+  Sys.sleep(2)
+  
+  # Next, enter search term
+  search_for(term)
+  Sys.sleep(4)
+
+  # While we are not on the final page continue this loop
+  while (last_page_flag == FALSE) {
+    
+    # Obtain the information about which elements are displayed on this page
+    current_result_counts_vector <- current_result_counts()
+    first_result_this_page <- current_result_counts_vector[1]
+    last_result_this_page <- current_result_counts_vector[2]
+    total_results <- current_result_counts_vector[3]
+
+    # Compute the amount of items on this page
+    programmes_on_this_page = last_result_this_page - first_result_this_page + 1
+    
+    # Loop over the programmes on this page
+    for (programme_int in 1:programmes_on_this_page) {
+      
+      # Create the XPath character of the current programme
+      current_programe_xpath <- sprintf("/html/body/form/main/div/div/div/div[2]/div[1]/article[%g]/a/header/h1", programme_int)
+      
+      # Find the element on the website and transform it to text directly
+      current_programme_text <- driver$findElement(using = "xpath",
+                                                   value = current_programe_xpath)$getElementText()[[1]]
+      
+      # Add the outcome to the list
+      programmes_list[[item_count]] = current_programme_text
+      
+      # Increment the overall item count for the next element which is stored
+      # in the list
+      item_count <- item_count + 1
+      
+    }
+    
+    # If we are on the last page, set the flat to TRUE and thereby leave the
+    # loop afterwards
+    if (last_result_this_page == total_results) {
+      
+      last_page_flag = TRUE
+      
+    # Otherwise, click on the next-page button and pause for two seconds
+    } else {
+      
+      next_page()
+      Sys.sleep(2)
+      
+    }
+    
+    
+    
+  }
+  
+  # Return only unique values (there might be duplicate entries as the same
+  # programme also starts in the next year)
+  return(unique(programmes_list))
+  
+}
+```
+
+With this function, we can scrape two list containing programmes related to "data science" or "marketing":
+
+```{r}
+scrape_programmes("data science")
+```
+
+
+```{r}
+scrape_programmes("marketing")
+```
+
+There are many potential extensions to this script. For example, the main function breaks if we search for a term for which the website returns zero hits. Proper unit testing would go through exactly such cases and build conditionals into the function such that it would not break, but instead e.g. return a list of length zero in this case. Another example is that the next_page() function breaks if it is applied on the last page for a given search. The reason is that this last page does not have a "right-arrow" button, so the element does not exist and the code returns an error. To build functions that are robust to such cases would require to catch errors and then route the code to another part. See for example the following link for the try() function and more advanced approaches: http://adv-r.had.co.nz/Exceptions-Debugging.html. Such extensions are left as an exercise for students who are interested in these topics in more depth.
+
+Finally, let us close the driver and browser window before closing R:
+
+```{r}
+driver$close()
+rD$server$stop()
+```
+
+
+
+

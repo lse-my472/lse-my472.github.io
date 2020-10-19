@@ -170,8 +170,8 @@ From week 3 to week 5, we will learn how to get the data from the internet. This
 Continuing from the material covered in Week 3, we will learn the advanced topics in scraping the web. The topics include the scraping documents in XML (such as RSS), and scraping websites with non-static components with Selenium.
 
 ##### Resources
-- [Lecture slides](week04/MY472-week04-internetdata.html)
-- R examples: [Scraping RSS](week04/01-tba.Rmd), [introduction to RSelenium](week04/02-tba.Rmd), [RSelenium example with the LSE website](week04/03-tba.Rmd), 
+- [Lecture slides](week04/MY472-week04-scraping-part-2.pdf)
+- R examples: [Scraping RSS](week04/01-newspaper-rss.Rmd), [introduction to RSelenium](week04/02-introduction-to-selenium.Rmd), [RSelenium example with the LSE website](week04/03-selenium-lse.Rmd), 
 
 ##### Required reading
 * [_XML_](https://www.w3schools.com/xml/xml_whatis.asp_
@@ -186,7 +186,7 @@ Continuing from the material covered in Week 3, we will learn the advanced topic
 ##### Lab: Group work on first five weeks
 
 ##### Assignment 2: Web scraping
-- Link to GitHub Classroom available via Moodle on Monday, October 19, 2pm
+- Link to GitHub Classroom available via Moodle on Monday, October 19, 5pm
 - Deadline on Friday, October 30, 2pm
 
 
