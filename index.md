@@ -177,7 +177,7 @@ Continuing from the material covered in Week 3, we will learn the advanced topic
 * [_XML_](https://www.w3schools.com/xml/xml_whatis.asp)
 * [_RSS_](https://www.w3schools.com/xml/xml_rss.asp)
 * [_XPath syntax_](https://www.w3schools.com/xml/xpath_syntax.asp)
-* [_RSelenium vignette_](https://cran.r-project.org/web/packages/RSelenium/vignettes/basics.html).
+* [_RSelenium vignette_](https://cran.r-project.org/web/packages/RSelenium/vignettes/basics.html)
 
 
 ##### Recommended reading
@@ -188,7 +188,7 @@ Continuing from the material covered in Week 3, we will learn the advanced topic
 ##### Lab: Group work on first five weeks
 
 ##### Assignment 2: Web scraping
-- Link to GitHub Classroom available via Moodle on Monday, October 19, 5pm
+- Link to GitHub Classroom available via Moodle on Monday, October 19
 - Deadline on Friday, October 30, 2pm
 
 
