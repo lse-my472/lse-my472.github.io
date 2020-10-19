@@ -176,6 +176,7 @@ Continuing from the material covered in Week 3, we will learn the advanced topic
 ##### Required reading
 * [_XML_](https://www.w3schools.com/xml/xml_whatis.asp)
 * [_RSS_](https://www.w3schools.com/xml/xml_rss.asp)
+* [_XPath syntax_](https://www.w3schools.com/xml/xpath_syntax.asp)
 * [_RSelenium vignette_](https://cran.r-project.org/web/packages/RSelenium/vignettes/basics.html).
 
 
