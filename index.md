@@ -189,7 +189,7 @@ Continuing from the material covered in Week 3, we will learn the advanced topic
 
 ##### Assignment 2: Web scraping
 - Link to GitHub Classroom available via Moodle on Tuesday, October 20
-- Deadline on Friday, October 30, 2pm
+- Deadline on October 31, 2pm
 
 
 
