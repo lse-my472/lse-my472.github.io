@@ -12,10 +12,11 @@ Loading the Selenium package:
 library("RSelenium")
 ```
 
+
 Launching the driver and browser:
 
 ```{r}
-rD<- rsDriver(browser=c("firefox"))
+rD<- rsDriver(port = 5555L, browser=c("firefox"))
 driver <- rD$client
 ```
 
