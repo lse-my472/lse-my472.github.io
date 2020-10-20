@@ -1,0 +1,62 @@
+---
+title: "A first script using Selenium"
+author: "Friedrich Geiecke"
+date: "19/10/2020"
+output: html_document
+---
+
+Loading the Selenium package:
+
+```{r}
+#install.packages("RSelenium") # run once to install the package on your computer
+library("RSelenium")
+```
+
+Launching the driver and browser:
+
+```{r}
+rD<- rsDriver(browser=c("firefox"))
+driver <- rD$client
+```
+
+Navigate to the Google website:
+
+```{r}
+url <- "https://www.google.com/"
+driver$navigate(url)
+```
+
+Now we actually face a somewhat advanced problem. Since recently there can be new privacy terms that have to be accepted once. As the the window is actually in the foreground, we first have to switch the frame. Without this switching of the frame, we would not be able to click on the right element. In case such as window shows up, we therefore have to run the following code block first (otherwise this block can be skipped). As an exercise, the XPaths of the relevant elements have to be obtained with the Inspect Element function of the browser and then be pasted into this code replacing the "tba".
+
+```{r}
+driver$switchToFrame(0)
+
+agree_button <- driver$findElement(using = "xpath", value = "tba")
+agree_button$clickElement()
+
+driver$switchToFrame(1)
+```
+
+Next, we will search for the LSE:
+
+```{r}
+search_field <- driver$findElement(using = "xpath", value = "tba")
+search_field$sendKeysToElement(list("london school of economics"))
+Sys.sleep(1)
+search_field$sendKeysToElement(list(key = "enter"))
+```
+
+And navigate to its website by clicking on the first link of the search results:
+
+```{r}
+first_link <- driver$findElement(using = "xpath", value = "tba")
+first_link$clickElement()
+```
+
+Lastly, let us close the driver and browser:
+
+```{r}
+driver$close()
+rD$server$stop()
+```
+

@@ -24,7 +24,7 @@ The motivating example here will be the website [http://ipaidabribe.com](http://
 url <- 'http://ipaidabribe.com/reports/paid'
 ```
 
-We will also be using `rvest`, but in a slightly different way: Prior to scraping, we need to identify the CSS selector of each element we want to extract. 
+We will also be using `rvest`, but in a slightly different way: Prior to scraping, we need to identify the CSS selector of each element we want to extract.
 
 Now, go to the ipaidabribe website (this link: http://ipaidabribe.com/reports/paid) and open the `Inspect Element` section. Then, find the element you want to extract, and copy and paste the CSS selector into R.
 
@@ -37,7 +37,7 @@ bribe_html <- read_html(url)
 # Identify the CSS selector and add it to the css argument
 bribe_nodes <- html_nodes(bribe_html, css = ".paid-amount span")
 
-# .paid-amount 
+# .paid-amount
 # add span
 
 
@@ -63,7 +63,7 @@ Small note on `stri_replace()`: `first` means to look for the first occurrence, 
 Let's do another one: transactions during which the bribe occurred:
 
 ```{r}
-transaction <- html_nodes(bribe_html, css=".transaction") %>% 
+transaction <- html_nodes(bribe_html, css=".transaction") %>%
   html_text
 
 transaction
@@ -73,7 +73,7 @@ And one more: the department that is responsible for these transactions
 
 ```{r}
 # and one more
-dept <- html_nodes(bribe_html, ".department .name a") %>% 
+dept <- html_nodes(bribe_html, ".department .name a") %>%
   html_text
 
 # also add 'a' which gives RStudio more infO and the it returns only that 'a' type within the selected class, not the extra infos that are not useful for our purposes
@@ -86,31 +86,31 @@ This was just for one page, but note that there are many pages. How do we scrape
 ```{r}
 scrape_bribe <- function(url){
   # Can you combine all previous sections into one function?
-  
+
   # 1. Read the html
   c_html <- read_html(url)
-  
+
   # 2. Take the html and get the bribe amount
-  amount <- c_html %>% 
+  amount <- c_html %>%
     html_nodes(".paid-amount span") %>%
     # extract it as text
-    html_text() %>% 
+    html_text() %>%
     stri_replace_first_fixed("Paid INR ", "") %>%
     stri_replace_all_regex("\\r.+", "") %>%
     stri_replace_all_regex(",", "") %>%
     as.numeric()
-  
+
   # 3. Take the html and get the transaction text
-  transaction <- html_nodes(c_html, ".transaction a") %>% 
+  transaction <- html_nodes(c_html, ".transaction a") %>%
     html_text
-  
+
   # 4. Take the html and get the department text
-  dept <- html_nodes(c_html, ".department .name a") %>% 
+  dept <- html_nodes(c_html, ".department .name a") %>%
     html_text
-  
+
   # 5. Combine amount, transaction, and department into one dataframe
   df <- data.frame(amount, transaction, dept, stringsAsFactors = FALSE)
-  
+
   return(df)
 }
 
@@ -149,7 +149,7 @@ for (i in 2:length(pages)){
 The final step is to convert the list of data frames into a single data frame that we can work with, using the function `do.call(rbind, LIST)` (where `LIST` is a list of data frames).
 
 ```{r}
-## Instead of do.call, we will use bind_rows in dplyr which is much faster 
+## Instead of do.call, we will use bind_rows in dplyr which is much faster
 data_all <- bind_rows(data_list)
 
 ## Check
@@ -173,13 +173,13 @@ mean(data_all$amount)
 median(data_all$amount)
 
 # Can you create a histogram of the amounts paid?
-ggplot(data_all, aes(x = _________)) + 
-  geom_histogram() + 
+ggplot(data_all, aes(x = _________)) +
+  geom_histogram() +
   scale_x_log10()
 
 ```
 
-And what was the average payment for each department? 
+And what was the average payment for each department?
 
 ```{r}
 agg <- data_all %>%
