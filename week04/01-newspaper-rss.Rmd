@@ -28,7 +28,7 @@ Before scraping, we can check the structure of the xml document on the browser. 
 # Reading the xml document
 rss_xml <- read_xml(url)
 
-## Extracting the item nodes in the RSS feed
+# Extracting the item nodes in the RSS feed
 nodes <- xml_nodes(rss_xml, css = "item")
 length(nodes)
 ```
@@ -75,7 +75,7 @@ data_guardian_articles
 Next, let us prototype how you could scrape the text in the body of each of those URLs. We pick the first URL and write some code to get an object that contains the text of the article. We select all paragraphs in the file.
 
 ```{r}
-test_url <- article_url[1]
+test_url <- article_url[7]
 
 test_text <- test_url %>%
   read_html() %>%
