@@ -119,7 +119,7 @@ for (i in 1:nrow(data_guardian_articles_small)) {
   print(i)
   
   # Obtain URL of current article
-  current_url = as.character(data_guardian_articles[i,"article_url"])
+  current_url <- as.character(data_guardian_articles[i,"article_url"])
   
   # Obtain full text of article
   data_guardian_articles_small[i, "full_text"] <- text_extractor(current_url)
