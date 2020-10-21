@@ -48,8 +48,9 @@ selector_list$next_page_button <- "pagination__link--next"
 Next, we want to build a helper function which later on e.g. allows us to know whether we are on the last page of a given search. For this we scrape the container which summarises the results on the current page:
 
 ```{r}
-results_progress <- driver$findElement(using = "xpath", value = selector_list$results_progress_box)
-results_progress_text = results_progress$getElementText()[[1]]
+results_progress <- driver$findElement(using = "xpath",
+                                       value = selector_list$results_progress_box)
+results_progress_text <- results_progress$getElementText()[[1]]
 results_progress_text
 ```
 
@@ -60,9 +61,9 @@ Let us split this string into the following three pieces of information: 1. Firs
 split_string_test <- strsplit(results_progress_text, " ")[[1]]
 split_string_test
 
-first_result_this_page_test = as.numeric(gsub("-.*","", split_string_test[2]))
-last_result_this_page_test = as.numeric(gsub(".*-","", split_string_test[2]))
-total_results_test = as.numeric(split_string_test[4])
+first_result_this_page_test <- as.numeric(gsub("-.*","", split_string_test[2]))
+last_result_this_page_test <- as.numeric(gsub(".*-","", split_string_test[2]))
+total_results_test <- as.numeric(split_string_test[4])
 
 # Side note: as.numeric(split_string_test[4]) is just the same as
 # split_string_test[4] %>% as.numeric(), just a different notation.
@@ -78,14 +79,15 @@ This works well. Next, let us write the same content into a function which can b
 ```{r}
 current_result_counts <- function() {
 
-  results_progress <- driver$findElement(using = "xpath", value = selector_list$results_progress_box)
-  results_progress_text = results_progress$getElementText()[[1]]
+  results_progress <- driver$findElement(using = "xpath",
+                                         value = selector_list$results_progress_box)
+  results_progress_text <- results_progress$getElementText()[[1]]
   
   split_string <- strsplit(results_progress_text, " ")[[1]]
   
-  first_result_this_page = as.numeric(gsub("-.*","", split_string[2]))
-  last_result_this_page = as.numeric(gsub(".*-","", split_string[2]))
-  total_results = as.numeric(split_string[4])
+  first_result_this_page <- as.numeric(gsub("-.*","", split_string[2]))
+  last_result_this_page <- as.numeric(gsub(".*-","", split_string[2]))
+  total_results <- as.numeric(split_string[4])
   
   function_output <- c(first_result_this_page, last_result_this_page, total_results)
   
@@ -183,7 +185,7 @@ scrape_programmes <- function(term) {
     total_results <- current_result_counts_vector[3]
 
     # Compute the amount of items on this page
-    programmes_on_this_page = last_result_this_page - first_result_this_page + 1
+    programmes_on_this_page <- last_result_this_page - first_result_this_page + 1
     
     # Loop over the programmes on this page
     for (programme_int in 1:programmes_on_this_page) {
@@ -196,7 +198,7 @@ scrape_programmes <- function(term) {
                                                    value = current_programe_xpath)$getElementText()[[1]]
       
       # Add the outcome to the list
-      programmes_list[[item_count]] = current_programme_text
+      programmes_list[[item_count]] <- current_programme_text
       
       # Increment the overall item count for the next element which is stored
       # in the list
