@@ -48,7 +48,7 @@ src <- driver$getPageSource()
 substr(src, 1, 1000)
 ```
 
-First things first: the following code will remove the cookie banner at the bottom.
+First things first: the following code will remove the cookie banner at the bottom. (_This is just to show you how to switch between frames — the script would run successfully even with the cookie banner_)
 
 ```{r}
 # The cookie pop-up window is on frame two
@@ -63,16 +63,6 @@ accept_button$_____________()
 
 # Switch back to default frame
 driver$switchToFrame(NULL)
-```
-
-First, the search element has to be shown in the screen. So, let scroll. 
-
-```{r}
-# This focuses the browser on the <body> of the script
-webElem <- driver$findElement("css", "body")
-
-# When you hit space, you scroll down
-webElem$sendKeysToElement(list(key = "space"))
 ```
 
 Let's assume we want to see the results of the constituency here. We can feed post code or constituency names, and check the results.  First, let's identify the elements that we're trying to scrape. Then, send the text to the field and "enter" key inputs.
