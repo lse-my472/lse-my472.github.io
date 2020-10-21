@@ -16,7 +16,7 @@ library("RSelenium")
 Launching the driver and browser:
 
 ```{r}
-rD<- rsDriver(port = 5555L, browser=c("firefox"))
+rD<- rsDriver(port = 5556L, browser=c("firefox"))
 driver <- rD$client
 ```
 
@@ -32,16 +32,20 @@ Now we actually face a somewhat advanced problem. Since recently there can be ne
 ```{r}
 driver$switchToFrame(0)
 
-agree_button <- driver$findElement(using = "xpath", value = "tba")
+agree_button <- driver$findElement(using = "xpath", value = "/html/body/div/c-wiz/div[2]/div/div/div/div/div[2]/form/div/span/span")
 agree_button$clickElement()
 
 driver$switchToFrame(1)
 ```
 
 Next, we will search for the LSE:
+```{r}
+url <- "https://www.google.com/"
+driver$navigate(url)
+```
 
 ```{r}
-search_field <- driver$findElement(using = "xpath", value = "tba")
+search_field <- driver$findElement(using = "xpath", value = "/html/body/div/div[2]/form/div[2]/div[1]/div[1]/div/div[2]/input")
 search_field$sendKeysToElement(list("london school of economics"))
 Sys.sleep(1)
 search_field$sendKeysToElement(list(key = "enter"))
@@ -50,7 +54,7 @@ search_field$sendKeysToElement(list(key = "enter"))
 And navigate to its website by clicking on the first link of the search results:
 
 ```{r}
-first_link <- driver$findElement(using = "xpath", value = "tba")
+first_link <- driver$findElement(using = "xpath", value = "/html/body/div[7]/div[2]/div[10]/div[1]/div[2]/div/div[2]/div[2]/div/div/div[1]/div/div/div/div[1]/a/h3/span")
 first_link$clickElement()
 ```
 
