@@ -1,4 +1,9 @@
-### Scraping web data behind web forms
+---
+title: "Scraping web data behind web forms"
+author: "Pablo Barbera, Friedrich Geiecke, and Martin Lukac"
+date: "22 October 2020"
+output: html_document
+---
 
 The most difficult scenario for web scraping is when data is hidden behind multiple pages that can only be accessed entering information into web forms. There are a few approaches that might work in these cases, with varying degree of difficulty and reliability, but in my experience the best method is to use [Selenium](https://en.wikipedia.org/wiki/Selenium_(software)).
 
