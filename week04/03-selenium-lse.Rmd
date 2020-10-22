@@ -11,6 +11,7 @@ Loading the packages:
 
 ```{r}
 #install.packages("RSelenium") # run just once
+# install.packages("tidyverse")
 library("RSelenium")
 library("tidyverse")
 ```
@@ -18,7 +19,7 @@ library("tidyverse")
 Launching the driver and browser:
 
 ```{r}
-rD<- rsDriver(browser=c("firefox"))
+rD<- rsDriver(port = 4445L, browser=c("firefox"))
 driver <- rD$client
 ```
 
@@ -44,6 +45,7 @@ selector_list$results_progress_box <- "/html/body/form/main/div/div/div/div[2]/d
 # Class name
 selector_list$next_page_button <- "pagination__link--next"
 ```
+
 
 Next, we want to build a helper function which later on e.g. allows us to know whether we are on the last page of a given search. For this we scrape the container which summarises the results on the current page:
 
@@ -149,7 +151,9 @@ Note that for moving to the next page it can be more efficient to figure out the
 The last remaining question is how we identify the programme names on the page. One approach is to use XPaths for this. Let us copy the XPath of the first two programmes names for a given page:
 
 /html/body/form/main/div/div/div/div[2]/div[1]/article[1]/a/header/h1
+/html/body/form/main/div/div/div/div[2]/div[1]/article[1]/a/header -- A's copy
 /html/body/form/main/div/div/div/div[2]/div[1]/article[2]/a/header/h1
+/html/body/form/main/div/div/div/div[2]/div[1]/article[2]/a/header -- A's copy
 
 Here the knowledge of XPath is very helpful. The second programme element seems to be the second child of the same division. Hence we can just increment this integer to scrape the relevant elements on the page.
 
