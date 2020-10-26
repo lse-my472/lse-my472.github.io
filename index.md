@@ -171,7 +171,7 @@ Continuing from the material covered in Week 3, we will learn the advanced topic
 
 ##### Resources
 - [Lecture slides](week04/MY472-week04-scraping-part-2.pdf)
-- R examples: [Scraping RSS](week04/01-newspaper-rss.Rmd), [introduction to RSelenium](week04/02-introduction-to-selenium.Rmd), [RSelenium example with the LSE website](week04/03-selenium-lse.Rmd), 
+- R examples: [Scraping RSS](week04/01-newspaper-rss.Rmd), [introduction to RSelenium](week04/02-introduction-to-selenium.Rmd), [RSelenium example with the LSE website](week04/03-selenium-lse.Rmd)
 
 ##### Required reading
 * [_XML_](https://www.w3schools.com/xml/xml_whatis.asp)
@@ -195,11 +195,11 @@ Continuing from the material covered in Week 3, we will learn the advanced topic
 
 #### 5. Working with APIs
 
+How to work with Application Programming Interfaces (APIs), which offer developers and researchers access to data in a structured format. Our running examples will be the New York Times API and the Twitter API.
+
 ##### Resources
 - [Lecture slides](week05/MY472-week05-APIs.pdf)
-- [Examples](https://github.com/lse-my472/lse-my472.github.io/tree/master/week05)
-
-How to work with Application Programming Interfaces (APIs), which offer developers and researchers access to data in a structured format. Our running examples will be the New York Times API and the Twitter API.
+- R examples: [JSON in R](week05/01-json-in-r.Rmd), [NYT API](week05/02-nytimes-api.Rmd), [Twitter Rest API](week05/03-twitter-rest-api.Rmd)
 
 ##### Required reading
 * Steinert-Threlkeld. 2018. [_Twitter as Data_](https://www.cambridge.org/core/elements/twitter-as-data/27B3DE20C22E12E162BFB173C5EB2592). Cambridge University Press.
@@ -208,13 +208,11 @@ How to work with Application Programming Interfaces (APIs), which offer develope
 * Ruths and Pfeffer. 2014. [_Social media for large studies of behavior_](http://science.sciencemag.org/content/346/6213/1063.full). Science.
 
 ##### Lab: APIs
-- Interacting with the New York Times API
-- Interacting with Twitter's REST and Streaming API
-
+- Interacting with the Twitter Streaming API
 
 ##### Assignment 3: APIs
-- Link to GitHub Classroom available via Moodle on Monday, October 26, 2pm
-- Deadline on Friday, November 13, 2pm
+- Link to GitHub Classroom available via Moodle on Tuesday, October 27, 2pm
+- Deadline on Saturday, November 14, 2pm
 
 
 #### 6. Reading week

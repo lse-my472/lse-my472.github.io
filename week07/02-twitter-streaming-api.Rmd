@@ -5,6 +5,10 @@ output: github_document
 
 #### Authenticating
 
+Before running this file yourself, you need to submit an application for a Twitter developer account which make take a few days to be processed. Follow the instructions in the slides to submit such an application and let us know on Slack under #twitterapi if you are having any problems.
+
+
+
 Before we can start collecting Twitter data, we need to create an OAuth token that will allow us to authenticate our connection and access our personal data.
 
 After the new API changes, getting a new token requires submitting an application for a developer account, which may take a few days. So for now we will assume that we have access to one. See the instructions at the end of the file for how to create yours once your application is approved. We'll come back to this during the seminars this week.
@@ -18,39 +22,43 @@ library("rtweet")
 Once you have created your token (after your application has been approved), you can check that it worked by running the line below:
 
 ```{r}
-load("my_oauth.rda")
+
+load("my_authentication.rda")
+# Replace the app name with your own!
 
 # replace the app name with your own!
-twitter_token <- create_token(app = "Ken's R access", 
-                              consumer_key = my_oauth$consumer_key,
-                              consumer_secret = my_oauth$consumer_secret,
-                              access_token = my_oauth$access_token,
-                              access_secret = my_oauth$access_token_secret)
+twitter_token <- create_token(app = "Research 2020/21", 
+                              consumer_key = authentication$consumer_key,
+                              consumer_secret = authentication$consumer_secret,
+                              access_token = authentication$access_token,
+                              access_secret = authentication$access_token_secret)
 
 lookup_users("LSEnews")$screen_name
 ```
 
 If this displays `LSEnews` then we're good to go!
 
-Some of the functions below will work with more than one token. If you want to save multiple tokens, see the instructions at the end of the file.
+First, let us have a look at the stream_tweets function which we will use a lot.
+
+
 
 #### Collecting data from Twitter's Streaming API
 
 Collecting tweets filtering by keyword:
 
 ```{r}
-tweets <- stream_tweets("trump", timeout = 10)
+tweets <- stream_tweets(q = "election", timeout = 10)
 head(tweets)
 ```
 
 If we want, we could also export it to a csv file to be opened later with a spreadsheet program.
 ```{r}
-write_as_csv(tweets, file_name = "trump-streaming-tweets.csv")
+write_as_csv(tweets, file_name = "election-streaming-tweets.csv")
 ```
 
 And this is how we would capture tweets mentioning multiple keywords:
 ```{r, eval=FALSE}
-tweets2 <- stream_tweets("impeachment AND hearings AND trump", timeout = 20)
+tweets2 <- stream_tweets("biden AND election", timeout = 10)
 head(tweets2$text)
 ```
 
@@ -123,27 +131,29 @@ ht <- unlist(ht)
 head(sort(table(ht), decreasing = TRUE))
 ```
 
-#### Creating your own token
+#### Storing and loading your own tokens
 
-Follow these steps to create your own token after your application has been approved:
-
-1. Go to https://developer.twitter.com/en/apps and sign in.  
-2. If you don't have a developer account, you will need to apply for one first. Fill in the application form and wait for a response.
-3. Once it's approved, click on "Create New App". You will need to have a phone number associated with your account in order to be able to create a token.  
-4. Fill name, description, and website (it can be anything, even http://www.google.com). Make sure you leave 'Callback URL' empty.
-5. Agree to user conditions.  
-6. From the "Keys and Access Tokens" tab, copy consumer key and consumer secret and paste below
-7. Click on "Create my access token", then copy and paste your access token and access token secret below
+Once you have registered you can once store your tokens in a file. Copy them into the cell below and run it:
 
 ```{r, eval=FALSE}
-my_oauth <- list(consumer_key = "CONSUMER_KEY",
-                 consumer_secret = "CONSUMER_SECRET",
-                 access_token = "ACCESS_TOKEN",
-                 access_token_secret = "ACCESS_TOKEN_SECRET")
-save(my_oauth, file = "my_oauth.rda")
+authentication <- list(consumer_key = "cc08U6RfMu7oMy17fpH4hHGn6",
+                 consumer_secret = "d9zQYlPyfqulZgMuNKrLLKXJOHiUBZqXb6VqGkaTLWMyKNTTd3",
+                 access_token = "1320116969572544517-RMYWePAS4rCehQCyg11Gk6hPegGnDo",
+                 access_token_secret = "WmCiv96sytceJlkl3a5ImXg6jEbkK5Dc3ZKnn12Pi4Bwi")
+save(authentication, file = "authentication.rda")
 ```
 
-To access this data, then you just need to run:
+
+# Authentication data
+authentication = list()
+authentication$consumer_key = "cc08U6RfMu7oMy17fpH4hHGn6"
+authentication$consumer_secret = "d9zQYlPyfqulZgMuNKrLLKXJOHiUBZqXb6VqGkaTLWMyKNTTd3"
+authentication$access_token = "1320116969572544517-RMYWePAS4rCehQCyg11Gk6hPegGnDo"
+authentication$access_token_secret = "WmCiv96sytceJlkl3a5ImXg6jEbkK5Dc3ZKnn12Pi4Bwi"
+
+
+To access this data, you can just run the following code in the future
+
 ```{r}
 load("my_oauth.rda")
 ```

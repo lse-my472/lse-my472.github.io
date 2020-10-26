@@ -1,0 +1,96 @@
+---
+title: "Reading JSON into R"
+author: "Friedrich Geiecke"
+date: "26/10/2020"
+output: html_document
+---
+
+Loading packages:
+
+```{r}
+library("jsonlite")
+library("tidyverse")
+```
+
+Specify the directory where the JSON files are stored:
+
+```{r}
+current_dir <- "yourdirectoryhere"
+```
+
+Reading/parsing the first file into R:
+
+```{r}
+example_1_parsed <- fromJSON(paste(current_dir, "example_1.json", sep = ""))
+class(example_1_parsed)
+names(example_1_parsed)
+```
+
+The key-value structure is of JSON objects is transformed into (nested) lists in R:
+
+```{r}
+example_1_parsed
+```
+
+We can e.g. access the grades array with:
+
+```{r}
+example_1_parsed$grades
+```
+
+The JSON array became a vector in R. Also note e.g. that the JSON notation of the Boolean as `false` was transformed into the R notation of logical `FALSE`.
+
+The supervisor element is again a list itself. This emphasises the nested structure of such files:
+
+```{r}
+class(example_1_parsed$supervisor)
+```
+
+We can access the supervisor's department with:
+
+```{r}
+example_1_parsed$supervisor$department
+```
+
+Let us proceed with the second example. Here we had built the JSON file such that it contained a tabular data structure. We can parse the file in the usual list format, however, also transform it into a dataframe.
+
+```{r}
+example_2_parsed <- fromJSON(paste(current_dir, "example_2.json", sep = ""))
+class(example_2_parsed)
+names(example_2_parsed)
+```
+
+List:
+
+```{r}
+example_2_parsed
+```
+
+Dataframe:
+
+```{r}
+example_2_parsed %>% as_tibble()
+```
+
+Note that the JSON `null` was transformed into an NA.
+
+Lastly, let us look at a slightly more realistic example. Again we obtain a list for the JSON file, however, `jsonlite` actually understands here that each of the keys in the JSON (MT and LT) stores tabular data which can be represented as a dataframe in R:
+
+```{r}
+example_3_parsed <- fromJSON(paste(current_dir, "example_3.json", sep = ""))
+class(example_3_parsed)
+names(example_3_parsed)
+```
+
+The dataframe contained in the MT key:
+
+```{r}
+example_3_parsed$MT
+```
+
+The dataframe contained in the LT key:
+
+```{r}
+example_3_parsed$LT
+```
+
