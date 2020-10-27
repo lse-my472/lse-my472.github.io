@@ -211,7 +211,7 @@ How to work with Application Programming Interfaces (APIs), which offer develope
 - Interacting with the Twitter Streaming API
 
 ##### Assignment 3: APIs
-- Link to GitHub Classroom available via Moodle on Tuesday, October 27, 2pm
+- Link to GitHub Classroom available via Moodle on Tuesday, October 27
 - Deadline on Saturday, November 14, 2pm
 
 
