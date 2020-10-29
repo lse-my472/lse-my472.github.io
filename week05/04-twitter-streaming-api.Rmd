@@ -123,7 +123,7 @@ head(keyword_tweets)
 head(keyword_tweets$text)
 ```
 
-Multiple keywords that should be contained in the tweets are separated with a capitalised `AND` (to indicate that the `and` is not a term itself). For example, let us search for the keywords obama and biden:
+Multiple keywords that should be contained in the tweets are separated with a capitalised `AND` (to indicate that the `and` is not a term itself). For example, let us search for the keywords trump and biden:
 
 ```{r}
 keywords_tweets <- stream_tweets(____, timeout = 5)
