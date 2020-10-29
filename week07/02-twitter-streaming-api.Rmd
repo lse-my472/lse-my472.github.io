@@ -23,7 +23,7 @@ Once you have created your token (after your application has been approved), you
 
 ```{r}
 
-load("my_authentication.rda")
+load("authentication.rda")
 # Replace the app name with your own!
 
 # replace the app name with your own!
