@@ -238,7 +238,7 @@ We will learn how to work with unstructured data in the form of text and discuss
 - [Regular expressions in R vignette](https://cran.r-project.org/web/packages/stringr/vignettes/regular-expressions.html)
 
 ##### Lab
-- Regular expression and textual analysis
+- Regular expressions and textual analysis
 
 
 
