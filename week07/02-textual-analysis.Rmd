@@ -19,7 +19,7 @@ In R, text can e.g. be stored in a character vector or in columns of a data fram
 
 ```{r}
 exemplary_documents <- c("This is the text of a first document.", "This is a text of a second document.", "And of a third document.")
-names(exemplary_documents) = c("Document A", "Document B", "Document C")
+names(exemplary_documents) <- c("Document A", "Document B", "Document C")
 exemplary_documents
 ```
 
@@ -114,7 +114,7 @@ With our dictionary and the dfm, we can then create a new dfm containing the cou
 
 ```{r}
 dfm_dictionary <- dfm_lookup(dfmplain, dictionary = short_dictionary_glob,
-                               valuetype = "glob") # note that the function is case insenstive by default
+                               valuetype = "glob") # note that the function is case insensitive by default
 dfm_dictionary
 ```
 
@@ -157,14 +157,17 @@ dfmcleaned
 To depict word clouds for different presidents, we need to select associated documents/rows in the dfm. This can e.g. be done via information contained in the document variables using the function `dfm_subset` which returns another dfm that is a subset of the original one. We will then use this dfm as the  argument in the `textplot_wordcloud` function:
 
 ```{r}
-textplot_wordcloud(dfm_subset(dfmcleaned, President == "Obama"), rotation=0, min_size=.75, max_size=3, max_words=50)
-textplot_wordcloud(dfm_subset(dfmcleaned, President == "Trump"), rotation=0, min_size=.75, max_size=3, max_words=50)
+textplot_wordcloud(dfm_subset(dfmcleaned, President == "Obama"), 
+                   rotation=0, min_size=.75, max_size=3, max_words=50)
+textplot_wordcloud(dfm_subset(dfmcleaned, President == "Trump"),
+                   rotation=0, min_size=.75, max_size=3, max_words=50)
 ```
 
 How would such a plot look like without stopwords removed?
 
 ```{r}
-textplot_wordcloud(dfm_subset(dfmplain, President == "Obama"), rotation=0, min_size=.75, max_size=3, max_words=50)
+textplot_wordcloud(dfm_subset(dfmplain, President == "Obama"),
+                   rotation=0, min_size=.75, max_size=3, max_words=50)
 ```
 
 #### Appendix: Additional common options when creating document-feature matrices

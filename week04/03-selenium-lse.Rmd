@@ -34,7 +34,7 @@ First, let us create a list with the main XPath and class selectors which we use
 ```{r}
 
 # List that stores all selectors
-selector_list = list()
+selector_list <- list()
 
 # XPaths
 selector_list$search_box <- '//*[@id="coursesSearch"]'
