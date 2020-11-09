@@ -221,17 +221,24 @@ How to work with Application Programming Interfaces (APIs), which offer develope
 
 #### 7. Textual data
 
-We will learn how to work with unstructured data in the form of text, and how to deal with format conversion, encoding problems, and serialization.  We will also cover search and replace operations using regular expressions, as well as the most common textual data types in R and Python.
+We will learn how to work with unstructured data in the form of text and discuss character encoding, search and replace with regular expressions, and elementary quantitative textual analysis.
 
 ##### Resources
-- [Lecture slides](week07/MY472-week07-text.pdf) and [as HTML](week07/MY472-week07-text.html)
-- [Regular expressions cheat sheet](week07/regular-expressions-cheat-sheet-v2.pdf)
+- [Lecture slides](week07/MY472-week07-text.pdf)
+- R examples: [Regular expressions in R](week07/01-regular-expressions-in-r.Rmd), [textual analysis in R](week07/02-textual-analysis.Rmd)
+
 
 ##### Required reading
 * Kenneth Benoit. July 16, 2019. "[Text as Data: An Overview](https://kenbenoit.net/pdfs/28%20Benoit%20Text%20as%20Data%20draft%202.pdf)" Forthcoming in Cuirini, Luigi and Robert Franzese, eds. Handbook of Research Methods in Political Science and International Relations. Thousand Oaks: Sage.
 
+
+##### Recommended reading
+- Wickham, Hadley and Garett Grolemund.  2017, [Chapter 14](http://r4ds.had.co.nz/strings.html)
+- [Regular expressions cheat sheet](week07/regular-expressions-cheat-sheet-v2.pdf)
+- [Regular expressions in R vignette](https://cran.r-project.org/web/packages/stringr/vignettes/regular-expressions.html)
+
 ##### Lab
-- Group working with textual data
+- Regular expression and textual analysis
 
 
 

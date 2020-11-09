@@ -1,0 +1,188 @@
+---
+title: "Introductory quantitative textual analysis"
+author: "Friedrich Geiecke"
+date: "09/11/2020"
+output: html_document
+---
+
+Loading packages:
+
+```{r}
+library("quanteda")
+library("tidyverse")
+```
+
+
+#### 1. Introduction
+
+In R, text can e.g. be stored in a character vector or in columns of a data frame. Let us look at a simple example:
+
+```{r}
+exemplary_documents <- c("This is the text of a first document.", "This is a text of a second document.", "And of a third document.")
+names(exemplary_documents) = c("Document A", "Document B", "Document C")
+exemplary_documents
+```
+
+Next, we create a `corpus` object from the texts using the `quanteda` package. For a detailed tutorial of this package and textual analysis with it see the following [link](https://tutorials.quanteda.io/). The corpus object stores the documents and a data frame containing so called document variables (`docvars`) that describe the individual documents. When creating the corpus for our example, let us store the name and the number of characters of each document as the document variables.
+
+```{r}
+exemplary_corpus <- corpus(exemplary_documents,
+
+                           docvars = data.frame(name = names(exemplary_documents),
+                                                characters = str_count(exemplary_documents))
+                           )
+```
+
+This corpus consists of three documents and two docvars:
+
+```{r}
+exemplary_corpus
+```
+
+We can access the docvars data frame with:
+
+```{r}
+docvars(exemplary_corpus)
+```
+
+#### 2. Dictionary methods
+
+Now let us look at a real world example, some inaugural addresses of US presidents since George Washington. These texts are part of the quanteda package and the `data_corpus_inaugural` corpus object exists as soon as you have loaded the package. It contains 58 speeches and 4 docvars.
+
+```{r}
+data_corpus_inaugural
+```
+
+```{r}
+head(docvars(data_corpus_inaugural))
+```
+
+Based on this corpus, let us create a document-feature matrix (dfm). It has a row for each document and a column for each word/term. Cells contain word counts in the respective documents.
+
+```{r}
+dfmplain <- dfm(data_corpus_inaugural)
+dfmplain
+```
+
+When building such a dfm, however, we might e.g. want to avoid counts of punctuation characters. For this we make the tokenization step explicit which allows us to specify certain options, here to remove punctuation:
+
+```{r}
+dfmplain <- data_corpus_inaugural %>%
+    tokens(remove_punct = TRUE) %>% 
+    dfm()
+dfmplain
+```
+
+We can now apply dictionary methods to these data. For this we first create a dictionary object from a simple named list. Note that this list could also e.g. contain two character vectors for words associated with positive and negative sentiments.
+
+```{r}
+short_dictionary <- dictionary(list(taxation = c("tax", "taxes", "taxation"),
+                                    unemployment = c("unemployment", "unemployed"))
+                               )
+short_dictionary
+```
+
+We can actually use our knowledge of globs and regular expressions to build a dictionary as well. In glob notation:
+
+```{r}
+short_dictionary_glob <- dictionary(list(taxation = c("*tax*"),
+                                    unemployment = c("unemploy*"))
+                               )
+short_dictionary_glob
+```
+
+Using `*tax*`, the following features are e.g. selected:
+
+```{r}
+dfmplain %>% dfm_select(pattern = "*tax*", valuetype = "glob") %>% featnames()
+```
+
+We found some words that we might not have thought of before. Yet, the list also indicates the limitation of dictionary approaches: Taxing can e.g. mean _demanding_ rather than taxing income or wealth.
+
+Similarly we can use regular expressions to build a dictionary (recall that the `*` has a different meaning in regular expressions!). We just have to indicate in the `dfm_select` function that we are now looking up terms with regular expression notation.
+
+```{r}
+short_dictionary_regex <- dictionary(list(taxation = c("tax[a-z]*"),
+                                    unemployment = c("unemploy[a-z]*"))
+                               )
+dfmplain %>% dfm_select(pattern = "tax[a-z]*", valuetype = "regex") %>% featnames()
+```
+
+What would(n't) be selected with "tax[a-z]+" and why?
+
+With our dictionary and the dfm, we can then create a new dfm containing the counts of words found for each of the two sub-dictionaries. We use our glob dictionary and specify in the `dfm_lookup` function to use the glob notation. Note that in the case of sentiment analysis, the resulting dfm could e.g. have one column for positive and one column for negative sentiment keywords, in our example it has one for taxation and one for unemployment words.
+
+```{r}
+dfm_dictionary <- dfm_lookup(dfmplain, dictionary = short_dictionary_glob,
+                               valuetype = "glob") # note that the function is case insenstive by default
+dfm_dictionary
+```
+
+With this we have the keyword counts for each document. Yet, as documents can have different lengths, we might be interested in dividing the keyword counts by the total words contained in the documents.
+
+```{r}
+dfm_dictionary_relative <- dfm_dictionary/rowSums(dfmplain)
+dfm_dictionary_relative
+```
+
+Let us depict the outcomes in a plot:
+
+```{r}
+
+# To transform the dfm into a data frame, we can use quanteda's convert function
+df_plot <- convert(dfm_dictionary_relative, to = "data.frame")
+
+# Plot with ggplot2
+p <- ggplot(df_plot, aes(x=taxation, y=unemployment, label=doc_id))
+pq <- p + geom_point() + geom_text(hjust=-.1, size=3) +
+  theme_minimal() +
+  scale_x_continuous(expand = c(0, .001)) +
+  xlab("Taxation") +
+  ylab("Unemployment")
+pq
+```
+
+#### 3. Wordclouds
+
+Another frequently used approach to visualise outcomes in textual analysis are word clouds. The size of words in the clouds depicts their relative frequency in the selected documents. Before we depict such word clouds, let us additionally remove stop words and numbers from the corpus when creating a new dfm:
+
+```{r}
+dfmcleaned <- data_corpus_inaugural %>%
+    tokens(remove_punct = TRUE, remove_numbers = TRUE) %>%
+    tokens_remove(stopwords("en")) %>%
+    dfm()
+dfmcleaned
+```
+
+To depict word clouds for different presidents, we need to select associated documents/rows in the dfm. This can e.g. be done via information contained in the document variables using the function `dfm_subset` which returns another dfm that is a subset of the original one. We will then use this dfm as the  argument in the `textplot_wordcloud` function:
+
+```{r}
+textplot_wordcloud(dfm_subset(dfmcleaned, President == "Obama"), rotation=0, min_size=.75, max_size=3, max_words=50)
+textplot_wordcloud(dfm_subset(dfmcleaned, President == "Trump"), rotation=0, min_size=.75, max_size=3, max_words=50)
+```
+
+How would such a plot look like without stopwords removed?
+
+```{r}
+textplot_wordcloud(dfm_subset(dfmplain, President == "Obama"), rotation=0, min_size=.75, max_size=3, max_words=50)
+```
+
+#### Appendix: Additional common options when creating document-feature matrices
+
+In some applications, we might e.g. want to [stem](https://nlp.stanford.edu/IR-book/html/htmledition/stemming-and-lemmatization-1.html) words in order to have a single column in the dfm for related words, and/or to additionally record n-grams in the dfm. Due to the large amount of n-grams in a text, the `dfm_trim` function is particularly helpful in such cases to make dfms of many documents and terms still manageable. For example, `min_termfreq = 2` deletes all terms which are not in the corpus at least twice. Other arguments of the `df_trim` function are e.g. `min_docfreq` which specifies the minimum amount of documents in which a term has to be contained in order to still be part of the dfm. See ?dfm_trim for all min/max options. Also note the padding option in the `token_remove` function. This leaves empty strings for removed tokens (here stopwords). This prevents the subsequent n-gram step from creating nonsensical n-grams of word which are only neighbouring because stopwords have been deleted between them.
+
+```{r, eval = FALSE}
+dfmcleaned <- data_corpus_inaugural %>%
+  tokens(remove_punct = TRUE, remove_numbers = TRUE) %>%
+  tokens_remove(stopwords("en"), padding = TRUE) %>%
+  tokens_ngrams(n = 1:2) %>% # up to bigrams
+  dfm() %>%
+  dfm_trim(min_termfreq = 2)
+dfmcleaned
+```
+
+
+References:
+
+- https://tutorials.quanteda.io/
+- http://pablobarbera.com/social-media-upf/code/02-quanteda-intro.html
