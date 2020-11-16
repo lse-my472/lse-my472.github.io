@@ -1,0 +1,226 @@
+---
+title: "ggplot2 basics: axes, scales, legends, polishing plots"
+date: "16/11/2020"
+output: github_document
+---
+
+## Introduction
+
+We will continue working with a random sample of 10,000 public Facebook posts by members of the U.S. Congress. This file focuses on axes, legends, scales, facets, and polishing plots more generally.
+
+For a review of the log scale, see for example this [video](https://www.youtube.com/watch?v=sBhEi4L91Sg).
+
+```{r}
+library("tidyverse")
+library("lubridate")
+library("scales")
+library("gridExtra")
+```
+
+```{r}
+df <- read.csv("data/fb-congress-data.csv", stringsAsFactors = TRUE)
+
+# Transform date column to datetime
+df$date <- as_date(df$date)
+
+# Dropping some very uncommon post types
+nrow(df)
+df <- df %>%
+  filter(!post_type %in% c("music", "note"))
+nrow(df)
+```
+
+## Customizing axes
+
+```{r}
+
+# Changing axis titles
+p <- ggplot(df, aes(x = likes_count))
+p + geom_histogram() + scale_x_log10("Number of likes", labels = comma) +
+    scale_y_continuous("Post count", labels = comma)
+
+# Changing axis limits (continuous variables)
+p + geom_histogram() + scale_y_continuous("Post count") +
+  scale_x_log10("Number of likes", limits = c(1, 100000), labels = comma)
+    
+# Changing axis breaks and defining label for each break
+p <- ggplot(df, aes(x = likes_count))
+p + geom_histogram() + scale_x_log10(breaks = c(1, 10, 100, 1000))
+p + geom_histogram() + scale_x_log10(breaks = c(1, 10, 100, 1000, 10000),
+    labels=c(1, 10, 100, "1K", "10K"))
+
+# Changing axis breaks and labels (categorical variables)
+p <- ggplot(df, aes(x=party))
+p + geom_bar() + scale_x_discrete(labels=c("D", "I", "R"))
+
+# Creating data for time series plot of posts per day
+counts <- df %>%
+  group_by(date) %>% 
+  summarise(posts = n())
+
+# Basic line plot
+p <- ggplot(counts, aes(x = date, y = posts))
+p + geom_line()
+
+# Intervals of two months
+p + geom_line() + scale_x_date(date_breaks = "2 months")
+
+# Using the scales package to only depict year and month
+p + geom_line() + scale_x_date(date_breaks = "2 months", 
+    labels = date_format("%Y-%m"))
+```
+
+## Customizing scales and legends
+
+```{r}
+p <- ggplot(df, aes(x = likes_count))
+p + scale_x_log10(labels = comma) + geom_histogram(color = "red") # border of geoms
+p + scale_x_log10(labels = comma) + geom_histogram(fill = "red") # area of geoms
+
+p <- ggplot(df, aes(x = likes_count, y = comments_count))
+p + scale_x_log10(labels = comma) + scale_y_log10(labels = comma) +
+  geom_point(color = "red")
+p + scale_x_log10(labels = comma) + scale_y_log10(labels = comma) +
+  geom_point(shape = 15)
+p + scale_x_log10(labels = comma) + scale_y_log10(labels = comma) +
+  geom_point(size = 1)
+
+# for a complete list for each geom, type ?geom_point, ?geom_line, ...
+```
+
+Next, let us use color within aesthetics and in combination with the post type. Rather than as a property of the geom, it now applies to specific groups (here post types) via scales  instead of to all data points (when specified in geom before).
+
+```{r}
+p <- ggplot(df, aes(x = likes_count, y = comments_count))
+p + geom_point(aes(color = post_type)) + scale_x_log10(labels = comma) +
+  scale_y_log10(labels = comma) +
+    scale_color_manual("Post type",
+        limits = c("link", "status", "video", "photo"),
+        values = c("blue", "grey", "red", "yellow"))
+
+p + geom_point(aes(shape = post_type)) + scale_x_log10(labels = comma) +
+  scale_y_log10(labels = comma) +
+    scale_shape_manual("Post type",
+        limits = c("link", "status", "video", "photo"),
+        values = c(1, 3, 4, 5)) # integers specify shapes
+```
+
+Finally, we can also modify the labels in the legend:
+
+```{r}
+p + geom_point(aes(shape = post_type)) + scale_x_log10(labels = comma) +
+  scale_y_log10(labels = comma) +
+    scale_shape_manual("Post type",
+        limits = c("link", "status", "video", "photo"),
+        labels = c("Link", "Status", "Video", "Photo"),
+        values=c(1, 3, 4, 5))
+```
+
+## Facets
+
+Facets can e.g. be very helpful when we would like to repeat plots for different values of a categorical variable. Here we benefit from data in a tidy format where classes are stored in a distinct variable.
+
+```{r}
+p + geom_point() + scale_x_log10(labels = comma) + scale_y_log10(labels = comma) +
+    facet_wrap(~post_type)
+
+p + geom_point() + scale_x_log10(labels = comma) + scale_y_log10(labels = comma) +
+    facet_wrap(~post_type, nrow=4)
+
+p + geom_point() + scale_x_log10(labels = comma) + scale_y_log10(labels = comma) +
+    facet_wrap(~post_type, ncol=4)
+```
+
+With two factor variables:
+
+```{r}
+p + geom_point() + scale_x_log10(labels = comma) + scale_y_log10(labels = comma) +
+    facet_grid(gender~post_type)
+```
+
+Combining facets and scales:
+
+```{r}
+p <- ggplot(df[df$likes_count>5000,], 
+            aes(x = likes_count, y = comments_count))
+p + geom_point(aes(shape = gender, color = post_type, size = shares_count)) + 
+        scale_x_log10(labels = comma) + scale_y_log10(labels = comma) +
+  scale_size(trans = "log10") + facet_wrap(~post_type, nrow = 2)  
+```
+
+
+## Changing themes
+
+```{r}
+p + geom_point() + scale_x_log10(labels = comma) +
+  scale_y_log10(labels = comma) +theme_bw()
+
+p + geom_point() + scale_x_log10(labels = comma) +
+  scale_y_log10(labels = comma) + theme_grey()
+
+p + geom_point() + scale_x_log10(labels = comma) +
+  scale_y_log10(labels = comma) + theme_minimal()
+
+p + geom_point() + scale_x_log10(labels = comma) +
+  scale_y_log10(labels = comma) + theme_classic()
+```
+
+All theme options can be edited manually using 'theme', e.g. removing axis ticks:
+
+```{r}
+p + geom_point() + scale_x_log10(labels = comma) +
+  scale_y_log10(labels = comma) + theme( axis.ticks = element_blank() )
+```
+
+See `?theme` for all possible options. We will see more examples later.
+
+## Saving plots
+
+Different ways of doing this, easiest is with `ggsave`:
+
+```{r}
+pq <- p + geom_point() + scale_x_log10(labels = comma) +
+  scale_y_log10(labels = comma) +
+    facet_grid(party~gender)
+
+ggsave(pq, file="grid_plot.pdf", height=6, width=6)
+```
+
+## Multiple types of plots on a grid
+
+Now we will combine multiple plots on a grid. For this we use the `gridExtra` package which adds more functions.
+
+```{r}
+# Posts by type of post
+p1 <- ggplot(df, aes(x = post_type)) + geom_bar() + theme_minimal() +
+    scale_y_continuous("Number of posts") + 
+    scale_x_discrete("Type of post") +
+    theme (axis.ticks.x = element_blank())
+
+p2 <- ggplot(df, aes(x = gender)) + geom_bar() + theme_minimal() +
+     scale_x_discrete("Gender of legislator", 
+        labels=c("Female", "Male")) +   
+    theme (axis.title.y = element_blank(), axis.text.y = element_blank(),
+        axis.ticks = element_blank())
+
+# average number of likes by type of post
+p3 <- ggplot(df, aes(x = post_type, y = likes_count)) + 
+    stat_summary(fun = "mean", geom = "point", size = 5, shape = 15) +
+    theme_minimal() + scale_y_continuous("Average likes count") +
+    scale_x_discrete("Type of post") +
+    theme (axis.ticks.x = element_blank()) 
+
+# average number of likes by gender
+p4 <- ggplot(df, aes(x = gender, y = likes_count)) + 
+    stat_summary(fun = "mean", geom = "point", size = 5, shape = 15) +
+    theme_minimal() + scale_x_discrete("Gender of legislator", 
+        labels = c("Female", "Male")) +   
+    theme (axis.title.y = element_blank(), axis.text.y = element_blank(),
+        axis.ticks = element_blank())
+
+
+# dev.off() closes the file
+pdf("multiple_plots_grid.pdf", height = 6, width = 6)
+grid.arrange(arrangeGrob(p1, p2, p3, p4, ncol = 2, heights = c(0.6, 0.4)))
+dev.off()
+```

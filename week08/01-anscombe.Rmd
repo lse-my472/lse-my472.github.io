@@ -1,0 +1,47 @@
+---
+title: "Anscombe's quartet"
+date: "16/11/2020"
+output: github_document
+---
+
+An example of how summary statistics of a dataset can be misleading. Anscombe, F. J. (1973) Graphs in statistical analysis. American Statistician 27 (1): 17-21.
+
+Four pairs of vectors with identical means:
+
+```{r}
+attach(anscombe)
+mean(x1)
+mean(x2)
+mean(x3)
+mean(x4)
+
+mean(y1)
+mean(y2)
+mean(y3)
+mean(y4)
+```
+
+...that seem to be related in the same way judging only from their correlations:
+
+```{r}
+cor(x1, y1)
+cor(x2, y2)
+cor(x3, y3)
+cor(x4, y4)
+
+lm(y1 ~ x1)
+lm(y2 ~ x2)
+lm(y3 ~ x3)
+lm(y4 ~ x4)
+```
+
+Plotting can be helpful:
+
+```{r, fig.height=8, fig.width=8}
+par(mfrow=(c(2,2)))
+plot(x1, y1)
+plot(x2, y2)
+plot(x3, y3)
+plot(x4, y4)
+```
+

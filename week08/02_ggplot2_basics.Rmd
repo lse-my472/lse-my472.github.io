@@ -1,0 +1,251 @@
+---
+title: "ggplot2 Basics: Grammar of graphics, geom types"
+date: "16/11/2020"
+output: github_document
+---
+
+## Introduction
+
+In the examples below, we will be working with a random sample of 10,000 public Facebook posts by members of the U.S. Congress. 
+
+For a review of the log scale, see for example this [video](https://www.youtube.com/watch?v=sBhEi4L91Sg).
+
+Loading packages:
+
+```{r}
+library("tidyverse")
+library("lubridate")
+library("scales")
+```
+
+Reading in the data and some initial processing:
+
+```{r}
+df <- read.csv("data/fb-congress-data.csv", stringsAsFactors = FALSE)
+
+# Transform date column to datetime
+df$date <- as_date(df$date)
+
+# Dropping some very uncommon post types
+nrow(df)
+df <- df %>%
+  filter(!post_type %in% c("music", "note"))
+nrow(df)
+```
+
+
+## Time series
+
+After creating a base layer, `geom_line()` can be used for line plots such as time series. Plotting daily posts over time:
+
+```{r}
+counts <- df %>%
+  group_by(date) %>% 
+  summarise(posts = n())
+
+# Base layer
+p <- ggplot(counts, aes(x = date, y = posts))
+
+# Line plot of the posts per day
+p + geom_line()
+```
+
+
+Two separate time series by party, now also aggregated to monthly:
+
+```{r}
+# Obtain a new data frame with monthly counts of posts per party
+counts <- df %>%
+  filter(party != "Independent") %>% 
+  group_by(month = ceiling_date(date, "month"), party) %>% 
+  summarise(posts = n())
+
+p <- ggplot(counts, aes(x = month, 
+                        y = posts, group = party))
+p + geom_line(aes(color = party)) +
+  scale_color_manual(values=c("blue", "red"))
+```
+
+
+## Univariate analysis for a single continuous variable
+
+```{r}
+# Base layer
+p <- ggplot(df, aes(x=likes_count))
+
+# Histogram
+p + geom_histogram()
+
+# Smoothed density estimate
+p + geom_density() + scale_x_continuous(labels = comma)
+
+# The same log scale (note: the labels = comma option prevents scientific
+# notation of numbers as 1e+00, 1e+01 and uses the `scales` package)
+p + geom_histogram() + scale_x_log10(labels = comma)
+p + geom_density() + scale_x_log10(labels = comma)
+
+# Why does this line of code drops some observations?
+```
+
+## Univariate analysis for a single categorical variable
+
+```{r}
+p <- ggplot(df, aes(x=post_type))
+
+# Bar chart
+p + geom_bar() ## number of posts by type
+
+# Bar chart (horizontal)
+p + geom_bar() + coord_flip()
+```
+
+
+## Bivariate analysis for two continuous variables
+
+```{r}
+# Base layer
+p <- ggplot(df, aes(x = likes_count, y = comments_count))
+
+# Scatter plot: Relationship between number of likes and number of comments
+p + geom_point()  
+
+# With smoothed conditional means
+p + geom_point() + stat_smooth(na.rm = TRUE) 
+
+# With restricted axes
+p + geom_point() + xlim(0, 25000) + ylim(0, 2500)
+
+# Particularities of integer variables in scatter plots
+p + geom_point() + xlim(0, 10) + ylim(0, 10)
+  
+# With log scales
+p + geom_point() + scale_x_log10(labels = comma) + scale_y_log10(labels = comma) 
+p + geom_point() + scale_x_log10(labels = comma) + scale_y_log10(labels = comma) + 
+    stat_smooth()
+```
+
+
+## Bivariate analysis for one continuous variable and one categorical variable
+
+```{r}
+# Number of likes by type of post as a box blot
+p <- ggplot(df, aes(x = post_type, y = likes_count))
+p + geom_boxplot()
+
+# Box plot and violin plot with log scale
+p + geom_boxplot() + scale_y_log10(labels = comma)
+p + geom_violin() + scale_y_log10(labels = comma)
+
+# Density plot for log like distributions for different parties
+p <- ggplot(df, aes(x = likes_count))
+p + geom_density(aes(color = party)) + scale_x_log10(labels = comma)
+```
+
+
+## Bivariate analysis for two categorical variables
+
+```{r}
+counts <- df %>%
+  filter(party != "Independent") %>% 
+  group_by(post_type, party) %>% 
+  summarise(posts = n())
+
+p <- ggplot(counts, aes(x = party, y = post_type))
+p + geom_tile(aes(fill = posts))
+
+```
+
+
+## Multivariate analysis for three continuous variables
+
+```{r}
+p <- ggplot(df, aes(x = likes_count, y = comments_count, color = log(angry_count)))
+
+p + geom_point()
+
+p + geom_point() + scale_y_log10(labels = comma) + scale_x_log10(labels = comma) + 
+ stat_smooth(method = "lm")
+```
+
+
+## Multivariate analysis for two continuous variables and one categorical variable
+
+```{r}
+
+# Grid of plots: 2x4, by post type
+p <- ggplot(df, aes(x = likes_count, y = comments_count))
+p + geom_point() + scale_x_log10(labels = comma) + scale_y_log10(labels = comma) + 
+        facet_wrap(~post_type, nrow = 2) 
+
+
+# geom_text() allows to use party names instead of points
+p <- ggplot(df[df$likes_count>10000, ], 
+            aes(x = likes_count, y = comments_count, label = party))
+p + geom_text() + scale_x_log10(labels = comma) + scale_y_log10(labels = comma)
+```
+
+Other examples:
+
+```{r}
+## Scatter plot with dots colored by type of post
+p <- ggplot(df[df$likes_count>5000, ], 
+            aes(x = likes_count, y = comments_count))
+p + geom_point(aes(color = post_type)) + scale_x_log10(labels = comma) +
+  scale_y_log10(labels = comma)
+
+## Same for point shape
+p <- ggplot(df[df$likes_count>5000,], 
+            aes(x = likes_count, y=  comments_count))
+p + geom_point(aes(shape = post_type)) + scale_x_log10(labels = comma) +
+  scale_y_log10(labels = comma)
+
+## Combining both (now different shapes also have different colors)
+p <- ggplot(df[df$likes_count>5000,], 
+            aes(x = likes_count, y = comments_count))
+p + geom_point(aes(shape = post_type, color = post_type)) +
+  scale_x_log10(labels = comma) + scale_y_log10(labels = comma)
+```
+
+## Dealing with cases where a lot of points are in some areas
+
+Jittering points can avoid "overplotting", however, can also easily be misleading:
+
+```{r}
+p <- ggplot(df, aes(x = party, y = comments_count))
+p + geom_point()
+
+# vs
+p <- ggplot(df, aes(x = party, y = comments_count))
+p + geom_jitter(position = position_jitter(width = .1, height=.1))
+```
+
+```{r}
+# Baseline
+p <- ggplot(df, aes(x=likes_count, y = comments_count))
+p + geom_point() + scale_x_log10(labels = comma) + scale_y_log10(labels = comma) 
+
+## Jittering points (yet, really changes the plot's appearance here and can be misleading)
+p <- ggplot(df, aes(x = likes_count, y = comments_count))
+p + geom_jitter(position = position_jitter(width = .5, height =.5)) + 
+    scale_x_log10(labels = comma) + scale_y_log10(labels = comma)
+
+## Transparency
+p <- ggplot(df, aes(x = likes_count, y = comments_count))
+p + geom_jitter(position = position_jitter(width = .5, height = .5), alpha = 1/25) + 
+    scale_x_log10(labels = comma) + scale_y_log10(labels = comma)
+
+## Hexbin (if error: run install.packages("hexbin"))
+p <- ggplot(df[df$likes_count>0 & df$comments_count>0,], 
+        aes(x=likes_count, y = comments_count))
+p + geom_hex() + scale_x_log10(labels = comma) + scale_y_log10(labels = comma) + 
+    scale_fill_continuous(trans="log10")
+
+# Generally, plotting binned means (either over deciles or over fixed (log) intervals like here)
+# can help with plots that contain a lot of points/observations.
+# Furthermore, geom_rug() is another option to indicate where most mass is
+p <- ggplot(df, aes(x = likes_count, y = comments_count))
+p + geom_point() + geom_rug(color = "grey", alpha = 0.6) +
+   stat_summary_bin(fun = 'mean', bins = 20, color = 'green', size = 2, geom = 'point') +
+  scale_x_log10(labels = comma) + scale_y_log10(labels = comma)
+
+```

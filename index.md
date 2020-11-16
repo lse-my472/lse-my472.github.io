@@ -244,20 +244,18 @@ We will learn how to work with unstructured data in the form of text and discuss
 
 #### 8. Data visualisation
 
-The lecture this week will offer an overview of the principles of exploratory data analysis through (good) data visualization. In the seminars, we will practice producing our own graphs using ggplot2.
+The lecture this week will offer an overview of the principles of exploratory data analysis through (good) data visualization. In the coding session and seminars, we will practice producing our own graphs using ggplot2.
 
 ##### Resources
 - [Lecture slides](week08/MY472-week08-visualisation.pdf)
-- [Anscombe dataset plots](https://github.com/lse-my472/lse-my472.github.io/blob/master/week08/01-anscombe.md)
-- [**ggplot2** basics](https://github.com/lse-my472/lse-my472.github.io/blob/master/week08/02_ggplot2_basics.md)
-- [Scales, axes, and legends in **gplot2**](https://github.com/lse-my472/lse-my472.github.io/blob/master/week08/03_scales_axes_legends.md)
+- R examples: [Anscombe](week08/01-anscombe.Rmd), [ggplot2 examples one](week08/02_ggplot2_basics.Rmd), [ggplot2 examples two](03_scales_axes_legends.Rmd)
 
 ##### Required reading
 * Wickham, Hadley and Garett Grolemund.  2017.  _R for Data Science: Import, Tidy, Transform, Visualize, and Model Data_.  Sebastopol, CA: O'Reilly.  [Data visualization](https://r4ds.had.co.nz/data-visualisation.html), [Graphics for communication](https://r4ds.had.co.nz/graphics-for-communication.html) (Ch. 1 and 22 of the print edition).
-* Hughes, A. (2015) ["Visualizing inequality: How graphical emphasis
-shapes public opinion"](https://journals.sagepub.com/doi/abs/10.1177/2053168015622073) Research and Politics.
 
 ##### Recommended reading
+* Hughes, A. (2015) ["Visualizing inequality: How graphical emphasis
+shapes public opinion"](https://journals.sagepub.com/doi/abs/10.1177/2053168015622073) Research and Politics.
 * Tufte, E. (2002) ["The visual display of quantitative information"](https://www.edwardtufte.com/tufte/books_vdqi).
 
 ##### Lab
