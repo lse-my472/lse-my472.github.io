@@ -248,7 +248,7 @@ The lecture this week will offer an overview of the principles of exploratory da
 
 ##### Resources
 - [Lecture slides](week08/MY472-week08-visualisation.pdf)
-- R examples: [Anscombe](week08/01-anscombe.Rmd), [ggplot2 examples one](week08/02_ggplot2_basics.Rmd), [ggplot2 examples two](03_scales_axes_legends.Rmd)
+- R examples: [Anscombe](week08/01-anscombe.Rmd), [ggplot2 examples one](week08/02-ggplot2-basics.Rmd), [ggplot2 examples two](week08/03-scales-axes-legends.Rmd)
 
 ##### Required reading
 * Wickham, Hadley and Garett Grolemund.  2017.  _R for Data Science: Import, Tidy, Transform, Visualize, and Model Data_.  Sebastopol, CA: O'Reilly.  [Data visualization](https://r4ds.had.co.nz/data-visualisation.html), [Graphics for communication](https://r4ds.had.co.nz/graphics-for-communication.html) (Ch. 1 and 22 of the print edition).
