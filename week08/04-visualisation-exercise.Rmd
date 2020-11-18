@@ -1,0 +1,152 @@
+---
+title: "Class exercise in visualisation"
+author: "Pablo Barberá and Friedrich Geiecke"
+date: "19/11/2020"
+output: html_document
+---
+
+
+```{r}
+library("tidyverse")
+library("plotly")
+library("scales")
+```
+
+
+## 1. Unemployment in the US
+
+Try to replicate the following line chart that displays the evolution in the unemployment rate in the US over time. The challenge here consists of overlaying a set of shaded boxes in red or blue, depending on the party to which the president in power at the time belongs. To help with that part, you can see below how to create a data frame with the relevant information.
+
+```{r}
+
+# Creating a dataframe with the unemployment data
+unemp <- read.csv("data/unemployment.csv", stringsAsFactors = FALSE)
+
+# Creating a data frame with the background colour information
+name <- c("Truman", "Eisenhower", "Kennedy", "Johnson", "Nixon",
+        "Ford", "Carter", "Reagan", "Bush I", "Clinton", "Bush II",
+        "Obama")
+start <- as.Date(c("1948-01-01", "1953-01-20", "1961-01-20", "1963-11-22",
+        "1969-01-20", "1974-08-09", "1977-01-20", "1981-01-20",
+        "1989-01-20", "1993-01-20", "2001-01-20", "2009-01-20"))
+end <- c(start[-1], as.Date("2016-10-01"))
+party <- c("D", "R", "D", "D", "R", "R", "D", "R", "R", "D", "R", "D")
+pres <- data.frame(name, start, end, party, stringsAsFactors=F)
+
+
+```
+
+![](04-unemployment.png)
+Your code here:
+
+```{r}
+
+# Transform date column to datetime (lubridate package!)
+
+
+
+# Create a line-plot with unemployment and date
+
+
+
+# Fix axes and add colored rectangles
+
+
+
+# Adding president names
+
+
+
+# Adding lines to separate presidencies
+
+
+
+# Finally, moving legend and removing x axis title
+
+
+
+# Adjusting y axis
+
+
+
+```
+
+
+## 2. Interactive 3D plots
+
+A great package to create interactive and 3D plots is `plotly`. Use this documentation [here](https://plotly.com/r/3d-scatter-plots/) as a starting point. Then create a 3D plot using the sample of public Facebook posts with the following features:
+
+- Restrict the sample to only posts with >= 5000 likes 
+- x-axis: Log of likes count
+- y-axis: Log of shares count
+- z-axis: Length of the message (create a new column with the `str_count` function)
+- Colour coding of points: Party
+
+Judging approximately from the figure, which party writes the longest posts in this sub sample? Which party has most likes and shares?
+
+Reading in the data and some initial processing:
+
+```{r}
+df <- read.csv("data/fb-congress-data.csv", stringsAsFactors = FALSE)
+
+# Transform date column to datetime
+df$date <- as_date(df$date)
+
+# Dropping some very uncommon post types
+nrow(df)
+df <- df %>%
+  filter(!post_type %in% c("music", "note"))
+nrow(df)
+```
+
+Creating the plot data:
+
+```{r}
+df_plot <- as_tibble(df[df$likes_count > 5000,])
+
+df_plot$message_length <- str_count(df_plot$message)
+
+df_plot <- df_plot %>% 
+  select(likes_count, shares_count, message_length, party)
+
+df_plot$likes_count <- log(df_plot$likes_count)
+
+df_plot$shares_count <- log(df_plot$shares_count)
+
+df_plot$party <- as.factor(df_plot$party)
+```
+
+Animated 3D plot:
+
+```{r}
+# Create an animated 3D plot with:
+#   - x-axis: likes_count
+#   - y-axis: shares_count
+#   - z-axis: message_length
+# see ?plot_ly for guidance!
+
+fig <- plot_ly(df_plot, _________, _________, _________, color = ~party)
+fig <- fig %>% add_markers()
+fig <- fig %>% layout(scene = list(xaxis = list(title = "Log likes count"),
+                     yaxis = list(title = "Log shares count"),
+                     zaxis = list(title = "Message length")))
+fig
+```
+
+
+## 3. Interactive gg-plots
+
+`plotly` can also make a range of ggplot plots interactive by using ggplot objects as input in the `ggplotly` function:
+
+```{r}
+# Create a regular ggplot
+p <- ggplot(df[df$likes_count>0 & df$comments_count>0,], 
+        aes(x=likes_count, y = comments_count))
+p <- p + geom_hex() + scale_x_log10(labels = comma) + scale_y_log10(labels = comma) + 
+    scale_fill_continuous()
+
+# Creating an animated plot
+ggplotly(p)
+```
+
+Note that this will work less well with sophisticated plots that have a lot of features like the plot you created in part 1.
