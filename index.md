@@ -262,8 +262,8 @@ shapes public opinion"](https://journals.sagepub.com/doi/abs/10.1177/20531680156
 - Data visualization with ggplot2
 
 ##### Assignment 4: Data visualization
-- Link to GitHub Classroom available via Moodle on Tuesday, November 17
-- Deadline on Saturday, November 28, 2pm
+- Link to GitHub Classroom available via Moodle on Wednesday, November 18
+- Deadline on Monday, November 30, 2pm
 
 
 #### 9. Creating and managing databases
