@@ -1,0 +1,60 @@
+---
+title: "Exercises in textual analysis"
+author: "Friedrich Geiecke"
+date: "11/11/2020"
+output: html_document
+---
+
+
+**Exercise 1**
+
+1.1 The file uol.txt contains a list of the 17 member institutions of the University of London. In your text editor, write down a regular expression which finds all postcodes. Note that in some of the postcodes there are white spaces between the two parts and in others not. Your regular expression has to work with both.
+
+For example: [A-Z]{1,2}\d{1,2}[A-Z]?\s?\d[A-Z]{2}
+
+1.2 Next, let us try to mute/delete the second part of each postcode. Add a capturing group to your regular expression with which you can address only the first part, i.e. the first 2-4 characters of the postcodes. Then use find & replace in your text editor and replace all postcodes with only the information stored in capturing group 1. This deletes the second part of each postcode.
+
+Find: ([A-Z]{1,2}\d{1,2}[A-Z]?)\s?\d[A-Z]{2}
+Replace: $1
+
+**Exercise 2**
+
+An idea that is widely applicable is to compute similarities between documents through quantitative textual analysis. Imagine you have a specific document and would like to find those documents in a large set/database of documents that are most similar to it. This first seems like a daunting task, but could be useful both in academic research and private sector work (imagine a law firm that is looking for similar cases). How could a computer programme achieve something like this? The trick of one possible approach is to combine your knowledge about textual analysis with a bit of geometry. First, realise that every row in a dfm is actually a (transposed) vector of length/dimension K where K is the amount of features in the dfm. For a very brief introduction to vectors, see e.g. this excellent [video](https://youtu.be/fNk_zzaMoSs).
+
+Let us assume for a moment that we only have three features/words in a dfm. Then every row/document is a 3 dimensional vector of counts and we can think of each document like a point in 3 dimensional space such as the room in which you are sitting. Axis 1 would denote the count of word 1 in the documents, axis 2 the count of word 2, axis 3 the count of word 3. Different vectors/documents would be in different parts of the space depending on which words they contain. (Normalised) vectors/documents of similar textual content should be in similar corners or areas of the room or space. With some help from mathematics we can in fact compute how similar or close these vectors or points in space are also quantitatively. The most frequently used approach to compute similarities between numerical vectors of word counts, also in high dimensional spaces with many different words, is [cosine similarity](https://en.wikipedia.org/wiki/Cosine_similarity) which is implemented in the `quanteda` package and easy to use.
+
+2.1 First, create a dfm using the `data_char_ukimmig2010` object from `quanteda` which contains extracts from the election manifestos of 9 UK political parties from 2010, related to immigration or asylum-seekers. Transform it into a corpus, remove punctuation and stopwords, and stem words (`tokens_wordstem()`). Also remove all words which are not at least contained in 2 documents (this often makes similarities work better because the vectors contain fewer entries/dimensions and less noise).
+
+```{r}
+library("quanteda")
+library("tidyverse")
+```
+
+```{r}
+dfm <- data_char_ukimmig2010 %>%
+  corpus() %>% 
+  tokens(remove_punct = TRUE, remove_numbers = TRUE) %>%
+  tokens_remove(stopwords("en")) %>%
+  tokens_wordstem() %>% 
+  dfm() %>%
+  dfm_trim(min_termfreq = 2)
+dfm
+```
+
+
+2.2 Use the `textstat_simil` function to compute similarities between the text from the Conservatives and the ones of all other parties. Sort the resulting similarities to see which extracts are most similar to the one from the Conservative party. Note that the findings also depend on the assumptions made during cleaning and deleting terms, so these methods of course cannot yield definite answers but only some indication which has to be further analysed. For example, the documents of the different parties have very different lengths, e.g. the Coalition party's extract contains only 4 sentences. Cosine similarity is more robust against such differences in document lengths than other approaches, however, the very different lengths of documents will still bias the results here.
+
+```{r}
+similarities <- textstat_simil(dfm, dfm[c("Conservative"), ],
+                               margin = "documents",
+                               method = "cosine")
+
+df_similarities <- as.data.frame(similarities)
+
+df_similarities %>% arrange(desc(cosine)) %>% head(10)
+```
+
+
+References
+
+- https://quanteda.io/articles/quickstart.html
