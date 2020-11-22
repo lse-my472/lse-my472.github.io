@@ -270,10 +270,10 @@ shapes public opinion"](https://journals.sagepub.com/doi/abs/10.1177/20531680156
 
 This session will offer an introduction to relational databases: structure, logic, and main types. We will learn how to write SQL code, a language designed to query this type of databases that is currently employed by most tech companies; and how to use it from R using the DBI package.
 
-
 ##### Resources
-- [Lecture slides](week09/MY472-week09.pdf)
-- [Examples](https://github.com/lse-my472/lse-my472.github.io/tree/master/week09)
+- [Lecture slides](week09/my472-week09-sql.pdf)
+- R examples: [SQL introduction](week09/01-sql-intro.Rmd), [join and aggregation in SQL](week09/02-sql-join-and-aggregation.Rmd)
+
 
 ##### Required reading
 * Beaulieu. 2009. [_Learning SQL_](https://books.google.co.uk/books?hl=en&lr=&id=1PgCCVryjOQC&oi=fnd&pg=PR3&dq=learning+sql+alan&ots=X6M3Iaz1wO&sig=38Fp1kDlxM8TF7miw0K2CNcKib4#v=onepage&q=learning%20sql%20alan&f=false). O'Reilly. (Chapters 1, 3, 4, 5, 8)
