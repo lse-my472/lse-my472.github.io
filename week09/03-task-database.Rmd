@@ -1,0 +1,35 @@
+# Creating and querying a SQL database
+
+Practice creating a SQL database and querying it. You should use the data in the file UK-tweets.csv. These data represent a random sample of 10,000 tweets related to the 2014 EP elections in the UK.
+
+1. Create a SQLite database from the data in the file. Test the database by checking the first 5 entries in it.
+
+```{r}
+
+```
+
+2. How many tweets are classified as engaging? (HINT: Use CASE WHEN)
+
+```{r}
+
+```
+
+3. What perecent of tweets are classified as impolite?
+
+```{r}
+
+```
+
+4. What percent of tweets mention Brexit?
+
+```{r}
+
+```
+
+
+5. Compute the average number of followers for tweets that are impolite and polite.
+
+```{r}
+
+```
+
