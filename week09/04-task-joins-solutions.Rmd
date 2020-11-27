@@ -1,0 +1,109 @@
+# Practicing working with multiple SQL tables
+
+Practice writing using **JOIN** in SQL queries to answer the questions below. Use the database we created in lecture.
+
+1. How many posts were published each month of the year?
+
+```{r}
+library(DBI)
+db <- dbConnect(RSQLite::SQLite(), "data/facebook-db.sqlite")
+
+dbGetQuery(db, 
+           "SELECT SUBSTR(date, 1, 7) as MONTH , 
+              COUNT(*) as post_count
+           FROM posts
+           GROUP BY month")
+```
+
+2. What is the average number of likes for members of the House and the Senate? Which group is more popular on average?
+
+```{r}
+dbGetQuery(db, 
+           "SELECT congress.type, AVG(posts.likes_count)
+           FROM posts JOIN congress
+            ON posts.screen_name = congress.screen_name
+           GROUP BY congress.type")
+```
+
+3. What is the average number of likes that posts receive based on the time of the day in which they were published? (Note times are in GMT time zone)
+
+```{r}
+res <- dbGetQuery(db,
+           "SELECT SUBSTR(datetime, 12, 2) AS hour_of_day, 
+              AVG(likes_count) AS avg_likes_count
+            FROM posts
+            GROUP BY hour_of_day")
+plot(res$hour_of_day, res$avg_likes_count, type="l")
+```
+
+4. Do women receive more comments than men on average?
+
+```{r}
+dbGetQuery(db,
+           "SELECT congress.gender AS gender,
+              AVG(posts.comments_count) AS avg_comment_count 
+           FROM posts JOIN congress
+            ON posts.screen_name = congress.screen_name
+           GROUP BY gender")
+```
+
+5. For each type of reaction (love, haha, angry...) compute the average count by party. Are there any systematic differences?
+
+```{r}
+dbGetQuery(db, 
+           "SELECT congress.party, AVG(posts.love_count)
+           FROM posts JOIN congress
+            ON posts.screen_name = congress.screen_name
+           GROUP BY congress.party")
+dbGetQuery(db, 
+           "SELECT congress.party, AVG(posts.haha_count)
+           FROM posts JOIN congress
+            ON posts.screen_name = congress.screen_name
+           GROUP BY congress.party")
+dbGetQuery(db, 
+           "SELECT congress.party, AVG(posts.wow_count)
+           FROM posts JOIN congress
+            ON posts.screen_name = congress.screen_name
+           GROUP BY congress.party")
+dbGetQuery(db, 
+           "SELECT congress.party, AVG(posts.sad_count)
+           FROM posts JOIN congress
+            ON posts.screen_name = congress.screen_name
+           GROUP BY congress.party")
+dbGetQuery(db, 
+           "SELECT congress.party, AVG(posts.angry_count)
+           FROM posts JOIN congress
+            ON posts.screen_name = congress.screen_name
+           GROUP BY congress.party")
+```
+
+6. Compute the total number of "sad" reactions for each domain shared by Republicans. Display the top 10 domains that receive the most "sad" reactions. Then repeat the same for Democrats. What do you find?
+
+```{r}
+dbGetQuery(db, 
+  "SELECT congress.party, domain, COUNT(*) AS domain_count,
+      SUM(posts.sad_count) AS sad_total
+  FROM posts JOIN Congress
+    ON congress.screen_name = posts.screen_name
+  WHERE congress.party = 'Republican'
+  GROUP BY domain
+  ORDER BY sad_total DESC
+  LIMIT 10")
+
+dbGetQuery(db, 
+  "SELECT congress.party, domain, COUNT(*) AS domain_count,
+      SUM(posts.sad_count) AS sad_total
+  FROM posts JOIN Congress
+    ON congress.screen_name = posts.screen_name
+  WHERE congress.party = 'Democrat'
+  GROUP BY domain
+  ORDER BY sad_total DESC
+  LIMIT 10")
+
+```
+
+
+
+
+
+

@@ -1,0 +1,55 @@
+# Creating and querying a SQL database
+
+Practice creating a SQL database and querying it. You should use the data in the file UK-tweets.csv. These data represent a random sample of 10,000 tweets related to the 2014 EP elections in the UK.
+
+1. Create a SQLite database from the data in the file. Test the database by checking the first 5 entries in it.
+
+```{r}
+library(DBI)
+db <- dbConnect(RSQLite::SQLite(), "data/tweet-db.sqlite")
+
+tweets <- read.csv("UK-tweets.csv")
+dbWriteTable(db, "tweets", tweets)
+
+dbListFields(db, "tweets")
+dbGetQuery(db, 'SELECT * FROM tweets LIMIT 5')
+```
+
+2. How many tweets are classified as engaging? (HINT: Use CASE WHEN)
+
+```{r}
+dbGetQuery(db, 
+  "SELECT SUM(CASE WHEN communication='engaging' THEN 1 ELSE 0 END)  
+    AS number_engaging FROM tweets")
+```
+
+3. What perecent of tweets are classified as impolite?
+
+```{r}
+# we need to multiply by a float (100.0) because otherwise 
+# SQL will return only the integer part
+dbGetQuery(db, 
+  "SELECT (100.0 * SUM(CASE WHEN polite='impolite' THEN 1 ELSE 0 END) / COUNT(*)) 
+    AS percent_impolite FROM tweets")
+```
+
+4. What percent of tweets mention Brexit?
+
+```{r}
+dbGetQuery(db, 
+  "SELECT (100.0 * SUM(CASE WHEN text LIKE '%brexit%' THEN 1 ELSE 0 END) / COUNT(*)) 
+    AS percent_brexit FROM tweets")
+```
+
+
+5. Compute the average number of followers for tweets that are impolite and polite.
+
+```{r}
+# again, multiply by 1.0 before dividing if you'd like to get decimal points
+dbGetQuery(db, 
+  "SELECT polite, (1.0 * SUM(followers_count) / COUNT(*)) 
+    AS avg_followers 
+    FROM tweets
+    GROUP BY polite")
+```
+
