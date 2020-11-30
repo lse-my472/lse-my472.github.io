@@ -1,0 +1,235 @@
+---
+title: "Querying large databases via Google BigQuery"
+author: "Pablo Barbera, Friedrich Geiecke, Akitaka Matsu"
+date: "30 November 2020"
+output: html_document
+---
+
+In this file we will continue practicing how to query online databases with SQL. We will use our BigQuery setup from the previous document with two public databases to demonstrate queries for large datasets.
+
+Loading packages:
+
+```{r}
+library("DBI")
+library("bigrquery")
+library("tidyverse")
+library("rgdal")
+```
+
+## London LSOA Crime statistics
+
+This dataset contains the number of crimes at two different geographic levels of London (LSOA and borough) by year, according to crime type. First, we have to change our project name such that the `bigrquery` package knows that it has to request the public datasets now.
+
+```{r}
+# Project name (now accessing the public datasets)
+project_name <- "bigquery-public-data"
+
+# Billing (main project ID)
+billing_info <- "tba"
+
+# Dataset name (London crime database within the public databases)
+dataset_name <- "london_crime"
+```
+
+Creating the database object:
+
+```{r}
+db <- dbConnect(
+  bigrquery::bigquery(),
+  project = project_name,
+  dataset = dataset_name,
+  billing = billing_info
+)
+db
+```
+
+1. First, connect to the database and count how many rows it contains (if the code yields a Google credentials error, once copy-paste it into the R console directly which should then open the browser window for authentication):
+
+```{r}
+dbGetQuery(db, "SELECT COUNT(*) FROM crime_by_lsoa")
+```
+
+2. Crime by year
+
+```{r}
+dbGetQuery(db, "SELECT year, SUM(value) AS count_crime FROM crime_by_lsoa
+           GROUP BY year
+           ORDER BY year")
+```
+
+3. Crime evolution by borough and year
+
+```{r}
+data_plot_1 <- dbGetQuery(db, "SELECT year, borough, SUM(value) AS count_crime
+            FROM crime_by_lsoa
+            GROUP BY year, borough")
+View(data_plot_1)
+```
+
+```{r fig.width=7, fig.height=4, echo=FALSE}
+data_plot_1 %>% group_by(borough) %>%
+  mutate(ratio = count_crime/count_crime[year == 2008]) %>%
+ggplot(aes(x = year, y = ratio, color = borough)) + geom_line()
+```
+
+4. Crime by year and category
+
+```{r}
+data_plot_2 <- dbGetQuery(db, "SELECT year, major_category,
+            SUM(value) AS count_crime FROM crime_by_lsoa
+            GROUP BY year, major_category")
+#View(data_plot_2)
+```
+
+```{r}
+ggplot(data_plot_2) + aes(x = year, y = count_crime, colour = major_category) +
+  geom_line()
+```
+
+5. Depicting crime on a map of the city:
+
+```{r}
+crime_per_lsoa_code <- dbGetQuery(db, "SELECT lsoa_code, SUM(value) AS count_crime
+            FROM crime_by_lsoa
+            GROUP BY lsoa_code")
+crime_per_lsoa_code
+```
+
+```{r}
+
+# Download the shape file from: https://data.london.gov.uk/dataset/statistical-gis-boundary-files-london
+shp <- readOGR(dsn = "~/Downloads/statistical-gis-boundaries-london/ESRI/LSOA_2011_London_gen_MHW.shp",
+               stringsAsFactors = FALSE)
+
+# Obtaining longitude and latitude (contains an ID column, but starting at zero!)
+shp_fort <- fortify(shp)
+
+# Merging region information (such as names) contained in shp@data with
+# a) this geographical information and
+# b) the crime information
+
+data_plot_3 <- shp@data %>%
+  mutate(id = 0:(nrow(shp@data)-1)) %>% # add an id column also to shp@data
+  merge(shp_fort, by = "id") %>% # merge with longitude and latitude data based on this column
+  merge(crime_per_lsoa_code, by.x = "LSOA11CD", by.y = "lsoa_code") # merge with crime data
+
+```
+
+```{r}
+map <- ggplot() +
+  geom_polygon(data = data_plot_3, aes(x = long, y = lat, group = group),
+               colour = NA, fill = "red")
+map
+
+map <- ggplot() +
+  geom_polygon(data = data_plot_3, aes(x = long, y = lat, group = group,
+                                    fill = count_crime), colour = NA)
+map + theme_void()
+```
+
+## NYC Bicycle Hire
+
+The second database contains Citi Bike trips (NYC's bike-sharing service) since Citi Bike launched in September 2013.
+
+First, we need to update the dataset name and connect again:
+
+```{r}
+dataset_name <- "new_york"
+```
+
+```{r}
+db <- dbConnect(
+  bigrquery::bigquery(),
+  project = project_name,
+  dataset = dataset_name,
+  billing = billing_info
+)
+db
+```
+
+1. First, connect to the database and count how many rows it contains:
+
+```{r}
+# Number of trips in the database
+dbGetQuery(db, "SELECT COUNT(*) FROM citibike_trips")
+```
+
+```{r}
+# First 10 entries
+dbGetQuery(db, "SELECT * FROM citibike_trips LIMIT 10")
+```
+
+2. Which are the 10 most popular stations in terms of how many trips started there?
+
+```{r}
+dbGetQuery(db, "SELECT start_station_name, COUNT(*) AS count_start
+  FROM citibike_trips
+  GROUP BY start_station_name
+  ORDER BY count_start DESC
+  LIMIT 10")
+```
+
+3. What is the average trip duration of a CitiBike trip in NYC? For advanced keywords like these, see the detailed [documentation](https://cloud.google.com/bigquery/docs/reference/standard-sql/timestamp_functions).
+
+```{r}
+dbGetQuery(db, "SELECT AVG( TIMESTAMP_DIFF(stoptime, starttime, MINUTE) )
+           AS duration_minutes
+           FROM citibike_trips")
+```
+
+4. What is the average trip duration based on the hour of the day when they start?
+
+```{r}
+dbGetQuery(db, "SELECT EXTRACT(HOUR FROM starttime) as hour_of_day,
+  AVG( TIMESTAMP_DIFF(stoptime, starttime, MINUTE) ) AS duration_minutes
+  FROM citibike_trips
+  GROUP BY hour_of_day
+  ORDER BY hour_of_day")
+```
+
+5. What is the average trip duration based on the gender of the riders?
+
+```{r}
+dbGetQuery(db, "SELECT gender, AVG( TIMESTAMP_DIFF(stoptime, starttime, MINUTE) )
+  AS duration_minutes, COUNT(*) as trip_count,
+  FROM citibike_trips
+  GROUP BY gender")
+```
+
+6. What is the average distance of a trip?
+
+```{r}
+dbGetQuery(db, "SELECT AVG( (ABS(start_station_latitude-end_station_latitude) +
+      ABS(start_station_longitude-end_station_longitude)) * 111) AS avg_distance_km
+  FROM citibike_trips")
+```
+
+7. What is the average distance of a trip based on gender?
+
+```{r}
+dbGetQuery(db, "SELECT gender, AVG( (ABS(start_station_latitude-end_station_latitude) +
+      ABS(start_station_longitude-end_station_longitude)) * 111) AS avg_distance_km
+  FROM citibike_trips
+  GROUP BY gender")
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,382 @@
+---
+title: "MongoDB demo"
+author: "Pablo Barbera, Friedrich Geiecke, Akitaka Matsuo"
+date: "30 November 2020"
+output: html_document
+---
+
+In this document we will try to replicate with MongoDB what we did using SQLite last week. We will therefore use MongoDB through R as well. Should you work with MongoDB in the future, you might use it e.g. via the MongoDB Shell (command line) or MongoDB Compass (a graphical user interace). See this [link](https://www.mongodb.com/developer-tools) for details. You can find the full manual [here](https://docs.mongodb.com/manual/). While we work with the database locally in this file, we could of course also host it in the cloud.
+
+Although we use MongoDB through R, we first need to install the software and run it in the background. If you are using a **Mac**, run the following in terminal:
+
+```{bash eval=FALSE}
+# Install mongo using Homebrew
+# If you don't have Homebrew installed already, then start
+# By running the code line below in the Terminal:
+# /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+brew tap mongodb/brew
+brew install mongodb-community@4.4
+# Note: This might require to install/update the Command Line Tools for Xcode
+# that you can download via https://developer.apple.com/download/more/
+# Should your installation also ask you to install Xcode, download it via the App Store.
+
+# Start mongo server
+brew services start mongodb-community
+
+# To stop server
+#brew services stop mongodb-community
+```
+
+On **Windows**, follow the instruction for the community edition here: https://docs.mongodb.com/manual/tutorial/install-mongodb-on-windows/
+
+Once we have installed MongoDB and have it running in the background, we can continue here. To compare queries with our SQLite application from last week, we will use the Facebook posts by members of the U.S. Congress in 2017, as collected from the public Pages API while it was available. You can download the data from Moodle, in case you have not done so already.
+
+Loading packages:
+
+```{r}
+library("tidyverse")
+library("mongolite")
+library("DBI")
+library("microbenchmark")
+library("stringi")
+```
+
+## Building the Mongo database
+
+First let us create a database and collection. Recall, that MongoDB needs to run in the background before you execute this code chunk.
+
+```{r, eval=FALSE}
+# Creates an R object linked to the "congress_posts_2017" collection
+collection <- mongo(collection = "congress_posts_2017", db = "facebook")
+```
+
+Since MongoDB does not assume a relational structure of multiple tables, we will create a collection with all information in one place. Each document in this collection will contain the information about a politician with all posts.
+
+First, read in the congress table:
+
+```{r, eval = FALSE}
+# read the congress data first
+congress <- read.csv("data/congress-facebook-2017.csv", stringsAsFactors = FALSE)
+congress <- congress %>% rename(role = type)
+```
+
+Now loop over all the posts tables and merge each with the relevant information from the congress table. Then store the result as a document in our Mongo database:
+
+```{r, eval=FALSE}
+
+fls <- list.files("data/posts", full.names=TRUE)
+
+for (f in fls){
+  
+  # Status update
+  message(f)
+
+  # Read file into memory
+  posts <- read.csv(f, stringsAsFactors = FALSE)
+  
+  # Convert screen name and date
+  posts$screen_name <- as.character(posts$screen_name)
+  posts$datetime <- parse_datetime(posts$datetime)
+  
+  # Merge with congress table information
+  posts <- congress %>% inner_join(posts, by = "screen_name") 
+  posts$message <- stri_unescape_unicode(posts$message) # solve some encoding issues
+  
+  # Adding into MongoDB collection
+  collection$insert(posts)
+  
+}
+
+```
+
+Testing that it worked and closing the connection:
+
+```{r}
+# Return the number of documents
+collection$count()
+
+# dbGetQuery(dbsql, 'SELECT * FROM posts LIMIT 5')
+collection$find('{}', limit=5)  # '{}' indicates everything
+
+# Note: You can remove (all) documents with
+#collection$remove('{}')
+
+collection$disconnect()
+```
+
+## Querying the Mongo database
+
+Now that we have our documents in the database, let's see how we can query them. For comparison, also connect to the SQLite database from last week:
+
+```{r}
+# Change path to where you stored the SQLite database after you created it
+dbsql <- dbConnect(RSQLite::SQLite(), "data/facebook-db.sqlite")
+```
+
+First, we connect to the database and collection using the function `mongo` and then query either using `*$find()` (for simple queries) or `*$aggregate()` (for more complex queries).
+
+```{r}
+# Connecting to the collection within the facebook database
+collection <- mongo(collection = "congress_posts_2017", db = "facebook")
+
+# Returning the first five documents
+collection$find(query = '{}', limit=5) # '{}' indicates everything
+
+# Returning the first five records from the SQL database (would need to join for equivalent)
+dbGetQuery(dbsql, 'SELECT * FROM congress LIMIT 5')
+```
+
+Let's start with some examples of __SELECT__:
+
+```{r}
+# Querying just one column
+collection$find(query = '{}', fields = '{"name": true}', limit = 10)
+
+dbGetQuery(dbsql, "SELECT name FROM congress LIMIT 10")
+```
+
+Notice the field `_id` in the Mongo data. This is similar to a primary key for each document and can be treated as an index.
+
+The SQL `WHERE` content is summarised in the `query` argument of the `*$find()` method. The list of variables is specified in `fields` which refers to the keys in BSON. For a complete list of operators in Mongo DB see https://docs.mongodb.com/manual/reference/operator/query/.
+
+AND operator:
+
+```{r}
+collection$find(query = '{"type": {"$ne": "photo"}, "likes_count": {"$gt": 500}}', 
+        fields = '{"from_name": true, "type": true, "date": true, "likes_count": true}', 
+        limit = 10)
+
+# Longer version with explicit naming of and operation
+#collection$find(query = '{"$and": [{"type": {"$ne": "photo"}}, {"likes_count": {"$gt": 500}}]}', 
+#        fields = '{"from_name": true, "type": true, "date": true, "likes_count": true}', 
+#        limit = 10)
+
+dbGetQuery(dbsql, "SELECT from_name, type, date, likes_count 
+           FROM posts
+           WHERE type != 'photo' AND likes_count > 500
+           LIMIT 10")
+```
+
+OR operator:
+
+```{r}
+collection$find(query = '{"$or": [{"type": "photo"}, {"type": "video"}]}', 
+        fields = '{"from_name": true, "type": true, "date": true, "likes_count": true}', 
+        limit = 10)
+
+dbGetQuery(dbsql, "SELECT from_name, type, date, likes_count 
+           FROM posts
+           WHERE  type = 'photo' OR type = 'video'
+           LIMIT 10")
+```
+
+Membership / IN:
+
+```{r}
+collection$find(query = '{"type": {"$in": ["photo",  "video"]}}', 
+        fields = '{"from_name": true, "type": true, "date": true, "comments_count": true}', 
+        limit = 10)
+dbGetQuery(dbsql, "SELECT from_name, type, date, comments_count 
+           FROM posts
+           WHERE type IN ('photo', 'video')
+           LIMIT 10")
+```
+
+MongoDB does support regular expressions, for options see https://docs.mongodb.com/manual/reference/operator/query/regex/. This can be very helpful for queries.
+
+```{r}
+collection$find(query = '{"date": {"$regex": "2017-01-.{2}", "$options": "i"}}', 
+        fields = '{"from_name": true, "type": true, "date": true, "likes_count": true}', 
+        limit = 10)
+dbGetQuery(dbsql, "SELECT from_name, type, date, comments_count 
+           FROM posts
+           WHERE date LIKE '2017-01-__'
+           LIMIT 10")
+
+
+collection$find(query = '{"date": {"$regex": "2017-01.+", "$options": "i"}}', 
+        fields = '{"from_name": true, "type": true, "date": true, "likes_count": true}', 
+        limit = 10)
+dbGetQuery(dbsql, "SELECT from_name, type, date, comments_count 
+           FROM posts
+           WHERE date LIKE '2017-01%'
+           LIMIT 10")
+
+
+collection$find(query = '{"message": {"$regex": "london", "$options": "i"}}', 
+        fields = '{"from_name": true, "type": true, "date": true, "likes_count": true, "message": true}', 
+        limit = 10)
+dbGetQuery(dbsql, "SELECT from_name, message, date
+           FROM posts
+           WHERE message LIKE '%london%'
+           LIMIT 10")
+```
+
+As a side note, we can also select rows/documents after a certain date, however, this is much more convenient in the SQLite implementation.
+
+```{r}
+dbGetQuery(dbsql, "SELECT from_name, type, date
+           FROM posts
+           WHERE date > '2017-01-01'
+           LIMIT 10")
+
+# Specifying the date is a bit too complicated, needs to convert the date into milliseconds
+d <- as.integer(as.POSIXct(strptime("2017-01-01", "%Y-%m-%d"))) * 1000
+collection$find(query = paste0('{"datetime": {"$gt": {"$date": {"$numberLong": "', d, '" } } } }'), 
+        fields = '{"from_name": true, "type": true, "date": true}', 
+        limit = 10)
+```
+
+When some aggregation is involved (e.g. `COUNT` or `GROUP BY`), use `*$aggregate()`. In the `aggregate` function, pipeline stages are entered as elements in arrays such as [{stage 1}, {stage 2}, ...], see this [documentation](https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline/). Using the __$group__ operator in aggregation is the analogue to SQL's __GROUP BY__:. 
+
+```{r}
+collection$aggregate('[ {"$group": {"_id": "$from_name", "count": {"$sum": 1}}},
+                  {"$limit": 10} ]')
+
+dbGetQuery(dbsql, 
+  "SELECT from_name, COUNT(*) AS post_count
+  FROM posts
+  GROUP BY from_name
+  LIMIT 10")
+
+
+# Conditional aggregate (only Republican politicians)
+collection$aggregate('[{ "$match": {"party": "Republican"}}, 
+                  {"$group": {"_id": "$from_name", "count": {"$sum": 1}}},
+                  {"$limit": 10}]')
+```
+
+Like __ORDER BY__, we can use `"$sort"` after find or aggregate.
+
+```{r}
+# Sort by type_count
+collection$aggregate('[{"$group": {"_id": "$type", "type_count": {"$sum": 1}}},
+                  {"$sort": {"type_count": 1}}]')
+dbGetQuery(dbsql, 
+  "SELECT type, COUNT(type) AS type_count
+  FROM posts
+  GROUP BY type
+  ORDER BY type_count")
+
+
+# And in descending orders
+collection$aggregate('[{"$group": {"_id": "$type", "type_count": {"$sum": 1}}},
+                  {"$sort": {"type_count": -1}}]')
+dbGetQuery(dbsql, 
+  "SELECT type, COUNT(type) AS type_count
+  FROM posts
+  GROUP BY type
+  ORDER BY type_count DESC")
+```
+
+Most popular post:
+
+```{r}
+collection$find(query = '{}',
+             field = '{"from_name": true, "message": true, "likes_count": true, "datetime": true}',
+             sort = '{"likes_count": -1}',
+             limit = 1)
+
+dbGetQuery(dbsql, 
+  "SELECT from_name, message, likes_count, datetime
+  FROM posts
+  ORDER BY likes_count DESC
+  LIMIT 1")
+```
+
+Highest comment to like ratio:
+
+```{r}
+# We subset only posts with 1000 likes or more to avoid outliers
+
+collection$aggregate('[{"$match" : {"likes_count": {"$gt": 1000}}},
+                  {"$project": {"from_name": true, "message": true, "likes_count": true, "comments_count": true, "date": true,
+                  "comment_like_ratio": {"$divide": ["$comments_count", "$likes_count"]}}},
+                  {"$sort": {"comment_like_ratio": -1}},
+                  {"$limit": 5}]') 
+
+dbGetQuery(dbsql,
+  "SELECT from_name, message, likes_count, comments_count, date,   
+      comments_count/likes_count AS comment_like_ratio
+  FROM posts
+  WHERE likes_count > 1000
+  ORDER BY comment_like_ratio DESC
+  LIMIT 5")
+```
+
+## Joins in MongoDB
+
+Joining in MongoDB is possible, however, easier in relational database which are built for this process. Let us look at a simple example:
+
+Creating additional data:
+
+```{r}
+set.seed(123)
+content <- as_tibble(congress$screen_name)
+colnames(content) <- "screen_name"
+content$some_data <- runif(n = nrow(content))
+head(content)
+```
+
+Adding the data to a new collection (now we have two collections in the `facebook` database: `congress_posts_2017` and `additional_data`):
+
+```{r}
+another_collection <- mongo(collection = "additional_data", db = "facebook")
+another_collection$insert(content)
+another_collection$find(query = '{}', sort = '{"screen_name": -1}',limit=5) 
+```
+
+Merging this `additional_data` collection into our base collection `congress_posts_2017` is possible via the `$lookup`. It performs a left outer join of the collection linked to the `collection` object and a second collection specified in `from`:
+
+```{r}
+join_output <- collection$aggregate('[
+    { "$project": {"screen_name": true, "type": true}},
+    { "$sort": { "screen_name": -1 } },
+    { "$limit": 10 },
+    { "$lookup": {
+      "localField": "screen_name",
+      "from": "additional_data",
+      "foreignField": "screen_name",
+      "as": "additional_data"
+    } }]')
+join_output
+```
+
+
+## Performance?
+
+For both databases, we have not done any tuning (e.g. indexing). But let us compare which is faster just for fun introducing the microbenchmark package:
+
+```{r}
+microbenchmark(sqlite = 
+  dbGetQuery(dbsql, "SELECT from_name, type, date, likes_count 
+           FROM posts
+           WHERE type != 'photo' 
+              AND likes_count > 500
+           LIMIT 10"),
+mongo = collection$find(query = '{"type": {"$ne": "photo"}, "likes_count": {"$gt": 500}}', 
+        fields = '{"from_name": true, "type": true, "date": true, "likes_count": true}', 
+        limit = 10), times = 200)
+```
+
+
+```{r}
+microbenchmark(sqlite = 
+  dbGetQuery(dbsql,
+    "SELECT from_name, message, likes_count, comments_count, date,   
+        comments_count/likes_count AS comment_like_ratio
+    FROM posts
+    WHERE likes_count > 1000
+    ORDER BY comment_like_ratio DESC
+    LIMIT 5"),
+  mongo = collection$aggregate('[{ "$match" : {"likes_count": {"$gt": 1000}}},
+                  {"$project": {"from_name": true, "message": true, "likes_count": true, "comments_count": true, "date": true,
+                  "comment_like_ratio": {"$divide": ["$comments_count", "$likes_count"]}}},
+                  {"$sort": {"comment_like_ratio": -1}},
+                  {"$limit": 5}]'),
+times = 50)
+```
+
+We would need more tuning for the MongoDB (e.g. add index, etc.) and we have to keep in mind that we run this in R with dataframes tables that do not really resemble the BSON format. But not too bad.
+
+

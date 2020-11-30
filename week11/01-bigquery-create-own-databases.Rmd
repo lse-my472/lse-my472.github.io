@@ -1,0 +1,69 @@
+---
+title: "Creating and querying a database in the cloud"
+author: "Friedrich Geiecke"
+date: "30 November 2020"
+output: html_document
+---
+
+In this file we use the tools that we studied last week to host a database in the cloud. As an example, we will use the free sandbox version of BigQuery with the `rbigquery` [package](https://bigrquery.r-dbi.org/), but there are similar services available from many other providers.
+
+Loading packages:
+
+```{r}
+library("DBI")
+library("bigrquery")
+```
+
+First, we need to create a project with the BigQuery sandbox as described [here](https://cloud.google.com/bigquery/docs/sandbox) (the sandbox does not require to supply any billing information). You can type `console.cloud.google.com/bigquery` into your browser and log in with a Google account. In the following we will use this Google account with the `bigrquery` package. If you prefer not to share any personal data with the package, feel free to create a new Google account for this exercise. Once you are logged in at `console.cloud.google.com/bigquery`, first create a project and then create a dataset (i.e. a database) within your project. Afterwards enter your project ID and the dataset name here:
+
+```{r}
+# Project name (project ID)
+project_name <- "tba"
+
+# Billing (project ID)
+billing_id <- "tba"
+
+# Dataset name (created on website)
+dataset_name <- "tba"
+```
+
+We can now use the `DBI` package and syntax that we have used before to access our online database, add and delete tables, and run queries.
+
+```{r}
+db <- dbConnect(
+  bigrquery::bigquery(), # replaces the previous SQLite line 
+  project = project_name,
+  dataset = dataset_name,
+  billing = billing_id
+)
+db
+```
+
+As an example, let us add the congress table to the database. First read in the csv file (make sure to have all csv-files from last week in a folder `data` which is stored in the same folder as these markdown files):
+
+```{r}
+# Reading the first file into R
+congress <- read.csv("data/congress-facebook-2017.csv",
+	stringsAsFactors = FALSE)
+```
+
+Now we can write this table into our online database. When you run the following code, a browser window should open where you authenticate the package to use your Google account. If you receive a "Can't get Google credentials" error when running this code chunk, just copy and paste the code into the R console directly which should then open the browser window.
+
+```{r}
+dbWriteTable(db, "congress", congress)
+```
+
+Once the previous code chunk returns that the table has been added to our online database, we can run the same queries as last week, for example:
+
+```{r}
+dbListFields(db, "congress")
+dbGetQuery(db, "SELECT * FROM congress LIMIT 5")
+```
+
+Just like last week, R Markdown also allows to run these queries directly in its code chunks, just that we now use an online database as connection:
+
+```{sql, connection = db}
+SELECT * FROM congress LIMIT 5
+```
+
+
