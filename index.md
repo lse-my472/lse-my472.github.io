@@ -282,7 +282,6 @@ This session will offer an introduction to relational databases: structure, logi
 * Stephens et al. 2009. [_Teach yourself SQL in one hour a day_](https://books.google.co.uk/books?hl=en&lr=&id=9fDZ_rVoxx0C&oi=fnd&pg=PR5&dq=%22Sams+Teach+Yourself+SQL+in+24+Hours%22&ots=UkaClJDMem&sig=wgLy-DG3bc7g0LO0_Ojy5Cy2Ejs#v=onepage&q=%22Sams%20Teach%20Yourself%20SQL%20in%2024%20Hours%22&f=false). Sam's Publishing.
 
 ##### Lab: SQL
-
 - Further analysis of public Facebook data in an SQLite database
 
 
@@ -292,7 +291,7 @@ This week covers how to set up and use relational databases in the cloud and fun
 
 ##### Resources
 - [Lecture slides](week10/my472-week10-nosql-and-cloud-db.pdf)
-- R examples: [Creating own databases in the cloud](week10/01-bigquery-create-own-databases.Rmd), [querying large cloud databases](week10/02-bigquery-examples.Rmd), [MongoDB demo](week10/03-mongodb-demo.Rmd)
+- R examples: [Creating own databases in the cloud](week10/01-bigquery-create-own-databases.Rmd), [querying large cloud databases](week10/02-bigquery-examples.Rmd), [MongoDB](week10/03-mongodb-demo.Rmd)
 
 
 ##### Required reading
