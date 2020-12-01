@@ -306,8 +306,8 @@ This week covers how to set up and use relational databases in the cloud and fun
 - SQL JOINs, subqueries, and BigQuery
 
 ##### Assignment 5: Databases
-- Link to GitHub Classroom available via Moodle by December 1
-- Deadline on Friday, December 11, 2pm
+- Link to GitHub Classroom available via Moodle on Wednesday, December 2
+- Deadline on Monday, December 14, 2pm
 
 
 #### 11. Cloud computing
