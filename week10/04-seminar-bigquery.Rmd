@@ -1,0 +1,44 @@
+# Using BigQuery
+
+## Data
+
+We will use the NYC Bicycle Hire data we looked at in lecture. The database contains all Citi Bike trips (NYC's bike-sharing service) since Citi Bike launched in September 2013. 
+
+
+## Queries
+
+1. First, connect to the database and see the first 5 entries.
+
+```{r}
+
+
+```
+
+2. What is the average trip duration based on the age of the riders?
+
+```{r}
+
+
+```
+
+3. What is the average distance of a CitiBike trip based on the age of the riders?
+
+```{r}
+
+
+```
+
+4. What is the average speed of a CitiBike trip?
+
+```{r}
+
+
+```
+
+5. What is the average speed based on age?
+
+```{r}
+
+
+```
+

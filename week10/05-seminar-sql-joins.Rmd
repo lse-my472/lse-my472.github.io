@@ -1,0 +1,97 @@
+# Practicing SQL joins
+
+In last week's class, we learned simple join. Sometimes, for some of the rows you are joining, you may not be able to find matching records in another table. In that case, you still want to keep the records from one table after JOIN. In this challenge, we will learn how to do that. 
+
+For your reference, the figure below shows different types of joins and how to run the query for each type.
+
+![joins](joins.png)
+
+## Get a random sample from the Facebook dataset
+
+Run the code below to create a SQLite database that contains a random sample of the Facebook data we used in week 10.
+
+```{r, eval = F}
+library(DBI)
+# create database: this will create a file on our hard drive
+db <- dbConnect(RSQLite::SQLite(), "~/data/facebook-db-mini.sqlite")
+# reading the first file
+congress <- read.csv("~/data/congress-facebook-2017.csv",
+	stringsAsFactors=F)
+
+# this determines the seed in the pseudo-random number generator
+# to guarantee that you always get the same results
+# it's good for replicability
+set.seed(20191212)
+# sample 100 rows randomly
+congress <- congress[sample(nrow(congress), 100), ]
+# adding first table: user-level data
+dbWriteTable(db, "congress", congress)
+# testing that it works with a simple query
+dbListFields(db, "congress")
+dbGetQuery(db, 'SELECT * FROM congress LIMIT 5')
+```
+
+
+```{r, eval = F}
+
+fls <- list.files("~/data/posts", full.names=TRUE)
+set.seed(20191212)
+
+for (f in fls){
+  
+  message(f)
+  # read file into memory
+  fb <- read.csv(f, stringsAsFactors=F)
+  # sample 5 percent of rows randomly
+  fb <- fb[sample(nrow(fb), size = nrow(fb)/20), ]
+  
+  # adding to table in SQL database
+  dbWriteTable(db, "posts", fb, append=TRUE)
+  
+}
+# testing that it works
+dbListFields(db, "posts")
+dbGetQuery(db, 'SELECT * FROM posts LIMIT 5')
+# what if we make a mistake and want to remove the table?
+# dbRemoveTable(db, "posts")
+# and we close the connection for now
+dbDisconnect(db)
+
+```
+
+## Questions
+
+```{r}
+library(DBI)
+library(tidyverse)
+db <- dbConnect(RSQLite::SQLite(), "~/data/facebook-db-mini.sqlite")
+```
+
+1. How many rows are there in each table?
+```{r}
+
+```
+
+2. How many rows do you get when use `JOIN` to join posts with congress? What kind of join is this? What does this tell us about the data we have?
+```{r}
+
+```
+
+3. How many members of congress do not have any posts?
+```{r}
+
+```
+
+4. How many authors of posts cannot be matched to the members of congress we have in the database?
+```{r}
+
+```
+
+5. What would you do to create a table that is equivalent to the result of a FULL OUTER JOIN? Hint: look up UNION ALL.
+```{r}
+
+```
+
+```{R}
+dbDisconnect(db)
+```

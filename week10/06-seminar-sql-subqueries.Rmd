@@ -1,0 +1,46 @@
+# Subqueries in SQL
+
+
+## Facebook database
+
+Use the SQLite database with Facebook posts data we created and used in week 10 to complete the questions below.
+
+## Subqueries
+
+In SQL, you can run a nested query where you use a result from the first query as a condition for the second query. Here, we will find the top 3 most frequent posters in congress and then get all messages from them. 
+
+```{r}
+# load required libraries and connect to facebook-db.sqlite
+
+```
+
+1. What are the screen names of the top 3 posters?
+```{r}
+
+```
+
+2. (Without subquery) how can you get the posts from these congress members?
+```{r}
+
+```
+
+3. Now, instead of hardcoding the screen_names in the conditional statement, use the query results in #1 as the subquery. 
+```{r}
+
+```
+
+4. Using a subquery, get the average number of likes per post for all women Democrats.
+```{r}
+
+```
+
+5. Now use a join to do the same as in #4.
+```{r}
+
+```
+
+6. Which solution is faster: the one in #4 or #5?
+
+```{r}
+
+```
