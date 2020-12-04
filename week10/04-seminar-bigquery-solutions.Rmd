@@ -1,0 +1,86 @@
+# Using BigQuery
+
+## Data
+
+We will use the NYC Bicycle Hire data we looked at in lecture. The database contains all Citi Bike trips (NYC's bike-sharing service) since Citi Bike launched in September 2013. 
+
+
+## Queries
+
+1. First, connect to the database and see the first 5 entries.
+
+```{r}
+library(bigrquery)
+project <- "mblukac-my472"
+
+query_exec(
+  "SELECT *
+  FROM [bigquery-public-data:new_york.citibike_trips]
+  LIMIT 5",
+	project = project)
+```
+
+2. What is the average trip duration based on the age of the riders?
+
+```{r}
+res <- query_exec(
+  "SELECT (2020-birth_year) AS age,
+    AVG( (stoptime-starttime)/1000000/60 ) AS duration_minutes,
+    COUNT(*) AS trip_count
+  FROM [bigquery-public-data:new_york.citibike_trips]
+  GROUP BY age
+  ORDER BY age",
+  project = project
+)
+plot(res$age[res$age<100], res$duration_minutes[res$age<100], type="l")
+barplot(res$trip_count[!is.na(res$age) & res$age<100], 
+        names.arg=res$age[!is.na(res$age) & res$age<100])
+```
+
+3. What is the average distance of a CitiBike trip based on the age of the riders?
+
+```{r}
+res <- query_exec(
+  "SELECT (2017-birth_year) AS age,
+      AVG( (ABS(start_station_latitude-end_station_latitude) +
+      ABS(start_station_longitude-end_station_longitude)) * 111) AS avg_distance_km
+  FROM [bigquery-public-data:new_york.citibike_trips]
+  GROUP BY age
+  ORDER BY age",
+  project = project)
+plot(res$age[res$age<100], res$avg_distance_km[res$age<100], type="l")
+```
+
+4. What is the average speed of a CitiBike trip?
+
+```{r}
+query_exec(
+  "SELECT AVG( 
+      ((ABS(start_station_latitude-end_station_latitude) + 
+        ABS(start_station_longitude-end_station_longitude)) * 111) /
+    ((stoptime-starttime)/1000000/3600) ) AS avg_speed_km_h
+  FROM [bigquery-public-data:new_york.citibike_trips]",
+  project = project)
+
+```
+
+5. What is the average speed based on age?
+
+```{r}
+res <- query_exec(
+  "SELECT AVG( 
+      ((ABS(start_station_latitude-end_station_latitude) + 
+        ABS(start_station_longitude-end_station_longitude)) * 111) /
+    ((stoptime-starttime)/1000000/3600) ) AS avg_speed_km_h,
+    (2017 - birth_year) AS age
+  FROM [bigquery-public-data:new_york.citibike_trips]
+  GROUP BY age
+  ORDER BY age",
+  project = project)
+
+plot(res$age[res$age<100], res$avg_speed_km_h[res$age<100], 
+     xlab="age", ylab="speed (km/h)", type="l")
+```
+
+
+
