@@ -317,7 +317,7 @@ In this week, we focus on the setup of computation environments on the Internet.
 ##### Resources
 - [Lecture slides](week11/my472-week11-cloud.pdf)
 - [Connecting to the instance with Windows via PuTTY](manual-for-windows.pdf)
-- R examples: [Hello world](week11/hello_world.R), [continuous scraping within R](week11/.R), [installing R packages on the EC2 instance](install_packages.R), [continuous scraping via a schedule](week11/scraping_example_to_schedule.R.R)
+- R examples: [Hello world](week11/hello_world.R), [continuous scraping within R only](week11/scraping_example_r_only.R), [installing R packages on the EC2 instance](week11/install_packages.R), [continuous scraping via a schedule](week11/scraping_example_to_schedule.R)
 
 ##### Required reading
 * Rajaraman, V. 2014. "[Cloud Computing.](https://www.ias.ac.in/article/fulltext/reso/019/03/0242-0258)" Resonance 19(3): 242–58.
