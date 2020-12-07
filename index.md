@@ -316,6 +316,7 @@ In this week, we focus on the setup of computation environments on the Internet.
 
 ##### Resources
 - [Lecture slides](week11/my472-week11-cloud.pdf)
+- [Connecting to the instance with Windows via PuTTY](manual-for-windows.pdf)
 - R examples: [Hello world](week11/hello_world.R), [continuous scraping within R](week11/.R), [installing R packages on the EC2 instance](install_packages.R), [continuous scraping via a schedule](week11/scraping_example_to_schedule.R.R)
 
 ##### Required reading
@@ -328,16 +329,6 @@ In this week, we focus on the setup of computation environments on the Internet.
 * Botta, Alessio, Walter De Donato, Valerio Persico, and Antonio Pescapé. 2016. "[Integration of Cloud Computing and Internet of Things: A Survey.](http://iranarze.ir/wp-content/uploads/2017/03/6229-English-IranArze.pdf)" Future Generation Computer Systems 56: 684–700.
 
 ##### Lab: Working with AWS
-
-* Setup an AWS account (link from Moodle for AWS Educate free account)
-* Secure the account
-* Configure EC2 instance
-* Work with EC2 instance
-    - Login EC2-Linux Console
-    - Set up a web server
-    - Install R, some packages
-    - Stop the instance
-<!-- * [Attendance Survey](https://lse.eu.qualtrics.com/jfe/form/SV_9B6qLasJrI88CJT)-->
 
 
 #### Take-home exam
