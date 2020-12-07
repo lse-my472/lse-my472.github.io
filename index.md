@@ -312,11 +312,11 @@ This week covers how to set up and use relational databases in the cloud and fun
 
 #### 11. Cloud computing
 
-In this week, we focus on the setup of computation environments on the Internet. We will introduce the cloud computing concepts and learn why the big shift to the cloud computing is occurring in the industry and how it is relevant to us as data scientists. In the lab, we will have an introduction to the cloud environment setup using Amazon Web Services. We will sign up an account, launch a cloud computing environment, create a webpage, and set up a statistical computing environment.
+In this week, we focus on the setup of computation environments on the Internet. We will introduce the cloud computing concepts and learn why the big shift to the cloud computing is occurring in the industry and how it is relevant to us as data scientists. We will then study cloud computing through an example of continuous scraping.
 
 ##### Resources
-- [Lecture slides](week11/MY472-week11-cloud.html)
-- [Class slides](week11/MY472-week11-AWS-Lab11.pdf)
+- [Lecture slides](week11/my472-week11-cloud.pdf)
+- R examples: [Hello world](week11/hello_world.R), [continuous scraping within R](week11/.R), [installing R packages on the EC2 instance](install_packages.R), [continuous scraping via a schedule](week11/scraping_example_to_schedule.R.R)
 
 ##### Required reading
 * Rajaraman, V. 2014. "[Cloud Computing.](https://www.ias.ac.in/article/fulltext/reso/019/03/0242-0258)" Resonance 19(3): 242–58.
