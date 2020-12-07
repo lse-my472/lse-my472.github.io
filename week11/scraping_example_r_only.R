@@ -70,7 +70,7 @@ while(i < n) {
                 sep=',')
     
     # Can also create a backup of the csv every 5 days, e.g. with
-    if (i %% 5) {file.copy("featured_articles.csv", "featured_articles_backup.csv")}
+    if (i %% 5 == 0) {file.copy("featured_articles.csv", "featured_articles_backup.csv")}
     
     # Increment item count
     i <- i + 1
