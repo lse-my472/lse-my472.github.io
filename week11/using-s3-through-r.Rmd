@@ -8,7 +8,7 @@ output: html_document
 
 Note: There is some use of S3 included in the free tier, however, check the pricing in order not to incur unwanted costs and delete buckets/files that you do not need anymore.
 
-EC2 instances have some storage included and we copied files to and from an EC2 instance in the coding session this week. Yet, as soon as you shut down your EC2 instance, these files will be lost. EC2 instances are therefore not particularly well suited for storage. Unless you just run a quick computation and download the files with your ftp client or command line afterwards, it can therefore be helpful to additionally store them in a different location. AWS has the Simple Storage Service (S3) which allows to create buckets that can store data, other cloud providers have similar products. The following script shows how you can backup the .csv and .sqlite file from our scraping example in an S3 bucket via R. You could insert such code into your scraping script running in the cloud. Other options are e.g. packages such as [rdrop2](https://cran.r-project.org/web/packages/rdrop2/index.html) which allow to backup/store files on dropbox in a similar manner.
+EC2 instances have some storage included and we copied files to and from an EC2 instance in the coding session this week. Yet, as soon as you shut down your EC2 instance, these files will be lost. EC2 instances are therefore not particularly well suited for storage. Unless you just run a quick computation and download the files with your ftp client or command line afterwards, it can therefore be helpful to additionally store them in a different location. AWS has the Simple Storage Service (S3) which allows to create buckets that can store data, other cloud providers have similar products. The following script shows how you can backup the .csv and .sqlite file from our scraping example in an S3 bucket via R. You could insert such code into your scraping script running in the cloud to load the files from S3 in the beginning when running the script and then store them again in S3 at the end of the script. In between while the script is running, the files would be stored and appended on EC2 just as in the coding session, but could additionally be backed up into S3 in regular intervals. The same could be done e.g. with Dropbox and packages such as [rdrop2](https://cran.r-project.org/web/packages/rdrop2/index.html) which allow to backup/store files in a similar manner.
 
 Loading packages:
 
@@ -17,7 +17,7 @@ Loading packages:
 library("aws.s3")
 ```
 
-Under "Services" -> "Storage" -> "S3" you can click on "Create bucket" to create a bucket. Then under "Security, Identity, & Compliance" -> "IAM" click on "Users" -> "Add User" with rights to access S3 (note that the following [tutorial](https://www.gormanalysis.com/blog/connecting-to-aws-s3-with-r/) can be helpful also for this step). Afterwards paste the access key ID, secret access key, and the region of the storage you created into the following code chunk:
+Under "Services" -> "Storage" -> "S3" you can click on "Create bucket" to create a bucket. Then under "Security, Identity, & Compliance" -> "IAM" click on "Users" -> "Add User" with rights to access S3 (note that the following [tutorial](https://www.gormanalysis.com/blog/connecting-to-aws-s3-with-r/) can be helpful also for this step). You can delete/create a new key under "Security credentials" for this user. Paste the access key ID, secret access key, and the region of the storage you created into the following code chunk:
 
 ```{r}
 Sys.setenv(
@@ -25,7 +25,6 @@ Sys.setenv(
   "AWS_SECRET_ACCESS_KEY" = "tba",
   "AWS_DEFAULT_REGION" = "eu-west-2"
 )
-
 ```
 
 The `bucketlist()` function shows all buckets of the user and should display the one you just created:
