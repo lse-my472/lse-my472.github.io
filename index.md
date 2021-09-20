@@ -18,16 +18,16 @@ All students are required to complete the preparatory course 'R Advanced for Met
 
 Office hour slots to be booked via LSE's StudentHub
 
-* [Friedrich Geiecke](f.c.geiecke@lse.ac.uk), Department of Methodology.  *Office hours*: Tuesdays 16:00-18:00 via Zoom
-* [Martin Lukac](m.lukac@lse.ac.uk), Department of Methodology.  *Office hours*: Mondays 14:00-17:00 via Zoom
+* [Friedrich Geiecke](f.c.geiecke@lse.ac.uk), Department of Methodology.  *Office hours*: Tuesdays 16:00-18:00
+* [Martin Lukac](m.lukac@lse.ac.uk), Department of Methodology.  *Office hours*: tba
 
 ### Course information
 
 * Lectures are prerecorded and available via Moodle
-* Lecture discussions: Tuesdays 09:00–11:00 and 15:00-16:00 via Zoom (you can choose which one to attend)
+* Lecture discussions: Tuesdays 11:–12:00 and 15:00-16:00 via Zoom (you only have to attend one)
 * Classes on:
-    - Thursdays 10:00-11:00, CLM.3.02 and via Zoom
-    - Fridays 16:00-17:00, LRB.R.21 and via Zoom
+    - Fridays 11:00-12:00, KSW.1.01 and via Zoom
+    - Fridays 16:00-17:00, NAB.2.04 and via Zoom
 
 No lectures or classes will take place during (Reading) Week 6.
 
@@ -100,9 +100,19 @@ In the first week, we will introduce the basic concepts of the course, including
 This week will also introduce basic data types, in a language-agnostic manner, from the perspective of machine implementations through to high-level programming languages. We will then focus on how basic data types are implemented in R.
 
 ##### Resources
-- [Lecture slides](week01/MY472-week01-intro.pdf)
-- R example: [Introduction to RMarkdown](week01/01-RMarkdown.html) and as [rmd source](https://github.com/lse-my472/lse-my472.github.io/blob/master/week01/01-RMarkdown.rmd)
-- R example: [vectors, lists, data frames](https://github.com/lse-my472/lse-my472.github.io/blob/master/week01/02-intro-to-R.md)
+
+###### Lecture
+
+- [Slides](week01/MY472-week01-intro.pdf)
+- Code: [A plain R script](week01/00-standard-script.R), [a first R markdown example](https://github.com/lse-my472/lse-my472.github.io/blob/master/week01/01-RMarkdown.rmd), and a recap on [vectors, lists, data frames](https://github.com/lse-my472/lse-my472.github.io/blob/master/week01/02-intro-to-R.md)
+
+###### Class
+
+*  Installing git and setting up an account on GitHub
+*  How to complete and submit assignments using GitHub Classroom
+*  Forking and correcting a broken RMarkdown file
+*  Cloning a website repository, modifying it, and publishing a personal webpage
+
 
 ##### Required reading
 * Wickham, Hadley.  Nd.  _Advanced R_, 2nd ed.  Ch 3, [Names and values](https://adv-r.hadley.nz/names-values.html), Chapter 4, [Vectors](https://adv-r.hadley.nz/vectors-chap.html), and Chapter 5, [Subsetting](https://adv-r.hadley.nz/subsetting.html). (Ch. 2-3 of the print edition),
@@ -115,11 +125,6 @@ This week will also introduce basic data types, in a language-agnostic manner, f
 * Jim McGlone, "[Creating and Hosting a Personal Site on GitHub
 A step-by-step beginner's guide to creating a personal website and blog using Jekyll and hosting it for free using GitHub Pages.](http://jmcglone.com/guides/github-pages/)".
 
-##### Lab: Working with git and GitHub
-*  Installing git and setting up an account on GitHub
-*  How to complete and submit assignments using GitHub Classroom
-*  Forking and correcting a broken RMarkdown file
-*  Cloning a website repository, modifying it, and publishing a personal webpage
 
 
 #### 2. The shape of data
