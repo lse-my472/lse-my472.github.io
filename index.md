@@ -99,14 +99,13 @@ In the first week, we will introduce the basic concepts of the course, including
 
 This week will also introduce basic data types, in a language-agnostic manner, from the perspective of machine implementations through to high-level programming languages. We will then focus on how basic data types are implemented in R.
 
-##### Resources
 
-###### Lecture
+##### Lecture
 
 - [Slides](week01/MY472-week01-intro.pdf)
-- Code: [A plain R script](week01/00-standard-script.R), [a first R markdown example](https://github.com/lse-my472/lse-my472.github.io/blob/master/week01/01-RMarkdown.rmd), and a recap on [vectors, lists, data frames](https://github.com/lse-my472/lse-my472.github.io/blob/master/week01/02-intro-to-R.md)
+- Code: [A plain R script](week01/00-standard-script.R), [a first R markdown example](https://github.com/lse-my472/lse-my472.github.io/blob/master/week01/01-RMarkdown.Rmd), and a recap on [vectors, lists, data frames](https://github.com/lse-my472/lse-my472.github.io/blob/master/week01/02-intro-to-R.Rmd)
 
-###### Class
+##### Class
 
 *  Installing git and setting up an account on GitHub
 *  How to complete and submit assignments using GitHub Classroom
@@ -131,29 +130,41 @@ A step-by-step beginner's guide to creating a personal website and blog using Je
 
 This week moves beyond the rectangular format common in statistical datasets, modeled on a spreadsheet, to cover relational structures and the concept of database normalization. We will also cover ways to restructure data from "wide" to "long" format, within strictly rectangular data structures.  Additional topics concerning text encoding, date formats, and sparse matrix formats are also covered.
 
-##### Resources
+##### Lecture
+
 - [Lecture slides](week02/MY472-week02-shape.pdf)
-- R examples: [conditionals, loops, and functions](week02/01-conditionals-loops-functions.rmd), [introduction to key tidyverse functions](week02/02-processing-data.rmd), [industrial production dataset](week02/ip.csv), and [industrial production and unemployment dataset](week02/ip_and_unemployment.csv)
+- Code: [Conditionals, loops, and functions](week02/01-conditionals-loops-functions.Rmd), [introduction to key dplyr functions](week02/02-processing-data.Rmd), [industrial production dataset](week02/ip.csv), and [industrial production and unemployment dataset](week02/ip_and_unemployment.csv)
+
+##### Class
+
+- Code: [Dplyr review](week02/03-seminar-exercise.Rmd)
+
 
 ##### Required reading
 * Wickham, Hadley and Garett Grolemund.  2017.  _R for Data Science: Import, Tidy, Transform, Visualize, and Model Data_.  Sebastopol, CA: O'Reilly.  [Part II Wrangle](http://r4ds.had.co.nz/wrangle-intro.html), [Tibbles](http://r4ds.had.co.nz/tibbles.html), [Data Import](http://r4ds.had.co.nz/data-import.html), [Tidy Data](http://r4ds.had.co.nz/tidy-data.html) (Ch. 7-9 of the print edition).
 * The [Tidyverse collection of packages](https://www.tidyverse.org/) for R.
 
-##### Lab: Reshaping data in R
 
 
 ##### Assignment 1: Data cleaning in R
-- Link to GitHub Classroom available via Moodle on Monday, October 5, 2pm
-- Deadline on Friday, October 16, 2pm
+- Link to GitHub Classroom available via Moodle on Monday, October 4, 2pm
+- Deadline on Friday, October 15, 2pm
 
 
 #### 3. HTML and CSS
 
 From week 3 to week 5, we will learn how to get the data from the internet. This week we cover basic web scraping to turn web data into text or numbers.  We will also cover the client-server model, and how machines and humans transmit data over networks and to and from databases.
 
-##### Resources
-- [Lecture slides](week03/MY472-week03-HTML-CSS.pdf)
-- R examples: [Selecting elements](week03/01-selecting-elements.Rmd), [scraping tables](week03/02-scraping-tables.Rmd)
+##### Lecture
+
+- [Slides](week03/MY472-week03-HTML-CSS.pdf)
+- Code: [Website example](website_5.html), [selecting elements](week03/01-selecting-elements.Rmd), [scraping tables](week03/02-scraping-tables.Rmd)
+
+
+##### Class
+
+- Code: [Scraping unstructured data](week03/03-scraping-unstructured-data.Rmd)
+
 
 ##### Required reading
 * Lazer, David, and Jason Radford. 2017. “[Data Ex Machina: Introduction to Big Data.](https://doi.org/10.1146/annurev-soc-060116-053457)” _Annual Review of Sociology_ 43(1): 19–39.
@@ -165,18 +176,21 @@ From week 3 to week 5, we will learn how to get the data from the internet. This
 * Severance, Charles Russell. 2015. [_Introduction to Networking: How the Internet Works_](http://www.net-intro.com).  Charles Severance, 2015.
 * Duckett, Jon. 2011. _HTML and CSS: Design and Build Websites_.  New York: Wiley.
 
-##### Lab: Web scraping
-
-- Scraping unstructured data  
 
 
 #### 4. XML, RSS, and scraping non-static pages
 
 Continuing from the material covered in Week 3, we will learn the advanced topics in scraping the web. The topics include the scraping documents in XML (such as RSS), and scraping websites with non-static components with Selenium.
 
-##### Resources
-- [Lecture slides](week04/MY472-week04-scraping-part-2.pdf)
-- R examples: [Scraping RSS](week04/01-newspaper-rss.Rmd), [introduction to RSelenium](week04/02-introduction-to-selenium.Rmd), [RSelenium example with the LSE website](week04/03-selenium-lse.Rmd)
+##### Lecture
+
+- [Slides](week04/MY472-week04-scraping-part-2.pdf)
+- Code: [Scraping RSS](week04/01-newspaper-rss.Rmd), [introduction to RSelenium](week04/02-introduction-to-selenium.Rmd), [RSelenium example with the LSE website](week04/03-selenium-lse.Rmd)
+
+##### Class
+
+- Code: [Scraping UK election data](04-advanced-scraping-ukelection2017.Rmd)
+
 
 ##### Required reading
 * [_XML_](https://www.w3schools.com/xml/xml_whatis.asp)
@@ -190,11 +204,11 @@ Continuing from the material covered in Week 3, we will learn the advanced topic
 * [_Web Scraping with R and PhantomJS_](https://www.datacamp.com/community/tutorials/scraping-javascript-generated-data-with-r).
 * Mozilla Developer Web Docs. [_A First Splash into JavaScript_](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/First_steps/A_first_splash).
 
-##### Lab: Group work on first five weeks
 
 ##### Assignment 2: Web scraping
-- Link to GitHub Classroom available via Moodle on Tuesday, October 20
-- Deadline on October 31, 2pm
+
+- Link to GitHub Classroom available via Moodle on Monday, October 18, 2pm
+- Deadline on Friday, October 29, 2pm
 
 
 
@@ -202,9 +216,15 @@ Continuing from the material covered in Week 3, we will learn the advanced topic
 
 How to work with Application Programming Interfaces (APIs), which offer developers and researchers access to data in a structured format. Our running examples will be the New York Times API and the Twitter API.
 
-##### Resources
-- [Lecture slides](week05/MY472-week05-APIs.pdf)
-- R examples: [JSON in R](week05/01-json-in-r.Rmd), [NYT API](week05/02-nytimes-api.Rmd), [Twitter Rest API](week05/03-twitter-rest-api.Rmd)
+##### Lecture
+
+- [Slides](week05/MY472-week05-APIs.pdf)
+- Code: [JSON in R](week05/01-json-in-r.Rmd), [NYT API](week05/02-nytimes-api.Rmd), [Twitter REST API](week05/03-twitter-rest-api.Rmd)
+
+##### Class
+
+- Code: [Twitter streaming API](04-twitter-streaming-api.Rmd)
+
 
 ##### Required reading
 * Steinert-Threlkeld. 2018. [_Twitter as Data_](https://www.cambridge.org/core/elements/twitter-as-data/27B3DE20C22E12E162BFB173C5EB2592). Cambridge University Press.
@@ -228,9 +248,14 @@ How to work with Application Programming Interfaces (APIs), which offer develope
 
 We will learn how to work with unstructured data in the form of text and discuss character encoding, search and replace with regular expressions, and elementary quantitative textual analysis.
 
-##### Resources
-- [Lecture slides](week07/MY472-week07-text.pdf)
-- R examples: [Regular expressions in R](week07/01-regular-expressions-in-r.Rmd), [textual analysis in R](week07/02-textual-analysis.Rmd)
+##### Lecture
+
+- [Slides](week07/MY472-week07-text.pdf)
+- Code: [Regular expressions in R](week07/01-regular-expressions-in-r.Rmd), [textual analysis in R](week07/02-textual-analysis.Rmd)
+
+##### Class
+
+- Code: [Exercises in textual analysis](03-exercises.Rmd)
 
 
 ##### Required reading
@@ -241,9 +266,6 @@ We will learn how to work with unstructured data in the form of text and discuss
 - Wickham, Hadley and Garett Grolemund.  2017, [Chapter 14](http://r4ds.had.co.nz/strings.html)
 - [Regular expressions cheat sheet](week07/regular-expressions-cheat-sheet-v2.pdf)
 - [Regular expressions in R vignette](https://cran.r-project.org/web/packages/stringr/vignettes/regular-expressions.html)
-
-##### Lab
-- Regular expressions and textual analysis
 
 
 
