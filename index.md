@@ -189,7 +189,7 @@ Continuing from the material covered in Week 3, we will learn the advanced topic
 
 ##### Class
 
-- Code: [Scraping UK election data](04-advanced-scraping-ukelection2017.Rmd)
+- Code: [Scraping UK election data](week04/04-advanced-scraping-ukelection2017.Rmd)
 
 
 ##### Required reading
@@ -223,7 +223,7 @@ How to work with Application Programming Interfaces (APIs), which offer develope
 
 ##### Class
 
-- Code: [Twitter streaming API](04-twitter-streaming-api.Rmd)
+- Code: [Twitter streaming API](week05/04-twitter-streaming-api.Rmd)
 
 
 ##### Required reading
@@ -255,7 +255,7 @@ We will learn how to work with unstructured data in the form of text and discuss
 
 ##### Class
 
-- Code: [Exercises in textual analysis](03-exercises.Rmd)
+- Code: [Exercises in textual analysis](week07/03-exercises.Rmd)
 
 
 ##### Required reading
