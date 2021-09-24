@@ -8,7 +8,9 @@ colorlinks: true
 <!-- ![LSE](images/lse-logo.jpg) -->
 # MY472 Data for Data Scientists
 
-### Michaelmas Term 2020
+### Michaelmas Term 2021
+
+[Link to main course repo](https://github.com/lse-my472/lse-my472.github.io)
 
 ### Prerequisites
 
@@ -18,16 +20,16 @@ All students are required to complete the preparatory course 'R Advanced for Met
 
 Office hour slots to be booked via LSE's StudentHub
 
-* [Friedrich Geiecke](f.c.geiecke@lse.ac.uk), Department of Methodology.  *Office hours*: Tuesdays 16:00-18:00
-* [Martin Lukac](m.lukac@lse.ac.uk), Department of Methodology.  *Office hours*: tba
+* [Friedrich Geiecke](f.c.geiecke@lse.ac.uk), Department of Methodology.  *Office hours*: Tuesdays 4-6pm
+* [Patrick Gildersleve](p.gildersleve@lse.ac.uk), Department of Methodology.  *Office hours*: Tuesdays 2-3pm and Fridays 3-4pm
 
 ### Course information
 
 * Lectures are prerecorded and available via Moodle
-* Lecture discussions: Tuesdays 11:–12:00 and 15:00-16:00 via Zoom (you only have to attend one)
+* Lecture discussions / Q&As: Tuesdays 11am–12pm and 3-4pm via Zoom (you only have to attend one)
 * Classes on:
-    - Fridays 11:00-12:00, KSW.1.01 and via Zoom
-    - Fridays 16:00-17:00, NAB.2.04 and via Zoom
+    - Fridays 11am-12pm, KSW.1.01 and via Zoom
+    - Fridays 4-5pm, NAB.2.04 and via Zoom
 
 No lectures or classes will take place during (Reading) Week 6.
 
@@ -39,7 +41,7 @@ No lectures or classes will take place during (Reading) Week 6.
 | 1  |  28 Sep | [Introduction to data](#1-introduction-to-data) |  
 | 2  |  5 Oct | [The shape of data](#2-the-shape-of-data) |  
 | 3  | 12 Oct | [HTML and CSS](#3-html-and-css) |
-| 4  | 19 Oct | [Using data from the Internet](#4-using-data-from-the-internet) |   
+| 4  | 19 Oct | [Using data from the Internet](#4-xml,-rss,-and-scraping-non-static-pages) |   
 | 5  | 26 Oct | [Working with APIs](#5-working-with-apis) |  
 | 6  |  2 Nov | _Reading week_ |  
 | 7  | 9 Nov | [Textual data](#7-textual-data) |  
@@ -63,11 +65,7 @@ After the reading week, we will learn how to work with unstructured data in the 
 
 #### Formative coursework
 
-Students will be expected to produce five weekly, structured problem sets with a
-beginning component to be started in the staff-led lab sessions, to be
-completed by the student outside of class. Answers should be formatted and
-submitted for assessment. One or more of these problem sets will be completed
-in collaboration with other students.
+Students will be expected to produce five weekly, structured problem sets with a beginning component to be started in the staff-led lab sessions, to be completed by the student outside of class. Answers should be formatted and submitted for assessment. One or more of these problem sets will be completed in collaboration with other students.
 
 #### Summative assignments
 
@@ -148,7 +146,7 @@ This week moves beyond the rectangular format common in statistical datasets, mo
 
 ##### Assignment 1: Data cleaning in R
 - Link to GitHub Classroom available via Moodle on Monday, October 4, 2pm
-- Deadline on Friday, October 15, 2pm
+- Deadline on Friday, 15 October, 2pm
 
 
 #### 3. HTML and CSS
@@ -207,8 +205,8 @@ Continuing from the material covered in Week 3, we will learn the advanced topic
 
 ##### Assignment 2: Web scraping
 
-- Link to GitHub Classroom available via Moodle on Monday, October 18, 2pm
-- Deadline on Friday, October 29, 2pm
+- Link to GitHub Classroom available via Moodle on Monday, 18 October, 2pm
+- Deadline on Friday, 29 October, 2pm
 
 
 
@@ -236,8 +234,8 @@ How to work with Application Programming Interfaces (APIs), which offer develope
 - Interacting with the Twitter Streaming API
 
 ##### Assignment 3: APIs
-- Link to GitHub Classroom available via Moodle on Tuesday, October 27
-- Deadline on Saturday, November 14, 2pm
+- Link to GitHub Classroom available via Moodle on Tuesday, 27 October, 2pm
+- Deadline on Saturday, 14 November, 2pm
 
 
 #### 6. Reading week
@@ -273,11 +271,20 @@ We will learn how to work with unstructured data in the form of text and discuss
 
 The lecture this week will offer an overview of the principles of exploratory data analysis through (good) data visualization. In the coding session and seminars, we will practice producing our own graphs using ggplot2.
 
-##### Resources
-- [Lecture slides](week08/MY472-week08-visualisation.pdf)
-- R examples: [Anscombe](week08/01-anscombe.Rmd), [ggplot2 examples one](week08/02-ggplot2-basics.Rmd), [ggplot2 examples two](week08/03-scales-axes-legends.Rmd)
+
+##### Lecture
+
+- [Slides](week08/MY472-week08-visualisation.pdf)
+- Code: [Anscombe](week08/01-anscombe.Rmd), [ggplot2 examples one](week08/02-ggplot2-basics.Rmd), [ggplot2 examples two](week08/03-scales-axes-legends.Rmd)
+
+
+##### Class
+
+- Code: [Exercises in visualistion](week08/04-visualisation-exercise.Rmd)
+
 
 ##### Required reading
+
 * Wickham, Hadley and Garett Grolemund.  2017.  _R for Data Science: Import, Tidy, Transform, Visualize, and Model Data_.  Sebastopol, CA: O'Reilly.  [Data visualization](https://r4ds.had.co.nz/data-visualisation.html), [Graphics for communication](https://r4ds.had.co.nz/graphics-for-communication.html) (Ch. 1 and 22 of the print edition).
 
 ##### Recommended reading
@@ -285,22 +292,26 @@ The lecture this week will offer an overview of the principles of exploratory da
 shapes public opinion"](https://journals.sagepub.com/doi/abs/10.1177/2053168015622073) Research and Politics.
 * Tufte, E. (2002) ["The visual display of quantitative information"](https://www.edwardtufte.com/tufte/books_vdqi).
 
-##### Lab
-- Data visualization with ggplot2
+
 
 ##### Assignment 4: Data visualization
-- Link to GitHub Classroom available via Moodle on Wednesday, November 18
-- Deadline on Monday, November 30, 2pm
+- Link to GitHub Classroom available via Moodle on Wednesday, 18 November, 2pm
+- Deadline on Monday, 30 November, 2pm
 
 
 #### 9. Creating and managing databases
 
 This session will offer an introduction to relational databases: structure, logic, and main types. We will learn how to write SQL code, a language designed to query this type of databases that is currently employed by most tech companies; and how to use it from R using the DBI package.
 
-##### Resources
-- [Lecture slides](week09/my472-week09-sql.pdf)
-- R examples: [SQL introduction](week09/01-sql-intro.Rmd), [join and aggregation in SQL](week09/02-sql-join-and-aggregation.Rmd)
+##### Lecture
 
+- [Slides](week09/my472-week09-sql.pdf)
+- Code: [SQL introduction](week09/01-sql-intro.Rmd), [join and aggregation in SQL](week09/02-sql-join-and-aggregation.Rmd)
+
+
+##### Class
+
+- Code: [SQL exercises](03-sql-exercises.Rmd)
 
 ##### Required reading
 * Beaulieu. 2009. [_Learning SQL_](https://books.google.co.uk/books?hl=en&lr=&id=1PgCCVryjOQC&oi=fnd&pg=PR3&dq=learning+sql+alan&ots=X6M3Iaz1wO&sig=38Fp1kDlxM8TF7miw0K2CNcKib4#v=onepage&q=learning%20sql%20alan&f=false). O'Reilly. (Chapters 1, 3, 4, 5, 8)
@@ -308,18 +319,20 @@ This session will offer an introduction to relational databases: structure, logi
 ##### Recommended readings
 * Stephens et al. 2009. [_Teach yourself SQL in one hour a day_](https://books.google.co.uk/books?hl=en&lr=&id=9fDZ_rVoxx0C&oi=fnd&pg=PR5&dq=%22Sams+Teach+Yourself+SQL+in+24+Hours%22&ots=UkaClJDMem&sig=wgLy-DG3bc7g0LO0_Ojy5Cy2Ejs#v=onepage&q=%22Sams%20Teach%20Yourself%20SQL%20in%2024%20Hours%22&f=false). Sam's Publishing.
 
-##### Lab: SQL
-- Further analysis of public Facebook data in an SQLite database
 
 
 #### 10. NoSQL and online databases
 
 This week covers how to set up and use relational databases in the cloud and fundamentals of a document based NoSQL database.
 
-##### Resources
-- [Lecture slides](week10/my472-week10-nosql-and-cloud-db.pdf)
-- R examples: [Creating own databases in the cloud](week10/01-bigquery-create-own-databases.Rmd), [querying large cloud databases](week10/02-bigquery-examples.Rmd), [MongoDB](week10/03-mongodb-demo.Rmd)
+##### Lecture
 
+- [Slides](week10/my472-week10-nosql-and-cloud-db.pdf)
+- Code: [Creating own databases in the cloud](week10/01-bigquery-create-own-databases.Rmd), [querying large cloud databases](week10/02-bigquery-examples.Rmd), [MongoDB](week10/03-mongodb-demo.Rmd)
+
+##### Class
+
+- Code: [Exercises online databases](04-bigquery-exercises.Rmd), [further SQL exercises](05-further-sql-exercises.Rmd)
 
 ##### Required reading
 * Beaulieu. 2009. [_Learning SQL_](https://books.google.co.uk/books?hl=en&lr=&id=1PgCCVryjOQC&oi=fnd&pg=PR3&dq=learning+sql+alan&ots=X6M3Iaz1wO&sig=38Fp1kDlxM8TF7miw0K2CNcKib4#v=onepage&q=learning%20sql%20alan&f=false). O'Reilly. (Chapters 2)
@@ -329,23 +342,27 @@ This week covers how to set up and use relational databases in the cloud and fun
 ##### Recommended reading
 * [Analyzing Big Data in less time with Google BigQuery](https://www.youtube.com/watch?v=qqbYrQGSibQ) on YouTube
 
-##### Lab
-- SQL JOINs, subqueries, and BigQuery
 
 ##### Assignment 5: Databases
-- Link to GitHub Classroom available via Moodle on Wednesday, December 2
-- Deadline on Monday, December 14, 2pm
+- Link to GitHub Classroom available via Moodle on Wednesday, 2 December, 2pm
+- Deadline on Monday, 14 December, 2pm
 
 
 #### 11. Cloud computing
 
 In this week, we focus on the setup of computation environments on the Internet. We will introduce the cloud computing concepts and learn why the big shift to the cloud computing is occurring in the industry and how it is relevant to us as data scientists. We will then study cloud computing through an example of continuous scraping.
 
-##### Resources
-- [Lecture slides](week11/my472-week11-cloud.pdf)
+##### Lecture
+
+- [Slides](week11/my472-week11-cloud.pdf)
 - [Connecting to the instance with Windows via PuTTY](week11/manual-for-windows.pdf)
-- R examples: [Hello world](week11/hello_world.R), [continuous scraping within R only](week11/scraping_example_r_only.R), [installing R packages on the EC2 instance](week11/install_packages.R), [continuous scraping via a schedule](week11/scraping_example_to_schedule.R)
-- Optional example: [Using storage outside the EC2 instance](week11/using-s3-through-r.Rmd)
+- Code: [Hello world](week11/hello_world.R), [continuous scraping within R only](week11/scraping_example_r_only.R), [installing R packages on the EC2 instance](week11/install_packages.R), [continuous scraping via a schedule](week11/scraping_example_to_schedule.R)
+- Optional code: [Using storage outside the EC2 instance](week11/using-s3-through-r.Rmd)
+
+##### Class
+
+- Code: [Exercises in parallel computing](parallel-computing.Rmd)
+
 
 ##### Required reading
 * Rajaraman, V. 2014. "[Cloud Computing.](https://www.ias.ac.in/article/fulltext/reso/019/03/0242-0258)" Resonance 19(3): 242–58.
@@ -356,9 +373,7 @@ In this week, we focus on the setup of computation environments on the Internet.
 * Puparelia, Nayan. 2016. "Cloud Computing." MIT Press. Ch. 1-3.
 * Botta, Alessio, Walter De Donato, Valerio Persico, and Antonio Pescapé. 2016. "[Integration of Cloud Computing and Internet of Things: A Survey.](http://iranarze.ir/wp-content/uploads/2017/03/6229-English-IranArze.pdf)" Future Generation Computer Systems 56: 684–700.
 
-##### Lab: Working with AWS
-
 
 #### Take-home exam
 - Link to GitHub Classroom available via Moodle on ...
-- Deadline on Friday, January 15, 2pm
+- Deadline on Friday, 14 January, 2pm
