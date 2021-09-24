@@ -45,7 +45,7 @@ No lectures or classes will take place during (Reading) Week 6.
 | 5  | 26 Oct | [Working with APIs](#5-working-with-apis) |  
 | 6  |  2 Nov | _Reading week_ |  
 | 7  | 9 Nov | [Textual data](#7-textual-data) |  
-| 8  | 16 Nov | [Data visualization](#8-data-visualisation) |  
+| 8  | 16 Nov | [Data visualisation](#8-data-visualisation) |  
 | 9  | 23 Nov | [Creating and managing databases](#9-creating-and-managing-databases) |  
 | 10 |  30 Nov | [Interacting with online databases](#10-interacting-with-online-databases)|  
 | 11 | 7 Dec | [Cloud Computing](#11-cloud-computing) |  
@@ -58,7 +58,7 @@ This course will cover the principles of digital methods for collecting, process
 
 We begin by discussing concepts in fundamental data types, and how data is stored and recorded electronically. We continue with an introduction of R markdown and the reshaping of data in R. It follows a discussion of various common data types on the internet such as mark­up languages (e.g. HTML and XML) and JSON.  Students also study the fundamentals of acquisition and management of data from the internet through both scraping of websites and accessing APIs of online databases and social network services.
 
-After the reading week, we will learn how to work with unstructured data in the form of text. Afterwards we continue with an overview of the principles of exploratory data analysis through data visualization e.g. using R's ggplot2. Next, we will cover database design, especially relational databases, using examples across a variety of fields. Students are introduced to SQL through MySQL, and programming assignments in this unit of the course will be designed to ensure that students learn to create, populate and query an SQL database. We will then introduce NoSQL using MongoDB and the JSON data format for comparison. For both types of database, students will be encouraged to work with data relevant to their own interests as they learn to create, populate and query data. The course will be concluded with a discussion of cloud computing. Students will first learn the basics of cloud computing that can serve various purposes such data analysis and then how to set up a cloud computing environment through Amazon Web Services, a popular cloud platform.
+After the reading week, we will learn how to work with unstructured data in the form of text. Afterwards we continue with an overview of the principles of exploratory data analysis through data visualisation e.g. using R's ggplot2. Next, we will cover database design, especially relational databases, using examples across a variety of fields. Students are introduced to SQL through MySQL, and programming assignments in this unit of the course will be designed to ensure that students learn to create, populate and query an SQL database. We will then introduce NoSQL using MongoDB and the JSON data format for comparison. For both types of database, students will be encouraged to work with data relevant to their own interests as they learn to create, populate and query data. The course will be concluded with a discussion of cloud computing. Students will first learn the basics of cloud computing that can serve various purposes such data analysis and then how to set up a cloud computing environment through Amazon Web Services, a popular cloud platform.
 
 
 ### Assessment
