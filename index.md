@@ -41,7 +41,7 @@ No lectures or classes will take place during (Reading) Week 6.
 | 1  |  28 Sep | [Introduction to data](#1-introduction-to-data) |  
 | 2  |  5 Oct | [The shape of data](#2-the-shape-of-data) |  
 | 3  | 12 Oct | [HTML and CSS](#3-html-and-css) |
-| 4  | 19 Oct | [Using data from the Internet](#4-xml,-rss,-and-scraping-non-static-pages) |   
+| 4  | 19 Oct | [XML, RSS, and scraping non-static pages](#4-xml,-rss,-and-scraping-non-static-pages) |   
 | 5  | 26 Oct | [Working with APIs](#5-working-with-apis) |  
 | 6  |  2 Nov | _Reading week_ |  
 | 7  | 9 Nov | [Textual data](#7-textual-data) |  
