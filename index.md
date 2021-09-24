@@ -10,7 +10,7 @@ colorlinks: true
 
 ### Michaelmas Term 2021
 
-[Link to main course repo](https://github.com/lse-my472/lse-my472.github.io)
+[Main course repo](https://github.com/lse-my472/lse-my472.github.io)
 
 ### Prerequisites
 
