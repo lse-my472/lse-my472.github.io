@@ -26,7 +26,7 @@ Office hour slots to be booked via LSE's StudentHub
 ### Course information
 
 * Lectures are prerecorded and available via Moodle
-* Lecture discussions / Q&As: Tuesdays 11am–12pm and 3-4pm via Zoom (you only have to attend one)
+* Lecture discussions / Q&As: Tuesdays 9-10am and 3-4pm via Zoom (you only have to attend one)
 * Classes on:
     - Fridays 11am-12pm, KSW.1.01 and via Zoom
     - Fridays 4-5pm, NAB.2.04 and via Zoom

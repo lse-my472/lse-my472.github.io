@@ -1,10 +1,10 @@
 ---
 title: "A brief introduction to RStudio and RMarkdown"
 author: "Kenneth Benoit and Friedrich Geiecke"
-date: "28/09/2020"
+date: "27/09/2021"
 output:
-  html_document: default
   pdf_document: default
+  html_document: default
 ---
 
 Before we start our first guided coding session, let's become a bit more familiar with RStudio (which we will use to interact with R) and RMarkdown.
