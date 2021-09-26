@@ -103,7 +103,7 @@ This week will also introduce basic data types, in a language-agnostic manner, f
 ##### Lecture
 
 - [Slides](week01/MY472-week01-intro.pdf)
-- Code: [A plain R script](week01/00-standard-script.R), [a first R markdown example](https://github.com/lse-my472/lse-my472.github.io/blob/master/week01/01-RMarkdown.Rmd), and a recap on [vectors, lists, data frames](https://github.com/lse-my472/lse-my472.github.io/blob/master/week01/02-intro-to-R.Rmd)
+- Code: [A plain R script](week01/00-standard-script.R), [a first R markdown example](week01/01-RMarkdown.Rmd), and a recap on [vectors, lists, data frames](week01/02-intro-to-R.Rmd)
 
 ##### Class
 
