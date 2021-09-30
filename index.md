@@ -40,17 +40,17 @@ No lectures or classes will take place during (Reading) Week 6.
 
 | Week | Date |  Topic |  
 |:--:|-------:|:------|  
-| 1  |  28 Sep | [Introduction to data](#1-introduction-to-data) |  
-| 2  |  5 Oct | [The shape of data](#2-the-shape-of-data) |  
-| 3  | 12 Oct | [HTML and CSS](#3-html-and-css) |
-| 4  | 19 Oct | [XML, RSS, and scraping non-static pages](#4-xml,-rss,-and-scraping-non-static-pages) |   
-| 5  | 26 Oct | [Working with APIs](#5-working-with-apis) |  
-| 6  |  2 Nov | _Reading week_ |  
-| 7  | 9 Nov | [Textual data](#7-textual-data) |  
-| 8  | 16 Nov | [Data visualisation](#8-data-visualisation) |  
-| 9  | 23 Nov | [Creating and managing databases](#9-creating-and-managing-databases) |  
-| 10 |  30 Nov | [Interacting with online databases](#10-interacting-with-online-databases)|  
-| 11 | 7 Dec | [Cloud Computing](#11-cloud-computing) |  
+| 1  |  27 Sep | [Introduction to data](#1-introduction-to-data) |  
+| 2  |  4 Oct | [The shape of data](#2-the-shape-of-data) |  
+| 3  | 11 Oct | [HTML and CSS](#3-html-and-css) |
+| 4  | 18 Oct | [XML, RSS, and scraping non-static pages](#4-xml,-rss,-and-scraping-non-static-pages) |   
+| 5  | 25 Oct | [Working with APIs](#5-working-with-apis) |  
+| 6  |  1 Nov | _Reading week_ |  
+| 7  | 8 Nov | [Textual data](#7-textual-data) |  
+| 8  | 15 Nov | [Data visualisation](#8-data-visualisation) |  
+| 9  | 22 Nov | [Creating and managing databases](#9-creating-and-managing-databases) |  
+| 10 |  29 Nov | [Interacting with online databases](#10-interacting-with-online-databases)|  
+| 11 | 6 Dec | [Cloud Computing](#11-cloud-computing) |  
 
 
 
@@ -71,9 +71,7 @@ Students will be expected to produce five weekly, structured problem sets with a
 
 #### Summative assignments
 
-Take home exam (50%) and in class assessment (50%).
-
-Student problem sets will be marked and will provide 50% of the mark.
+Five term time assignment (50%) and one final assignment (50%).
 
 #### Assessment criteria
 
@@ -133,11 +131,11 @@ This week moves beyond the rectangular format common in statistical datasets, mo
 ##### Lecture
 
 - [Lecture slides](week02/MY472-week02-shape.pdf)
-- Code: [Conditionals, loops, and functions](week02/01-conditionals-loops-functions.Rmd), [introduction to key dplyr functions](week02/02-processing-data.Rmd), [industrial production dataset](week02/ip.csv), and [industrial production and unemployment dataset](week02/ip_and_unemployment.csv)
+- Code: [Conditionals, loops, and functions](week02/01-conditionals-loops-functions.Rmd), [data processing in R](week02/02-processing-data.Rmd), [industrial production dataset](week02/ip.csv), and [industrial production and unemployment dataset](week02/ip_and_unemployment.csv)
 
 ##### Class
 
-- Code: [Dplyr review](week02/03-seminar-exercise.Rmd)
+- Code: [Dplyr examples](week02/03-seminar-exercise.Rmd)
 
 
 ##### Required reading
