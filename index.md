@@ -93,9 +93,7 @@ Some of the assignemnts will involve shorter questions, to which the answers can
 
 #### 1. Introduction to data
 
-In the first week, we will introduce the basic concepts of the course, including how data is recorded, stored, and shared. Because the course relies fundamentally on GitHub, a collaborative code and data sharing platform, we will introduce the use of git and GitHub, using the lab session to guide students through in setting up an account and subscribing to the course organisation and assignments.
-
-This week will also introduce basic data types, in a language-agnostic manner, from the perspective of machine implementations through to high-level programming languages. We will then focus on how basic data types are implemented in R.
+In the first week, we will introduce some basic concepts of how data is recorded and stored, and we will also review R fundamentals. Because the course relies fundamentally on GitHub, a collaborative code and data sharing platform, we will also discuss the use of git and GitHub.
 
 
 ##### Lecture
@@ -126,7 +124,7 @@ A step-by-step beginner's guide to creating a personal website and blog using Je
 
 #### 2. The shape of data
 
-This week moves beyond the rectangular format common in statistical datasets, modeled on a spreadsheet, to cover relational structures and the concept of database normalization. We will also cover ways to restructure data from "wide" to "long" format, within strictly rectangular data structures.  Additional topics concerning text encoding, date formats, and sparse matrix formats are also covered.
+This week discusses data processing and manipulation in R using functions from the `tidyverse` after some further review of R fundamentals.
 
 ##### Lecture
 
@@ -151,7 +149,7 @@ This week moves beyond the rectangular format common in statistical datasets, mo
 
 #### 3. HTML and CSS
 
-From week 3 to week 5, we will learn how to get the data from the internet. This week we cover basic web scraping to turn web data into text or numbers.  We will also cover the client-server model, and how machines and humans transmit data over networks and to and from databases.
+From week 3 to week 5, we will learn how to get the data from the internet. This week we cover basic web scraping to turn web data into text or numbers.  We will also cover the client-server model.
 
 ##### Lecture
 
@@ -212,7 +210,7 @@ Continuing from the material covered in Week 3, we will learn the advanced topic
 
 #### 5. Working with APIs
 
-How to work with Application Programming Interfaces (APIs), which offer developers and researchers access to data in a structured format. Our running examples will be the New York Times API and the Twitter API.
+This week discusses how to work with Application Programming Interfaces (APIs) that offer developers and researchers access to data in a structured format. Our running examples will be the New York Times API and the Twitter API.
 
 ##### Lecture
 
@@ -301,7 +299,7 @@ shapes public opinion"](https://journals.sagepub.com/doi/abs/10.1177/20531680156
 
 #### 9. Creating and managing databases
 
-This session will offer an introduction to relational databases: structure, logic, and main types. We will learn how to write SQL code, a language designed to query this type of databases that is currently employed by most tech companies; and how to use it from R using the DBI package.
+This session will offer an introduction to relational databases: structure, logic, and main types. We will learn how to write SQL code, a language designed to query this type of databases that is currently employed by many companies; and how to use it from R using the DBI package.
 
 ##### Lecture
 
@@ -350,7 +348,7 @@ This week covers how to set up and use relational databases in the cloud and fun
 
 #### 11. Cloud computing
 
-In this week, we focus on the setup of computation environments on the Internet. We will introduce the cloud computing concepts and learn why the big shift to the cloud computing is occurring in the industry and how it is relevant to us as data scientists. We will then study cloud computing through an example of continuous scraping.
+In this week, we focus on the setup of computation environments on the Internet. We will introduce the cloud computing concepts and learn why the big shift to the cloud computing is occurring in the industry and how it is relevant to data scientists. We will then set up different instances in the cloud and study cloud computing through an example of continuous scraping.
 
 ##### Lecture
 
