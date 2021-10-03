@@ -1,7 +1,7 @@
 ---
 title: "Data processing in R with the tidyverse"
 author: "Friedrich Geiecke"
-date: "05/10/2020"
+date: "04/10/2021"
 output: html_document
 ---
 
@@ -16,7 +16,7 @@ library(tidyverse)
 
 ### Data
 
-We will analyze some macroeconomic time series from the US and Europe during the Corona crisis. The data has been downloaded from FRED which is hosted by the Federal Reserve Bank of St. Louis. It contains the years 2019 (as a reference) and 2020. Full series can be found at https://fred.stlouisfed.org/ under the following names:
+We will analyse some macroeconomic time series from the US and Europe during the first wave of the Corona crisis. The data has been downloaded in early October 2020 from FRED which is hosted by the Federal Reserve Bank of St. Louis. It contains data for 2019 (as a reference year) and 2020 up to varying points, because at the time of the download different series had been published up to different months. Full series can be found at https://fred.stlouisfed.org/ under the following names:
 
 __Industrial production__
 
@@ -35,6 +35,8 @@ __Unemployment rate__
 - France: LRHUTTTTFRM156S
 - Spain: LRHUTTTTESM156S
 - Italy: LRHUTTTTITM156S
+
+If you download the data again for newer time periods, note that past macroeconomic data are continuously revised. Thus, also for 2019 and 2020 the values might be slightly different now.
 
 ### Loading data
 
@@ -106,7 +108,7 @@ exemplary_vector %>%
   mean()
 ```
 
-We could have achieved the same with "mean(exemplary_vector[exemplary_vector<0])" or with nested calls of functions such as "mean(return_negative_elements(exemplary_vector))", but using chains of pipe operators is very readable. This becomes particularly helpful when analyzing datasets later.
+We could have achieved the same with "mean(exemplary_vector[exemplary_vector<0])" or with nested calls of functions such as "mean(return_negative_elements(exemplary_vector))", but using chains of pipe operators is very readable. This becomes particularly helpful when analysing datasets later.
 
 ### Pivoting into a longer form
 
