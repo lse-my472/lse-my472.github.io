@@ -211,10 +211,13 @@ ip_and_unemployment_wide %>%
 In some cases we might want to add transformations of variables or features to the data frame. This can be done with the command "mutate()". For example, we might be interested in the percentage change of US unemployment, not just its level.
 
 ```{r}
-ip_and_unemployment_wide <- ip_and_unemployment_wide %>%
-  mutate(unemployment_percentage_change = (unemployment/lag(unemployment) - 1) * 100)
+ip_and_unemployment_wide <- ip_and_unemployment_wide %>% group_by(country) %>% 
+  mutate(unemployment_percentage_change = (unemployment/lag(unemployment) - 1) * 100) %>% 
+  ungroup()
 ip_and_unemployment_wide
 ```
+Note: The group_by argument here is key to ensure that the percentage change in the first period for each country is NA as it does not exist. Without group_by, Germany's first percentage change would be wrongly computed with France's last value.
+
 When using such an approach with lag() or lead(), it is key that the observations in the dataset are sorted chronologically. In the datasets here, this should already be given, however, you might frequently encounter datasets where it is not the case. In such datasets (and in fact generally) it is key to transform date variables from characters into proper date formats which can be used in operations such as sorting. This is left as an exercise here, for a discussion see https://r4ds.had.co.nz/dates-and-times.html. Dates can then e.g. be sorted like other values with the function "arrange()".
 
 #### Summary statistics
