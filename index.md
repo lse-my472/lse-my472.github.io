@@ -67,7 +67,7 @@ After the reading week, we will learn how to work with unstructured data in the 
 
 #### Formative coursework
 
-Students will be expected to produce five weekly, structured problem sets with a beginning component to be started in the staff-led lab sessions, to be completed by the student outside of class. Answers should be formatted and submitted for assessment. One or more of these problem sets will be completed in collaboration with other students.
+Students will be expected to produce five weekly, structured problem sets with a beginning component to be started in the staff-led lab sessions, to be completed by the student outside of class. These problem sets do not require submission and are not marked, but model solutions will be provided after class. One or more of these problem sets will be completed in collaboration with other students.
 
 #### Summative assignments
 
