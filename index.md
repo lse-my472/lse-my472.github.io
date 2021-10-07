@@ -232,8 +232,8 @@ This week discusses how to work with Application Programming Interfaces (APIs) t
 - Interacting with the Twitter Streaming API
 
 ##### Assignment 3: APIs
-- Link to GitHub Classroom available via Moodle on Tuesday, 27 October, 2pm
-- Deadline on Saturday, 14 November, 2pm
+- Link to GitHub Classroom available via Moodle on Monday, 25 October, 2pm
+- Deadline on Friday, 12 November, 2pm
 
 
 #### 6. Reading week
@@ -293,8 +293,8 @@ shapes public opinion"](https://journals.sagepub.com/doi/abs/10.1177/20531680156
 
 
 ##### Assignment 4: Data visualization
-- Link to GitHub Classroom available via Moodle on Wednesday, 18 November, 2pm
-- Deadline on Monday, 30 November, 2pm
+- Link to GitHub Classroom available via Moodle on Monday, 15 November, 2pm
+- Deadline on Friday, 26 November, 2pm
 
 
 #### 9. Creating and managing databases
@@ -342,8 +342,8 @@ This week covers how to set up and use relational databases in the cloud and fun
 
 
 ##### Assignment 5: Databases
-- Link to GitHub Classroom available via Moodle on Wednesday, 2 December, 2pm
-- Deadline on Monday, 14 December, 2pm
+- Link to GitHub Classroom available via Moodle on Monday, 29 November, 2pm
+- Deadline on Friday, 10 December, 2pm
 
 
 #### 11. Cloud computing
