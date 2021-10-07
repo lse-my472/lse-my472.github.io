@@ -13,7 +13,7 @@ suppressMessages(library(_________))
 # or just library(____________)
 
 # read ip_and_unemployment.csv
-ip_and_unemployment <- ________________
+ip_and_unemployment <- _________________
 head(______)
 
 ```
