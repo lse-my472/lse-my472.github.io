@@ -18,7 +18,7 @@ library("tidyverse")
 Launching the driver and browser:
 
 ```{r}
-rD<- rsDriver(browser=c("firefox"))
+rD<- rsDriver(browser=c("firefox"), port = 4445L)
 driver <- rD$client
 ```
 

@@ -5,6 +5,8 @@ date: "19/10/2020"
 output: html_document
 ---
 
+For RSelenium to work, you need the Java SDK installed. You can download the current version from here: https://www.oracle.com/java/technologies/downloads/
+
 Loading the Selenium package:
 
 ```{r}

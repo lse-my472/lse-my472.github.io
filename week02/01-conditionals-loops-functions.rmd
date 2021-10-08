@@ -156,7 +156,6 @@ class(grades)
 # We can combine these into a joint data frame
 grades <- do.call(rbind, grades)
 grades
-
 ```
 
 ### Functions

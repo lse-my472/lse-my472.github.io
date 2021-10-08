@@ -1,7 +1,7 @@
 ---
 title: "01-selecting-elements"
 author: "Friedrich Geiecke"
-date: "12/10/2020"
+date: "11/10/2021"
 output: html_document
 ---
 
@@ -79,6 +79,6 @@ Lastly, when inspecting an element and copying the CSS selector in your browser,
 Scraping with this CSS selector yields the correct element from our website:
 
 ```{r}
-relevant_nodes <- html_nodes(html, css = ".division-two > p:nth-child(2)")
+relevant_nodes <- html_nodes(html, css = "tba")
 html_text(relevant_nodes[[1]])
 ```
