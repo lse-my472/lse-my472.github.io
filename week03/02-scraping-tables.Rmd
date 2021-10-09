@@ -108,7 +108,7 @@ Now that we know what we're looking for, let's use `html_nodes()` to identify al
 
 
 ```{r}
-tables_raw <- html_nodes(html, css = "table.wikitable:nth-child(20)")
+tables_raw <- html_nodes(html, css = "tba")
 length(tables_raw)
 ```
 
