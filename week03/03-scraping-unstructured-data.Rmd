@@ -95,7 +95,7 @@ scrape_bribe <- function(url){
     as.numeric()
   
   # 3. Take the html and get the transaction text
-  transaction <- html_nodes(c_html, "______________") %>% 
+  transaction <- html_nodes(c_html, "_______________") %>% 
     html_text
   
   # 4. Take the html and get the department text
