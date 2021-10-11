@@ -59,7 +59,7 @@ Small note on `stri_replace()`: `first` means to look for the first occurrence, 
 Let's do another one: transactions during which the bribe occurred:
 
 ```{r}
-transaction <- html_nodes(bribe_html, "_________________") %>% 
+transaction <- html_nodes(bribe_html, "________________") %>% 
   html_text
 
 transaction
