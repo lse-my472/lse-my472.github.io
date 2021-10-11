@@ -197,7 +197,7 @@ get_results_by_const <- function(const_name, sec = 4){
 
 ```
 
-Second, we need constituency names. We can get them from wikipedia!
+Second, we need constituency names. We can get them from Wikipedia!
 
 ```{r}
 
