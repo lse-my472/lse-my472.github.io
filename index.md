@@ -154,7 +154,7 @@ From week 3 to week 5, we will learn how to get the data from the internet. This
 ##### Lecture
 
 - [Slides](week03/MY472-week03-HTML-CSS.pdf)
-- Code: [Website example](website_5.html), [selecting elements](week03/01-selecting-elements.Rmd), [scraping tables](week03/02-scraping-tables.Rmd)
+- Code: [Website example](week03/website_5.html), [selecting elements](week03/01-selecting-elements.Rmd), [scraping tables](week03/02-scraping-tables.Rmd)
 
 
 ##### Class
