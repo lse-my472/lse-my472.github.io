@@ -1,9 +1,11 @@
 ---
 title: "Using Selenium to scrape programmes from the LSE website"
 author: "Friedrich Geiecke"
-date: "19/10/2020"
+date: "18/10/2021"
 output: html_document
 ---
+
+Note: For `RSelenium` to run, one usually needs Java DK. Should `RSelenium` not work properly after installing it with `install.packages("RSelenium")`, try to install Java DK. You can download the current version from here: https://www.oracle.com/java/technologies/downloads/
 
 The LSE website has as section where the user can enter a search term and a list of programmes is displayed potentially on several pages which are related to this term. This R markdown file develops a way to enter a search term, navigate through the resulting pages, and scrape all programmes/courses. The focus is thereby not to use the most efficient way to obtain this information, but rather to illustrate some key functionalities of Selenium when scraping complex web forms.
 
@@ -15,7 +17,7 @@ library("RSelenium")
 library("tidyverse")
 ```
 
-Launching the driver and browser:
+Launching the driver and browser (if the port is already in use, choose a different number with four digits, e.g. `rsDriver(browser=c("firefox"), port = 1234L)`:
 
 ```{r}
 rD<- rsDriver(browser=c("firefox"))
@@ -37,7 +39,7 @@ First, let us create a list with the main XPath and class selectors which we use
 selector_list <- list()
 
 # XPaths
-selector_list$search_box <- '//*[@id="coursesSearch"]'
+selector_list$search_box <- '//*[@id="coursesSearch"]' # single quotation marks because XPath contains quotation marks
 selector_list$go_button <- "/html/body/form/main/div/div/div/div[1]/div/div[1]/input[3]"
 selector_list$results_progress_box <- "/html/body/form/main/div/div/div/div[2]/div[2]/p"
 
@@ -54,7 +56,7 @@ results_progress_text <- results_progress$getElementText()[[1]]
 results_progress_text
 ```
 
-Let us split this string into the following three pieces of information: 1. First result on this page (here: 1), 2. last result this page (here: 10), and the total amount of results (here: 612).
+Let us split this string into the following three pieces of information: 1. First result on this page (here: 1), 2. last result this page (here: 10), and the total amount of results (here: 607).
 
 ```{r}
 # Split the string in words

@@ -1,11 +1,11 @@
 ---
 title: "A first script using Selenium"
 author: "Friedrich Geiecke"
-date: "19/10/2020"
+date: "18/10/2021"
 output: html_document
 ---
 
-For RSelenium to work, you need the Java SDK installed. You can download the current version from here: https://www.oracle.com/java/technologies/downloads/
+Note: For `RSelenium` to run, one usually needs Java DK. Should `RSelenium` not work properly after installing it with `install.packages("RSelenium")`, try to install Java DK. You can download the current version from here: https://www.oracle.com/java/technologies/downloads/
 
 Loading the Selenium package:
 
@@ -14,7 +14,7 @@ Loading the Selenium package:
 library("RSelenium")
 ```
 
-Launching the driver and browser:
+Launching the driver and browser (if the port is already in use, choose a different number with four digits, e.g. `rsDriver(browser=c("firefox"), port = 1234L)`:
 
 ```{r}
 rD<- rsDriver(browser=c("firefox"))
@@ -28,15 +28,19 @@ url <- "https://www.google.com/"
 driver$navigate(url)
 ```
 
-Now we actually face a somewhat advanced problem. Since recently there can be new privacy terms that have to be accepted once. As the the window is actually in the foreground, we first have to switch the frame. Without this switching of the frame, we would not be able to click on the right element. In case such as window shows up, we therefore have to run the following code block first (otherwise this block can be skipped). As an exercise, the XPaths of the relevant elements have to be obtained with the Inspect Element function of the browser and then be pasted into this code replacing the "tba".
+Since recently there can be new privacy terms that have to be accepted once in some regions.
+
+Side note: Some such cases with pop-up windows on websites might require frame switching (although it seems that the 2021 version of Google does not require this at the moment). Should the code below not run on your computer after you have entered the correct XPath, try to uncomment the `swithToFrame` functions. As the the window is in the foreground, it can be that we have to switch the frame. Without this switching of the frame, we might not be able to click on the right element. Whether switching the frame is necessary depends on the design of the underlying website which can change.
+
+As an exercise, the XPaths of the relevant elements have to be obtained with the Inspect function of the browser and then be pasted into this code replacing the "tba".
 
 ```{r}
-driver$switchToFrame(0)
+#driver$switchToFrame(0) # can be un-commented and tried if code does not run
 
 agree_button <- driver$findElement(using = "xpath", value = "tba")
 agree_button$clickElement()
 
-driver$switchToFrame(1)
+#driver$switchToFrame(1)
 ```
 
 Next, we will search for the LSE:
