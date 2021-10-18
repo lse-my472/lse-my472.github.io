@@ -1,6 +1,6 @@
 ---
 title: "Scraping web data behind web forms"
-author: "Pablo Barbera, Friedrich Geiecke, and Martin Lukac"
+author: "Pablo Barbera, Friedrich Geiecke, Martin Lukac, and Patrick Gildersleve"
 date: "22 October 2020"
 output: html_document
 ---
@@ -205,8 +205,9 @@ url_const <- "https://en.wikipedia.org/wiki/United_Kingdom_Parliament_constituen
 
 const <- read_html(url_const) %>%
   html_table(fill = TRUE) %>%
-  .[[3]] %>%
-  select(Constituency)
+  .[[4]] %>%
+  select(Constituency) %>%
+  .[[1]]
 
 ```
 
@@ -214,7 +215,7 @@ Finally, we feed the constituency names to the `get_results_by_const()` function
 
 Let's just get first ten of them:
 ```{r}
-data_all <- lapply(const[1:10, ], get_results_by_const) %>% 
+data_all <- lapply(const[1:10], get_results_by_const) %>% 
   bind_rows()
 
 head(data_all)
