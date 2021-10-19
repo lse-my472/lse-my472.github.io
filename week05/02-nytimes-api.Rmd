@@ -1,10 +1,11 @@
 ---
 title: "New York Times API"
-author: "Pablo Barbera, Ken Benoit, Friedrich Geiecke"
-date: "26/10/2020"
+author: "Pablo Barbera and Friedrich Geiecke"
+date: "25/10/2021"
 output: html_document
 ---
 
+Note: The precise numbers of articles returned by the different queries can change somewhat over time as it appears the data in the Archive is still subject to revisions.
 
 ### Article Search API
 
@@ -19,7 +20,7 @@ library("tidyverse")
 To understand how APIs work, we will take the New York Times Article Search API as an example. This API allows users to search articles by string and dates, and returns counts of articles and a short description of each article (but not the full text). You can create a new account and obtain a key [here](https://developer.nytimes.com/get-started). Afterwards, paste your key here:
 
 ```{r, eval = FALSE}
-apikey <- "yourkeyhere"
+apikey <- "r8qoNqHOeA53AHsEGWTKiW5y0JSUtuc7"
 ```
 
 The fist step is to identify the base URL of the endpoint and the parameters that we can use to query the API, for the Article Search API you can find this URL structure [here](https://developer.nytimes.com/docs/articlesearch-product/1/overview). Now we can do a first API call using the **httr** package.
@@ -35,14 +36,14 @@ From the output of the response object which we named `r`, we can see that the q
 There are different options how to proceed with this output using the `content` function. We can look at its text (note that as JSON uses a lot of quotation marks, R signals with a forward slash for each of them that they are not the outer quotation marks of the main character/string in R):
 
 ```{r, eval = FALSE}
-substr(content(r, "text"), 1, 1000)
+substr(content(r, "text", encoding = "UTF-8"), 1, 1000)
 ```
 
 We can also write it to disk as a JSON file:
 
 ```{r}
 file_con <- file("nyt.json")
-writeLines(content(r, "text"), con = file_con)
+writeLines(content(r, "text", encoding = "UTF-8"), con = file_con)
 close(file_con)
 ```
 
@@ -135,7 +136,7 @@ nyt_years_count <- function(q, yearinit, yearend) {
 ```
 
 ```{r, error = TRUE}
-# Let us see what happens...
+# Let us see what happens
 nyt_years_count(q = "inequality", yearinit = 2019, yearend = 2020)
 ```
 
