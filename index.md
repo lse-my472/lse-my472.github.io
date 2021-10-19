@@ -228,11 +228,8 @@ This week discusses how to work with Application Programming Interfaces (APIs) t
 ##### Recommended reading
 * Ruths and Pfeffer. 2014. [_Social media for large studies of behavior_](http://science.sciencemag.org/content/346/6213/1063.full). Science.
 
-##### Lab: APIs
-- Interacting with the Twitter Streaming API
-
 ##### Assignment 3: APIs
-- Link to GitHub Classroom available via Moodle on Monday, 25 October, 2pm
+- Link to GitHub Classroom available via Moodle on Monday, 1 November, 2pm
 - Deadline on Friday, 12 November, 2pm
 
 
