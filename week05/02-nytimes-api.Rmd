@@ -151,7 +151,7 @@ plot(1970:2020, counts_inequality, type = "l", main = "Mentions of inequality in
      ylab = "Article count", xlab = "")
 ```
 
-Note: This output will be somewhat biased by changes in the amount of (print) content. To be more precise, we should divide the time series by the total counts of articles. 
+Note: This output will be somewhat biased by changes in the amount of (print) content. To be more precise, we should divide the time series by the different totals of articles at every point of time. 
 
 Let us try to improve rewrite the function such that it works with any date interval, not just years and such that it returns a dataframe:
 
