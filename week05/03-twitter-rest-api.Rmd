@@ -26,7 +26,7 @@ authentication <- list(consumer_key = "CONSUMER_KEY",
 
 A more convenient approach, which importantly does not depict your individual tokens, can be to store this list once after you have pasted your keys and then to reload it when running some code. Store the list once with:
 
-```{t}
+```{r}
 save(authentication, file = "myauthentication.rda")
 ```
 
