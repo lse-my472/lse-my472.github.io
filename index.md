@@ -28,10 +28,10 @@ Office hour slots to be booked via LSE's StudentHub
 * Lectures are prerecorded and available via Moodle
 * Lecture discussions / Q&As (you only have to attend one):
     - Tuesdays 9-10am via Zoom
-    - Tuesdays 3-4pm via Zoom
+    - Tuesdays 3-4pm, OLD.4.10
 * Classes on:
-    - Fridays 11am-12pm, KSW.1.01 and via Zoom
-    - Fridays 4-5pm, NAB.2.04 and via Zoom
+    - Fridays 11am-12pm, KSW.1.01
+    - Fridays 4-5pm, NAB.2.04
 
 No lectures or classes will take place during (Reading) Week 6.
 
