@@ -1,6 +1,6 @@
 ---
 title: "Anscombe's quartet"
-date: "16/11/2020"
+date: "15/11/2021"
 output: github_document
 ---
 
