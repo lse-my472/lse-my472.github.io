@@ -10,6 +10,12 @@ output: html_document
 
 1.1 The file uol.txt contains a list of the 17 member institutions of the University of London. In your text editor, write down a regular expression which finds all postcodes. Note that in some of the postcodes there are white spaces between the two parts and in others not. Your regular expression has to work with both.
 
+#follows the pattern
+#[A-Z]{1,2}[0-9]{1,2}[A-Z]{0,1} {0,1}[0-9][A-Z]{2}
+#match a-z, either one or two letters, numbers 0-9 (either 1 or 2), the space as well is either zero or 1
+
+
+
 
 
 1.2 Next, let us try to mute/delete the second part of each postcode. Add a capturing group to your regular expression with which you can address only the first part, i.e. the first 2-4 characters of the postcodes. Then use find & replace in your text editor and replace all postcodes with only the information stored in capturing group 1. This deletes the second part of each postcode.
