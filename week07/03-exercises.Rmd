@@ -26,6 +26,7 @@ Let us assume for a moment that we only have three features/words in a dfm. Then
 
 ```{r}
 library("quanteda")
+library("quanteda.textstats")
 library("tidyverse")
 ```
 
