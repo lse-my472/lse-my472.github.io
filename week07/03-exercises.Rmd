@@ -15,10 +15,30 @@ output: html_document
 #match a-z, either one or two letters, numbers 0-9 (either 1 or 2), the space as well is either zero or 1
 
 
+```{r}
+#follows the pattern
+#[A-Z]{1,2}[0-9]{1,2}[A-Z]{0,1} {0,1}[0-9][A-Z]{2}
+#match a-z, either one or two letters, numbers 0-9 (either 1 or 2), the space as well is either zero or 1
 
+#another example-- double back slashed in \, need to change in atom
+#([A-Z]{1,2}\\d{1,2})
+```
 
 
 1.2 Next, let us try to mute/delete the second part of each postcode. Add a capturing group to your regular expression with which you can address only the first part, i.e. the first 2-4 characters of the postcodes. Then use find & replace in your text editor and replace all postcodes with only the information stored in capturing group 1. This deletes the second part of each postcode.
+
+
+
+```{r}
+#follows the pattern
+#second half of group [0-9][A-Z]{2}
+#to replace:
+
+str_replace_all([0-9][A-Z]{2})
+
+
+```
+
 
 
 
@@ -38,12 +58,14 @@ library("tidyverse")
 ```{r}
 dfm <- data_char_ukimmig2010 %>%                        # 1. study the data
   corpus() %>% 
-  tokens(___________ = TRUE, ___________ = TRUE) %>%    # 2. remove punctuation and numbers
-  tokens_remove(___________) %>%                        # 3. remove stopwords (English)
-  ___________() %>%                                     # 4. stem the tokens
+  tokens(remove_punct = TRUE, remove_numbers = TRUE) %>%    # 2. remove punctuation and numbers
+  tokens_remove(stopwords("en")) %>%                        # 3. remove stopwords (English)
+  tokens_wordstem() %>%                                     # 4. stem the tokens
   dfm() %>%
-  dfm_trim(___________)                                 # 5. minimum word frequency = 2
+  dfm_trim(min_termfreq = 2)                                 # 5. minimum word frequency = 2
 dfm
+
+#tokens- removing "ing"
 ```
 
 
