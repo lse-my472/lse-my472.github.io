@@ -1,7 +1,7 @@
 ---
 title: "Class exercise in visualisation"
 author: "Pablo Barberá and Friedrich Geiecke"
-date: "15/11/2021"
+date: "19/11/2020"
 output: html_document
 ---
 
@@ -42,15 +42,19 @@ Your code here:
 ```{r}
 
 # Transform date column to datetime (lubridate package!)
-
-
+unemp$date <- as_date(unemp$date)
 
 # Create a line-plot with unemployment and date
+p <- ggplot(unemp, aes(x = date, y = unemp)) + geom_line()
 
-
+p
 
 # Fix axes and add colored rectangles
+p + scale_x_date(limits= xrange, expand = c(0,0))
 
+p + geom_line() + scale_x_date(date_breaks = "20 years")
+
+p +  geom_rect(data=pres, aes(ymin=0, ymax=0.12, )
 
 
 # Adding president names
