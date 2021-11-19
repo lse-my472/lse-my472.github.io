@@ -1,7 +1,7 @@
 ---
 title: "Exercises in textual analysis"
 author: "Friedrich Geiecke"
-date: "11/11/2020"
+date: "08/11/2021"
 output: html_document
 ---
 
@@ -52,6 +52,7 @@ Let us assume for a moment that we only have three features/words in a dfm. Then
 
 ```{r}
 library("quanteda")
+library("quanteda.textstats")
 library("tidyverse")
 ```
 

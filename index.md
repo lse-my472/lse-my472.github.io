@@ -20,7 +20,7 @@ All students are required to complete the preparatory course 'R Advanced for Met
 
 Office hour slots to be booked via LSE's StudentHub
 
-* [Friedrich Geiecke](f.c.geiecke@lse.ac.uk), Department of Methodology.  *Office hours*: Tuesdays 4-6pm
+* [Friedrich Geiecke](f.c.geiecke@lse.ac.uk), Department of Methodology.  *Office hours*: Tuesdays 4.15-6.15pm
 * [Patrick Gildersleve](p.gildersleve@lse.ac.uk), Department of Methodology.  *Office hours*: Tuesdays 2-3pm and Fridays 3-4pm
 
 ### Course information
@@ -28,10 +28,10 @@ Office hour slots to be booked via LSE's StudentHub
 * Lectures are prerecorded and available via Moodle
 * Lecture discussions / Q&As (you only have to attend one):
     - Tuesdays 9-10am via Zoom
-    - Tuesdays 3-4pm via Zoom
+    - Tuesdays 3-4pm, OLD.4.10
 * Classes on:
-    - Fridays 11am-12pm, KSW.1.01 and via Zoom
-    - Fridays 4-5pm, NAB.2.04 and via Zoom
+    - Fridays 11am-12pm, KSW.1.01
+    - Fridays 4-5pm, NAB.2.04
 
 No lectures or classes will take place during (Reading) Week 6.
 
@@ -228,11 +228,8 @@ This week discusses how to work with Application Programming Interfaces (APIs) t
 ##### Recommended reading
 * Ruths and Pfeffer. 2014. [_Social media for large studies of behavior_](http://science.sciencemag.org/content/346/6213/1063.full). Science.
 
-##### Lab: APIs
-- Interacting with the Twitter Streaming API
-
 ##### Assignment 3: APIs
-- Link to GitHub Classroom available via Moodle on Monday, 25 October, 2pm
+- Link to GitHub Classroom available via Moodle on Monday, 1 November, 2pm
 - Deadline on Friday, 12 November, 2pm
 
 

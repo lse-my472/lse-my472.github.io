@@ -1,7 +1,7 @@
 ---
 title: "Creating and querying an SQLite database"
 author: "Pablo Barbera"
-date: "23 November 2020"
+date: "22 November 2021"
 output: html_document
 ---
 
@@ -12,6 +12,7 @@ For this first part of the class, we will be working with a SQLite database, whi
 We will start by connecting to the database, creating an .sqlite file, and adding the first table, with information at the level of member of congress. 
 
 ```{r}
+#install.packages(c("DBI", "RSQLite"))
 library(DBI)
 ```
 

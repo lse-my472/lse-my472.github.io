@@ -57,10 +57,7 @@ driver$switchToFrame(1)
 # We need to click on "Yes, I'm happy" button:
 # 1. Use a command to locate the button on the page
 accept_button <- driver$findElement(using = "xpath", 
-                                    value = "/html/body/div/div[2]/div[3]/div/div/button[1]")
-
-
-
+                                    value = "/html/body/div/div[2]/div[3]/div/div/button[1]"
 # 2. Click on the button:
 accept_button$clickElement()
 

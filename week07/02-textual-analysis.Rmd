@@ -1,7 +1,7 @@
 ---
 title: "Introductory quantitative textual analysis"
 author: "Friedrich Geiecke"
-date: "09/11/2020"
+date: "08/11/2021"
 output: html_document
 ---
 
@@ -9,6 +9,7 @@ Loading packages:
 
 ```{r}
 library("quanteda")
+library("quanteda.textplots")
 library("tidyverse")
 ```
 
@@ -64,7 +65,9 @@ dfmplain <- dfm(data_corpus_inaugural)
 dfmplain
 ```
 
-When building such a dfm, however, we might e.g. want to avoid counts of punctuation characters. For this we make the tokenization step explicit which allows us to specify certain options, here to remove punctuation:
+Note: There might be some slight variation in the features before and after removing punctuation for different `quanteda` versions.
+
+When building such a dfm, however, we might e.g. want to avoid counts of punctuation characters. For this we should make the tokenisation step explicit which allows us to specify certain options, here to remove punctuation (in fact the `dfm()` function without a token step will be deprecated):
 
 ```{r}
 dfmplain <- data_corpus_inaugural %>%
@@ -72,6 +75,7 @@ dfmplain <- data_corpus_inaugural %>%
     dfm()
 dfmplain
 ```
+
 
 We can now apply dictionary methods to these data. For this we first create a dictionary object from a simple named list. Note that this list could also e.g. contain two character vectors for words associated with positive and negative sentiments.
 
