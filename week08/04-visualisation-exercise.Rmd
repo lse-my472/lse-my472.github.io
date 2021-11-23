@@ -136,7 +136,7 @@ Animated 3D plot:
 
 #- means look at the dataset (equal to df_ploy$likes_count)
 
-fig <- plot_ly(df_plot, x=-likes_count, y=-shares_count, z= df_plot$message_length, color = ~party)
+fig <- plot_ly(df_plot, x=df_plot$likes_count, y=df_plot$shares_count, z= df_plot$message_length, color = ~party)
 fig <- fig %>% add_markers()
 fig <- fig %>% layout(scene = list(xaxis = list(title = "Log likes count"),
                      yaxis = list(title = "Log shares count"),
