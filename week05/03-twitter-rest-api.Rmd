@@ -7,6 +7,10 @@ output: html_document
 
 In this file, we will look at static Twitter data, either recent tweets or user-level information. This type of data can be retrieved with Twitter's REST API. We will use the `rtweet` package here.
 
+My Keys:
+5nY7t5jEpRtgZQlYvuQGxffQ9
+
+
 Loading packages:
 
 ```{r}
@@ -18,10 +22,10 @@ library("tidyverse")
 First we need to authenticate. After your application has been approved, you can paste the consumer key, consumer secret, access token, and access token secret strings into the list below:
 
 ```{r}
-authentication <- list(consumer_key = "CONSUMER_KEY",
-                 consumer_secret = "CONSUMER_SECRET",
-                 access_token = "ACCESS_TOKEN",
-                 access_token_secret = "ACCESS_TOKEN_SECRET")
+authentication <- list(consumer_key = "5nY7t5jEpRtgZQlYvuQGxffQ9",
+                 consumer_secret = "SvGo9maQ58mQnzAYl6q9VCHOLCce6XdLKZgyNdfA5e8GQaxdOf",
+                 access_token = "AAAAAAAAAAAAAAAAAAAAACuaVAEAAAAAWmiA%2BPFzW7g93biQeZPgoLKxQEY%3DdQNxwwSbWROSvVfFIkzToDLatcW8TeoXrg9ZOIXcc7loKtn2P5")
+                 #access_token_secret = "ACCESS_TOKEN_SECRET")
 ```
 
 A more convenient approach, which importantly does not depict your individual tokens, can be to store this list once after you have pasted your keys and then to reload it when running some code. Store the list once with:
@@ -40,7 +44,7 @@ Lastly, if the cell below outputs `LSEnews` after running, we are good to go:
 
 ```{r}
 # Replace the app name with your own!
-twitter_token <- create_token(app = "enter your app name here", 
+twitter_token <- create_token(app = "my472_sn", 
                               consumer_key = authentication$consumer_key,
                               consumer_secret = authentication$consumer_secret,
                               access_token = authentication$access_token,

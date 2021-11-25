@@ -23,7 +23,7 @@ current_dir <- "tba"
 Load the txt file into a character vector with `read_file`:
 
 ```{r}
-sample_text <- read_file(paste(current_dir, "sample_text.txt", sep = ""))
+sample_text <- read_file(paste(current_dir, "week7.txt", sep = ""))
 ```
 
 Helpful functions are e.g. `str_view`, `str_view_all`, `str_extract`, `str_extract_all`. The `_all` variants process all matches in the string rather than only the first.

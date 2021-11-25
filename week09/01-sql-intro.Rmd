@@ -12,7 +12,8 @@ For this first part of the class, we will be working with a SQLite database, whi
 We will start by connecting to the database, creating an .sqlite file, and adding the first table, with information at the level of member of congress. 
 
 ```{r}
-#install.packages(c("DBI", "RSQLite"))
+install.packages(c("DBI", "RSQLite"))
+library(RSQLite)
 library(DBI)
 ```
 
@@ -21,7 +22,7 @@ library(DBI)
 db <- dbConnect(RSQLite::SQLite(), "data/facebook-db.sqlite")
 
 # Reading the first file into R
-congress <- read.csv("data/congress-facebook-2017.csv",
+congress <- read.csv("congress-facebook-2017.csv",
 	stringsAsFactors = FALSE)
 
 # Adding a first table: User-level data
