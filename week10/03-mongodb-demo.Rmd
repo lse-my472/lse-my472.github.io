@@ -5,7 +5,7 @@ date: "29 November 2021"
 output: html_document
 ---
 
-In this document we will try to replicate with MongoDB what we did using SQLite last week. We will therefore use MongoDB through R as well. Should you work with MongoDB in the future, you might use it e.g. via the MongoDB Shell (command line) or MongoDB Compass (a graphical user interace). See this [link](https://www.mongodb.com/developer-tools) for details. You can find the full manual [here](https://docs.mongodb.com/manual/). While we work with the database locally in this file, we could of course also host it in the cloud.
+In this document we will try to replicate with MongoDB what we did using SQLite last week. We will therefore use MongoDB through R as well. Should you work with MongoDB in the future, you might use it e.g. via the MongoDB Shell (command line) or MongoDB Compass (a graphical user interface). See this [link](https://www.mongodb.com/developer-tools) for details. You can find the full manual [here](https://docs.mongodb.com/manual/). While we work with the database locally in this file, we could of course also host it in the cloud.
 
 Although we use MongoDB through R, we first need to install the software and run it in the background. If you are using a **Mac**, run the following in terminal:
 
