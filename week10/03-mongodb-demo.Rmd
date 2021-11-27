@@ -1,7 +1,7 @@
 ---
 title: "MongoDB demo"
 author: "Pablo Barbera, Friedrich Geiecke, Akitaka Matsuo"
-date: "30 November 2020"
+date: "29 November 2021"
 output: html_document
 ---
 
@@ -10,21 +10,27 @@ In this document we will try to replicate with MongoDB what we did using SQLite 
 Although we use MongoDB through R, we first need to install the software and run it in the background. If you are using a **Mac**, run the following in terminal:
 
 ```{bash eval=FALSE}
+# Source: https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x/
 # Install mongo using Homebrew
-# If you don't have Homebrew installed already, then start
-# By running the code line below in the Terminal:
-# /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+# If you don't have Homebrew installed already, then start by running the code
+# line below in Terminal (source: https://brew.sh/):
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+# Then proceed installing the MongoDB in Terminal with:
 brew tap mongodb/brew
-brew install mongodb-community@4.4
-# Note: This might require to install/update the Command Line Tools for Xcode
-# that you can download via https://developer.apple.com/download/more/
-# Should your installation also ask you to install Xcode, download it via the App Store.
+brew install mongodb-community@5.0 # note: new 5.0 version available in 2021
+# Note: Homebrew might require to install/update the xcode Command Line Tools,
+# e.g. run `xcode-select --install` in Terminal or download via
+# https://developer.apple.com/download/more/
+# Should your installation also ask you to install Xcode,
+# download it via the App Store.
 
-# Start mongo server
+# After installing:
+
+# Start MongoDB server in Terminal
 brew services start mongodb-community
 
-# To stop server
-#brew services stop mongodb-community
+# To stop server in Terminal (once done with working with the data through R)
+brew services stop mongodb-community
 ```
 
 On **Windows**, follow the instruction for the community edition here: https://docs.mongodb.com/manual/tutorial/install-mongodb-on-windows/

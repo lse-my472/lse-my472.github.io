@@ -1,7 +1,7 @@
 ---
 title: "Querying large databases via Google BigQuery"
 author: "Pablo Barbera, Friedrich Geiecke, Akitaka Matsu"
-date: "30 November 2020"
+date: "29 November 2021"
 output: html_document
 ---
 
@@ -25,7 +25,7 @@ This dataset contains the number of crimes at two different geographic levels of
 project_name <- "bigquery-public-data"
 
 # Billing (main project ID)
-billing_info <- "tba"
+billing_info <- "my472-333417"
 
 # Dataset name (London crime database within the public databases)
 dataset_name <- "london_crime"
@@ -97,7 +97,7 @@ crime_per_lsoa_code
 
 ```{r}
 
-# Download the shape file from: https://data.london.gov.uk/dataset/statistical-gis-boundary-files-london
+# Download the shape file from https://data.london.gov.uk/dataset/statistical-gis-boundary-files-london and unzip
 shp <- readOGR(dsn = "~/Downloads/statistical-gis-boundaries-london/ESRI/LSOA_2011_London_gen_MHW.shp",
                stringsAsFactors = FALSE)
 
