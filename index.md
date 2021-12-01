@@ -356,7 +356,7 @@ In this week, we focus on the setup of computation environments on the Internet.
 
 ##### Class
 
-- Code: [Exercises in parallel computing](parallel-computing.Rmd)
+- Code: [Exercises in parallel computing](exercises-parallel-computing.Rmd)
 
 
 ##### Required reading
