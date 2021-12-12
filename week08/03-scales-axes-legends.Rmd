@@ -155,7 +155,11 @@ p + geom_point() + theme_grey()
 
 p + geom_point() + theme_minimal()
 
-p + geom_point() + theme_classic()
+
+p + geom_point() + scale_x_log10(labels = comma) +
+  scale_y_log10(labels = comma) + theme_classic()
+
+?theme
 ```
 
 All theme options can be edited manually using 'theme', e.g. removing axis ticks:

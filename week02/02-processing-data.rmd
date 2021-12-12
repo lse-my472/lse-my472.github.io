@@ -170,21 +170,20 @@ ip_and_unemployment_wide %>% select(-date)
 Similarly, we might want to select only specific rows that meet certain conditions. This can be achieved with the filter function, e.g. we can select data from only the UK or from both the UK and France:
 
 ```{r}
-ip_and_unemployment_wide %>% filter(country == "uk") 
+ip_and_unemployment_wide %>% filter(ï..country == "uk") 
 ```
 
 ```{r}
-ip_and_unemployment_wide %>% filter(country %in% c("uk", "france")) 
+ip_and_unemployment_wide %>% filter(ï..country %in% c("uk", "france")) 
 ```
 
 Next, let us get an idea why repeated pipe operations are so useful for data analysis and readability. Say our goal is to determine the largest month to month contraction in industrial production for the UK during the Corona crisis so far. This can e.g. be achieved by combining filter and select functions:
 
 ```{r}
 ip_and_unemployment_wide %>%
-  filter(country == "uk") %>%
+  filter(ï..country == "uk") %>%
   filter(ip == min(ip)) %>%
   select(date, ip)
-
 ```
 
 The strongest contraction in UK industrial production was in April 2020 that saw around a 20% decline in industrial production from the previous month.
@@ -202,7 +201,7 @@ In April 2020, the US had an unemployment rate of 14.7. When we select the value
 
 ```{r}
 ip_and_unemployment_wide %>%
-  filter(country == "us") %>%
+  filter(ï..country == "us") %>%
   filter(date == "01.03.2020") %>%
   select(date, unemployment)
 ```
@@ -213,10 +212,13 @@ ip_and_unemployment_wide %>%
 In some cases we might want to add transformations of variables or features to the data frame. This can be done with the command "mutate()". For example, we might be interested in the percentage change of US unemployment, not just its level.
 
 ```{r}
-ip_and_unemployment_wide <- ip_and_unemployment_wide %>% group_by(country) %>% 
+ip_and_unemployment_wide <- ip_and_unemployment_wide %>% group_by(
+ï..country) %>% 
   mutate(unemployment_percentage_change = (unemployment/lag(unemployment) - 1) * 100) %>% 
   ungroup()
 ip_and_unemployment_wide
+
+((8.6/8.7)-1)*100
 ```
 
 Note: The group_by argument here is key to ensure that the percentage change in the first period for each country is NA as it does not exist. Without group_by, Germany's first percentage change would be wrongly computed with France's last value.
@@ -229,7 +231,7 @@ Another frequent goal is to compute summary statistics. This can be done with th
 
 ```{r}
 ip_and_unemployment_wide %>%
-  filter(country == "uk") %>% 
+  filter(ï..country == "uk") %>% 
   select(ip) %>% 
   drop_na() %>% 
   summarise(uk_ip_mean = mean(ip), uk_ip_sd = sd(ip), uk_observations = n())

@@ -40,11 +40,14 @@ nrow(df)
 After creating a base layer, `geom_line()` can be used for line plots such as time series. Plotting daily posts over time:
 
 ```{r}
+
+#
 counts <- df %>%
   group_by(date) %>% 
   summarise(posts = n())
 
 # Base layer
+# create a data of the ggplot, and then can add things more simply 
 p <- ggplot(counts, aes(x = date, y = posts))
 
 # Line plot of the posts per day
@@ -56,6 +59,7 @@ Two separate time series by party, now also aggregated to monthly:
 
 ```{r}
 # Obtain a new data frame with monthly counts of posts per party
+# ceiling date uses last day of the month
 counts <- df %>%
   filter(party != "Independent") %>% 
   group_by(month = ceiling_date(date, "month"), party) %>% 
@@ -196,6 +200,7 @@ Other examples:
 ```{r}
 ## Scatter plot with dots colored by type of post
 p <- ggplot(df[df$likes_count>5000, ], 
+
             aes(x = likes_count, y = comments_count)) +
   scale_x_log10("Likes count", labels = comma) +
   scale_y_log10("Comments count", labels = comma)

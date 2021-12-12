@@ -79,6 +79,7 @@ Next, let us prototype how you could scrape the text in the body of each of thos
 
 ```{r}
 test_url <- article_url[1]
+head(test_url)
 
 # Note: As the RSS feed changes very frequently, copy the url contained in
 # `article_url[1]` into your browser to have a look at the first article in

@@ -12,12 +12,14 @@ Loading the Selenium package:
 ```{r}
 #install.packages("RSelenium") # run once to install the package on your computer
 library("RSelenium")
+
+#install.packages("rJava")
 ```
 
 Launching the driver and browser (if the port is already in use, choose a different number with four digits, e.g. `rsDriver(browser=c("firefox"), port = 1234L)`:
 
 ```{r}
-rD<- rsDriver(browser=c("firefox"))
+rD<- rsDriver(browser=c("chrome"), chromever="94.0.4606.61", port= 1299L)
 driver <- rD$client
 ```
 
@@ -25,6 +27,8 @@ Navigate to the Google website:
 
 ```{r}
 url <- "https://www.google.com/"
+#some of the variables created in future codes can be used on other URLS (e.g. click on the first link)
+
 driver$navigate(url)
 ```
 
@@ -37,7 +41,7 @@ As an exercise, the XPaths of the relevant elements have to be obtained with the
 ```{r}
 #driver$switchToFrame(0) # can be un-commented and tried if code does not run
 
-agree_button <- driver$findElement(using = "xpath", value = "tba")
+agree_button <- driver$findElement(using = "xpath", value = "//*[@id='L2AGLb']/div")
 agree_button$clickElement()
 
 #driver$switchToFrame(1)
@@ -46,8 +50,9 @@ agree_button$clickElement()
 Next, we will search for the LSE:
 
 ```{r}
-search_field <- driver$findElement(using = "xpath", value = "tba")
-search_field$sendKeysToElement(list("london school of economics"))
+search_field <- driver$findElement(using = "xpath", value = "/html/body/div[1]/div[3]/form/div[1]/div[1]/div[1]/div/div[2]/input")
+#search_field$sendKeysToElement(list("london school of economics"))
+search_field$sendKeysToElement(list("UCL"))
 Sys.sleep(1)
 search_field$sendKeysToElement(list(key = "enter"))
 ```
@@ -55,7 +60,7 @@ search_field$sendKeysToElement(list(key = "enter"))
 And navigate to its website by clicking on the first link of the search results:
 
 ```{r}
-first_link <- driver$findElement(using = "xpath", value = "tba")
+first_link <- driver$findElement(using = "xpath", value = "//*[@id='rso']/div[1]/div/div/div/div/div/div/div[1]/a/h3")
 first_link$clickElement()
 ```
 

@@ -76,7 +76,7 @@ Using ggplot2 first requires the data to be in a tidy long format (an in-depth d
 
 ```{r}
 
-# Pivot longer function
+# Pivot longer function (male and female need to be a single column as gender)
 social_security_data_long <- pivot_longer(data = social_security_data[, 1:3],
   cols = c("male", "female"), names_to = "gender", values_to = "individuals")
 
