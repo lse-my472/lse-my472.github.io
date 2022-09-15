@@ -8,7 +8,7 @@ colorlinks: true
 <!-- ![LSE](images/lse-logo.jpg) -->
 # MY472 Data for Data Scientists
 
-### Michaelmas Term 2021
+### Michaelmas Term 2022
 
 [Main course repo](https://github.com/lse-my472/lse-my472.github.io)
 
@@ -20,18 +20,16 @@ All students are required to complete the preparatory course 'R Advanced for Met
 
 Office hour slots to be booked via LSE's StudentHub
 
-* [Friedrich Geiecke](f.c.geiecke@lse.ac.uk), Department of Methodology.  *Office hours*: Tuesdays 4.15-6.15pm
-* [Patrick Gildersleve](p.gildersleve@lse.ac.uk), Department of Methodology.  *Office hours*: Tuesdays 2-3pm and Fridays 3-4pm
+* [Friedrich Geiecke](f.c.geiecke@lse.ac.uk), Department of Methodology.  *Office hours*: Tuesdays 5-7pm (book via Student Hub)
+* Yuhao Qian
 
 ### Course information
 
-* Lectures are prerecorded and available via Moodle
-* Lecture discussions / Q&As (you only have to attend one):
-    - Tuesdays 9-10am via Zoom
-    - Tuesdays 3-4pm, OLD.4.10
-* Classes on:
-    - Fridays 11am-12pm, KSW.1.01
-    - Fridays 4-5pm, NAB.2.04
+* Lecture:
+    - Tuesdays 9-11am, CBG.1.05
+* Classes:
+    - Thursdays 1-3pm, NAB.2.08
+    - Thursdays 5-6pm, NAB.2.16
 
 No lectures or classes will take place during (Reading) Week 6.
 
