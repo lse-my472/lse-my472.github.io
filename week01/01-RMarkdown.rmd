@@ -1,6 +1,6 @@
 ---
 title: "A brief introduction to RStudio and RMarkdown"
-author: "Ken Benoit and Friedrich Geiecke"
+author: "Ken Benoit, Friedrich Geiecke"
 date: "27/09/2022"
 output:
   pdf_document: default

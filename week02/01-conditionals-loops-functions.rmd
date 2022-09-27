@@ -1,7 +1,7 @@
 ---
 title: "Conditionals, loops, and functions"
-author: "Ken Benoit and Friedrich Geiecke"
-date: "04/10/2021"
+author: "Ken Benoit, Friedrich Geiecke"
+date: "04/10/2022"
 output: html_document
 ---
 

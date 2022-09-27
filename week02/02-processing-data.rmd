@@ -1,7 +1,7 @@
 ---
-title: "Data processing in R with the tidyverse"
+title: "Data processing in R with tidyr and dplyr"
 author: "Friedrich Geiecke"
-date: "04/10/2021"
+date: "04/10/2022"
 output: html_document
 ---
 
@@ -160,11 +160,13 @@ A common task is to select or drop columns. This can be done very conveniently w
 ```{r}
 ip_and_unemployment_wide %>% select(date, ip)
 ```
+
 We can also easily drop specific columns, e.g. only the date column:
 
 ```{r}
 ip_and_unemployment_wide %>% select(-date)
 ```
+
 #### Selecting rows
 
 Similarly, we might want to select only specific rows that meet certain conditions. This can be achieved with the filter function, e.g. we can select data from only the UK or from both the UK and France:

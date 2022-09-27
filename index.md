@@ -90,7 +90,7 @@ In the first week, we will introduce some basic concepts of how data is recorded
 ##### Lecture
 
 - [Slides](week01/MY472-week01-intro.pdf)
-- Code: [A plain R script](week01/00-standard-script.R), [a first R markdown example](week01/01-rmarkdown.rmd), and a recap on [vectors, lists, data frames](week01/02-vectors-lists-dfs.rmd)
+- Code: [A plain R script](week01/00-standard-script.R), [a first R markdown example](week01/01-rmarkdown.Rmd), and a recap on [vectors, lists, data frames](week01/02-vectors-lists-dfs.Rmd)
 
 ##### Class
 
@@ -119,7 +119,7 @@ This week discusses data processing and manipulation in R using functions from t
 ##### Lecture
 
 - [Lecture slides](week02/MY472-week02-shape.pdf)
-- Code: [Conditionals, loops, and functions](week02/01-conditionals-loops-functions.rmd), [data processing in R](week02/02-processing-data.rmd), [industrial production dataset](week02/ip.csv), and [industrial production and unemployment dataset](week02/ip_and_unemployment.csv)
+- Code: [Conditionals, loops, and functions](week02/01-conditionals-loops-functions.Rmd), [data processing in R](week02/02-processing-data.Rmd), [industrial production dataset](week02/ip.csv), and [industrial production and unemployment dataset](week02/ip_and_unemployment.csv)
 
 ##### Class
 
