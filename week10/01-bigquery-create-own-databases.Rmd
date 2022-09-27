@@ -1,7 +1,7 @@
 ---
 title: "Creating and querying a database in the cloud"
 author: "Friedrich Geiecke"
-date: "29 November 2021"
+date: "29 November 2022"
 output: html_document
 ---
 

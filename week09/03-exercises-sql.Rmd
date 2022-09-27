@@ -1,3 +1,11 @@
+---
+title: "Creating and querying an SQLite database"
+author: "Pablo Barberá"
+date: "24 November 2022"
+output: html_document
+---
+
+
 # Creating and querying a SQL database
 
 Practice creating a SQL database and querying it. You should use the data in the file UK-tweets.csv. These data represent a random sample of 10,000 tweets related to the 2014 EP elections in the UK.

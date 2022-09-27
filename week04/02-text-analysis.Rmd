@@ -1,5 +1,5 @@
 ---
-title: "Introductory quantitative textual analysis"
+title: "Introductory quantitative text analysis"
 author: "Friedrich Geiecke"
 date: "18 October 2022"
 output: html_document

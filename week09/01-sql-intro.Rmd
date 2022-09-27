@@ -1,7 +1,7 @@
 ---
 title: "Creating and querying an SQLite database"
-author: "Pablo Barbera"
-date: "22 November 2021"
+author: "Pablo Barberá"
+date: "22 November 2022"
 output: html_document
 ---
 

@@ -1,6 +1,6 @@
 ---
 title: "Storing the scraping output in an additional S3 bucket"
-date: "6 December 2021"
+date: "5 December 2022"
 output: html_document
 ---
 

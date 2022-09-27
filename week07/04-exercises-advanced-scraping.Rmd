@@ -1,7 +1,7 @@
 ---
 title: "Scraping web data behind web forms"
 author: "Pablo Barbera, Friedrich Geiecke, Martin Lukac, and Patrick Gildersleve"
-date: "22 October 2020"
+date: "10 November 2022"
 output: html_document
 ---
 

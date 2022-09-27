@@ -1,9 +1,13 @@
-# Using BigQuery
+---
+title: "Using BigQuery"
+author: "Pablo Barberá"
+date: "1 December 2022"
+output: html_document
+---
 
 ## Data
 
 We will use the NYC Bicycle Hire data we looked at in lecture. The database contains all Citi Bike trips (NYC's bike-sharing service) since Citi Bike launched in September 2013. 
-
 
 ## Queries
 

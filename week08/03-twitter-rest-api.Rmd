@@ -1,7 +1,7 @@
 ---
 title: "Twitter Rest API"
-author: "Pablo Barbera, Ken Benoit, Friedrich Geiecke"
-date: "25/10/2021"
+author: "Pablo Barberá, Ken Benoit, Friedrich Geiecke"
+date: "15 November 2022"
 output: html_document
 ---
 
@@ -119,3 +119,5 @@ Furthermore, lists of Twitter users, compiled by other users, can also be access
 congress_members <- lists_members(slug = "members-of-congress", owner_user = "cspan")
 head(congress_members)
 ```
+
+Lastly, note that academic research track access to the Rest API is much more extensive. You can apply [here](https://developer.twitter.com/en/products/twitter-api/academic-research) and also use the `academicTwitteR` package.

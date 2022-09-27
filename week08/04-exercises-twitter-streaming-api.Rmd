@@ -1,7 +1,7 @@
 ---
 title: "Twitter Streaming API"
 author: "Pablo Barbera, Ken Benoit, Friedrich Geiecke, Patrick Gildersleve"
-date: "25/10/2021"
+date: "17 November 2022"
 output: html_document
 ---
 

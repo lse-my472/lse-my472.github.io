@@ -1,7 +1,7 @@
 ---
 title: "Querying large databases via Google BigQuery"
-author: "Pablo Barbera, Friedrich Geiecke, Akitaka Matsu"
-date: "29 November 2021"
+author: "Pablo Barberá, Friedrich Geiecke, Akitaka Matsu"
+date: "29 November 2022"
 output: html_document
 ---
 
