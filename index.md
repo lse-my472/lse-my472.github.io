@@ -123,7 +123,7 @@ This week discusses data processing and manipulation in R using functions from t
 
 ##### Class
 
-- Code: [Dplyr examples](week02/03-seminar-exercise.Rmd)
+- Code: [Dplyr examples](week02/03-exercise-tabular-data.Rmd)
 
 
 ##### Reading
@@ -132,7 +132,7 @@ This week discusses data processing and manipulation in R using functions from t
 
 
 ##### Mock assignment: Processing data in R
-- Link to GitHub Classroom available via Moodle on Monday, October 3, 2pm
+- Link to GitHub Classroom available via Moodle on Monday, 3 October, 2pm
 - Deadline on Friday, 14 October, 2pm
 
 
@@ -150,7 +150,7 @@ The lecture this week will offer an overview of the principles of exploratory da
 
 ##### Class
 
-- Code: [Exercises in visualistion](week03/04-visualisation-exercise.Rmd)
+- Code: [Exercises in visualistion](week03/04-exercise-visualisation.Rmd)
 
 
 ##### Reading
@@ -171,11 +171,11 @@ We will learn how to work with unstructured data in the form of text and discuss
 ##### Lecture
 
 - [Slides](week04/MY472-week07-text.pdf)
-- Code: [Regular expressions in R](week04/01-regular-expressions-in-r.Rmd), [textual analysis in R](week04/02-textual-analysis.Rmd)
+- Code: [Regular expressions in R](week04/01-regular-expressions-in-r.Rmd), [textual analysis in R](week04/02-text-analysis.Rmd), [parsing pdfs](week04/03-parsing-pdfs.Rmd)
 
 ##### Class
 
-- Code: [Exercises in textual analysis](week04/03-exercises.Rmd)
+- Code: [Exercises in textual analysis](week04/04-exercises-text-analysis.Rmd)
 
 
 ##### Reading
@@ -187,9 +187,10 @@ We will learn how to work with unstructured data in the form of text and discuss
 - [Regular expressions cheat sheet](week07/regular-expressions-cheat-sheet-v2.pdf)
 - [Regular expressions in R vignette](https://cran.r-project.org/web/packages/stringr/vignettes/regular-expressions.html)
 
+
 ##### Assignment 1: Data visualisation
-- Link to GitHub Classroom available via Moodle on ...
-- Deadline on ...
+- Link to GitHub Classroom available via Moodle on Monday, 17 October, 2pm
+- Deadline on Friday, 28 October, 2pm
 
 
 
@@ -205,7 +206,7 @@ In this week, we will learn how to obtain the data from the internet. This week 
 
 ##### Class
 
-- Code: [Scraping unstructured data](week05/03-scraping-unstructured-data.Rmd)
+- Code: [Scraping unstructured data](week05/03-exercises-scraping-unstructured-data.Rmd)
 
 
 ##### Reading
@@ -223,8 +224,8 @@ In this week, we will learn how to obtain the data from the internet. This week 
 
 ##### Assignment 2: Web scraping
 
-- Link to GitHub Classroom available via Moodle on ...
-- Deadline on ...
+- Link to GitHub Classroom available via Moodle on Monday, 31 October, 2pm
+- Deadline on Friday, 11 November, 2pm
 
 
 
@@ -239,7 +240,7 @@ Continuing from the material covered in Week 5, we will learn the advanced topic
 
 ##### Class
 
-- Code: [Scraping UK election data](week07/04-advanced-scraping-ukelection2017.Rmd)
+- Code: [Scraping UK election data](week07/04-exercises-advanced-scraping.Rmd)
 
 
 ##### Reading
@@ -268,7 +269,7 @@ This week discusses how to work with Application Programming Interfaces (APIs) t
 
 ##### Class
 
-- Code: [Twitter streaming API](week08/04-twitter-streaming-api.Rmd)
+- Code: [Twitter streaming API](week08/04-exercises-twitter-streaming-api.Rmd)
 
 
 ##### Reading
@@ -278,8 +279,9 @@ This week discusses how to work with Application Programming Interfaces (APIs) t
 * Ruths and Pfeffer. 2014. [_Social media for large studies of behavior_](http://science.sciencemag.org/content/346/6213/1063.full). Science.
 
 ##### Assignment 3: APIs
-- Link to GitHub Classroom available via Moodle on ...
-- Deadline on ...
+
+- Link to GitHub Classroom available via Moodle on Monday, 14 November, 2pm
+- Deadline on Friday, 25 November, 2pm
 
 
 #### 9. Creating and managing databases
@@ -294,7 +296,7 @@ This session will offer an introduction to relational databases: structure, logi
 
 ##### Class
 
-- Code: [SQL exercises](03-sql-exercises.Rmd)
+- Code: [SQL exercises](03-exercises-sql.Rmd)
 
 ##### Reading
 * Beaulieu. 2009. [_Learning SQL_](https://books.google.co.uk/books?hl=en&lr=&id=1PgCCVryjOQC&oi=fnd&pg=PR3&dq=learning+sql+alan&ots=X6M3Iaz1wO&sig=38Fp1kDlxM8TF7miw0K2CNcKib4#v=onepage&q=learning%20sql%20alan&f=false). O'Reilly. (Chapters 1, 3, 4, 5, 8)
@@ -314,20 +316,22 @@ This week covers how to set up and use relational databases in the cloud and fun
 
 ##### Class
 
-- Code: [Exercises online databases](04-bigquery-exercises.Rmd), [further SQL exercises](05-further-sql-exercises.Rmd)
+- Code: [Exercises BigQuery](week10/04-exercises-bigquery.Rmd), [SQL joins](week10/05-exercises-sql-joins.Rmd), [SQL subqueries](06-exercises-sql-subqueries.Rmd)
 
 ##### Required reading
 * Beaulieu. 2009. [_Learning SQL_](https://books.google.co.uk/books?hl=en&lr=&id=1PgCCVryjOQC&oi=fnd&pg=PR3&dq=learning+sql+alan&ots=X6M3Iaz1wO&sig=38Fp1kDlxM8TF7miw0K2CNcKib4#v=onepage&q=learning%20sql%20alan&f=false). O'Reilly. (Chapters 2)
 * Hows, Membrey, and Plugge. 2014. [_MongoDB Basics_](https://books.google.co.uk/books?id=kmQnCgAAQBAJ&printsec=frontcover&dq=mongodb+basics&hl=en&sa=X&ved=0ahUKEwjPt7Cnv-PeAhUHBcAKHWQeBe0Q6wEIKzAA#v=onepage&q&f=false). Apress. (Chapter 1)
 * Tigani and Naidu. 2017. [_Google BigQuery Analytics_](https://books.google.co.uk/books?id=LDaiAwAAQBAJ&printsec=frontcover&dq=bigquery&hl=en&sa=X&ved=0ahUKEwj6yZ-MvOPeAhXHCcAKHWJxBSEQ6AEIMzAB#v=onepage&q&f=false). Weily. (Chapters 1-3)
 
+
 ##### Recommended reading
 * [Analyzing Big Data in less time with Google BigQuery](https://www.youtube.com/watch?v=qqbYrQGSibQ) on YouTube
 
 
 ##### Assignment 4: Databases
-- Link to GitHub Classroom available via Moodle on ...
-- Deadline on ...
+
+- Link to GitHub Classroom available via Moodle on Monday, 28 November, 2pm
+- Deadline on Friday, 9 December, 2pm
 
 
 #### 11. Cloud computing
@@ -358,4 +362,4 @@ In this week, we focus on the setup of computation environments on the Internet.
 
 #### Take-home exam
 - Link to GitHub Classroom available via Moodle on ...
-- Deadline on Friday, 13 January, 2pm
+- Deadline on Monday, 16 January, 2pm
