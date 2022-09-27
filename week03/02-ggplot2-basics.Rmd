@@ -1,7 +1,7 @@
 ---
 title: "ggplot2 Basics: Grammar of graphics, geom types"
-author: "Pablo Barberá and Friedrich Geiecke"
-date: "15/11/2021"
+author: "Pablo Barberá, Friedrich Geiecke"
+date: "11/10/2022"
 output: github_document
 ---
 

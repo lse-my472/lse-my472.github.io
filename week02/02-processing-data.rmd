@@ -1,7 +1,7 @@
 ---
 title: "Data processing in R with tidyr and dplyr"
 author: "Friedrich Geiecke"
-date: "04/10/2022"
+date: "4 October 2022"
 output: html_document
 ---
 

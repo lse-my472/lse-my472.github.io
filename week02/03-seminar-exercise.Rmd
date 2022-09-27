@@ -1,7 +1,7 @@
 ---
 title: "Week 2: Seminar exercise"
 author: "Martin Lukac, Patrick Gildersleve"
-date: "06/10/2021"
+date: "6 October 2022"
 output: html_document
 ---
 

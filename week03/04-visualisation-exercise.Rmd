@@ -1,7 +1,7 @@
 ---
 title: "Class exercise in visualisation"
-author: "Pablo Barberá and Friedrich Geiecke"
-date: "15/11/2021"
+author: "Pablo Barberá, Friedrich Geiecke"
+date: "13/10/2022"
 output: html_document
 ---
 

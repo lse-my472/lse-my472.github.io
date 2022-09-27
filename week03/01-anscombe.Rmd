@@ -1,10 +1,10 @@
 ---
 title: "Anscombe's quartet"
-date: "15/11/2021"
+date: "11/10/2022"
 output: github_document
 ---
 
-An example of how summary statistics of a dataset can be misleading. Anscombe, F. J. (1973) Graphs in statistical analysis. American Statistician 27 (1): 17-21.
+This file contains a famous example of how summary statistics of a dataset can be misleading, Anscombe, F. J. (1973) Graphs in statistical analysis. American Statistician 27 (1): 17-21.
 
 Four pairs of vectors with identical means:
 
