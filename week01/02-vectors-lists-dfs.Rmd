@@ -1,9 +1,9 @@
 ---
-title: "Introduction to R"
-output: github_document
+title: "Vectors, lists, and data frames"
+date: "27/09/2022"
 ---
 
-This Rmarkdown script provides a description of some of the building blocks we will rely on throughout this course. If you're having trouble following the code below, make sure you have finished the R preparatory course and read the required chapters in Wickham's *Advanced R*.
+This Rmarkdown script provides a description of some of the building blocks we will rely on throughout this course. Also make sure to finish the R preparatory course which is linked on the Moodle page of MY472.
 
 ### Using R as a calculator
 
