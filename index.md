@@ -91,7 +91,7 @@ In the first week, we will introduce some basic concepts of how data is recorded
 
 - [Slides](week01/MY472-week01-intro.pdf)
 - Code: [A plain R script](week01/00-standard-script.R), [a first R markdown example](week01/01-rmarkdown.Rmd), and a recap on [vectors, lists, data frames](week01/02-vectors-lists-dfs.Rmd)
-- [Seminar]((week01/seminar1.pdf))
+- [Seminar](week01/seminar1.pdf)
 
 ##### Class
 
