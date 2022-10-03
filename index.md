@@ -114,7 +114,7 @@ A step-by-step beginner's guide to creating a personal website and blog using Je
 
 #### 2. Tabular data
 
-This week discusses processing and manipulation tabular data in R using functions from the `tidyverse` after some further review of R fundamentals.
+This week discusses processing tabular data in R with functions from the `tidyverse` after some further review of R fundamentals.
 
 ##### Lecture
 
@@ -123,7 +123,7 @@ This week discusses processing and manipulation tabular data in R using function
 
 ##### Seminar
 
-- Code: [Dplyr examples](week02/03-exercise-tabular-data.Rmd)
+- Code: [Dplyr examples](week02/03-exercises-tabular-data.Rmd)
 
 
 ##### Reading
