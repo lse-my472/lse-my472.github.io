@@ -1,5 +1,5 @@
 ---
-title: "Week 2: Seminar exercise"
+title: "MY472 - Week 2: Seminar exercises"
 author: "Martin Lukac, Patrick Gildersleve"
 date: "6 October 2022"
 output: html_document
@@ -86,7 +86,7 @@ In data science and machine learning, it can sometimes increase the predictive p
   2. the natural logarithm of the unemployment rate, and 
   3. the interaction (i.e. the product) of industrial production percentage change and unemployment rate.
   
-(_Optional_: Calculate the difference between last year's and this year's unemployment rate and industrial production. Are we faring worse or better than last year?)
+(_Optional_: Calculate the difference in each of unemployment rate and industrial production in the last two years of the sample. Where things improving again?)
 
 ```{r q3}
 # Q3 --------------------------------------------------------------------------

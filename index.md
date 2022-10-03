@@ -39,7 +39,7 @@ No lectures or classes will take place during (Reading) Week 6.
 | Week | Date |  Topic |  
 |:--:|-------:|:------|  
 | 1  |  27 Sep | [Introduction](#1-introduction) |  
-| 2  |  4 Oct | [The shape of data](#2-the-shape-of-data) |  
+| 2  |  4 Oct | [Tabular data](#2-tabular-data) |  
 | 3  | 11 Oct | [Data visualisation](#3-data-visualisation) |  
 | 4  | 18 Oct | [Textual data](#4-textual-data) |  
 | 5  | 25 Oct | [HTML and CSS](#5-html-and-css) |
@@ -93,11 +93,10 @@ In the first week, we will introduce some basic concepts of how data is recorded
 - Code: [A plain R script](week01/00-standard-script.R), [a first R markdown example](week01/01-rmarkdown.Rmd), and a recap on [vectors, lists, data frames](week01/02-vectors-lists-dfs.Rmd)
 - [Seminar](week01/seminar1.pdf)
 
-##### Class
+##### Seminar
 
-*  Installing git and setting up an account on GitHub
-*  How to complete and submit assignments using GitHub Classroom
-*  Cloning a website repository
+* Review of Git/GitHub basics discussed in lecture
+* Branches, merges, and pull requests
 
 
 ##### Readings
@@ -113,16 +112,16 @@ A step-by-step beginner's guide to creating a personal website and blog using Je
 
 
 
-#### 2. The shape of data
+#### 2. Tabular data
 
-This week discusses data processing and manipulation in R using functions from the `tidyverse` after some further review of R fundamentals.
+This week discusses processing and manipulation tabular data in R using functions from the `tidyverse` after some further review of R fundamentals.
 
 ##### Lecture
 
-- [Lecture slides](week02/MY472-week02-shape.pdf)
+- [Slides](week02/MY472-week02-tabular.pdf)
 - Code: [Conditionals, loops, and functions](week02/01-conditionals-loops-functions.Rmd), [data processing in R](week02/02-processing-data.Rmd), [industrial production dataset](week02/ip.csv), and [industrial production and unemployment dataset](week02/ip_and_unemployment.csv)
 
-##### Class
+##### Seminar
 
 - Code: [Dplyr examples](week02/03-exercise-tabular-data.Rmd)
 
@@ -132,7 +131,7 @@ This week discusses data processing and manipulation in R using functions from t
 * The [Tidyverse collection of packages](https://www.tidyverse.org/) for R.
 
 
-##### Mock assignment: Processing data in R
+##### Assignment 1: Processing data in R (practise assignment)
 - Link to GitHub Classroom available via Moodle on Monday, 3 October, 2pm
 - Deadline on Friday, 14 October, 2pm
 
@@ -149,7 +148,7 @@ The lecture this week will offer an overview of the principles of exploratory da
 - Code: [Anscombe](week03/01-anscombe.Rmd), [ggplot2 examples one](week03/02-ggplot2-basics.Rmd), [ggplot2 examples two](week03/03-scales-axes-legends.Rmd)
 
 
-##### Class
+##### Seminar
 
 - Code: [Exercises in visualistion](week03/04-exercise-visualisation.Rmd)
 
@@ -174,7 +173,7 @@ We will learn how to work with unstructured data in the form of text and discuss
 - [Slides](week04/MY472-week07-text.pdf)
 - Code: [Regular expressions in R](week04/01-regular-expressions-in-r.Rmd), [textual analysis in R](week04/02-text-analysis.Rmd), [parsing pdfs](week04/03-parsing-pdfs.Rmd)
 
-##### Class
+##### Seminar
 
 - Code: [Exercises in textual analysis](week04/04-exercises-text-analysis.Rmd)
 
@@ -189,7 +188,7 @@ We will learn how to work with unstructured data in the form of text and discuss
 - [Regular expressions in R vignette](https://cran.r-project.org/web/packages/stringr/vignettes/regular-expressions.html)
 
 
-##### Assignment 1: Data visualisation
+##### Assignment 2: Data visualisation
 - Link to GitHub Classroom available via Moodle on Monday, 17 October, 2pm
 - Deadline on Friday, 28 October, 2pm
 
@@ -205,7 +204,7 @@ In this week, we will learn how to obtain the data from the internet. This week 
 - Code: [Website example](week05/website_5.html), [selecting elements](week05/01-selecting-elements.Rmd), [scraping tables](week05/02-scraping-tables.Rmd)
 
 
-##### Class
+##### Seminar
 
 - Code: [Scraping unstructured data](week05/03-exercises-scraping-unstructured-data.Rmd)
 
@@ -223,7 +222,7 @@ In this week, we will learn how to obtain the data from the internet. This week 
 
 #### 6. Reading week
 
-##### Assignment 2: Web scraping
+##### Assignment 3: Web scraping
 
 - Link to GitHub Classroom available via Moodle on Monday, 31 October, 2pm
 - Deadline on Friday, 11 November, 2pm
@@ -239,7 +238,7 @@ Continuing from the material covered in Week 5, we will learn the advanced topic
 - [Slides](week07/MY472-week04-scraping-part-2.pdf)
 - Code: [Scraping RSS](week07/01-newspaper-rss.Rmd), [introduction to RSelenium](week07/02-introduction-to-selenium.Rmd), [RSelenium example with the LSE website](week07/03-selenium-lse.Rmd)
 
-##### Class
+##### Seminar
 
 - Code: [Scraping UK election data](week07/04-exercises-advanced-scraping.Rmd)
 
@@ -268,7 +267,7 @@ This week discusses how to work with Application Programming Interfaces (APIs) t
 - Code: [JSON in R](week08/01-json-in-r.Rmd), [NYT API](week08/02-nytimes-api.Rmd), [Twitter REST API](week08/03-twitter-rest-api.Rmd)
 
 
-##### Class
+##### Seminar
 
 - Code: [Twitter streaming API](week08/04-exercises-twitter-streaming-api.Rmd)
 
@@ -279,7 +278,7 @@ This week discusses how to work with Application Programming Interfaces (APIs) t
 ##### Further reading
 * Ruths and Pfeffer. 2014. [_Social media for large studies of behavior_](http://science.sciencemag.org/content/346/6213/1063.full). Science.
 
-##### Assignment 3: APIs
+##### Assignment 4: APIs
 
 - Link to GitHub Classroom available via Moodle on Monday, 14 November, 2pm
 - Deadline on Friday, 25 November, 2pm
@@ -295,7 +294,7 @@ This session will offer an introduction to relational databases: structure, logi
 - Code: [SQL introduction](week09/01-sql-intro.Rmd), [join and aggregation in SQL](week09/02-sql-join-and-aggregation.Rmd)
 
 
-##### Class
+##### Seminar
 
 - Code: [SQL exercises](03-exercises-sql.Rmd)
 
@@ -315,7 +314,7 @@ This week covers how to set up and use relational databases in the cloud and fun
 - [Slides](week10/my472-week10-nosql-and-cloud-db.pdf)
 - Code: [Creating own databases in the cloud](week10/01-bigquery-create-own-databases.Rmd), [querying large cloud databases](week10/02-bigquery-examples.Rmd), [MongoDB](week10/03-mongodb-demo.Rmd)
 
-##### Class
+##### Seminar
 
 - Code: [Exercises BigQuery](week10/04-exercises-bigquery.Rmd), [SQL joins](week10/05-exercises-sql-joins.Rmd), [SQL subqueries](06-exercises-sql-subqueries.Rmd)
 
@@ -329,7 +328,7 @@ This week covers how to set up and use relational databases in the cloud and fun
 * [Analyzing Big Data in less time with Google BigQuery](https://www.youtube.com/watch?v=qqbYrQGSibQ) on YouTube
 
 
-##### Assignment 4: Databases
+##### Assignment 5: Databases
 
 - Link to GitHub Classroom available via Moodle on Monday, 28 November, 2pm
 - Deadline on Friday, 9 December, 2pm
@@ -346,7 +345,7 @@ In this week, we focus on the setup of computation environments on the Internet.
 - Code: [Hello world](week11/hello_world.R), [continuous scraping within R only](week11/scraping_example_r_only.R), [installing R packages on the EC2 instance](week11/install_packages.R), [continuous scraping via a schedule](week11/scraping_example_to_schedule.R)
 - Optional code: [Using storage outside the EC2 instance](week11/using-s3-through-r.Rmd)
 
-##### Class
+##### Seminar
 
 - Code: [Exercises in parallel computing](exercises-parallel-computing.Rmd)
 

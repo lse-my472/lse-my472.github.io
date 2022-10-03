@@ -3,7 +3,7 @@ title: "Vectors, lists, and data frames"
 date: "27 September 2022"
 ---
 
-This Rmarkdown script provides a description of some of the building blocks we will rely on throughout this course. Also make sure to finish the R preparatory course which is linked on the Moodle page of MY472.
+This R Markdown file provides a brief review of some building blocks that we will rely on throughout this course. Make sure to finish the R preparatory course which is linked on the Moodle page of the course.
 
 ### Using R as a calculator
 

@@ -5,6 +5,8 @@ date: "4 October 2022"
 output: html_document
 ---
 
+In this file, we will continue to review a few key concepts which you have seen in the preparatory course.
+
 ### Conditionals
 
 Conditionals execute blocks of code when certain logical conditions are met or not met. Recall the following list of logical operators also discussed in the first week:
@@ -154,7 +156,7 @@ for (i in 1:5) {
 # Now we have a list of single line data frames...
 class(grades)
 # We can combine these into a joint data frame
-grades <- do.call(rbind, grades)
+grades <- do.call(rbind, grades) # also see `bind_rows` from `dplyr` once we have discussed this package
 grades
 ```
 
@@ -180,7 +182,7 @@ two_numbers <- function(x, y) {
 two_numbers(4, 11.93)
 ```
 
-A key conceptual feature of functions is that they have their own environments. What do you think the following cell will return?
+A key conceptual feature of functions is that they have their own scope. What do you think the following cell will return?
 
 ```{r}
 my_function <- function(z) {
@@ -196,7 +198,7 @@ my_function(z)
 z
 ```
 
-For an in depth discussion of environments, see http://adv-r.had.co.nz/Environments.html.
+For more discussion on scoping, see e.g. https://adv-r.hadley.nz/functions.html#lexical-scoping
 
 In modular code, particularly repeated tasks are written as functions. Functions therefore contain a wide range of possible code, e.g. conditions which allow the function to run different chunks depending on the input.
 
@@ -236,6 +238,7 @@ abs_numbers
 ```
 
 
+Further study: A great book to review fundamental and advanced concepts in R programming is Hadley Wickham's "Advanced R" https://adv-r.hadley.nz/
 
 
 

@@ -1,5 +1,5 @@
 ---
-title: "A brief introduction to RStudio and RMarkdown"
+title: "MY472 - Week 1: A brief introduction to RStudio and RMarkdown"
 author: "Ken Benoit, Friedrich Geiecke"
 date: "27 September 2022"
 output:
