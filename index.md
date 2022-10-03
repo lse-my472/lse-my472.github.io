@@ -132,7 +132,7 @@ This week discusses processing tabular data in R with functions from the `tidyve
 
 
 ##### Assignment 1: Processing data in R (practise assignment)
-- Link to GitHub Classroom available via Moodle on Monday, 3 October, 2pm
+- GitHub Classroom link available via Moodle on Monday, 3 October, 2pm
 - Deadline on Friday, 14 October, 2pm
 
 
@@ -189,7 +189,7 @@ We will learn how to work with unstructured data in the form of text and discuss
 
 
 ##### Assignment 2: Data visualisation
-- Link to GitHub Classroom available via Moodle on Monday, 17 October, 2pm
+- GitHub Classroom link available via Moodle on Monday, 17 October, 2pm
 - Deadline on Friday, 28 October, 2pm
 
 
@@ -224,7 +224,7 @@ In this week, we will learn how to obtain the data from the internet. This week 
 
 ##### Assignment 3: Web scraping
 
-- Link to GitHub Classroom available via Moodle on Monday, 31 October, 2pm
+- GitHub Classroom link available via Moodle on Monday, 31 October, 2pm
 - Deadline on Friday, 11 November, 2pm
 
 
@@ -280,7 +280,7 @@ This week discusses how to work with Application Programming Interfaces (APIs) t
 
 ##### Assignment 4: APIs
 
-- Link to GitHub Classroom available via Moodle on Monday, 14 November, 2pm
+- GitHub Classroom link available via Moodle on Monday, 14 November, 2pm
 - Deadline on Friday, 25 November, 2pm
 
 
@@ -330,7 +330,7 @@ This week covers how to set up and use relational databases in the cloud and fun
 
 ##### Assignment 5: Databases
 
-- Link to GitHub Classroom available via Moodle on Monday, 28 November, 2pm
+- GitHub Classroom link available via Moodle on Monday, 28 November, 2pm
 - Deadline on Friday, 9 December, 2pm
 
 
@@ -361,5 +361,5 @@ In this week, we focus on the setup of computation environments on the Internet.
 
 
 #### Take-home exam
-- Link to GitHub Classroom available via Moodle on ...
+- GitHub Classroom link available via Moodle on ...
 - Deadline on Monday, 16 January, 2pm
