@@ -26,7 +26,7 @@ Office hour slots to be booked via LSE's StudentHub
 ### Course information
 
 * Lecture:
-    - Tuesdays 9-11am, CBG.1.05
+    - Tuesdays 9-11am, MAR.2.08
 * Classes:
     - Thursdays 1-3pm, NAB.2.08
     - Thursdays 5-6pm, NAB.2.16
