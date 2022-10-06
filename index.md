@@ -123,7 +123,7 @@ This week discusses processing tabular data in R with functions from the `tidyve
 
 ##### Seminar
 
-- Code: [Dplyr examples](week02/03-exercises-tabular-data.Rmd)
+- Code: [Dplyr exercises](week02/03-exercises-tabular-data.Rmd), [solutions](week02/03-exercises-tabular-data-solution.Rmd)
 
 
 ##### Reading
