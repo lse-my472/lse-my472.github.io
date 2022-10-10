@@ -144,7 +144,7 @@ The lecture this week will offer an overview of the principles of exploratory da
 
 ##### Lecture
 
-- [Slides](week03/MY472-week08-visualisation.pdf)
+- [Slides](week03/MY472-week03-visualisation.pdf)
 - Code: [Anscombe](week03/01-anscombe.Rmd), [ggplot2 examples one](week03/02-ggplot2-basics.Rmd), [ggplot2 examples two](week03/03-scales-axes-legends.Rmd)
 
 

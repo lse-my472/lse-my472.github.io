@@ -1,8 +1,8 @@
 ---
-title: "ggplot2 basics: axes, scales, legends, polishing plots"
+title: "MY472 - Week 3: ggplot2 basics - axes, scales, legends, polishing plots"
 author: "Pablo Barberá, Friedrich Geiecke"
-date: "11/10/2022"
-output: github_document
+date: "11 October 2022"
+output: html_document
 ---
 
 ## Introduction

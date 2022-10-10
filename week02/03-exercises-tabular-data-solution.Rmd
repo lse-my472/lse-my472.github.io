@@ -1,5 +1,5 @@
 ---
-title: "MY472 - Week 2: Seminar exercises solution"
+title: "MY472 - Week 2: Seminar exercises in tabular data - solution"
 author: "Martin Lukac, Patrick Gildersleve"
 date: "6 October 2022"
 output: html_document

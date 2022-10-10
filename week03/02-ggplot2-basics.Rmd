@@ -1,8 +1,8 @@
 ---
-title: "ggplot2 Basics: Grammar of graphics, geom types"
+title: "MY472 - Week 3: ggplot2 basics - grammar of graphics, geom types"
 author: "Pablo Barberá, Friedrich Geiecke"
-date: "11/10/2022"
-output: github_document
+date: "11 October 2022"
+output: html_document
 ---
 
 ## Introduction
@@ -227,7 +227,7 @@ p <- ggplot(df, aes(x = likes_count, y = comments_count)) +
   scale_y_log10("Comments count", labels = comma) 
 p + geom_point()
 
-## Jittering points (yet, really changes the plot's appearance here and can be misleading)
+## Points could also be jittered in scatter plots (yet, obscures the log values here and would be misleading)
 p + geom_jitter(position = position_jitter(width = .5, height =.5))
 
 ## Transparency
