@@ -35,7 +35,7 @@ nrow(df)
 ```
 
 
-## Time series
+## First (time series) plots
 
 After creating a base layer, `geom_line()` can be used for line plots such as time series. Plotting daily posts over time:
 
@@ -45,12 +45,13 @@ counts <- df %>%
   summarise(posts = n())
 
 # Base layer
-p <- ggplot(counts, aes(x = date, y = posts))
+p <- ggplot(data = counts, mapping = aes(x = date, y = posts))  # 'data = ...' and 'mapping = ...' are often omitted
 
 # Line plot of the posts per day
 p + geom_line()
 ```
 
+Note: Aesthetic mappings `aes` describe which columns/variables in the data are mapped to which variables/features in the plot. Thus, in `aes` we list parts of the data that shall be used in the plot. If we instead want to set plot features like e.g. the size of points in a scatter plot, colours which do not depend on the data, etc., then these would be set outside of an aesthetic mapping.
 
 Two separate time series by party, now also aggregated to monthly:
 
@@ -63,7 +64,7 @@ counts <- df %>%
 
 p <- ggplot(counts, aes(x = month, 
                         y = posts, group = party))
-p + geom_line(aes(color = party)) +
+p + geom_line(aes(color = party)) + # (additional) aesthetic mapping here layer specific rather than global via ggplot()
   scale_color_manual(values=c("blue", "red"))
 ```
 

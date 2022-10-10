@@ -36,7 +36,7 @@ nrow(df)
 ```{r}
 
 # Changing axis titles
-p <- ggplot(df, aes(x = likes_count))
+p <- ggplot(data = df, mapping = aes(x = likes_count))
 p + geom_histogram() + scale_x_log10("Number of likes", labels = comma) +
     scale_y_continuous("Post count", labels = comma)
 
