@@ -35,7 +35,7 @@ Deleting the first few pages until the title page; deleting new line codes and r
 
 ```{r}
 principia <- principia[10:length(principia)]
-principia <- str_replace_all(principia, "[\r\n]" , "")
+principia <- str_replace_all(principia, "[\r\n]" , " ")
 ```
 
 And transforming the data into a `quanteda` corpus:
@@ -61,7 +61,7 @@ This worked quite well. Note, however, that the output would be worse if the pho
 Again, we can transform the output into a corpus and continue from there (e.g. with tokenisation and creating a dfm):
 
 ```{r}
-general_theory <- str_replace_all(general_theory, "[\r\n]" , "")
+general_theory <- str_replace_all(general_theory, "[\r\n]" , " ")
 general_theory_corpus <- general_theory %>% corpus(
   docvars = data.frame(page=1:length(general_theory)))
 general_theory_corpus
