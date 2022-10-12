@@ -150,7 +150,7 @@ The lecture this week will offer an overview of the principles of exploratory da
 
 ##### Seminar
 
-- Code: [Exercises in visualistion](week03/04-exercise-visualisation.Rmd)
+- Code: [Exercises in visualistion](week03/04-exercises-visualisation.Rmd)
 
 
 ##### Reading
@@ -200,7 +200,7 @@ In this week, we will learn how to obtain the data from the internet. This week 
 
 ##### Lecture
 
-- [Slides](week05/MY472-week03-HTML-CSS.pdf)
+- [Slides](week05/MY472-week05-scraping-1.pdf)
 - Code: [Website example](week05/website_5.html), [selecting elements](week05/01-selecting-elements.Rmd), [scraping tables](week05/02-scraping-tables.Rmd)
 
 
@@ -235,7 +235,7 @@ Continuing from the material covered in Week 5, we will learn the advanced topic
 
 ##### Lecture
 
-- [Slides](week07/MY472-week04-scraping-part-2.pdf)
+- [Slides](week07/MY472-week07-scraping-2.pdf)
 - Code: [Scraping RSS](week07/01-newspaper-rss.Rmd), [introduction to RSelenium](week07/02-introduction-to-selenium.Rmd), [RSelenium example with the LSE website](week07/03-selenium-lse.Rmd)
 
 ##### Seminar
@@ -263,7 +263,7 @@ This week discusses how to work with Application Programming Interfaces (APIs) t
 
 ##### Lecture
 
-- [Slides](week08/MY472-week05-APIs.pdf)
+- [Slides](week08/MY472-week08-APIs.pdf)
 - Code: [JSON in R](week08/01-json-in-r.Rmd), [NYT API](week08/02-nytimes-api.Rmd), [Twitter REST API](week08/03-twitter-rest-api.Rmd)
 
 
