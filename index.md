@@ -123,7 +123,7 @@ This week discusses processing tabular data in R with functions from the `tidyve
 
 ##### Seminar
 
-- Code: [Dplyr exercises](week02/03-exercises-tabular-data.Rmd), [solutions](week02/03-exercises-tabular-data-solution.Rmd)
+- Code: [Dplyr exercises](week02/03-exercises-tabular-data.Rmd), [solution](week02/03-exercises-tabular-data-solution.Rmd)
 
 
 ##### Reading
@@ -150,7 +150,7 @@ The lecture this week will offer an overview of the principles of exploratory da
 
 ##### Seminar
 
-- Code: [Exercises in visualistion](week03/04-exercises-visualisation.Rmd)
+- Code: [Exercises in visualistion](week03/04-exercises-visualisation.Rmd), [solution](week03/04-exercises-visualisation-solution.Rmd)
 
 
 ##### Reading
