@@ -156,7 +156,7 @@ plotlyfigure1
 ```
 
 
-Plotly can also create a many plots similar to the ones that we have discussed with `ggplot2` before, e.g. violin plots:
+Plotly can also create many plots similar to the ones that we have discussed with `ggplot2` before, e.g. violin plots:
 
 ```{r}
 plotlyfigure2 <- plot_ly(df_plot[df_plot$message_length>500 &
