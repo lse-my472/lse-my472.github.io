@@ -41,15 +41,15 @@ Your code here:
 
 ```{r}
 
-# Transform date column to datetime (lubridate package!)
+# Transforming date column to datetime (lubridate package!)
 
 
 
-# Create a line-plot with unemployment and date
+# Creating a line-plot with unemployment and date
 
 
 
-# Fix axes and add colored rectangles
+# Adding the rectangle geometry (set axes limits so that background covers entire plot)
 
 
 
