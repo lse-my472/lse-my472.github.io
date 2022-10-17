@@ -1,5 +1,5 @@
 ---
-title: "Exercises in textual analysis"
+title: "MY472 - Week 4: Seminar exercises in text analysis"
 author: "Friedrich Geiecke"
 date: "18 October 2022"
 output: html_document
@@ -8,11 +8,11 @@ output: html_document
 
 **Exercise 1**
 
-1.1 The file uol.txt contains a list of the 17 member institutions of the University of London. In your text editor, write down a regular expression which finds all postcodes. Note that in some of the postcodes there are white spaces between the two parts and in others not. Your regular expression has to work with both.
+1.1 The file uol.txt contains a list of the 17 member institutions of the University of London. In your text editor, write down a regular expression which finds all postcodes. Note that in some of the postcodes there are white spaces between the two parts and in others not. Your regular expression has to account for both cases.
 
 
 
-1.2 Next, let us try to mute/delete the second part of each postcode. Add a capturing group to your regular expression with which you can address only the first part, i.e. the first 2-4 characters of the postcodes. Then use find & replace in your text editor and replace all postcodes with only the information stored in capturing group 1. This deletes the second part of each postcode.
+1.2 Next, try to mute/delete the second part of each postcode. Add a capturing group to your regular expression with which you can address only the first part, i.e. the first 2-4 characters of the postcodes. Then use find & replace in your text editor and replace all postcodes with only the information stored in capturing group 1. This deletes the second part of each postcode.
 
 
 
@@ -42,7 +42,7 @@ dfm
 ```
 
 
-2.2 Use the `textstat_simil` function to compute similarities between the text from the Conservatives and the ones of all other parties. Sort the resulting similarities to see which extracts are most similar to the one from the Conservative party. Note that the findings also depend on the assumptions made during cleaning and deleting terms, so these methods of course cannot yield definite answers but only some indication which has to be further analysed. For example, the documents of the different parties have very different lengths, e.g. the Coalition party's extract contains only 4 sentences. Cosine similarity is more robust against such differences in document lengths than other approaches, however, the very different lengths of documents will still bias the results here.
+2.2 Use the `textstat_simil` function to compute similarities between the text from the Conservatives and the ones of all other parties. Sort the resulting similarities to see which extracts are most similar to the one from the Conservative party. Note that the findings also depend on the assumptions made during cleaning and deleting terms, so these methods of course cannot yield definite answers but only some indication which has to be further analysed. For example, the documents of the different parties have very different lengths, e.g. the Coalition party's extract contains only 4 sentences. Cosine similarity is more robust against such differences in document lengths than other approaches, however, the very different lengths of documents can still influence results.
 
 ```{r}
 similarities <- textstat_simil(dfm, dfm[c("Conservative"), ],
@@ -52,7 +52,7 @@ similarities <- textstat_simil(dfm, dfm[c("Conservative"), ],
 df_similarities <- as.data.frame(similarities)
 
 df_similarities %>% 
-  arrange(desc(cosine)) %>% 
+  ___________(desc(cosine)) %>% 
   head(10)
 ```
 

@@ -1,5 +1,5 @@
 ---
-title: "Reading PDF documents into R"
+title: "MY472 - Week 4: Reading PDF documents into R"
 author: "Friedrich Geiecke"
 date: "18 October 2022"
 output: html_document

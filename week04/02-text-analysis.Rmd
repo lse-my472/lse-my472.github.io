@@ -1,5 +1,5 @@
 ---
-title: "Introductory quantitative text analysis"
+title: "MY472 - Week 4: Introductory quantitative text analysis"
 author: "Friedrich Geiecke"
 date: "18 October 2022"
 output: html_document

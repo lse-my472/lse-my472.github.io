@@ -1,5 +1,5 @@
 ---
-title: "Searching with regular expressions in R"
+title: "MY472 - Week 4: Searching with regular expressions in R"
 author: "Friedrich Geiecke"
 date: "18 October 2022"
 output: html_document
