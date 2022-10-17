@@ -38,7 +38,7 @@ principia <- principia[10:length(principia)]
 principia <- str_replace_all(principia, "[\r\n]" , " ")
 ```
 
-And transforming the data into a `quanteda` corpus:
+And transforming the data into a `quanteda` corpus (each page is a document in this example, but we could aggregate pages):
 
 ```{r}
 principia_corpus <- principia %>% corpus(
@@ -46,6 +46,13 @@ principia_corpus <- principia %>% corpus(
 ```
 
 From here onwards we could do our usual text analysis workflow!
+
+```{r}
+principia_dfm <- principia_corpus %>%
+    tokens() %>% 
+    dfm()
+principia_dfm
+```
 
 ### 1.2 PDFs only containing text in images
 
@@ -58,7 +65,7 @@ general_theory
 
 This worked quite well. Note, however, that the output would be worse if the photo also contained the non-text parts of the cover. In general, these algorithms work best with plain text pages, and things become more difficult if pages e.g. contain tables or non-text elements. Still, after some cleaning, the output can be good enough for a bag of word type of model.
 
-Again, we can transform the output into a corpus and continue from there (e.g. with tokenisation and creating a dfm):
+Again, we can transform the output into a corpus and continue from there:
 
 ```{r}
 general_theory <- str_replace_all(general_theory, "[\r\n]" , " ")
@@ -67,4 +74,10 @@ general_theory_corpus <- general_theory %>% corpus(
 general_theory_corpus
 ```
 
+```{r}
+general_theory_dfm <- general_theory_corpus %>%
+    tokens() %>% 
+    dfm()
+general_theory_dfm # exemplary scan only has a single document/page
+```
 

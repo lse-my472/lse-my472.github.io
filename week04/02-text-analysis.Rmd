@@ -59,16 +59,20 @@ data_corpus_inaugural
 head(docvars(data_corpus_inaugural))
 ```
 
-Based on this corpus, let us create a document-feature matrix (dfm). It has a row for each document and a column for each word/term. Cells contain word counts in the respective documents.
+With this corpus, let us create a document-feature matrix (dfm). It has a row for each document and a column for each word/term. Cells contain word counts in the respective documents.
+
+Note that the `tokens()` function makes it explicit that for moving from texts to a dfm a tokenisastion step is necessary.
 
 ```{r}
-dfmplain <- dfm(data_corpus_inaugural)
+dfmplain <- data_corpus_inaugural %>%
+    tokens() %>% 
+    dfm()
 dfmplain
 ```
 
 Note: There might be some slight variation in the features before and after removing punctuation for different `quanteda` versions.
 
-When building such a dfm, however, we might e.g. want to avoid counts of punctuation characters. For this we should make the tokenisation step explicit which allows us to specify certain options, here to remove punctuation (in fact the `dfm()` function without a token step will be deprecated):
+When building such a dfm, however, we might e.g. want to avoid counting punctuation or exclude other tokens. This can be done via the tokenisation step:
 
 ```{r}
 dfmplain <- data_corpus_inaugural %>%
@@ -180,7 +184,7 @@ textplot_wordcloud(dfm_subset(dfmplain, President == "Obama"),
 
 In some applications, we might e.g. want to [stem](https://nlp.stanford.edu/IR-book/html/htmledition/stemming-and-lemmatization-1.html) words in order to have a single column in the dfm for related words, and/or to additionally record n-grams in the dfm. Due to the large amount of n-grams in a text, the `dfm_trim` function is particularly helpful in such cases to make dfms of many documents and terms still manageable. For example, `min_termfreq = 2` deletes all terms which are not in the corpus at least twice. Other arguments of the `df_trim` function are e.g. `min_docfreq` which specifies the minimum amount of documents in which a term has to be contained in order to still be part of the dfm. See ?dfm_trim for all min/max options. Also note the padding option in the `token_remove` function. This leaves empty strings for removed tokens (here stopwords). This prevents the subsequent n-gram step from creating nonsensical n-grams of word which are only neighbouring because stopwords have been deleted between them.
 
-```{r, eval = FALSE}
+```{r}
 dfmcleaned <- data_corpus_inaugural %>%
   tokens(remove_punct = TRUE, remove_numbers = TRUE) %>%
   tokens_remove(stopwords("en"), padding = TRUE) %>%
