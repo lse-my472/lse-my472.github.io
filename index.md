@@ -171,11 +171,11 @@ We will learn how to work with unstructured data in the form of text and discuss
 ##### Lecture
 
 - [Slides](week04/MY472-week04-text.pdf)
-- Code: [Parsing pdfs](week04/01-parsing-pdfs.Rmd), [regular expressions in R](week04/02-regular-expressions-in-r.Rmd), [textual analysis in R](week04/03-text-analysis.Rmd)
+- Code: [Regular expressions in R](week04/01-regular-expressions-in-r.Rmd), [text analysis](week04/02-text-analysis.Rmd), [parsing pdfs](week04/03-parsing-pdfs.Rmd)
 
 ##### Seminar
 
-- Code: [Exercises in textual analysis](week04/04-exercises-text-analysis.Rmd)
+- Code: [Exercises in text analysis](week04/04-exercises-text-analysis.Rmd)
 
 
 ##### Reading
