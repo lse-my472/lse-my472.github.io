@@ -175,7 +175,7 @@ We will learn how to work with unstructured data in the form of text and discuss
 
 ##### Seminar
 
-- Code: [Exercises in text analysis](week04/04-exercises-text-analysis.Rmd)
+- Code: [Exercises in text analysis](week04/04-exercises-text-analysis.Rmd), [solution](week04/04-exercises-text-analysis-solution.Rmd)
 
 
 ##### Reading
