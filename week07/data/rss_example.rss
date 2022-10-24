@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0">
+
+<channel>
+  
+  <title>Some Data Blog RSS Feed</title>
+  <link>https://www.somedatablog.blog/</link>
+  <description>Blog about data</description>
+  
+  <item>
+    <title>Article one</title>
+    <link>https://www.somedatablog.blog/article_1.html</link>
+    <description>An introduction to data</description>
+  </item>
+  
+  <item>
+    <title>Article two</title>
+    <link>https://www.somedatablog.blg/article_2.html</link>
+    <description>Some useful Python functions</description>
+  </item>
+  
+</channel>
+
+</rss>

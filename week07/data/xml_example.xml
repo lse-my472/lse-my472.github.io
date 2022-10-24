@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<courses>
+    <course>
+        <title>Python for research students</title>
+        <code>PY200</code>
+        <year>2022</year>
+        <term>Summer term</term>
+        <description>A course about collecting, processing, and storing data.</description>
+    </course>
+    <course>
+        <title>Machine learning</title>
+        <code>ML100</code>
+        <year>2022</year>
+        <term>Summer term</term>
+        <description>An introduction to machine learning.</description>
+    </course>
+</courses>

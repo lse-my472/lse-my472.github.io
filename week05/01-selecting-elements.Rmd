@@ -12,7 +12,7 @@ library(rvest)
 Let us use our simple self-made website to illustrate how elements of websites can be selected and scraped. First, let us read the HTML content of the site:
 
 ```{r}
-url <- "https://lse-my472.github.io/week03/website_5.html"
+url <- "https://lse-my472.github.io/week05/data/website_5.html"
 html <- read_html(url)
 ```
 
