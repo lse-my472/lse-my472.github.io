@@ -103,11 +103,11 @@ CSS selector: table.wikitable:nth-child(21) (extracted with Firefox "Inspect Ele
 
 An alternative option is to look at the full source code of the website. In Google Chrome e.g., go to _View_ > _Developer_ > _View Source_. All browsers should have similar options to view the source code of a website. In the source code, search for the text of the page (e.g. _2021 rank_). Right above it you will see: `<table class="wikitable sortable ..." ...>`. This is the CSS selector. Using this selector, however, might still return several tables.
 
-Now that we know what we're looking for, let's use `html_nodes()` to identify all the elements of the page that have that CSS class (note that we use a dot before the name of the class because the R function expects CSS notation). Whereas we will find several elements with the CSS selector ".wikitable" which we would have to search subsequently, we will only find one with the very specific selector obtained with inspect element.
+Now that we know what we're looking for, let's use `html_elements()` to identify all the elements of the page that have that CSS class (note that we use a dot before the name of the class because the R function expects CSS notation). Whereas we will find several elements with the CSS selector ".wikitable" which we would have to search subsequently, we will only find one with the very specific selector obtained with inspect element.
 
 
 ```{r}
-table_raw <- html_nodes(html, css = "tba")
+table_raw <- html_elements(html, css = "tba")
 length(table_raw) # now a list of length 1
 ```
 

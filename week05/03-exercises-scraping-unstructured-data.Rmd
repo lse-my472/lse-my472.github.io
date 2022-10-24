@@ -35,7 +35,7 @@ Now we're ready to scrape the website:
 bribe_html <- _________(url)
 
 # Identify the CSS selector and add it to the css argument
-bribe_nodes <- html_nodes(bribe_html, css = "____________")
+bribe_nodes <- html_elements(bribe_html, css = "____________")
 
 # Content of CSS selector
 bribe_nodes
@@ -59,7 +59,7 @@ Small note on `stri_replace()`: `first` means to look for the first occurrence, 
 Let's do another one: transactions during which the bribe occurred:
 
 ```{r}
-transaction <- html_nodes(bribe_html, "____________________") %>% 
+transaction <- html_elements(bribe_html, "____________________") %>% 
   html_text
 
 transaction
@@ -69,7 +69,7 @@ And one more: the department that is responsible for these transactions
 
 ```{r}
 # and one more
-dept <- html_nodes(bribe_html, ".department .name a") %>% 
+dept <- html_elements(bribe_html, ".department .name a") %>% 
   html_text
 
 dept
@@ -86,7 +86,7 @@ scrape_bribe <- function(url){
   
   # 2. Take the html and get the bribe amount
   amount <- c_html %>% 
-    html_nodes("____________") %>%
+    html_elements("____________") %>%
     # extract it as text
     ___________ %>% 
     stri_replace_first_fixed("Paid INR ", "") %>%
@@ -95,11 +95,11 @@ scrape_bribe <- function(url){
     as.numeric()
   
   # 3. Take the html and get the transaction text
-  transaction <- html_nodes(c_html, "_______________") %>% 
+  transaction <- html_elements(c_html, "_______________") %>% 
     html_text
   
   # 4. Take the html and get the department text
-  dept <- html_nodes(c_html, ".department .name a") %>% 
+  dept <- html_elements(c_html, ".department .name a") %>% 
     html_text
   
   # 5. Combine amount, transaction, and department into one dataframe
