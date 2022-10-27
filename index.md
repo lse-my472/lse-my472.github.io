@@ -206,7 +206,7 @@ In this week, we will learn how to obtain the data from the internet. This week 
 
 ##### Seminar
 
-- Code: [Scraping unstructured data](week05/03-exercises-scraping-unstructured-data.Rmd)
+- Code: [Scraping unstructured data](week05/03-exercises-scraping-unstructured-data.Rmd), [solution](week05/03-exercises-scraping-unstructured-data-solution.Rmd)
 
 
 ##### Reading
