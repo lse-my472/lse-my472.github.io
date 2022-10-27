@@ -1,6 +1,6 @@
 ---
-title: "Scraping unstructured data"
-author: "Pablo Barbera, Akitaka Matsuo, and Martin Lukac"
+title: "MY472 - Week 5: Seminar exercises in scraping unstructured data"
+author: "Pablo Barbera, Akitaka Matsuo, Martin Lukac"
 date: "27 October 2022"
 output: html_document
 ---
@@ -13,12 +13,12 @@ Loading packages
 library(tidyverse)
 library(stringi)
 library(rvest)
-library(DT)
+library(DT) # install.packages("DT")
 ```
 
 A common scenario for web scraping is when the data we want is available in plain html, but in different parts of the web, and not in a table format. In this scenario, we will need to find a way to extract each element, and then put it together into a data frame manually.
 
-The motivating example here will be the website [http://ipaidabribe.com](http://ipaidabribe.com), which contains a database of self-reports of bribes in India. We want to learn how much people were asked to pay for different services, and by which departments.
+An example here will be the website [http://ipaidabribe.com](http://ipaidabribe.com), which contains a database of self-reports of bribes in India. The code tries to collect data from the website.
 
 ```{r}
 url <- 'http://ipaidabribe.com/reports/paid'
@@ -26,7 +26,7 @@ url <- 'http://ipaidabribe.com/reports/paid'
 
 We will also be using `rvest`, but in a slightly different way: Prior to scraping, we need to identify the CSS selector of each element we want to extract. 
 
-Now, go to the ipaidabribe website (this link: http://ipaidabribe.com/reports/paid) and open the `Inspect Element` section. Then, find the element you want to extract, and copy and paste the CSS selector into R.
+Now, go to the ipaidabribe website (this link: http://ipaidabribe.com/reports/paid) and open the `Inspect Element` section. Then, find the CSS selector for the element(s) you want to extract.
 
 Now we're ready to scrape the website:
 
@@ -46,10 +46,10 @@ We still need to do some cleaning before the data is usable:
 ```{r}
 # Extract the content of the CSS selector as text
 bribe_amount <- _________(bribe_nodes) %>%
-  stri_replace_first_fixed("Paid INR ", "") %>%
-  stri_replace_first_regex("\\r.+", "") %>%
-  stri_replace_all_fixed(",", "") %>%
-  as.numeric
+  str_replace_all("Paid INR ", "") %>%
+  str_replace_all("[\r\n]", "") %>%
+  str_replace_all(",", "") %>%
+  as.numeric()
 
 bribe_amount
 ```
@@ -68,7 +68,6 @@ transaction
 And one more: the department that is responsible for these transactions
 
 ```{r}
-# and one more
 dept <- html_elements(bribe_html, ".department .name a") %>% 
   html_text
 
@@ -89,9 +88,9 @@ scrape_bribe <- function(url){
     html_elements("____________") %>%
     # extract it as text
     ___________ %>% 
-    stri_replace_first_fixed("Paid INR ", "") %>%
-    stri_replace_all_regex("\\r.+", "") %>%
-    stri_replace_all_regex(",", "") %>%
+    str_replace_all("Paid INR ", "") %>%
+    str_replace_all("[\r\n]", "") %>%
+    str_replace_all(",", "") %>%
     as.numeric()
   
   # 3. Take the html and get the transaction text
@@ -166,7 +165,7 @@ median(data_all$amount)
 # Can you create a histogram of the amounts paid?
 ggplot(data_all, aes(x = _________)) + 
   geom_histogram() + 
-  scale_x_log10()
+  scale_x_log10(labels=scales::comma)
 
 ```
 
