@@ -1,5 +1,5 @@
 ---
-title: "MY472 - Week 5: Optional advanced exercise for scraping unstructured data"
+title: "MY472 - Week 5: Optional advanced exercise for scraping unstructured data - solution"
 author: "Friedrich Geiecke"
 date: "27 October 2022"
 output: html_document
@@ -26,15 +26,15 @@ html_feynman <- read_html(url_feynman)
 Say we would like to collect some baseline information about the person. The box on the right hand side seems the natural starting point. Each item in this box has content in a cell on the left (e.g. "Alma mater") and on the right (e.g. "Massachusetts Institute of Technology (S.B.) Princeton University (PhD)"). Inspecting with the browser reveals that the left cell has a class name "infobox-label" and the right "infobox-data". Try to complete the following by adding the CSS selectors for these two class names. This allows to obtain all relevant label and data elements from the box:
 
 ```{r}
-label_elements_feynman <- html_feynman %>% html_elements(css = _________)
-data_elements_feynman <- html_feynman %>% html_elements(css = _________)
+label_elements_feynman <- html_feynman %>% html_elements(css = ".infobox-label")
+data_elements_feynman <- html_feynman %>% html_elements(css = ".infobox-data")
 ```
 
 Next, extract the text from these elements:
 
 ```{r}
-labels_feynman <- label_elements_feynman %>% _________
-data_feynman <- data_elements_feynman %>% _________
+labels_feynman <- label_elements_feynman %>% html_text()
+data_feynman <- data_elements_feynman %>% html_text()
 ```
 
 Printing the first entries:
@@ -49,13 +49,13 @@ data_feynman[1:5]
 From these vectors, how would you access just the birth date information?
 
 ```{r}
-data_feynman[_________==_________]
+data_feynman[labels_feynman=="Born"]
 ```
 
 The title of his PhD thesis?
 
 ```{r}
-data_feynman[_________==_________]
+data_feynman[labels_feynman=="Thesis"]
 ```
 
 The information could now be stored in a data frame. In the next section, we will look at how we can automate this approach for all physics laureates rather than just Richard Feynman.
@@ -72,7 +72,7 @@ nobels_html <- read_html(url) # reading the HTML code
 You can scrape the full table by adding its CSS selector here:
 
 ```{r}
-nobel_table_wikipedia <- html_elements(nobels_html, css = _________)[[1]] %>% html_table(fill=TRUE)
+nobel_table_wikipedia <- html_elements(nobels_html, css = ".wikitable")[[1]] %>% html_table(fill=TRUE)
 nobel_table_wikipedia
 ```
 
@@ -82,7 +82,7 @@ First, create vector containing only the physics laureates with one element bein
 
 ```{r}
 # Vector with all names of physics laureates (requires to separate multiple laureates in some years)
-physicists_names <- nobel_table_wikipedia$Physics %>% str_split(_________) %>% unlist()
+physicists_names <- nobel_table_wikipedia$Physics %>% str_split(";") %>% unlist()
 
 # Drop entries of the physics column which don't contain names (years without laureates)
 physicists_names <- physicists_names[physicists_names != "None"]
@@ -106,7 +106,7 @@ physicists
 Next, store all hyperlinks contained in the website's HTML code in a vector (what is the CSS selector for a hyperlink?). This is one possible approach which allows to navigate to each individual laureate's page later:
 
 ```{r}
-all_link_elements <- html_elements(nobels_html, css = _________)
+all_link_elements <- html_elements(nobels_html, css = "a")
 all_link_texts <- all_link_elements %>% html_text()
 ```
 
