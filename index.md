@@ -44,7 +44,7 @@ No lectures or classes will take place during (Reading) Week 6.
 | 4  | 18 Oct | [Textual data](#4-textual-data) |  
 | 5  | 25 Oct | [HTML and CSS](#5-html-and-css) |
 | 6  |  1 Nov | _Reading week_ |  
-| 7  | 7 Nov | [XML, RSS, and scraping non-static pages](#7-xml,-rss,-and-scraping-non-static-pages) |   
+| 7  | 7 Nov | [XML, RSS, and scraping non-static pages](#7-xml-rss-and-scraping-non-static-pages) |   
 | 8  | 14 Nov | [Working with APIs](#8-working-with-apis) |  
 | 9  | 21 Nov | [Creating and managing databases](#9-creating-and-managing-databases) |  
 | 10 |  28 Nov | [Interacting with online databases](#10-interacting-with-online-databases)|  
