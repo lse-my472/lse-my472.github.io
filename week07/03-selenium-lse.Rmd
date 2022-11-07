@@ -5,7 +5,7 @@ date: "8 November 2022"
 output: html_document
 ---
 
-Note: Using `RSelenium` usually requires Java DK. First, try to see whether that is already installed on your computer - only install `RSelenium` with `install.packages("RSelenium")` and try to run the code in this document. If that does not work properly, next try to manually install Java DK. You can download the current version from here: https://www.oracle.com/java/technologies/downloads/. After its installation, restart RStudio.
+Note: Using `RSelenium` usually requires Java DK. First, try to see whether it is already installed on your computer - only install `RSelenium` with `install.packages("RSelenium")` and try to run the code in this document. If that does not work properly, next try to install Java DK. You can download the current version from here: https://www.oracle.com/java/technologies/downloads/. After its installation, restart RStudio.
 
 The LSE website has as section where the user can enter a search term and a list of programmes is displayed potentially on several pages which are related to this term. This R markdown file develops a way to enter a search term, navigate through the resulting pages, and scrape all programmes/courses. The focus is thereby not to use the most efficient way to obtain this information, but rather to illustrate some key functionalities of Selenium when scraping complex web forms.
 
@@ -43,7 +43,10 @@ selector_list$search_box <- '//*[@id="coursesSearch"]' # single quotation marks 
 selector_list$go_button <- "/html/body/form/main/div/div/div/div[1]/div/div[1]/input[3]"
 selector_list$results_progress_box <- "/html/body/form/main/div/div/div/div[2]/div[2]/p"
 
-# Class name
+# Class name (the next button does not have a consistent XPath across pages, and
+# we hence use its class name as an alternative. Note that RSelenium selects
+# based on the class name itself without need for CSS selector notation with .
+# in front of it)
 selector_list$next_page_button <- "pagination__link--next"
 ```
 
@@ -67,16 +70,15 @@ first_result_this_page_test <- as.numeric(gsub("-.*","", split_string_test[2]))
 last_result_this_page_test <- as.numeric(gsub(".*-","", split_string_test[2]))
 total_results_test <- as.numeric(split_string_test[4])
 
-# Side note: as.numeric(split_string_test[4]) is just the same as
-# split_string_test[4] %>% as.numeric(), just a different notation.
-# Do you see why?
+# Recap: as.numeric(split_string_test[4]) is just the same as
+# split_string_test[4] %>% as.numeric(), just a different notation. Why?
 
 first_result_this_page_test
 last_result_this_page_test
 total_results_test
 ```
 
-This works well. Next, let us write the same content into a function which can be reused and returns a vector of length three with exactly this information:
+This works well. Next, let us write the same content into a function which can be reused and which returns a vector of length three with exactly this information:
 
 ```{r}
 current_result_counts <- function() {
@@ -126,7 +128,7 @@ next_page <- function() {
 
 search_for <- function(term) {
   
-  # Finth the search field and enter the search term, e.g. "data science"
+  # Find the search field and enter the search term, e.g. "data science"
   search_field <- driver$findElement(using = "xpath", value = selector_list$search_box)
   search_field$sendKeysToElement(list(term))
   
@@ -150,7 +152,7 @@ search_for("data science")
 
 Note that for moving to the next page it can be more efficient to figure out the URL structure of subsequent pages and navigate to these URLs directly rather than clicking on a next page button (as e.g. in the example of unstructured data from the lab last week). To further highlight the functionality of Selenium in this file, we choose the approach to click instead.
 
-The last remaining question is how we identify the programme names on the page. One approach is to use XPaths for this. Let us copy the XPath of the first two programmes names for a given page:
+The last remaining question is how we identify the programme names on the page. One approach is to use XPaths and a loop for this. Let us copy the XPath of the first two programmes names for a given page:
 
 /html/body/form/main/div/div/div/div[2]/div[1]/article[1]/a/header/h1
 /html/body/form/main/div/div/div/div[2]/div[1]/article[2]/a/header/h1
@@ -162,9 +164,9 @@ Now we can write the main scraping function:
 ```{r}
 scrape_programmes <- function(term) {
 
-  # Create list that stores results, initialise overall item counts, and define
-  # a logical value that is set to true when we are on the last page
-  programmes_list <- list()
+  # Create a vector that will store results, initialise overall item counts, and
+  # define a logical value that is set to true when we are on the last page
+  all_programmes <- c()
   item_count <- 1
   last_page_flag <- FALSE
   
@@ -199,8 +201,8 @@ scrape_programmes <- function(term) {
       current_programme_text <- driver$findElement(using = "xpath",
                                                    value = current_programe_xpath)$getElementText()[[1]]
       
-      # Add the outcome to the list
-      programmes_list[[item_count]] <- current_programme_text
+      # Add the outcome to the vector
+      all_programmes <- c(all_programmes, current_programme_text)
       
       # Increment the overall item count for the next element which is stored
       # in the list
@@ -208,8 +210,8 @@ scrape_programmes <- function(term) {
       
     }
     
-    # If we are on the last page, set the flat to TRUE and thereby leave the
-    # loop afterwards
+    # If we are on the last page, set the flag to TRUE and thereby leave the
+    # while loop afterwards
     if (last_result_this_page == total_results) {
       
       last_page_flag = TRUE
@@ -222,13 +224,11 @@ scrape_programmes <- function(term) {
       
     }
     
-    
-    
   }
   
   # Return only unique values (there might be duplicate entries as the same
   # programme also starts in the next year)
-  return(unique(programmes_list) %>% unlist())
+  return(unique(all_programmes))
   
 }
 ```
@@ -246,7 +246,7 @@ scrape_programmes("marketing")
 
 __Remarks__
 
-This document is meant to illustrate some exemplary challenges faced when scraping websites with Selenium and focuses on demonstrating functionalities of the package, not on the most efficient approach to scrape the information. As an example, the script first collects the exact number of programmes on the current page to avoid iterating the for-loop over XPaths that do not exist. An easier approach would be to just choose a high number of iterations for each for-loop and combine this with `find$elements()` rather than `find$element()`, because the former returns a list of length zero if no element was found rather than an error (hence it continues running also if a for-loop tries to collect more elements than are displayed on the current page). There are many further potential extensions to this script. For example, the main function breaks if we search for a term for which the website returns zero hits. Full function testing would go through such cases and build conditionals into the function such that it would not break, but instead e.g. return a list of length zero in this case. Another example is that the next_page() function breaks if it is applied on the last page for a given search. The reason is that this last page does not have a "right-arrow" button, so the element does not exist and the code returns an error. To build a script that is robust to such cases would require to either always use `find$elements()` and route to different code parts when the return has length zero, or to catch errors resulting from `find$element()` and then route the code to the alternative part. To build code that does not stop when it encounters errors can be helpful for applications in web scraping and other topics. See for example the following link for the try() function and more advanced approaches: http://adv-r.had.co.nz/Exceptions-Debugging.html. Such extensions are left as an exercise here for students who are interested in these topics in more depth.
+This document is meant to illustrate some exemplary challenges faced when scraping websites with Selenium and focuses on demonstrating functionalities of the package, not on the most efficient approach to scrape the information. As an example, the script first collects the exact number of programmes on the current page to avoid iterating the for-loop over XPaths that do not exist. An easier approach would be to just choose a high number of iterations for each for-loop and combine this with `find$elements()` rather than `find$element()`, because the former returns a list of length zero if no element was found rather than an error (hence it continues running also if a for-loop tries to collect more elements than are displayed on the current page). Another option would be to define an XPath or other selector which matches and selects all programme titles in one go and hence does not require a loop at all. There are many further potential extensions to this script. For example, the main function breaks if we search for a term for which the website returns zero hits. Full function testing would go through such cases and build conditionals into the function such that it would not break, but instead e.g. return a list of length zero in this case. Another example is that the next_page() function breaks if it is applied on the last page for a given search. The reason is that this last page does not have a "right-arrow" button, so the element does not exist and the code returns an error. To build a script that is robust to such cases would require to either always use `find$elements()` and route to different code parts when the return has length zero, or to catch errors resulting from `find$element()` and then route the code to the alternative part. To build code that does not stop when it encounters errors can be helpful for applications in web scraping and other topics. See for example the following link for the try() function and more advanced approaches: http://adv-r.had.co.nz/Exceptions-Debugging.html. Such extensions are left as an exercise here for students who are interested in these topics in more depth.
 
 Finally, let us close the driver and browser window before closing R:
 

@@ -5,7 +5,7 @@ date: "8 November 2022"
 output: html_document
 ---
 
-Note: Using `RSelenium` usually requires Java DK. First, try to see whether that is already installed on your computer - only install `RSelenium` with `install.packages("RSelenium")` and try to run the code in this document. If that does not work properly, next try to manually install Java DK. You can download the current version from here: https://www.oracle.com/java/technologies/downloads/. After its installation, restart RStudio.
+Note: Using `RSelenium` usually requires Java DK. First, try to see whether it is already installed on your computer - only install `RSelenium` with `install.packages("RSelenium")` and try to run the code in this document. If that does not work properly, next try to install Java DK. You can download the current version from here: https://www.oracle.com/java/technologies/downloads/. After its installation, restart RStudio.
 
 Loading the Selenium package:
 
