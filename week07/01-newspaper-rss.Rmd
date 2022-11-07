@@ -4,7 +4,6 @@ date: "8 November 2022"
 output: html_document
 ---
 
-
 Loading packages:
 
 ```{r}
@@ -23,7 +22,7 @@ You can read through the [Guardian's RSS documentation](https://www.theguardian.
 url <- "https://www.theguardian.com/politics/eu-referendum/rss"
 ```
 
-Before scraping, we can check the structure of the xml document on the browser. We need to know what the node for each article is called and find the xml tag item. Now we read in the document and extract these nodes.
+Before scraping, we can check the structure of the xml document on the browser. We need to know what the element for each article is called and find the xml tag item. Now we read in the document and extract these elements.
 
 Note: `xml_nodes()` was deprecated in rvest 1.0.0 and it is advised to use `html_elements()` instead, also for xml files.
 
@@ -31,34 +30,34 @@ Note: `xml_nodes()` was deprecated in rvest 1.0.0 and it is advised to use `html
 # Reading the xml document
 rss_xml <- read_xml(url)
 
-## Extracting the item nodes in the RSS feed
-nodes <- html_elements(rss_xml, css = "item")
-length(nodes)
+## Extracting the items in the RSS feed
+elements <- html_elements(rss_xml, css = "item")
+length(elements)
 ```
 
-From these nodes, we extract titles, description, dates, and urls, and combine everything in a data frame:
+From these elements, we extract titles, description, dates, and urls, and combine everything in a data frame:
 
 ```{r}
 # Extract titles
-title <- nodes %>%
+title <- elements %>%
   html_element("title") %>%
   xml_text()
 
 # Extract description
-description <- nodes %>%
+description <- elements %>%
   html_element("description") %>%
   xml_text() %>%
-  stri_replace_all_regex("<.+?>", " ") # removes residual tags
+  str_replace_all("<.+?>", " ") # removes residual tags
   
 # Extract date and process as datetime
-datetime <- nodes %>%
+datetime <- elements %>%
   html_element("dc\\:date") %>% 
   xml_text() %>%
   parse_datetime() 
 
 # Extract url
-article_url <- nodes %>%
-  html_element(css = "guid") %>%
+article_url <- elements %>%
+  html_element("guid") %>%
   xml_text()
 
 # Combine everything in a data frame/tibble
@@ -86,7 +85,7 @@ test_url <- article_url[1]
 
 test_text <- test_url %>%
   read_html() %>%
-  html_nodes(css = "p") %>% 
+  html_elements(css = "p") %>% 
   html_text() %>%
   paste(collapse = "\n")
 
@@ -100,7 +99,7 @@ text_extractor <- function(current_url, sec = 2){
 
   current_text <- current_url %>%
     read_html() %>% 
-    html_nodes(css = "p") %>%
+    html_elements(css = "p") %>%
     html_text() %>%
     paste(collapse = "\n") 
 
@@ -134,7 +133,7 @@ for (i in 1:nrow(data_guardian_articles_small)) {
 }
 ```
 
-In R, however, we often use apply functions which offer a more compact notation. The function "sapply()" allows to apply another function element-wise to a vector and returns a vector. This vector is assigned to the dataframe as a new column (takes a little time to run):
+In R, however, we often use apply functions which offer a more compact notation. The function `sapply()` allows to apply another function element-wise to a vector and returns a vector. This vector is assigned to the dataframe as a new column (takes a little time to run):
 
 ```{r}
 data_guardian_articles_small$full_text_2 <- sapply(data_guardian_articles_small$article_url, text_extractor)

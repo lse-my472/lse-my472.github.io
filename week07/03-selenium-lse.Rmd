@@ -5,7 +5,7 @@ date: "8 November 2022"
 output: html_document
 ---
 
-Note: For `RSelenium` to run, one usually needs Java DK. Should `RSelenium` not work properly after installing it with `install.packages("RSelenium")`, try to install Java DK. You can download the current version from here: https://www.oracle.com/java/technologies/downloads/. Afterwards restart RStudio.
+Note: Using `RSelenium` usually requires Java DK. First, try to see whether that is already installed on your computer - only install `RSelenium` with `install.packages("RSelenium")` and try to run the code in this document. If that does not work properly, next try to manually install Java DK. You can download the current version from here: https://www.oracle.com/java/technologies/downloads/. After its installation, restart RStudio.
 
 The LSE website has as section where the user can enter a search term and a list of programmes is displayed potentially on several pages which are related to this term. This R markdown file develops a way to enter a search term, navigate through the resulting pages, and scrape all programmes/courses. The focus is thereby not to use the most efficient way to obtain this information, but rather to illustrate some key functionalities of Selenium when scraping complex web forms.
 
@@ -228,7 +228,7 @@ scrape_programmes <- function(term) {
   
   # Return only unique values (there might be duplicate entries as the same
   # programme also starts in the next year)
-  return(unique(programmes_list))
+  return(unique(programmes_list) %>% unlist())
   
 }
 ```
@@ -244,7 +244,9 @@ scrape_programmes("data science")
 scrape_programmes("marketing")
 ```
 
-There are many potential extensions to this script. For example, the main function breaks if we search for a term for which the website returns zero hits. Proper unit testing would go through exactly such cases and build conditionals into the function such that it would not break, but instead e.g. return a list of length zero in this case. Another example is that the next_page() function breaks if it is applied on the last page for a given search. The reason is that this last page does not have a "right-arrow" button, so the element does not exist and the code returns an error. To build a generic type of function that is robust to such cases would require to catch errors and then route the code to another part. See for example the following link for the try() function and more advanced approaches: http://adv-r.had.co.nz/Exceptions-Debugging.html. Such extensions are left as an exercise for students who are interested in these topics in more depth. An easier approach with Selenium is to use the `findElements()` instead of `findElement()` function, with `findElements()` returning a list of length zero if no element was found rather than an error.
+__Remarks__
+
+This document is meant to illustrate some exemplary challenges faced when scraping websites with Selenium and focuses on demonstrating functionalities of the package, not on the most efficient approach to scrape the information. As an example, the script first collects the exact number of programmes on the current page to avoid iterating the for-loop over XPaths that do not exist. An easier approach would be to just choose a high number of iterations for each for-loop and combine this with `find$elements()` rather than `find$element()`, because the former returns a list of length zero if no element was found rather than an error (hence it continues running also if a for-loop tries to collect more elements than are displayed on the current page). There are many further potential extensions to this script. For example, the main function breaks if we search for a term for which the website returns zero hits. Full function testing would go through such cases and build conditionals into the function such that it would not break, but instead e.g. return a list of length zero in this case. Another example is that the next_page() function breaks if it is applied on the last page for a given search. The reason is that this last page does not have a "right-arrow" button, so the element does not exist and the code returns an error. To build a script that is robust to such cases would require to either always use `find$elements()` and route to different code parts when the return has length zero, or to catch errors resulting from `find$element()` and then route the code to the alternative part. To build code that does not stop when it encounters errors can be helpful for applications in web scraping and other topics. See for example the following link for the try() function and more advanced approaches: http://adv-r.had.co.nz/Exceptions-Debugging.html. Such extensions are left as an exercise here for students who are interested in these topics in more depth.
 
 Finally, let us close the driver and browser window before closing R:
 
