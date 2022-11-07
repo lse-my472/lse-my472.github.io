@@ -71,7 +71,7 @@ last_result_this_page_test <- as.numeric(gsub(".*-","", split_string_test[2]))
 total_results_test <- as.numeric(split_string_test[4])
 
 # Recap: as.numeric(split_string_test[4]) is just the same as
-# split_string_test[4] %>% as.numeric(), just a different notation. Why?
+# split_string_test[4] %>% as.numeric(). Why?
 
 first_result_this_page_test
 last_result_this_page_test
