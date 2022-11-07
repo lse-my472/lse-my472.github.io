@@ -21,14 +21,15 @@ All students are required to complete the preparatory course 'R Advanced for Met
 Office hour slots to be booked via LSE's StudentHub
 
 * [Friedrich Geiecke](f.c.geiecke@lse.ac.uk), Department of Methodology.  *Office hours*: Tuesdays 5-7pm (book via Student Hub)
-* Yuhao Qian
+* Yuhao Qian, Department of Economics.
 
 ### Course information
 
 * Lecture:
     - Tuesdays 9-11am, MAR.2.08
 * Classes:
-    - Thursdays 1-3pm, NAB.2.08
+    - Thursdays 1-2pm, NAB.2.08
+    - Thursdays 2-3pm, CBG.2.05
     - Thursdays 5-6pm, NAB.2.16
 
 No lectures or classes will take place during (Reading) Week 6.
