@@ -1,5 +1,5 @@
 ---
-title: "Scraping tabular data"
+title: "MY472 - Week 5: Scraping tabular data"
 author: "Pablo Barbera, Friedrich Geiecke, Akitaka Matsuo"
 date: "25 October 2022"
 output: html_document

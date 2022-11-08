@@ -1,5 +1,5 @@
 ---
-title: "A first script using Selenium"
+title: "MY472 - Week 7: A first script using RSelenium"
 author: "Friedrich Geiecke"
 date: "8 November 2022"
 output: html_document

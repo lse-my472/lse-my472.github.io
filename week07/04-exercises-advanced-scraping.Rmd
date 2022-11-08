@@ -1,5 +1,5 @@
 ---
-title: "Scraping web data behind web forms"
+title: "MY472 - Week 7: Seminar exercises in scraping data behind web forms"
 author: "Pablo Barbera, Friedrich Geiecke, Martin Lukac, and Patrick Gildersleve"
 date: "10 November 2022"
 output: html_document
@@ -20,7 +20,6 @@ The first step is to load the RSelenium. Then, we will start a browser running i
 ```{r}
 library(RSelenium)
 library(tidyverse)
-library(stringi)
 library(rvest)
 library(xml2)
 ```
@@ -115,8 +114,8 @@ party_class <- results_html %>%
 
 print(party_class)
 
-# there are some extra texts here. Remove them using `stri_replace_*` function.
-party <- stri_replace_first_regex(party_class, ".+-", "")
+# there are some extra texts here. Remove them using `str_replace_*` function.
+party <- str_replace_all(party_class, ".+-", "")
 print(party)
 ```
 
@@ -126,8 +125,8 @@ Now, let's create a `data.frame`.
 results_table <- results_table %>%
   mutate(constituency = const_name[[1]], # create a new variable to get the constituency name
          party = party,                  # create a new variable for party names
-         votes = stri_replace_all_regex(votes, "\\D+", "") %>%   # "\\D+" -> get all digits
-           as.numeric) %>%               # make it numeric class
+         votes = str_replace_all(votes, "\\D+", "") %>%   # "\\D+" -> get all digits
+           as.numeric()) %>%               # make it numeric class
   select(c(2, 3, 6, 7)) # select columns to keep
 
 print(results_table)
@@ -137,7 +136,8 @@ print(results_table)
 
 We think that we have identified the necessary steps to get the data. We can now go over the list of constituency names and get __all__ candidate data.
 
-First, generate a function to search with constituency name and get the table
+First, combine the previous steps into a function with constituency name as input that returns the corresponding table:
+
 ```{r}
 get_results_by_const <- function(const_name, sec = 4){
   
@@ -185,7 +185,7 @@ get_results_by_const <- function(const_name, sec = 4){
   results_table <- results_table %>%
     mutate(constituency = const_name) %>%
     mutate(party = party) %>%
-    mutate(votes = stri_replace_all_regex(votes, "\\D", "") %>% as.numeric) %>%
+    mutate(votes = str_replace_all(votes, "\\D", "") %>% as.numeric()) %>%
     select(constituency, party, candidates, votes, `%`)
   
   # Don't overload the server and wait for a few seconds (default sec = 4)
@@ -209,6 +209,8 @@ const <- read_html(url_const) %>%
   select(Constituency) %>%
   .[[1]]
 
+# Print out first twenty
+const[1:20]
 ```
 
 Finally, we feed the constituency names to the `get_results_by_const()` function. Sit back and relax, selenium will do all the work for you.

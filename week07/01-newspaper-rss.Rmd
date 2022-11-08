@@ -1,5 +1,5 @@
 ---
-title: "Scraping newspaper RSS feeds"
+title: "MY472 - Week 7: Scraping newspaper RSS feeds"
 date: "8 November 2022"
 output: html_document
 ---

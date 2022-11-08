@@ -1,5 +1,5 @@
 ---
-title: "Using Selenium to scrape programmes from the LSE website"
+title: "MY472 - Week 5: Using RSelenium to scrape programmes from the LSE website"
 author: "Friedrich Geiecke"
 date: "8 November 2022"
 output: html_document
