@@ -48,7 +48,7 @@ No lectures or classes will take place during (Reading) Week 6.
 | 7  | 7 Nov | [XML, RSS, and scraping non-static pages](#7-xml-rss-and-scraping-non-static-pages) |   
 | 8  | 14 Nov | [Working with APIs](#8-working-with-apis) |  
 | 9  | 21 Nov | [Creating and managing databases](#9-creating-and-managing-databases) |  
-| 10 |  28 Nov | [Interacting with online databases](#10-interacting-with-online-databases)|  
+| 10 |  28 Nov | [Interacting with online databases](#10-cloud-databases-and-NoSQL)|  
 | 11 | 5 Dec | [Cloud Computing](#11-cloud-computing) |  
 
 
@@ -281,8 +281,8 @@ This week discusses how to work with Application Programming Interfaces (APIs) t
 
 ##### Assignment 4: APIs
 
-- GitHub Classroom link available via Moodle on Monday, 14 November, 2pm
-- Deadline on Friday, 25 November, 2pm
+- GitHub Classroom link available via Moodle on Tuesday, 15 November, 11am
+- Deadline on Monday, 28 November, 11am
 
 
 #### 9. Creating and managing databases
@@ -306,7 +306,7 @@ This session will offer an introduction to relational databases: structure, logi
 * Stephens et al. 2009. [_Teach yourself SQL in one hour a day_](https://books.google.co.uk/books?hl=en&lr=&id=9fDZ_rVoxx0C&oi=fnd&pg=PR5&dq=%22Sams+Teach+Yourself+SQL+in+24+Hours%22&ots=UkaClJDMem&sig=wgLy-DG3bc7g0LO0_Ojy5Cy2Ejs#v=onepage&q=%22Sams%20Teach%20Yourself%20SQL%20in%2024%20Hours%22&f=false). Sam's Publishing.
 
 
-#### 10. NoSQL and online databases
+#### 10. Cloud databases and NoSQL
 
 This week covers how to set up and use relational databases in the cloud and fundamentals of a document based NoSQL database.
 
