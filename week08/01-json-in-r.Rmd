@@ -5,6 +5,8 @@ date: "15 November 2022"
 output: html_document
 ---
 
+Before we look at real-world examples, let us first study our own simple files.
+
 Loading packages:
 
 ```{r}
@@ -15,7 +17,7 @@ library("tidyverse")
 Specify the directory where the JSON files are stored:
 
 ```{r}
-current_dir <- "yourdirectoryhere"
+current_dir <- "./data/"
 ```
 
 Reading/parsing the first file into R:
@@ -38,7 +40,7 @@ We can e.g. access the grades array with:
 example_1_parsed$grades
 ```
 
-The JSON array became a vector in R. Also note e.g. that the JSON notation of the Boolean as `false` was transformed into the R notation of logical `FALSE`.
+The JSON array became a vector in R. Also note e.g. that the JSON notation of the Boolean as `false` was transformed into the R notation of `FALSE`.
 
 The supervisor element is again a list itself. This emphasises the nested structure of such files:
 
@@ -82,13 +84,13 @@ class(example_3_parsed)
 names(example_3_parsed)
 ```
 
-The dataframe contained in the MT key:
+The data frame contained in the MT key:
 
 ```{r}
 example_3_parsed$MT
 ```
 
-The dataframe contained in the LT key:
+The data frame contained in the LT key:
 
 ```{r}
 example_3_parsed$LT

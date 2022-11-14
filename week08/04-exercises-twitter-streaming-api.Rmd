@@ -23,37 +23,19 @@ source("https://gist.githubusercontent.com/JBGruber/dee4c44e7d38d537426f57ba1e4f
 
 #### Authenticating
 
-First, we need to authenticate. After your application has been approved, you can paste the consumer key, consumer secret, access token, and access token secret strings into the list below:
+Load authentication file stored in lecture (see the beginning of `03-twitter-rest-api.Rmd` for discussion).
 
 ```{r}
-authentication <- list(consumer_key = "CONSUMER_KEY",
-                 consumer_secret = "CONSUMER_SECRET",
-                 access_token = "ACCESS_TOKEN",
-                 access_token_secret = "ACCESS_TOKEN_SECRET")
+# Load the file containing the list with the token
+load("myauthentication.rda")
+
+# Set authentication as default for remainder of session
+auth_as(auth)
 ```
 
-A more convenient approach could be to store this list once after you have pasted your keys and then to reload it when running some code. Store the list once with:
+If the chunk below outputs `LSEnews` after running, everything worked:
 
 ```{r}
-save(authentication, file = "authentication.rda")
-```
-
-To load the list containing your authentication whenever you run such a script, you can then simply add the following cell in the future (if the `authentication.rda` file is contained in the directory):
-
-```{r}
-load("authentication.rda")
-```
-
-Lastly, enter your app name into the cell below. If the cell then outputs `LSEnews` after running, we are good to go:
-
-```{r}
-# Replace the app name with your own!
-twitter_token <- create_token(app = "enter your app name here", 
-                              consumer_key = authentication$consumer_key,
-                              consumer_secret = authentication$consumer_secret,
-                              access_token = authentication$access_token,
-                              access_secret = authentication$access_token_secret)
-
 lookup_users("LSEnews")$screen_name
 ```
 
@@ -74,7 +56,7 @@ Note in particular that while the function is running, all output is written int
 
 #### 1. Collecting a sample
 
-First, we collect a random sample of tweets for 30 seconds and store it as a JSON file. Frequently the output from the streaming API is malformed JSON, so we need to do a bit of gymnastics with the tryCatch expression and function from JBGruber above:
+First, we collect a random sample of tweets for 30 seconds and store it as a JSON file. Sometimes the output from the streaming API is malformed JSON, so we need to do a bit of gymnastics with the tryCatch expression and function from JBGruber above:
 
 ```{r}
 stream_tweets(q = "", timeout = 30, file_name='streamed_tweets.json')

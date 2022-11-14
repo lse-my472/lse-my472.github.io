@@ -281,7 +281,7 @@ This week discusses how to work with Application Programming Interfaces (APIs) t
 
 ##### Assignment 4: APIs
 
-- GitHub Classroom link available via Moodle on Tuesday, 15 November, 11am
+- GitHub Classroom link available via Moodle on Tuesday, 15 November
 - Deadline on Monday, 28 November, 11am
 
 

@@ -11,47 +11,38 @@ Loading packages:
 
 ```{r}
 library("rtweet")
-library("stringr")
 library("tidyverse")
 ```
 
-First we need to authenticate. After your application has been approved, you can paste the consumer key, consumer secret, access token, and access token secret strings into the list below:
+### Authenticating
 
-```{r}
-authentication <- list(consumer_key = "CONSUMER_KEY",
-                 consumer_secret = "CONSUMER_SECRET",
-                 access_token = "ACCESS_TOKEN",
-                 access_token_secret = "ACCESS_TOKEN_SECRET")
+First we need to authenticate. One approach which does not depict the token in the code, is to first store it in a list with the `rtweet_app()` function and then save it on your computer as an .rda file. Run the following code chunk only once:
+
+```{r, eva = FALSE}
+# Only necessary to run once
+auth <- rtweet_app()
+save(auth, file = "myauthentication.rda")
 ```
 
-A more convenient approach, which importantly does not depict your individual tokens, can be to store this list once after you have pasted your keys and then to reload it when running some code. Store the list once with:
+The token is now saved in `myauthentication.rda`. To load your authentication whenever you run a script with `rtweet` in the future, you can simply add and run the following code chunk in the beginning (it works if the `myauthentication.rda` file is in the working directly; if it is stored in another directory, e.g. outside a repo to avoid uploading the token information to GitHub, you can add a path to the file such as `load("some/path/to/myauthentication.rda")`):
 
 ```{r}
-save(authentication, file = "myauthentication.rda")
-```
-
-To load the list containing your authentication whenever you run such a script, you can then simply add the following cell in the future (if the `myauthentication.rda` file is contained in the directory):
-
-```{r}
+# Load the file containing the list with the token
 load("myauthentication.rda")
+
+# Set authentication as default for remainder of session
+auth_as(auth)
 ```
 
-Lastly, if the cell below outputs `LSEnews` after running, we are good to go:
+Lastly, if the chunk below outputs `LSEnews` after running, we are good to go:
 
 ```{r}
-# Replace the app name with your own!
-twitter_token <- create_token(app = "enter your app name here", 
-                              consumer_key = authentication$consumer_key,
-                              consumer_secret = authentication$consumer_secret,
-                              access_token = authentication$access_token,
-                              access_secret = authentication$access_token_secret)
-
 lookup_users("LSEnews")$screen_name
 ```
 
 ### Searching recent tweets
 
-It is possible to download recent tweets, but only up those less than 7 days old, and in some cases not all of them.
+Without academic research access, it is possible to download recent tweets, but only up those less than 7 days old, and in some cases not all of them.
 
 The following code will get the last 1,000 tweets mentioning "brexit" and "fuel":
 
@@ -93,10 +84,10 @@ Download recent tweets from a specific account (the maximum number of most recen
 tweets <- get_timeline("JoeBiden", n = 1000)
 ```
 
-What are the most common hashtags used?
+What are the accounts most commonly mentioned?
 
 ```{r}
-ht <- str_extract_all(tweets$text, "#[A-Za-z0-9_]+")
+ht <- str_extract_all(tweets$text, "@[A-Za-z0-9_]+")
 ht <- unlist(ht)
 head(sort(table(ht), decreasing = TRUE))
 ```
@@ -116,7 +107,7 @@ Furthermore, lists of Twitter users, compiled by other users, can also be access
 ```{r}
 # Download user information from a list (words in the list name are separated
 # by a hyphen when using it as input into the slug variable)
-congress_members <- lists_members(slug = "members-of-congress", owner_user = "cspan")
+congress_members <- lists_members(slug = "members-of-congress", owner_user = "cspan", token = auth)
 head(congress_members)
 ```
 

@@ -19,9 +19,11 @@ library("tidyverse")
 
 To understand how APIs work, we will take the New York Times Article Search API as an example. This API allows users to search articles by string and dates, and returns counts of articles and a short description of each article (but not the full text). You can create a new account and obtain a key [here](https://developer.nytimes.com/get-started). Afterwards, paste your key here:
 
-```{r, eval = FALSE}
-apikey <- "r8qoNqHOeA53AHsEGWTKiW5y0JSUtuc7"
+```{r}
+apikey <- "u8lXp0divbjWlHtaEbWEvFQqsMK7iOaa"
 ```
+
+Make sure not to display the Rmd or HTML file publicly, e.g. in a public repo, when it contains an active key. In the following notebook, we will discuss an alternative approach that avoids keys being visible in code files.
 
 The fist step is to identify the base URL of the endpoint and the parameters that we can use to query the API, for the Article Search API you can find this URL structure [here](https://developer.nytimes.com/docs/articlesearch-product/1/overview). Now we can do a first API call using the **httr** package.
 
@@ -140,7 +142,7 @@ nyt_years_count <- function(q, yearinit, yearend) {
 nyt_years_count(q = "inequality", yearinit = 2019, yearend = 2020)
 ```
 
-This seems to work as well. Next, we run this function for 50 years and plot the outcome:
+This seems to work as well. Next, we run this function for 50 years and plot the outcome (this takes some time to run):
 
 ```{r}
 counts_inequality <- nyt_years_count(q = "inequality", yearinit = 1970, yearend = 2020)
@@ -151,9 +153,9 @@ plot(1970:2020, counts_inequality, type = "l", main = "Mentions of inequality in
      ylab = "Article count", xlab = "")
 ```
 
-Note: This output will be somewhat biased by changes in the amount of (print) content. To be more precise, we should divide the time series by the different totals of articles at every point of time. 
+Note: This output will be somewhat biased by changes in the amount of (print) content. To be more precise, we should divide the time series by the different totals of articles at every point of time (i.e. by the time-series obtained when searching for `""`). 
 
-Let us try to improve rewrite the function such that it works with any date interval, not just years and such that it returns a dataframe:
+Let us try to improve the function such that it works with any date interval, not just years and such that it returns a data frame:
 
 ```{r}
 nyt_dates_count <- function(q, init, end, by){
