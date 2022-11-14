@@ -43,7 +43,7 @@ No lectures or classes will take place during (Reading) Week 6.
 | 2  |  4 Oct | [Tabular data](#2-tabular-data) |  
 | 3  | 11 Oct | [Data visualisation](#3-data-visualisation) |  
 | 4  | 18 Oct | [Textual data](#4-textual-data) |  
-| 5  | 25 Oct | [HTML and CSS](#5-html-and-css) |
+| 5  | 25 Oct | [HTML, CSS, and scraping static pages](#5-html-css-and-scraping-static-pages) |
 | 6  |  1 Nov | _Reading week_ |  
 | 7  | 7 Nov | [XML, RSS, and scraping non-static pages](#7-xml-rss-and-scraping-non-static-pages) |   
 | 8  | 14 Nov | [Working with APIs](#8-working-with-apis) |  
@@ -195,9 +195,9 @@ We will learn how to work with unstructured data in the form of text and discuss
 
 
 
-#### 5. HTML and CSS
+#### 5. HTML, CSS, and scraping static pages
 
-In this week, we will learn how to obtain the data from the internet. This week we cover basic web scraping to turn web data into text or numbers. We will also discuss the client-server model.
+This week we cover the basics of web scraping for tables and unstructured data from static pages. We will also discuss the client-server model.
 
 ##### Lecture
 

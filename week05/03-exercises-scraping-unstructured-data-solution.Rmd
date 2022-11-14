@@ -1,182 +1,250 @@
 ---
-title: "MY472 - Week 5: Seminar exercises in scraping unstructured data - solution"
-author: "Pablo Barbera, Akitaka Matsuo, Martin Lukac"
-date: "27 October 2022"
+title: "MY472 - Week 5: Exercises in scraping unstructured data - solution"
+author: "Friedrich Geiecke"
 output: html_document
 ---
 
-### Scraping web data in unstructured format
-
-Loading packages
+These exercises discuss scraping unstructured data. We will use Wikipedia as an example. While there is also the Wikidata API which would allow to obtain data in an already structured format (we will discuss web APIs in week 8), the Wikipedia website itself is a very helpful example to study web scraping.
 
 ```{r}
-library(tidyverse)
-library(stringi)
-library(rvest)
-library(DT) # install.packages("DT")
+library("tidyverse")
+library("rvest")
 ```
 
-A common scenario for web scraping is when the data we want is available in plain html, but in different parts of the web, and not in a table format. In this scenario, we will need to find a way to extract each element, and then put it together into a data frame manually.
+## 1. CSS selectors for single elements, multiple elements, and nested elements
 
-An example here will be the website [http://ipaidabribe.com](http://ipaidabribe.com), which contains a database of self-reports of bribes in India. The code tries to collect data from the website.
+To study some fundamentals of scraping with selectors, let us look at the Wikipedia page of [Emmy Noether](https://en.wikipedia.org/wiki/Emmy_Noether), one of the most important mathematicians of the 20th century. 
 
 ```{r}
-url <- 'http://ipaidabribe.com/reports/paid'
+url_noether <- "https://en.wikipedia.org/wiki/Emmy_Noether"
+html_noether <- read_html(url_noether)
 ```
 
-We will also be using `rvest`, but in a slightly different way: Prior to scraping, we need to identify the CSS selector of each element we want to extract. 
+__Scraping single elements__
 
-Now, go to the ipaidabribe website (this link: http://ipaidabribe.com/reports/paid) and open the `Inspect Element` section. Then, find the CSS selector for the element(s) you want to extract.
-
-Now we're ready to scrape the website:
+The first example will be to collect only a single element of the HTML code, i.e. here the caption of the first image. It is on the right hand side of the website and begins with "Noether grew up in ...". Inspect the caption with your browser, copy its CSS selector, and scrape the caption by completing the code below:
 
 ```{r}
-# Reading the HTML code
-bribe_html <- read_html(url)
-
-# Identify the CSS selector and add it to the css argument
-bribe_nodes <- html_elements(bribe_html, css = ".paid-amount span")
-
-# Content of CSS selector
-bribe_nodes
+first_caption_element <- html_noether %>% html_elements(css = "div.thumb:nth-child(11) > div:nth-child(1) > div:nth-child(2)")
+first_caption_text <- first_caption_element %>% html_text() 
+first_caption_text
 ```
 
-We still need to do some cleaning before the data is usable:
+__Scraping multiple elements with a single selector__
+
+Copying CSS selectors with the browser such as in the previous example typically selects a distinct element. If the goal is to scrape multiple elements with a single selector, our knowledge of HTML and CSS is very helpful to define a more general selector. Inspect the website's code but now try to define an own selector to scrape the captions of all images displayed on the page in one go (hint: which class name do they all seem to share?):
 
 ```{r}
-# Extract the content of the CSS selector as text
-bribe_amount <- html_text(bribe_nodes) %>%
-  str_replace_all("Paid INR ", "") %>%
-  str_replace_all("[\r\n]", "") %>%
-  str_replace_all(",", "") %>%
-  as.numeric()
-
-bribe_amount
+all_caption_elements <- html_noether %>% html_elements(css = ".thumbcaption")
+all_caption_texts <- all_caption_elements %>% html_text() 
+all_caption_texts
 ```
 
-Small note on `stri_replace()`: `first` means to look for the first occurrence, `all` means to apply the rule to all occurrences, and `last` means last occurrence of the searched string; `fixed` is used for searching for fixed string: e.g. `Paid INR`, while `regex` is used for [regular expressions](https://en.wikipedia.org/wiki/Regular_expression). See a cheat sheet [here](https://www.rexegg.com/regex-quickstart.html)
+__Nested selectors__
 
-Let's do another one: transactions during which the bribe occurred:
+Lastly, let us study how we can define CSS selectors that more narrowly define the content we would like to scrape. For example, the selector `.someclassname p` would only scrape all paragraph tags within a class called "someclassname", i.e. it would not scrape any paragraph tags from other parts of the website. As another example, `div p a`, would scrape all hyperlink tags which are contained in paragraph tags which themselves are contained in division tags. It would not scrape any other hyperlinks. Note also, that the different class names/tags are just separated by a space.
+
+In our example here, imagine we wanted to scrape the captions of only the images on the left hand side of the page. When looking at the page's source code, can you define a CSS selector which achieves this (hint: if a class name contains a space, you can replace this space with a `.` in the CSS selector)?
 
 ```{r}
-transaction <- html_elements(bribe_html, ".transaction a") %>% 
-  html_text
-
-transaction
+all_lhs_caption_elements <- html_noether %>% html_elements(css = ".thumb.tleft .thumbcaption")
+all_lhs_caption_texts <- all_lhs_caption_elements %>% html_text() 
+all_lhs_caption_texts
 ```
 
-And one more: the department that is responsible for these transactions
+## 2. Extracting biographical information from a Wikipedia page
+
+As another example, let us collect some biographical information from the box on the right hand side of a person's Wikipedia page. We will look at the page of the physics Nobel laureate Richard Feynman and afterwards try to collect comparable information for all Nobel laureates in physics. As a side note, for an interesting discussion of the scientific method by Feynman, see this [link](https://youtu.be/EYPapE-3FRw); in particular the first 2.5 minutes are also very relevant for social scientists that work with mathematical models.
 
 ```{r}
-dept <- html_elements(bribe_html, ".department .name a") %>% 
-  html_text
-
-dept
+url_feynman <- "https://en.wikipedia.org/wiki/Richard_Feynman"
+html_feynman <- read_html(url_feynman)
 ```
 
-This was just for one page, but note that there are many pages. How do we scrape the rest? First, following the best practices on coding, we will write a function that takes the URL of each page, scrapes it, and returns the information we want.
+Say we would like to collect some baseline information about the person. The box on the right hand side seems the natural starting point. Each item in this box has content in a cell on the left (e.g. "Alma mater") and on the right (e.g. "Massachusetts Institute of Technology (S.B.) Princeton University (PhD)"). Inspecting with the browser reveals that the left cell has a class name "infobox-label" and the right "infobox-data". Try to complete the following by adding the CSS selectors for these two class names. This allows to obtain all relevant label and data elements from the box in one go similarly to the selector which we defined before that could scrape all captions:
 
 ```{r}
-scrape_bribe <- function(url){
-  # Can you combine all previoius sections into one function?
+label_elements_feynman <- html_feynman %>% html_elements(css = ".infobox-label")
+data_elements_feynman <- html_feynman %>% html_elements(css = ".infobox-data")
+```
+
+Next, extract the text from these elements:
+
+```{r}
+labels_feynman <- label_elements_feynman %>% html_text()
+data_feynman <- data_elements_feynman %>% html_text()
+```
+
+Printing the first entries:
+
+```{r}
+labels_feynman[1:5]
+```
+
+```{r}
+data_feynman[1:5]
+```
+
+From these vectors, how would you access just the birth date information?
+
+```{r}
+data_feynman[labels_feynman=="Born"]
+```
+
+The title of his PhD thesis?
+
+```{r}
+data_feynman[labels_feynman=="Thesis"]
+```
+
+The information could now be stored in a data frame. In the optional advanced example of the next section, we will look at how we could automate this approach for all physics laureates rather than just Richard Feynman.
+
+## 3. Optional advanced example: Combining information from multiple pages
+
+The last example of this document is to collect information on all Nobel laureates in physics via Wikipedia. It could be done by navigating to the page of each laureate and then collecting information from the content of that page. __We look at scientists as an example here, but this logic, i.e. navigating from a base page that contains links to a range of other pages, is widely applicable and very useful in web scraping. Think e.g. of a website with names of firms, countries, politicians, etc. each linking to an own page that contains information about the respective entry.__
+
+
+```{r}
+url <- "https://en.wikipedia.org/wiki/List_of_Nobel_laureates"
+nobels_html <- read_html(url)
+```
+
+You can scrape the full table by adding its CSS selector here:
+
+```{r}
+nobel_table_wikipedia <- html_elements(nobels_html, css = ".wikitable")[[1]] %>% html_table(fill=TRUE)
+nobel_table_wikipedia
+```
+
+This does return the names of all laureates, however, no further information about them such as their institutions, dissertation supervisors, etc. For the example of only the physics laureates, let us therefore obtain such data.
+
+First, create vector containing only the physics laureates with one element being one scientist:
+
+```{r}
+# Vector with all names of physics laureates (requires to separate multiple laureates in some years)
+physicists_names <- nobel_table_wikipedia$Physics %>% str_split(";") %>% unlist()
+
+# Drop entries of the physics column which don't contain names (years without laureates)
+physicists_names <- physicists_names[physicists_names != "None"]
+physicists_names <- physicists_names[physicists_names != "Cancelled due to World War II"]
+
+# Drop the last row of the column which just says "Physics"
+physicists_names <- physicists_names[-length(physicists_names)]
+
+# Exemplary names
+length(physicists_names)
+physicists_names[1:10]
+```
+
+The information later collected for each laureate will be stored in a table with columns for fields, institutions, doctoral advisors, and doctoral students.
+
+```{r}
+physicists <- tibble(name = physicists_names, fields = NA, institutions = NA, doctoral_advisors = NA, doctoral_students = NA)
+physicists
+```
+
+Next, store all hyperlinks contained in the website's HTML code in a vector (what is the CSS selector for a hyperlink?). This is one possible approach which allows to navigate to each individual laureate's page later:
+
+```{r}
+all_link_elements <- html_elements(nobels_html, css = "a")
+all_link_texts <- all_link_elements %>% html_text()
+```
+
+In the following, some code to extract and clean texts from a person's Wikipedia page is wrapped into a helper function. It uses the same idea as the Feynman example considered initially and furthermore cleans the texts. It works relatively well to clean texts for fields, institutions, doctoral advisors, and doctoral students as these are needed to fill out the table above. Other entries, such as the birth year, would require cleaning with a different set of regular expressions.
+
+```{r}
+# Helper function to clean texts
+helper_function <- function(x, labels, data) {
   
-  # 1. Read the html
-  c_html <- read_html(url)
+  #
+  # Only works well with fields, institutions, doctoral advisors, and doctoral students
+  #
   
-  # 2. Take the html and get the bribe amount
-  amount <- c_html %>% 
-    html_elements(".paid-amount span") %>%
-    # extract it as text
-    html_text() %>% 
-    str_replace_all("Paid INR ", "") %>%
-    str_replace_all("[\r\n]", "") %>%
-    str_replace_all(",", "") %>%
-    as.numeric()
+  # First, also create a plural version of the label string, e.g. if the label
+  # "x" is "advisor", the function will also check whether the Wikipedia page
+  # mentions "advisors" instead
+  x_plural <- paste0(x,"s")
   
-  # 3. Take the html and get the transaction text
-  transaction <- html_elements(c_html, ".transaction a") %>% 
-    html_text
+  # Check singular
+  if (x %in% labels) {
+    text <- data[labels==x]
+  }
+  # Check plural
+  else if (x_plural %in% labels) {
+    text <- data[labels==x_plural]
+    }
+  else {return(NA)} # return statement stops the rest of the function from running
   
-  # 4. Take the html and get the department text
-  dept <- html_elements(c_html, ".department .name a") %>% 
-    html_text
+  ## Clean text
+  # Remove new line signs and replace them with ;
+  text <- text %>% str_replace_all("\n", "; ")
+  # Remove any resulting ; at the beginning of the string
+  text <- text %>% str_replace_all("^; ", "")
+  # Remove superscripts and content added in parentheses
+  text <- text %>% str_replace_all("\\[.*\\]", "")
+  text <- text %>% str_replace_all("\\(.*\\)", "")
+  # Sometimes words in the Wikipedia texts are not correctly separated with a white space
+  # The following e.g. transforms "University of LondonCambridge University" into
+  # "University of London; Cambridge University"
+  text <- text %>% str_replace_all("([[:lower:]])([[:upper:]])", "\\1; \\2") # note: [[:lower:]] e.g. contains é which is not contained in [a-z]
+  # Sometimes long residual website code is contained at the beginning of text before
+  # the first ; -> It will be deleted in the following
+  text_split <- str_split(text, "; ")[[1]]
+  if (nchar(text_split[1]) > 200) { # Before the first semicolon, are there more than 200 characters?
+    text <- text_split[2:length(text_split)] %>% paste(collapse = "; ")}
+  return(text)
   
-  # 5. Combine amount, transaction, and department into one dataframe
-  df <- data.frame(amount, transaction, dept, stringsAsFactors = FALSE)
-  
-  return(df)
 }
 
-scrape_bribe(url)
+## Illustration with the Feynman examples discussed earlier
+
+# Obtain institution
+helper_function("Institutions", labels_feynman, data_feynman)
+# Obtain doctoral advisor(s)
+helper_function("Doctoral advisor", labels_feynman, data_feynman)
 ```
 
-And we will start a list of data frames, and put the data frame for the initial page in the first position of that list.
+Putting all these pieces together allows to collect the information for each physics laureate by navigating to their individual page:
 
 ```{r}
-data_list <- list(scrape_bribe(url))
-```
-
-How should we go about the following pages? Note that the following urls had `page=x`, where `x` is 10, 20, 30... So we will create a base url and then add these additional numbers. (Note that for this exercise we will only scrape the first 5 pages.)
-
-```{r}
-base_url <- "http://ipaidabribe.com/reports/paid?page="
-pages <- seq(0, 40, by = 10)
-```
-
-And now we just need to loop over pages, and use the function we created earlier to scrape the information, and add it to the list. Note that we're adding a couple of seconds between HTTP requests to avoid overloading the page, as well as a message that will informs us of the progress of the loop.
-
-```{r}
-for (i in 2:length(pages)){
-  # informative message about progress of loop
-  message(i, '/', length(pages))
-  # prepare URL
-  url <- paste0(base_url, pages[i])
-  # scrape website
-  data_list[[i]] <- scrape_bribe(url)
-  # wait a couple of seconds between URL calls
-  Sys.sleep(2)
+# Loop over all names of physics laureates
+for (current_name in physicists_names) {
+  
+  # Obtain relevant link element for the current laureate's name
+  current_laureate_element <- all_link_elements[all_link_texts == current_name][1]
+  
+  ## Navigate to URL of current laureate
+  # Get target of hyperlink
+  current_partial_url <- current_laureate_element %>% html_attr("href")
+  current_url <- paste("https://en.wikipedia.org",  current_partial_url, sep = "")
+  # Load page
+  current_html <- read_html(current_url)
+  
+  # Get labels and data
+  labels <- current_html %>% html_elements(css = ".infobox-label") %>% html_text()
+  data <- current_html %>% html_elements(css = ".infobox-data") %>% html_text()
+  
+  # Clean text and store in data frame
+  physicists[physicists$name == current_name, "fields"] <- helper_function("Field", labels, data)
+  physicists[physicists$name == current_name, "institutions"] <- helper_function("Institution", labels, data)
+  physicists[physicists$name == current_name, "doctoral_advisors"] <- helper_function("Doctoral advisor", labels, data)
+  physicists[physicists$name == current_name, "doctoral_students"] <- helper_function("Doctoral students", labels, data)
+  
+  # Wait half a second before next request
+  Sys.sleep(0.5)
+  
 }
+
+physicists
 ```
 
-The final step is to convert the list of data frames into a single data frame that we can work with, using the function `do.call(rbind, LIST)` (where `LIST` is a list of data frames).
+The cleaned texts in the data frame are not 100% consistent and some further fine tuning of the regular expressions would be required for rare cases, however, the data quality is already quite good. The example shows that with some lines of code and navigating through Wikipedia it was already possible to assemble a notable database of scientists, their institutions, advisors and doctoral students all from different webpages.
+
+Who was the doctoral advisor of most scientists that became physics prize winners?
 
 ```{r}
-## Instead of do.call, we will use bind_rows in dplyr which is much faster 
-data_all <- bind_rows(data_list)
-
-## Check
-View(data_all)
-```
-
-Let's get some quick descriptive statistics to check everything worked. First, what is the most common transaction during which a bribe was paid?
-
-```{r}
-# frequency table
-table(data_all$transaction)
-
-```
-
-What was the average bribe payment?
-
-```{r}
-mean(data_all$amount)
-median(data_all$amount)
-
-# Can you create a histogram of the amounts paid?
-ggplot(data_all, aes(x = amount)) + 
-  geom_histogram() + 
-  scale_x_log10(labels=scales::comma)
-
-```
-
-And what was the average payment for each department? 
-
-```{r}
-agg <- data_all %>%
-  group_by(dept) %>% # group the data by department
-  summarize(mean_bribe = mean(amount) %>% round(1)) %>% # get the summery statistics
-  arrange(-mean_bribe) # order the data by mean bribe amount from largest to smallest
-
-## DT will provide a sortable table in knitted document.
-datatable(agg)
+all_advisors <- physicists$doctoral_advisors %>% str_split("; ") %>% unlist()
+all_advisors <- tibble(advisor = all_advisors) %>% drop_na()
+advisors_sorted <- all_advisors %>% count(advisor) %>% arrange(desc(n))
+advisors_sorted
 ```
