@@ -20,7 +20,7 @@ library("tidyverse")
 To understand how APIs work, we will take the New York Times Article Search API as an example. This API allows users to search articles by string and dates, and returns counts of articles and a short description of each article (but not the full text). You can create a new account and obtain a key [here](https://developer.nytimes.com/get-started). Afterwards, paste your key here:
 
 ```{r}
-apikey <- "u8lXp0divbjWlHtaEbWEvFQqsMK7iOaa"
+apikey <- "tba"
 ```
 
 Make sure not to display the Rmd or HTML file publicly, e.g. in a public repo, when it contains an active key. In the following notebook, we will discuss an alternative approach that avoids keys being visible in code files.
