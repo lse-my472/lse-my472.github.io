@@ -1,0 +1,16 @@
+{
+    "name": "Bob",
+    "courseWork": [
+        "Assignment",
+        "Final"
+    ],
+    "grades": [
+        65,
+        73
+    ],
+    "supervisor": {
+        "name": "Alice",
+        "department": "Mathematics"
+    },
+    "currentlyEnrolled": false
+}
