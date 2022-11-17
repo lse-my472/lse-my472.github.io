@@ -23,11 +23,13 @@ source("https://gist.githubusercontent.com/JBGruber/dee4c44e7d38d537426f57ba1e4f
 
 #### Authenticating
 
-To access the streaming API with `rtweet`, we again need to authenticate. 
+To access the streaming API with `rtweet`, we again need to authenticate. For detailed documentation of `rtweet's` current authentication, see this link: https://docs.ropensci.org/rtweet/articles/auth.html
 
 __Option 1:__
 
-One option for the streaming API is to authenticate via keys/tokens from the Twitter Developer Portal. This works with accounts with Academic Access, but other accounts currently do not seem to have the required access rights. If you go to your Twitter Developer Portal, you can create and copy:
+One option for using the streaming API via `rtweet` is to authenticate via keys/tokens from the Twitter Developer Portal. Yet, this currently works for accounts with Academic Access, but other accounts do not seem to have the required access rights. Other accounts have the option to use a user-based authentication (see Option 2).
+
+If you go to your Twitter Developer Portal, you can create and copy:
 
 1) API key
 2) API secret
@@ -51,7 +53,7 @@ load("myauthentication.rda")
 auth_as(auth)
 ```
 
-If the follwing cell runs without a 403 error, we are good to go:
+If the following cell runs without a 403 error (no sufficient access rights), we are good to go:
 
 ```{r}
 test_tweets <- stream_tweets(q = "", timeout = 3)
@@ -59,9 +61,11 @@ test_tweets <- stream_tweets(q = "", timeout = 3)
 
 __Option 2:__
 
-Another option is to use `rtweet's` function `auth_setup_default()` to authenticate as a user instead. This will open a browser window and require to enter Twitter account name and password. Note that this will share information of your account with the `rtweet` package and its associated Twitter app. For more information on what is shared, see the description in the browser window. It is therefore only optional in this course to use the Twitter API and up to the user to choose this authentication or not. No assignment in this course requires students to download data from the Twitter API.
+Another option to gain access to the streaming API is to use `rtweet's` function `auth_setup_default()` and authenticate as a user instead. This will open a browser window and require to enter Twitter account name and password. Note that this will share some information of your account with the `rtweet` package and its associated Twitter app. For more discussion on what is shared, see the description in the browser window. It is therefore only optional in this course to use the Twitter API and users can decide whether to choose this authentication or not. No assignment in the current iteration of the course requires students to download data from the Twitter API.
 
-For more in detail documentation about `rtweet's` current authentication, also see this link: https://docs.ropensci.org/rtweet/articles/auth.html
+```{r, eval=FALSE}
+auth_setup_default()
+```
 
 
 #### Preliminaries
@@ -114,6 +118,7 @@ The returned tweets have been parsed into R directly as a data frame:
 class(sample_tweets)
 sample_tweets
 ```
+
 We can also obtain user data of the tweets with `users_data()`:
 
 ```{r}
@@ -151,7 +156,7 @@ write_csv(sample_tweets, "df_collected_tweets.csv")
 If we specify a keyword, we can collect tweets containing it. Note that here we don't bother with the tryCatch expression. The short timeout means we can (probably) get away with it...:
 
 ```{r}
-keyword_tweets <- stream_tweets(q = "election", timeout = 5)
+keyword_tweets <- stream_tweets(q = "brexit", timeout = 5)
 head(keyword_tweets)
 head(keyword_tweets$text)
 ```
@@ -159,7 +164,7 @@ head(keyword_tweets$text)
 Multiple keywords that should be contained in the tweets are separated with a capitalised `AND` (to indicate that the `and` is not a term itself):
 
 ```{r}
-keywords_tweets <- stream_tweets("trump AND biden", timeout = 5)
+keywords_tweets <- stream_tweets("brexit AND economic", timeout = 5)
 head(keywords_tweets$text)
 ```
 
