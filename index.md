@@ -270,7 +270,7 @@ This week discusses how to work with Application Programming Interfaces (APIs) t
 
 ##### Seminar
 
-- Code: [Twitter streaming API](week08/04-exercises-twitter-streaming-api.Rmd)
+- Code: [Twitter streaming API](week08/04-twitter-streaming-api.Rmd)
 
 
 ##### Reading

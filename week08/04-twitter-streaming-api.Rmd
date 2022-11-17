@@ -1,5 +1,5 @@
 ---
-title: "Twitter Streaming API"
+title: "MY472 - Week 8: Twitter Streaming API - solution"
 author: "Pablo Barbera, Ken Benoit, Friedrich Geiecke, Patrick Gildersleve"
 date: "17 November 2022"
 output: html_document
@@ -23,7 +23,25 @@ source("https://gist.githubusercontent.com/JBGruber/dee4c44e7d38d537426f57ba1e4f
 
 #### Authenticating
 
-Load authentication file stored in lecture (see the beginning of `03-twitter-rest-api.Rmd` for discussion).
+To access the streaming API with `rtweet`, we again need to authenticate. 
+
+__Option 1:__
+
+One option for the streaming API is to authenticate via keys/tokens from the Twitter Developer Portal. This works with accounts with Academic Access, but other accounts currently do not seem to have the required access rights. If you go to your Twitter Developer Portal, you can create and copy:
+
+1) API key
+2) API secret
+3) Access token
+4) Access token secret
+
+and store these strings on your computer. Afterwards, they can be entered in order 1)-4) into the following pop-up windows:
+
+```{r, eval=FALSE}
+auth <- rtweet_bot()
+save(auth, file = "myauthentication.rda")
+```
+
+The previous code chunk needs to be run only once. The line `save(auth, file = "myauthentication.rda")` stored the information in an rds object `myauthentication.rda`. To load your authentication whenever you run a script with `rtweet` in the future, you can simply add and run the next code chunk in the beginning (it works if the `myauthentication.rda` file is in the working directly; if it is stored in another directory, e.g. outside a repo to avoid uploading the token information to GitHub, you can add a path to the file such as `load("some/path/to/myauthentication.rda")`):
 
 ```{r}
 # Load the file containing the list with the token
@@ -33,11 +51,17 @@ load("myauthentication.rda")
 auth_as(auth)
 ```
 
-If the chunk below outputs `LSEnews` after running, everything worked:
+If the follwing cell runs without a 403 error, we are good to go:
 
 ```{r}
-lookup_users("LSEnews")$screen_name
+test_tweets <- stream_tweets(q = "", timeout = 3)
 ```
+
+__Option 2:__
+
+Another option is to use `rtweet's` function `auth_setup_default()` to authenticate as a user instead. This will open a browser window and require to enter Twitter account name and password. Note that this will share information of your account with the `rtweet` package and its associated Twitter app. For more information on what is shared, see the description in the browser window. It is therefore only optional in this course to use the Twitter API and up to the user to choose this authentication or not. No assignment in this course requires students to download data from the Twitter API.
+
+For more in detail documentation about `rtweet's` current authentication, also see this link: https://docs.ropensci.org/rtweet/articles/auth.html
 
 
 #### Preliminaries
@@ -52,28 +76,52 @@ First, let us have a look at the `stream_tweets` function which we will use a lo
 
 4. q = c(-125, 26, -65, 49): Location via geo-coordinates (1-360 degree location boxes)
 
-Note in particular that while the function is running, all output is written into a JSON file on your disk. This can be very helpful to avoid losing your collected tweets should the internet connection or the script break when collecting tweets for longer durations. Unless you set parse = FALSE or specify a file name, however, this JSON file will automatically be deleted once the stream is complete and the tweets have been assigned to the R object to the left of the <- operator. If you would like to store tweets on your disk either way, set a file name manually and/or set parse = FALSE. In the parse = FALSE case, the tweets will not be assigned to an object after running (i.e. the `stream_tweets` function will not return an output), but tweets will only be written to disk. This can be helpful as for larger streams the parsing process might unnecessarily block resources. Also see the help file of `stream_tweets` which is the reference for this discussion.
+Note in particular that while the function is running, all output is written into a JSON file on your disk. This can be very helpful to avoid losing your collected tweets should the internet connection or the script break when collecting tweets for longer durations. Unless you set parse = FALSE or specify a file name, however, this JSON file will automatically be deleted once the stream is complete and the tweets have been assigned to the R object to the left of the <- operator. If you would like to store tweets on your disk either way, set a file name manually with `file_name = "somefilename.json"` and/or set parse = FALSE. In the parse = FALSE case, the tweets will not be assigned to an object after running (i.e. the `stream_tweets` function will not return an output), but tweets will only be written to disk. This can be helpful as for larger streams the parsing process might unnecessarily block resources. Also see the help file of `stream_tweets` which is the reference for this discussion.
+
 
 #### 1. Collecting a sample
 
-First, we collect a random sample of tweets for 30 seconds and store it as a JSON file. Sometimes the output from the streaming API is malformed JSON, so we need to do a bit of gymnastics with the tryCatch expression and function from JBGruber above:
+First, we collect a random sample of tweets for 15 seconds and store it as a JSON file. 
 
 ```{r}
-stream_tweets(q = "", timeout = 30, file_name='streamed_tweets.json')
+sample_tweets <- stream_tweets(q = "", timeout = 15, file_name = "streamed_tweets.json")
+head(sample_tweets)
+head(sample_tweets$text)
+```
+
+We can also read the JSON file into R instead, e.g. when we stored JSON files from previous runs of `stream_tweets()`. Sometimes the output from the streaming API is malformed JSON, so we need to do a bit of gymnastics with a tryCatch expression. Let us briefly review tryCatch in R:
+
+```{r}
+tryCatch({2+2}, error = function(e) {return(4+4)})
+tryCatch({2+"2"}, error = function(e) {return(4+4)})
+```
+
+This tries to run the first code block `{}`, and when an error is encountered, catches it, and rather than terminating instead runs and returns the second block `{}`.
+
+We will use this logic to run the `parse_streem()` function from `rtweet` first and, if it fails, the more robust `recover_stream()` function from JBGruber:
+
+```{r}
 sample_tweets <- tryCatch({parse_stream('streamed_tweets.json')},
                        error = function(e)
                            {print(paste("Retrying with alternative function after initial error when parsing file",
                                         'streamed_tweets.json'));
                            return(recover_stream('streamed_tweets.json'))})
-head(____________)
-head(____________$text)
 ```
 
-The returned tweets have been parsed into R directly as a data frame / tibble:
+The returned tweets have been parsed into R directly as a data frame:
 
 ```{r}
 class(sample_tweets)
 sample_tweets
+```
+We can also obtain user data of the tweets with `users_data()`:
+
+```{r}
+sample_users <- users_data(sample_tweets)
+head(sample_users)
+
+# Adding the screen name also to the tweets table
+sample_tweets$screen_name <- sample_users$screen_name
 ```
 
 Who tweeted the most retweeted tweet, what text does it contain, and what is its retweet count?
@@ -95,7 +143,7 @@ head(sort(table(ht), decreasing = TRUE))
 As the tweets have been parsed into R in a tabular format through the package, we can now write them to disk as a csv file:
 
 ```{r}
-write_as_csv(sample_tweets, file_name = "df_collected_tweets.csv")
+write_csv(sample_tweets, "df_collected_tweets.csv")
 ```
 
 #### 2. Filtering by keyword
@@ -108,16 +156,21 @@ head(keyword_tweets)
 head(keyword_tweets$text)
 ```
 
-Multiple keywords that should be contained in the tweets are separated with a capitalised `AND` (to indicate that the `and` is not a term itself). For example, let us search for the keywords trump and biden:
+Multiple keywords that should be contained in the tweets are separated with a capitalised `AND` (to indicate that the `and` is not a term itself):
 
 ```{r}
-keywords_tweets <- stream_tweets(____, timeout = 5)
+keywords_tweets <- stream_tweets("trump AND biden", timeout = 5)
 head(keywords_tweets$text)
 ```
 
 #### 3. Filtering by user ids
 
 If we wanted to collect a stream of tweets from specific users, we could specify a vector of user ids and set q = user_id_vector.
+
+```{r}
+uid_tweets <- stream_tweets(q = c("2899773086"), timeout = 5)
+head(uid_tweets$text)
+```
 
 #### 4. Filtering by location
 
@@ -126,14 +179,14 @@ Lastly, let us turn to collecting tweets filtered by location instead. To be abl
 For example, imagine we want to collect tweets from the United States. One way to do it is to find two pairs of coordinates (longitude and latitude) that indicate the southwest corner AND the northeast corner to create a large rectangular* boundary encompassing the country. One important thing when using this function is to note the order it uses: It is not (lat, long), but (long, lat). In the case of the US, this would therefore be approx. (-125, 26) and (-65, 49) or in one vector c(-125, 26, -65, 49). How can you find coordinates? You can e.g. use Google Maps, and right-click on the desired location (e.g. the north-east corner of the US or a city) and select "What's here?". Just note that the coordinates on Google are given in opposite order. As a small exercise, what are the approximate coordinates of Detroit's center? Alternatively you can use the function `lookup_coords`, e.g.` lookup_coords("usa")`. If you would like to look up coordinates of e.g. cities with this functions you would need to supply a valid Google Maps API key as one of its arguments. Proceeding with the example of US tweets:
 
 ```{r}
-stream_tweets(q = _____________, timeout = 30, file_name='__________________')
-#stream_tweets(q = lookup_coords("usa"), timeout = 30, file_name='__________________')
+stream_tweets(q = c(-125, 26, -65, 49), timeout = 30, parse=FALSE, file_name='streamed_geo_tweets.json')
+#stream_tweets(q = lookup_coords("usa"), timeout = 30, file_name='streamed_geo_tweets.json')
 
-geo_tweets <- tryCatch({parse_stream('__________________')},
+geo_tweets <- tryCatch({parse_stream('streamed_geo_tweets.json')},
                        error = function(e)
                            {print(paste("Retrying with alternative function after initial error when parsing file",
-                                        '__________________'));
-                           return(recover_stream('__________________'))})
+                                        'streamed_geo_tweets.json'));
+                           return(recover_stream('streamed_geo_tweets.json'))})
 ```
 
 Where are these tweets from more precisely? We can use the **maps** package to visualise this. In the `map.where` function we can thereby e.g. use "state" as the first argument to obtain location of tweets at the state level or "world" to obtain location at the country level. To do this, however, we first need to add columns to our data frame that store the latitude and longitude of each tweet. The `lat_lng` function appends the data frame with latitude and longitude variables using available geo-location information in tweet data returned from the API. For in detail information of what types of location data can be attached to geo-tagged tweets, see e.g. this [link](https://developer.twitter.com/en/docs/twitter-api/v1/data-dictionary/overview/geo-objects)
@@ -144,7 +197,7 @@ Where are these tweets from more precisely? We can use the **maps** package to v
 geo_tweets <- lat_lng(geo_tweets)
 
 # Counting how many tweets came from different US states
-states <- map.where(database = "state", x = geo_tweets$____, y = geo_tweets$____)
+states <- map.where(database = "state", x = geo_tweets$lng, y = geo_tweets$lat)
 head(sort(table(states), decreasing = TRUE))
 ```
 
@@ -162,8 +215,8 @@ ggplot(map.data) + geom_map(aes(map_id = region), map = map.data, fill = "grey90
     # Limits for x and y axis
     scale_x_continuous(limits=c(-125, -66)) + scale_y_continuous(limits = c(25, 50)) +
     # Adding the dot for each tweet and specifying dot size, transparency, and colour
-    geom_point(data = geo_tweets, aes(x = lng, y = lat), size = ____,
-               alpha = 1/5, color = ____) +
+    geom_point(data = geo_tweets, aes(x = lng, y = lat), size = 2,
+               alpha = 1/5, color = "red") +
     # Removing unnecessary graph elements
     theme(axis.line = element_blank(), 
     	axis.text = element_blank(), 
