@@ -1,19 +1,120 @@
 ---
-title: "Creating and querying an SQLite database"
+title: "MY472 - Week 9: Seminar exercises in creating and querying SQLite databases"
 author: "Pablo Barberá"
 date: "24 November 2022"
 output: html_document
 ---
 
+```{r}
+library("DBI")
+```
 
-# Creating and querying a SQL database
 
-Practice creating a SQL database and querying it. You should use the data in the file UK-tweets.csv. These data represent a random sample of 10,000 tweets related to the 2014 EP elections in the UK.
+# 1. Querying a SQLite database
 
-1. Create a SQLite database from the data in the file. Test the database by checking the first 5 entries in it.
+Let us practice writing SQL queries by answering the following questions. We will use the database created in the lecture (you might need to adjust the path to the database on your computer).
 
 ```{r}
-library(DBI)
+db <- dbConnect(RSQLite::SQLite(), "data/facebook-db.sqlite")
+```
+
+Recall the columns of the two tables:
+
+```{r}
+# Congress table
+dbListFields(db, "congress")
+
+# Posts table
+dbListFields(db, "posts")
+```
+
+1. Who wrote the post that was shared the most times during this period? What does it say?
+
+```{r}
+dbGetQuery(db, 
+           "SELECT screen_name, message
+           ...")
+```
+
+2. What about the post with the most comments?
+
+```{r}
+
+
+```
+
+3. Which was the post that received the most likes in January of 2017?
+
+```{r}
+
+
+```
+
+4. What was the photo posted by a Member of Congress that received the most "angry" reactions?
+
+```{r}
+
+```
+
+5. What was the post by `senatorsanders` that received the most "angry" reactions? And the most "love" reactions?
+
+```{r}
+
+```
+
+6. How many posts were published each month of the year?
+
+```{r}
+
+```
+
+
+# 2. Practicing working with multiple SQL tables
+
+Next, let us study some queries with **JOIN** commands to answer the questions below. We will use the same database.
+
+1. What is the average number of likes for members of the House and the Senate? Which group is more popular on average?
+
+```{r}
+# db <- dbConnect(RSQLite::SQLite(), "data/facebook-db.sqlite")
+
+dbGetQuery(db, 
+           "...")
+```
+
+2. What is the average number of likes that posts receive based on the time of the day in which they were published (note: times are in the GMT time zone)?
+
+```{r}
+
+
+```
+
+3. Do male and female politicians receive different amounts of comments on average?
+
+```{r}
+
+```
+
+4. For each type of reaction (haha, love, angry...) compute the average count by party. Are there any systematic differences?
+
+```{r}
+
+```
+
+5. Compute the total number of "sad" reactions for each domain shared by Republicans. Display the top 10 domains that receive the most "sad" reactions. Then repeat the same for Democrats. What do you find?
+
+```{r}
+
+```
+
+
+# 3. Creating and querying a simple new SQLite database
+
+Lastly, the task is to create a simple new SQLite database with one table and query it. The data will be a random sample of 10,000 tweets related to the 2014 EP elections in the UK which can be found in `UK-tweets.csv`.
+
+1. Create a SQLite database with a table called `tweets` containing the data from the file. Test the database by checking the first 5 entries in it.
+
+```{r}
 db <- dbConnect(...
                 
 tweets <- read.csv(_________)
@@ -30,7 +131,7 @@ dbGetQuery(__,
   "SELECT ...")
 ```
 
-3. What perecent of tweets are classified as impolite?
+3. What percent of tweets are classified as impolite?
 
 ```{r}
 
@@ -42,109 +143,9 @@ dbGetQuery(__,
 
 ```
 
-
 5. Compute the average number of followers for tweets that are impolite and polite.
 
 ```{r}
 
 ```
-
-
-# Practicing working with multiple SQL tables
-
-Practice writing using **JOIN** in SQL queries to answer the questions below. Use the database we created in lecture.
-
-6. How many posts were published each month of the year?
-
-```{r}
-# db <- dbConnect(RSQLite::SQLite(), "data/facebook-db.sqlite")
-
-dbGetQuery(db, 
-           "SELECT screen_name, message
-           ...")
-
-```
-
-
-7. What is the average number of likes for members of the House and the Senate? Which group is more popular on average?
-
-```{r}
-
-```
-
-8. What is the average number of likes that posts receive based on the time of the day in which they were published?
-
-```{r}
-
-
-```
-
-9. Do women receive more comments than men on average?
-
-```{r}
-
-```
-
-10. For each type of reaction (haha, love, angry...) compute the average count by party. Are there any systematic differences?
-
-```{r}
-
-```
-
-11. Compute the total number of "sad" reactions for each domain shared by Republicans. Display the top 10 domains that receive the most "sad" reactions. Then repeat the same for Democrats. What do you find?
-
-```{r}
-
-```
-
-
-# Querying a SQL database
-
-Practice writing SQL queries that answer the following questions using the database we created in lecture:
-
-12. Who wrote the post that was shared the most times during this period? What does it say?
-
-```{r}
-# db <- dbConnect(RSQLite::SQLite(), "data/facebook-db.sqlite")
-
-dbGetQuery(db, 
-           "SELECT screen_name, message
-           ...")
-
-```
-
-13. What about the post with the most comments?
-
-```{r}
-
-
-```
-
-14. Which was the post that received the most likes in January of 2017?
-
-```{r}
-
-
-```
-
-15. What was the photo posted by a Member of Congress that received the most "angry" reactions?
-
-```{r}
-
-```
-
-16. What was the post by `senatorsanders` that received the most "angry" reactions? And the most "love" reactions?
-
-```{r}
-
-```
-
-17. Which was the post mentioning "Trump" that was shared the most? And which was the post that received the most "love" reactions?
-
-```{r}
-
-```
-
-
-
 
