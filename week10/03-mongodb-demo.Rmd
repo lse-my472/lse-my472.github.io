@@ -1,36 +1,36 @@
 ---
-title: "MongoDB demo"
+title: "MY472 - Week 10: MongoDB demo (optional)"
 author: "Pablo Barberá, Friedrich Geiecke, Akitaka Matsuo"
 date: "29 November 2022"
 output: html_document
 ---
 
-In this document we will try to replicate with MongoDB what we did using SQLite last week. We will therefore use MongoDB through R as well. Should you work with MongoDB in the future, you might use it e.g. via the MongoDB Shell (command line) or MongoDB Compass (a graphical user interface). See this [link](https://www.mongodb.com/developer-tools) for details. You can find the full manual [here](https://docs.mongodb.com/manual/). While we work with the database locally in this file, we could of course also host it in the cloud.
+In this document we will try to replicate with MongoDB what we did using SQLite last week. We will therefore use MongoDB through R here. Should you work with MongoDB in the future, you might use it e.g. via the MongoDB Shell (command line) or MongoDB Compass (a graphical user interface). See this [link](https://www.mongodb.com/developer-tools) for details. You can find the full manual [here](https://docs.mongodb.com/manual/). While we work with the database locally in this file, we could of course also host it in the cloud.
 
-Although we use MongoDB through R, we first need to install the software and run it in the background. If you are using a **Mac**, run the following in terminal:
+This document is __optional__ in the course. If you would like to run the code yourself, you can follow the following instructions:
+
+Although we use MongoDB through R, we first need to install the software and run it in the background. If you are using a **Mac**, the following can be run in terminal.
 
 ```{bash eval=FALSE}
-# Source: https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x/
-# Install mongo using Homebrew
-# If you don't have Homebrew installed already, then start by running the code
-# line below in Terminal (source: https://brew.sh/):
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+# Source and more information: https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x/
+#
+# Install MongoDB using Homebrew:
+#
+# Homebrew can be installed as described here: https://brew.sh/
+# Note that it requires xcode which can be installed `xcode-select --install`
+#
 # Then proceed installing the MongoDB in Terminal with:
 brew tap mongodb/brew
-brew install mongodb-community@5.0 # note: new 5.0 version available in 2021
-# Note: Homebrew might require to install/update the xcode Command Line Tools,
-# e.g. run `xcode-select --install` in Terminal or download via
-# https://developer.apple.com/download/more/
-# Should your installation also ask you to install Xcode,
-# download it via the App Store.
+brew update
+brew install mongodb-community@5.0 # 6.0 is most current, but seems to sometimes yield an error with the R package at the moment
 
 # After installing:
 
 # Start MongoDB server in Terminal
-brew services start mongodb-community
+brew services start mongodb-community@5.0
 
 # To stop server in Terminal (once done with working with the data through R)
-brew services stop mongodb-community
+brew services stop mongodb-community@5.0
 ```
 
 On **Windows**, follow the instruction for the community edition here: https://docs.mongodb.com/manual/tutorial/install-mongodb-on-windows/

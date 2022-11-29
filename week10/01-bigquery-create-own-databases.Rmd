@@ -1,5 +1,5 @@
 ---
-title: "Creating and querying a database in the cloud"
+title: "MY472 - Week 10: Creating and querying a database in the cloud"
 author: "Friedrich Geiecke"
 date: "29 November 2022"
 output: html_document

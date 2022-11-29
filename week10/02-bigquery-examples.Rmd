@@ -1,5 +1,5 @@
 ---
-title: "Querying large databases via Google BigQuery"
+title: "MY472 - Week 10: Querying large databases via Google BigQuery"
 author: "Pablo Barberá, Friedrich Geiecke, Akitaka Matsu"
 date: "29 November 2022"
 output: html_document
@@ -25,7 +25,7 @@ This dataset contains the number of crimes at two different geographic levels of
 project_name <- "bigquery-public-data"
 
 # Billing (main project ID)
-billing_info <- "my472-333417"
+billing_info <- "tba"
 
 # Dataset name (London crime database within the public databases)
 dataset_name <- "london_crime"
@@ -127,6 +127,7 @@ map <- ggplot() +
 map + theme_void()
 ```
 
+
 ## NYC Bicycle Hire
 
 The second database contains Citi Bike trips (NYC's bike-sharing service) since Citi Bike launched in September 2013.
@@ -187,7 +188,7 @@ dbGetQuery(db, "SELECT EXTRACT(HOUR FROM starttime) as hour_of_day,
   ORDER BY hour_of_day")
 ```
 
-5. What is the average trip duration based on the gender of the riders?
+5. What is the average trip duration grouped by the gender column?
 
 ```{r}
 dbGetQuery(db, "SELECT gender, AVG( TIMESTAMP_DIFF(stoptime, starttime, MINUTE) )
@@ -204,7 +205,7 @@ dbGetQuery(db, "SELECT AVG( (ABS(start_station_latitude-end_station_latitude) +
   FROM citibike_trips")
 ```
 
-7. What is the average distance of a trip based on gender?
+7. What is the average distance of a trip grouped by the gender column?
 
 ```{r}
 dbGetQuery(db, "SELECT gender, AVG( (ABS(start_station_latitude-end_station_latitude) +

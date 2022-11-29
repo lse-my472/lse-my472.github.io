@@ -48,8 +48,8 @@ No lectures or classes will take place during (Reading) Week 6.
 | 7  | 7 Nov | [XML, RSS, and scraping non-static pages](#7-xml-rss-and-scraping-non-static-pages) |   
 | 8  | 14 Nov | [Working with APIs](#8-working-with-apis) |  
 | 9  | 21 Nov | [Creating and managing databases](#9-creating-and-managing-databases) |  
-| 10 |  28 Nov | [Interacting with online databases](#10-cloud-databases-and-NoSQL)|  
-| 11 | 5 Dec | [Cloud Computing](#11-cloud-computing) |  
+| 10 |  28 Nov | [Interacting with online databases](#10-NoSQL-and-cloud-databases)|  
+| 11 | 5 Dec | [Cloud computing](#11-cloud-computing) |  
 
 
 
@@ -133,7 +133,7 @@ This week discusses processing tabular data in R with functions from the `tidyve
 
 
 ##### Assignment 1: Processing data in R (practise assignment)
-- GitHub Classroom link available via Moodle on Monday, 3 October, 2pm
+- GitHub Classroom link available via Moodle on Monday, 3 October
 - Deadline on Friday, 14 October, 2pm
 
 
@@ -190,7 +190,7 @@ We will learn how to work with unstructured data in the form of text and discuss
 
 
 ##### Assignment 2: Data visualisation
-- GitHub Classroom link available via Moodle on Monday, 17 October, 2pm
+- GitHub Classroom link available via Moodle on Monday, 17 October
 - Deadline on Friday, 28 October, 2pm
 
 
@@ -225,7 +225,7 @@ This week we cover the basics of web scraping for tables and unstructured data f
 
 ##### Assignment 3: Web scraping
 
-- GitHub Classroom link available via Moodle on Monday, 31 October, 2pm
+- GitHub Classroom link available via Moodle on Monday, 31 October
 - Deadline on Friday, 11 November, 2pm
 
 
@@ -306,7 +306,7 @@ This session will offer an introduction to relational databases: structure, logi
 * Stephens et al. 2009. [_Teach yourself SQL in one hour a day_](https://books.google.co.uk/books?hl=en&lr=&id=9fDZ_rVoxx0C&oi=fnd&pg=PR5&dq=%22Sams+Teach+Yourself+SQL+in+24+Hours%22&ots=UkaClJDMem&sig=wgLy-DG3bc7g0LO0_Ojy5Cy2Ejs#v=onepage&q=%22Sams%20Teach%20Yourself%20SQL%20in%2024%20Hours%22&f=false). Sam's Publishing.
 
 
-#### 10. Cloud databases and NoSQL
+#### 10. NoSQL and cloud databases
 
 This week covers how to set up and use relational databases in the cloud and fundamentals of a document based NoSQL database.
 
@@ -319,19 +319,19 @@ This week covers how to set up and use relational databases in the cloud and fun
 
 - Code: [Exercises BigQuery](week10/04-exercises-bigquery.Rmd), [SQL joins](week10/05-exercises-sql-joins.Rmd), [SQL subqueries](06-exercises-sql-subqueries.Rmd)
 
-##### Required reading
+##### Required
 * Beaulieu. 2009. [_Learning SQL_](https://books.google.co.uk/books?hl=en&lr=&id=1PgCCVryjOQC&oi=fnd&pg=PR3&dq=learning+sql+alan&ots=X6M3Iaz1wO&sig=38Fp1kDlxM8TF7miw0K2CNcKib4#v=onepage&q=learning%20sql%20alan&f=false). O'Reilly. (Chapters 2)
 * Hows, Membrey, and Plugge. 2014. [_MongoDB Basics_](https://books.google.co.uk/books?id=kmQnCgAAQBAJ&printsec=frontcover&dq=mongodb+basics&hl=en&sa=X&ved=0ahUKEwjPt7Cnv-PeAhUHBcAKHWQeBe0Q6wEIKzAA#v=onepage&q&f=false). Apress. (Chapter 1)
 * Tigani and Naidu. 2017. [_Google BigQuery Analytics_](https://books.google.co.uk/books?id=LDaiAwAAQBAJ&printsec=frontcover&dq=bigquery&hl=en&sa=X&ved=0ahUKEwj6yZ-MvOPeAhXHCcAKHWJxBSEQ6AEIMzAB#v=onepage&q&f=false). Weily. (Chapters 1-3)
 
 
-##### Recommended reading
+##### Further reading
 * [Analyzing Big Data in less time with Google BigQuery](https://www.youtube.com/watch?v=qqbYrQGSibQ) on YouTube
 
 
 ##### Assignment 5: Databases
 
-- GitHub Classroom link available via Moodle on Monday, 28 November, 2pm
+- GitHub Classroom link available via Moodle on Monday, 28 November
 - Deadline on Friday, 9 December, 2pm
 
 
@@ -362,5 +362,5 @@ In this week, we focus on the setup of computation environments on the Internet.
 
 
 #### Take-home exam
-- GitHub Classroom link available via Moodle on ...
+- GitHub Classroom link available via Moodle on Wednesday, 14 December
 - Deadline on Monday, 16 January, 2pm
