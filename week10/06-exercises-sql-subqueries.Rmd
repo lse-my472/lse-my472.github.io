@@ -1,5 +1,5 @@
 ---
-title: "Subqueries in SQL"
+title: "MY472 - Week 10: Seminar exercises on SQL subqueries"
 author: "Pablo Barberá"
 date: "1 December 2022"
 output: html_document
@@ -7,21 +7,35 @@ output: html_document
 
 ## Facebook database
 
-Use the SQLite database with Facebook posts data we created and used in week 10 to complete the questions below.
+Use the SQLite database with Facebook posts data we created and used in week 9 to complete the questions below.
+
+```{r}
+library(DBI)
+library(tidyverse)
+library(microbenchmark)
+```
 
 ## Subqueries
 
 In SQL, you can run a nested query where you use a result from the first query as a condition for the second query. Here, we will find the top 3 most frequent posters in congress and then get all messages from them. 
 
 ```{r}
-# load required libraries and connect to facebook-db.sqlite
+db <- dbConnect(RSQLite::_________, "data/facebook-db.sqlite")
+```
 
+```{r}
+# Congress table
+dbListFields(db, "congress")
+
+# Posts table
+dbListFields(db, "posts")
 ```
 
 1. What are the screen names of the top 3 posters?
 
 ```{r}
-
+dbGetQuery(db, 
+           "...")
 ```
 
 2. (Without subquery) how can you get the posts from these congress members?
@@ -48,7 +62,7 @@ In SQL, you can run a nested query where you use a result from the first query a
 
 ```
 
-6. Which solution is faster: the one in #4 or #5?
+6. Which solution is faster: the one in #4 or #5 (try to use `microbenchmark`)?
 
 ```{r}
 

@@ -1,5 +1,5 @@
 ---
-title: "Practicing SQL joins"
+title: "MY472 - Week 10: Seminar exercises on SQL joins"
 author: "Pablo Barberá"
 date: "1 December 2022"
 output: html_document
@@ -13,14 +13,14 @@ For your reference, the figure below shows different types of joins and how to r
 
 ## Get a random sample from the Facebook dataset
 
-Run the code below to create a SQLite database that contains a random sample of the Facebook data we used in week 10.
+Run the code below to create a SQLite database that contains a random sample of the Facebook data we used in week 9.
 
-```{r, eval = F}
+```{r, eval = FALSE}
 library(DBI)
 # create database: this will create a file on our hard drive
-db <- dbConnect(RSQLite::SQLite(), "~/data/facebook-db-mini.sqlite")
+db <- dbConnect(RSQLite::_________, "data/facebook-db-mini.sqlite")
 # reading the first file
-congress <- read.csv("~/data/congress-facebook-2017.csv",
+congress <- read.csv("data/congress-facebook-2017.csv",
 	stringsAsFactors=F)
 
 # this determines the seed in the pseudo-random number generator
@@ -37,9 +37,8 @@ dbGetQuery(db, 'SELECT * FROM congress LIMIT 5')
 ```
 
 
-```{r, eval = F}
-
-fls <- list.files("~/data/posts", full.names=TRUE)
+```{r, eval = FALSE}
+fls <- list.files("data/posts", full.names=TRUE)
 set.seed(20191212)
 
 for (f in fls){
@@ -61,21 +60,19 @@ dbGetQuery(db, 'SELECT * FROM posts LIMIT 5')
 # dbRemoveTable(db, "posts")
 # and we close the connection for now
 dbDisconnect(db)
-
 ```
 
 ## Questions
 
+1. Connect to the database we just created. How many rows are there in each table?
+
 ```{r}
-library(DBI)
-library(tidyverse)
-db <- dbConnect(RSQLite::SQLite(), "~/data/facebook-db-mini.sqlite")
+db <- dbConnect(_________, "data/facebook-db-mini.sqlite")
 ```
 
-1. How many rows are there in each table?
-
 ```{r}
-
+dbGetQuery(db, 
+           "...")
 ```
 
 2. How many rows do you get when use `JOIN` to join posts with congress? What kind of join is this? What does this tell us about the data we have?
@@ -102,6 +99,6 @@ db <- dbConnect(RSQLite::SQLite(), "~/data/facebook-db-mini.sqlite")
 
 ```
 
-```{R}
+```{r}
 dbDisconnect(db)
 ```
