@@ -48,7 +48,7 @@ No lectures or classes will take place during (Reading) Week 6.
 | 7  | 7 Nov | [XML, RSS, and scraping non-static pages](#7-xml-rss-and-scraping-non-static-pages) |   
 | 8  | 14 Nov | [Working with APIs](#8-working-with-apis) |  
 | 9  | 21 Nov | [Creating and managing databases](#9-creating-and-managing-databases) |  
-| 10 |  28 Nov | [Interacting with online databases](#10-NoSQL-and-cloud-databases)|  
+| 10 |  28 Nov | [Interacting with online databases](#10-nosql-and-cloud-databases)|  
 | 11 | 5 Dec | [Cloud computing](#11-cloud-computing) |  
 
 
