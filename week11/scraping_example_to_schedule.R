@@ -6,7 +6,7 @@
 # This script runs a single iteration, however, can be scheduled with tools
 # such as cron
 
-# Loading packages
+# Loading packages from library path
 library_directory <- "/home/ec2-user/r_libraries/"
 .libPaths(library_directory)
 library("DBI")

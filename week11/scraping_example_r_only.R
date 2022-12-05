@@ -3,9 +3,19 @@
 ## Continuous scraping: Approach 1
 ##
 
+# This script illustrates continuous scraping with a cloud instance by
+# collecting the Wikipedia featured article of the day once every 24h interval.
+#
+# The example is helpful for us to discuss a simple case of continous scraping,
+# however, note that the code would require the computer to run continously.
+# That could be suitable e.g. when scraping in minute intervals, or when
+# downloading tweets continuoulsy using the Twitter streaming API. When just
+# collecting data once per day like here, it would of course be most energy and
+# cost efficient to only briefly spin up and shut down a cloud instance every
+# day or to use FaaS, and to store the collected data outside of the instance,
+# e.g. via S3 or Dropbox.
 
-# This file regularly scrapes the Wikipedia featured article of the day and
-# stores new data in two ways:
+# The script illustrates two ways in which the scraped data can be saved:
 
 # i) by appending it to a table in an SQLite database
 # ii) by appending it to a .csv file
@@ -42,7 +52,7 @@ while(i < n) {
   if (hour(Sys.time()) %in% target_hours) {
     
     # Creating a data frame with one row
-    df <- data.frame(date = as_datetime(Sys.time()), summary = NA, link = NA)
+    df <- tibble(date = as_datetime(Sys.time()), summary = NA, link = NA)
     
     # Reading the HTML code
     wikipedia_main_page <- read_html("https://en.wikipedia.org/wiki/Main_Page")
@@ -58,7 +68,7 @@ while(i < n) {
     
     # Now the df is either appended to the table within the database or the a
     # csv file
-    
+
     # Option i: Add to table in SQL datase
     dbWriteTable(db, "featured_articles", df, append = TRUE)
     
@@ -88,7 +98,7 @@ while(i < n) {
 dbGetQuery(db, 'SELECT * FROM featured_articles') %>% as_tibble()
 
 # Check the csv
-read.csv("featured_articles.csv") %>% as_tibble()
+read_csv("featured_articles.csv") %>% as_tibble()
 
 # Disconnect from database
 dbDisconnect(db)
