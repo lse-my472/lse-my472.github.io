@@ -39,6 +39,12 @@ db <- dbConnect(
 db
 ```
 
+All tables in the database:
+
+```{r}
+dbListTables(db)
+```
+
 ```{r}
 # First 5 entries
 dbGetQuery(db,
