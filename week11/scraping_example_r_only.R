@@ -52,7 +52,7 @@ while(i < n) {
   if (hour(Sys.time()) %in% target_hours) {
     
     # Creating a data frame with one row
-    df <- tibble(date = as_datetime(Sys.time()), summary = NA, link = NA)
+    df <- tibble(date = as_datetime(Sys.time()), summary = "", link = "")
     
     # Reading the HTML code
     wikipedia_main_page <- read_html("https://en.wikipedia.org/wiki/Main_Page")

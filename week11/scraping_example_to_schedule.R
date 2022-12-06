@@ -26,7 +26,7 @@ if (file.exists("featured_articles.csv") == FALSE)
   {writeLines(c("date, summary, link"), "featured_articles.csv")}
 
 # Creating a data frame with one row
-df <- data.frame(date = as_datetime(Sys.time()), summary = NA, link = NA)
+df <- data.frame(date = as_datetime(Sys.time()), summary = "", link = "")
 
 # Reading the HTML code
 wikipedia_main_page <- read_html("https://en.wikipedia.org/wiki/Main_Page")
