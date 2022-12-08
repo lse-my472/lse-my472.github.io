@@ -1,0 +1,353 @@
+---
+title: "MY472 - Week 11: Seminar exercises on building (web) applications in R"
+author: "Friedrich Geiecke"
+date: "8 December 2022"
+output: html_document
+---
+
+## Introduction
+
+In private sector work and research it can be very helpful to know how to build and share interactive dashboards. In this last seminar of the course, we will build such applications with the package `Shiny` and also discuss how to make them available for others to use online through cloud resources.
+
+If you would like to explore Shiny in depth in the future, a good starting point is this excellent [tutorial](https://shiny.rstudio.com/tutorial/written-tutorial/lesson1/) which takes around 2-3 hours. All package information and the documentation can be found [here](https://shiny.rstudio.com/).
+
+In the following, we will first look at the simplest example from the tutorial mentioned above and afterwards develop an own app which explores topics that we have discussed in MY472. Before we start, a few key facts about Shiny from the tutorial:
+
+Shiny apps are contained in a single script called `app.R`. This script `app.R` is stored in a directory, e.g. "someappdirectory", and the app can be run with the command `runApp("path/to/someappdirectory")` in R.
+
+A Shiny app has three components:
+  
+1. A user interface (UI) object
+
+2. A server function
+
+3. A call to the shinyApp function
+
+The UI object contains the layout and appearance of the app. The server function contains the instructions needed to run the app's computations based on the user input that is provided via the UI. Lastly, the shinyApp function then starts the app based on the UI and server.
+
+Let us look at the first example of the tutorial which comes with the `shiny` package:
+
+```{r, eval=FALSE}
+library(shiny)
+```
+
+```{r, eval=FALSE}
+runExample("01_hello")
+```
+
+
+## Exercise 1
+
+The following code chunk contains the full code from this first example which I copied from [here](https://shiny.rstudio.com/tutorial/written-tutorial/lesson1/) and amended with some further comments. Reading through the code, can you already roughly understand how it works? For further details, have a look at the more extensive explanations on the [website](https://shiny.rstudio.com/tutorial/written-tutorial/lesson1/).
+
+```{r, eval=FALSE}
+# From https://shiny.rstudio.com/tutorial/written-tutorial/lesson1/ and with
+# added comments
+
+# Loading the library
+library(shiny)
+
+
+#
+# Part I: UI object
+#
+ui <- fluidPage( # fluid page automatically adjust to dimensions of browser
+  
+  # Title displayed in app
+  titlePanel("Hello Shiny!"),
+  
+  # A layout of an app which contains a sidebar panel and a main panel
+  sidebarLayout(
+    
+    # Sidebar panel which contains objects for user input such as the slider
+    # here
+    sidebarPanel(
+      
+      # Slider for the number of bins
+      #
+      # inputId: name with which the input is addressed in the server function
+      # label: Small text label above the slider
+      # min: Minimum value
+      # max: Maximum value
+      # value: Default value when app is started
+      #
+      sliderInput(inputId = "bins",
+                  label = "Number of bins:",
+                  min = 1,
+                  max = 50,
+                  value = 30)
+      
+    ),
+    
+    # Main panel for displaying outputs
+    mainPanel(
+      
+      # The output object here is a plot
+      # Note that "distPlot" refers to the name of the output object created in
+      # the server function which computes this plot based on the user input
+      # from the slider
+      plotOutput(outputId = "distPlot")
+      
+    )
+  )
+)
+
+
+#
+# Part II: Server function
+#
+server <- function(input, output) {
+  
+  # Histogram of the Old Faithful Geyser Data with requested number of bins
+  # stored as "distPlot". The histogram plot is wrapped into a "renderPlot"
+  # function to indicate 
+  #
+  # 1. It is "reactive" and therefore should be automatically
+  #    re-executed when inputs (input$bins) change
+  # 2. Its output type is a plot
+  #
+  # Note that if we where to change the first line into output$another_name,
+  # then we would need to change the code in the UI object to
+  # plotOutput(outputId = "another_name") for the app to still work
+  #
+  output$distPlot <- renderPlot({
+    
+    # Old Faithful Geyser data is preloaded, accessing its column "waiting"
+    x    <- faithful$waiting
+    
+    # Creating a vector with bin values depending on the user input from the
+    # slider which is contained in input$bins
+    bins <- seq(min(x), max(x), length.out = input$bins + 1)
+    
+    # Creating a histogram
+    hist(x, breaks = bins, col = "#007bc2", border = "white",
+         xlab = "Waiting time to next eruption (in mins)",
+         main = "Histogram of waiting times")
+    
+  })
+  
+}
+
+
+#
+# Part III: Running the app based on the UI and server
+#
+shinyApp(ui = ui, server = server)
+```
+
+
+## Exercise 2
+
+Next, copy the code above into a file called `app.R`. Thereby note that the code in a Shiny `app.R` file needs to start with `library(shiny)` and end with `shinyApp(ui = ui, server = server)`.
+
+Afterwards, copy the file `app.R` into a new folder called "firstapp" that is contained in your working directory (recall that you can see the current working directory with `getwd()` and set it with `setwd()`; when newly opening RStudio by clicking on a file, that working directory is also usually set automatically to the directory containing the file).
+
+If everything worked, the following code should start the app in a new window. Note that in R Markdown the same could be achieved by running the previous code chunk itself (which contains the app code).
+
+```{r, eval=FALSE}
+runApp("firstapp")
+```
+
+When you click on "Display in Browser", the app will also be displayed in a browser window. This can alternatively be done by pasting the link which is shown below the code chunk under "Listen on http://...." into the browser yourself. Note however, that despite being displayed in a browser, these apps are so far only running on your computer through R. To terminate the app, simply interrupt the code chunk.
+
+There is also a showcase mode which displays the code next to the app.
+
+```{r, eval=FALSE}
+runApp("firstapp", display.mode = "showcase")
+```
+
+
+## Exercise 3
+
+Now let us revisit some topics from the course and study a more interesting app. We will scrape text elements from websites, but through an interactive dashboard.
+
+a) Carefully reading through the code below, can you predict what it will do?
+
+```{r, eval=FALSE}
+library(shiny)
+library(rvest)
+
+# User interface object for scraping app
+ui <- fluidPage(
+  
+  # Title of the app
+  titlePanel("Interactive Scraping of Text Elements"),
+  
+  # Sidebar layout
+  sidebarLayout(
+    
+    # Sidebar panel for user input
+    sidebarPanel(
+      
+      # Text header of panel
+      helpText("Please enter the URL followed by the CSS selector or XPath of the target element(s) here:"),
+
+      # Box where user can input text
+      # This box is called "url_text", has a headline called "URL" in the app
+      # and starts with a default value of Shannon's Wikipedia page
+      textInput(inputId = "url_text",
+                label = "URL",
+                value = "https://en.wikipedia.org/wiki/Claude_Shannon"),
+      
+      # Dropdown menu where the user can choose between CSS selector or XPath,
+      # with CSS selector being the default
+      selectInput(inputId = "selector_type", 
+                  label = "Selector to use",
+                  choices = list("CSS", 
+                                 "XPath"),
+                  selected = "CSS"),
+      
+      # Another text box where the user can enter the selector, default being p
+      textInput(inputId = "selector_text",
+                label = "Selector text",
+                value = "p")
+      
+    ),
+    
+    # Main panel for displaying outputs computed in server function
+    mainPanel(
+      
+      # HTML output of the text scraped in the server function using the input
+      # of the UI object
+      htmlOutput(outputId = "scraped_text")
+      
+    )
+  )
+)
+
+
+# Server function for scraping app
+server <- function(input, output) {
+
+  # Only a single text output is computed in this app. It will contain the
+  # scraped text
+  output$scraped_text <- renderText({
+    
+    #
+    # The following code tries to scrape all text elements on the website and
+    # then combines them into an object call "text_for_output" which is
+    # displayed by the app
+    #
+    
+    # Trying to read the HTML of the URL provided by the user
+    html_content <- tryCatch({read_html(input$url_text)},
+                             error = function(e) {""})
+  
+    # First case: No website found
+    if (is.character(html_content)) {
+      
+      text_for_output <- "Please enter a valid URL."
+    
+    # Second case: Website found and CSS selector chosen
+    } else if (input$selector_type == "CSS") {
+      
+      # Scrape all elements, extract their texts, and then paste them into one
+      # large character with individual texts being separated by two HTML tags
+      # for new lines (<br>).
+      # If this returns an error because the input is not a CSS selector, then
+      # instead set text_for_output <- "Please enter a CSS selector."
+      text_for_output <- tryCatch({
+          
+        html_elements(html_content, css = input$selector_text) %>%
+          html_text() %>%
+          paste(collapse = "<br><br>")},
+        
+        error = function(e) {"Please enter a CSS selector."})
+    
+    # Third case: Website found and XPath chosen  
+    } else if (input$selector_type == "XPath") {
+      
+      # Scrape all elements, extract their texts, and then paste them into one
+      # large character with individual texts being separated by two HTML tags
+      # for new lines (<br>).
+      # If this returns an error because the input is not an XPath, then
+      # instead set text_for_output <- "Please enter an XPath."
+      text_for_output <- tryCatch({
+        
+        html_elements(html_content, xpath = input$selector_text) %>%
+          html_text() %>%
+          paste(collapse = "<br><br>")},
+        
+        error = function(e) {"Please enter an XPath."})
+    
+    }
+  
+    # When no elements where found, html_elements + html_text + paste return an
+    # empty character. In this case, replace it with a message that no elements
+    # where found.
+    if (text_for_output == "") {
+      
+      text_for_output <- "No text elements found."
+      
+    }
+  
+    # Return text_for_output character as HTML (this allows app to understand
+    # that <br> means new line)
+    HTML(text_for_output)
+    
+  })
+  
+
+}
+
+# Start app
+shinyApp(ui = ui, server = server)
+```
+
+b) Now copy the text scraping app's code into another `app.R` file and store it in a folder `textscrapingapp`. Run it with the code cell below, but this time enter the full path to the application folder to avoid relying on a correctly set working directory.
+
+```{r, eval=FALSE}
+runApp("full/path/to/folder/textscrapingapp") # need to adjust path here depending on where you stored it
+```
+
+
+## Exercise 4 (optional)
+
+Apps such as our previous examples can already be sent to and run by anyone who has R and the necessary packages installed on their computer. Yet, it is also easily possible to deploy these apps online. This means that the computations of the app are done by a cloud computing provider and users can interact with the app/dashboard via the internet and their browsers. This is particularly helpful if users do not know R and do not have the necessary software on their own computers. Our example will be https://www.shinyapps.io/ as it is very simple to use, works with your RStudio account from the lecture, and has some free options to deploy apps. Shiny applications can alternatively also be deployed using other cloud providers. For some discussion of options to deploy Shiny applications, e.g. see this [link](https://shiny.rstudio.com/tutorial/written-tutorial/lesson7/). 
+
+a) First, install the `rsconnect` package
+
+```{r, eval=FALSE}
+install.packages("rsconnect")
+```
+
+b) Using your RStudio account, log in at https://www.shinyapps.io/. Click on "dashboard" if you did not land there already.
+
+c) Set your account information in R by pasting your first and last name, token, and secret into the code below. This information can be found at https://www.shinyapps.io/ once you logged in.
+
+```{r, eval=FALSE}
+library(rsconnect)
+setAccountInfo(name="firstname-lastname", token="tba", secret="tba")
+```
+
+d) Now all that is required is to run the following code chunk. It will upload all code of the text scraping application and set up the website. It may take a bit of time for the chunk to finish, but at the end the output will also contain the URL of the application.
+
+```{r, eval=FALSE}
+deployApp("full/path/to/folder/textscrapingapp")
+```
+
+
+## Addendum
+
+If you like to have a look at further example discussed in the [tutorial](https://shiny.rstudio.com/tutorial/written-tutorial/lesson1/), you can e.g. try the following: 
+
+```{r, eval=FALSE}
+runExample("02_text")       # Tables and data frames
+runExample("03_reactivity") # A reactive expression
+runExample("04_mpg")        # Global variables
+runExample("05_sliders")    # Slider bars
+runExample("06_tabsets")    # Tabbed panels
+runExample("07_widgets")    # Help text and submit buttons
+runExample("08_html")       # Shiny app built from HTML
+runExample("09_upload")     # File upload wizard
+runExample("10_download")   # File download wizard
+runExample("11_timer")      # An automated timer
+```
+
+And for a wide range of more complex Shiny application examples, have a look at the [RStudio Shiny Gallery](https://shiny.rstudio.com/gallery/).
+
+
+## References
+
+- https://shiny.rstudio.com/tutorial/written-tutorial/lesson1/
+- https://shiny.rstudio.com/
