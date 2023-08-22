@@ -1,16 +1,16 @@
 ---
-papersize: a4
+  papersize: a4
 documentclass: scrartcl
 classoption: DIV=14
 colorlinks: true
 ---
-
-<!-- ![LSE](images/lse-logo.jpg) -->
-# MY472 Data for Data Scientists
-
-### Michaelmas Term 2022
-
-[Main course repo](https://github.com/lse-my472/lse-my472.github.io)
+  
+  <!-- ![LSE](images/lse-logo.jpg) -->
+  # MY472 Data for Data Scientists
+  
+  ### Michaelmas Term 2022
+  
+  [Main course repo](https://github.com/lse-my472/lse-my472.github.io)
 
 ### Prerequisites
 
@@ -20,51 +20,49 @@ All students are required to complete the preparatory course 'R Advanced for Met
 
 Office hour slots to be booked via LSE's StudentHub
 
-* [Friedrich Geiecke](mailto:f.c.geiecke@lse.ac.uk), Department of Methodology.  *Office hours*: Tuesdays 5-7pm (book via Student Hub)
-* Yuhao Qian, Department of Economics.
+* [Thomas Robinson](mailto:t.robinson7@lse.ac.uk), Department of Methodology.  *Office hours*: TBC (book via Student Hub)
+* [Dan de Kadt](mailto:d.n.de-kadt@lse.ac.uk), Department of Methodology.  *Office hours*: TBC (book via Student Hub)
 
 ### Course information
 
 * Lecture:
-    - Tuesdays 9-11am, MAR.2.08
+    - TBC
 * Classes:
-    - Thursdays 1-2pm, NAB.2.08
-    - Thursdays 2-3pm, CBG.2.05
-    - Thursdays 5-6pm, NAB.2.16
+    - TBC
+    - TBC
+    - TBC
 
 No lectures or classes will take place during (Reading) Week 6.
 
 
 ### Quick links to topics
 
-| Week | Date |  Topic |  
-|:--:|-------:|:------|  
-| 1  |  27 Sep | [Introduction](#1-introduction) |  
-| 2  |  4 Oct | [Tabular data](#2-tabular-data) |  
-| 3  | 11 Oct | [Data visualisation](#3-data-visualisation) |  
-| 4  | 18 Oct | [Textual data](#4-textual-data) |  
-| 5  | 25 Oct | [HTML, CSS, and scraping static pages](#5-html-css-and-scraping-static-pages) |
-| 6  |  1 Nov | _Reading week_ |  
-| 7  | 7 Nov | [XML, RSS, and scraping non-static pages](#7-xml-rss-and-scraping-non-static-pages) |   
-| 8  | 14 Nov | [Working with APIs](#8-working-with-apis) |  
-| 9  | 21 Nov | [Creating and managing databases](#9-creating-and-managing-databases) |  
-| 10 |  28 Nov | [Interacting with online databases](#10-nosql-and-cloud-databases)|  
-| 11 | 5 Dec | [Cloud computing](#11-cloud-computing) |  
-
+| Week | Date |  Topic |  Lecturer  |
+|:--:|-------:|:------|:------------|
+| 1  |  25 Sep | [Introduction](#1-introduction) |  Thomas Robinson | 
+| 2  |  2 Oct | [Tabular data](#2-tabular-data) |  Thomas Robinson |  
+| 3  | 9 Oct | [Data visualisation](#3-data-visualisation) |  Thomas Robinson |  
+| 4  | 16 Oct | [Textual data](#4-textual-data) |  Thomas Robinson |  
+| 5  | 23 Oct | [HTML, CSS, and scraping static pages](#5-html-css-and-scraping-static-pages) |  Dan de Kadt |
+| 6  |  30 Oct | _Reading week_ |  
+| 7  | 6 Nov | [XML, RSS, and scraping non-static pages](#7-xml-rss-and-scraping-non-static-pages) |  Dan de Kadt |   
+| 8  | 13 Nov | [Working with APIs](#8-working-with-apis) |  Dan de Kadt |  
+| 9  | 20 Nov | [Creating and managing databases](#9-creating-and-managing-databases) |  Dan de Kadt |  
+| 10 | 27 Nov | [Interacting with online databases](#10-nosql-and-cloud-databases)|  Dan de Kadt |  
+| 11 | 4 Dec | [Cloud computing](#11-cloud-computing) |  Thomas Robinson |  
 
 
 ### Course description
 
-This course covers the principles of collecting, processing, and storing data with R. It also covers workflow management for typical data transformation and cleaning projects, frequently the starting point and most time-consuming part of any data science project.  We use a project-based learning approach towards the study of computation and some group-based collaboration, essential parts of modern data science work. We also make frequent use of version control and collaboration tools such as Git and GitHub.
+This course covers fundamental aspects of handling and working with data, as it relates to data science and social science applications. You will learn how to access, collect, store, clean, manipulate, and visualise data in R.
 
-We will begin by discussing Git and R fundamentals, and continue with an introduction to reshaping data in R. Afterwards it follows an overview of visualisation with ggplot2. We then learn how to work with unstructured data in the form of text. We will continue with a discussion of common data types on the internet such as markup languages (e.g. HTML and XML) and study the fundamentals of acquisition of data from the internet through scraping of websites. We will then download data from web APIs. Afterwards we will discuss databases, especially relational databases. Students will be introduced to SQL through SQLite, and programming assignments in this unit of the course will be designed to ensure that students learn to create, populate and query an SQL database. We will then discuss NoSQL using MongoDB for comparison. The course will be concluded with a discussion of cloud computing. Students will first learn the basics of cloud computing that can serve various purposes such data analysis and then how to set up a cloud computing environment through Amazon Web Services, a popular cloud platform.
-
+The course also covers workflow management for typical data transformation and cleaning projects, frequently the starting point and most time-consuming part of any data science project, as well as tools for improving collaboration and group-based work.
 
 ### Assessment
 
 #### Summative assignments
 
-Four term-time assignment (50%) and one final assignment (50%).
+Two term-time problem sets (50%) and one final, take-home assessment (50%).
 
 #### Assessment criteria
 
@@ -78,7 +76,7 @@ Assignments will be marked using the following criteria:
 
 - 30–49: Unsatisfactory (Fail) and 0–29: Unsatisfactory (Bad fail). Based entirely on lecture material but unstructured and with increasing error component. Concepts are disordered or flawed. Poor presentation. Errors of concept and scope or poor in knowledge, structure and expression.
 
-Some of the assignments will involve shorter questions, to which the answers can be relatively unambiguously coded as (fully or partially) correct or incorrect. In the marking, these questions may be further broken down into smaller steps and marked step by step. The final mark is then a function of the proportion of parts of the questions which have been answered correctly. In such marking, the principle of partial credit is observed as far as feasible. This means that an answer to a part of a question will be treated as correct when it is correct conditional on answers to other parts of the question, even if those other parts have been answered incorrectly.
+Some of the assignments will involve shorter questions, to which the answers can be relatively unambiguously coded as (fully or partially) correct or incorrect.
 
 ### Detailed course schedule
 
@@ -361,6 +359,6 @@ In this week, we focus on the setup of computation environments on the Internet.
 * Botta, Alessio, Walter De Donato, Valerio Persico, and Antonio Pescapé. 2016. "[Integration of Cloud Computing and Internet of Things: A Survey.](http://iranarze.ir/wp-content/uploads/2017/03/6229-English-IranArze.pdf)" Future Generation Computer Systems 56: 684–700.
 
 
-#### Take-home exam
-- GitHub Classroom link available via Moodle on Wednesday, 14 December
-- Deadline on Monday, 16 January, 2pm
+#### Take-home assignment
+- Furhter information will be provided via Moodle in December
+- Deadline in January, exact date TBC
