@@ -24,7 +24,7 @@ Office hour slots to be booked via LSE's StudentHub
 ### Quick links to topics
 
 | Week |  Topic |  Lecturer  |
-|:--:|-------:|:------|:------------|
+|:--:|:-------:|:------|:------------|
 | 1  | [Introduction](#1-introduction) |  Thomas Robinson | 
 | 2  | [Tabular data](#2-tabular-data) |  Thomas Robinson |  
 | 3  | [Data visualisation](#3-data-visualisation) |  Thomas Robinson |  
