@@ -1,86 +1,45 @@
 ---
-  papersize: a4
+papersize: a4
 documentclass: scrartcl
 classoption: DIV=14
 colorlinks: true
 ---
   
-  <!-- ![LSE](images/lse-logo.jpg) -->
-  # MY472 Data for Data Scientists
+<!-- ![LSE](images/lse-logo.jpg) -->
+# MY472 Data for Data Scientists
   
-  ### Michaelmas Term 2022
+### Michaelmas Term 2023
   
-  [Main course repo](https://github.com/lse-my472/lse-my472.github.io)
-
-### Prerequisites
-
-All students are required to complete the preparatory course 'R Advanced for Methodology' early in Michaelmas Term, ideally in weeks 0 and 1. You will find the link to the preparatory course on the Moodle page of MY472.
+[Main course repo](https://github.com/lse-my472/lse-my472.github.io)
+[Moodle page](https://moodle.lse.ac.uk/course/view.php?id=6307)
 
 ### Instructors
 
 Office hour slots to be booked via LSE's StudentHub
 
-* [Thomas Robinson](mailto:t.robinson7@lse.ac.uk), Department of Methodology.  *Office hours*: TBC (book via Student Hub)
-* [Dan de Kadt](mailto:d.n.de-kadt@lse.ac.uk), Department of Methodology.  *Office hours*: TBC (book via Student Hub)
-
-### Course information
-
-* Lecture:
-    - TBC
-* Classes:
-    - TBC
-    - TBC
-    - TBC
-
-No lectures or classes will take place during (Reading) Week 6.
+* [Thomas Robinson](mailto:t.robinson7@lse.ac.uk), Department of Methodology.  
+* [Dan de Kadt](mailto:d.n.de-kadt@lse.ac.uk), Department of Methodology.
 
 
 ### Quick links to topics
 
-| Week | Date |  Topic |  Lecturer  |
+| Week |  Topic |  Lecturer  |
 |:--:|-------:|:------|:------------|
-| 1  |  25 Sep | [Introduction](#1-introduction) |  Thomas Robinson | 
-| 2  |  2 Oct | [Tabular data](#2-tabular-data) |  Thomas Robinson |  
-| 3  | 9 Oct | [Data visualisation](#3-data-visualisation) |  Thomas Robinson |  
-| 4  | 16 Oct | [Textual data](#4-textual-data) |  Thomas Robinson |  
-| 5  | 23 Oct | [HTML, CSS, and scraping static pages](#5-html-css-and-scraping-static-pages) |  Dan de Kadt |
-| 6  |  30 Oct | _Reading week_ |  
-| 7  | 6 Nov | [XML, RSS, and scraping non-static pages](#7-xml-rss-and-scraping-non-static-pages) |  Dan de Kadt |   
-| 8  | 13 Nov | [Working with APIs](#8-working-with-apis) |  Dan de Kadt |  
-| 9  | 20 Nov | [Creating and managing databases](#9-creating-and-managing-databases) |  Dan de Kadt |  
-| 10 | 27 Nov | [Interacting with online databases](#10-nosql-and-cloud-databases)|  Dan de Kadt |  
-| 11 | 4 Dec | [Cloud computing](#11-cloud-computing) |  Thomas Robinson |  
-
-
-### Course description
-
-This course covers fundamental aspects of handling and working with data, as it relates to data science and social science applications. You will learn how to access, collect, store, clean, manipulate, and visualise data in R.
-
-The course also covers workflow management for typical data transformation and cleaning projects, frequently the starting point and most time-consuming part of any data science project, as well as tools for improving collaboration and group-based work.
-
-### Assessment
-
-#### Summative assignments
-
-Two term-time problem sets (50%) and one final, take-home assessment (50%).
-
-#### Assessment criteria
-
-Assignments will be marked using the following criteria:
-
-- 70–100: Very Good to Excellent (Distinction). Perceptive, focused use of a good depth of material with a critical edge. Original ideas or structure of argument.
-
-- 60–69: Good (Merit).  Perceptive understanding of the issues plus a coherent well-read and stylish treatment though lacking originality
-
-- 50–59: Satisfactory (Pass). A “correct” answer based largely on lecture material. Little detail or originality but presented in adequate framework. Small factual errors allowed.
-
-- 30–49: Unsatisfactory (Fail) and 0–29: Unsatisfactory (Bad fail). Based entirely on lecture material but unstructured and with increasing error component. Concepts are disordered or flawed. Poor presentation. Errors of concept and scope or poor in knowledge, structure and expression.
-
-Some of the assignments will involve shorter questions, to which the answers can be relatively unambiguously coded as (fully or partially) correct or incorrect.
+| 1  | [Introduction](#1-introduction) |  Thomas Robinson | 
+| 2  | [Tabular data](#2-tabular-data) |  Thomas Robinson |  
+| 3  | [Data visualisation](#3-data-visualisation) |  Thomas Robinson |  
+| 4  | [Textual data](#4-textual-data) |  Thomas Robinson |  
+| 5  | [HTML, CSS, and scraping static pages](#5-html-css-and-scraping-static-pages) |  Dan de Kadt |
+| 6  | _Reading week_ |  
+| 7  | [XML, RSS, and scraping non-static pages](#7-xml-rss-and-scraping-non-static-pages) |  Dan de Kadt |   
+| 8  | [Working with APIs](#8-working-with-apis) |  Dan de Kadt |  
+| 9  | [Creating and managing databases](#9-creating-and-managing-databases) |  Dan de Kadt |  
+| 10 | [Interacting with online databases](#10-nosql-and-cloud-databases)|  Dan de Kadt |  
+| 11 | [Cloud computing](#11-cloud-computing) |  Thomas Robinson |  
 
 ### Detailed course schedule
 
-### Schedule
+*Please note, links to slides and code scripts will be updated/added in advance of each week's teaching.*
 
 #### 1. Introduction
 
@@ -97,7 +56,6 @@ In the first week, we will introduce some basic concepts of how data is recorded
 * Review of Git/GitHub basics discussed in lecture
 * Branches, merges, and pull requests
 
-
 ##### Readings
 * Wickham, Hadley.  Nd.  _Advanced R_, 2nd ed.  Ch 3, [Names and values](https://adv-r.hadley.nz/names-values.html), Chapter 4, [Vectors](https://adv-r.hadley.nz/vectors-chap.html), and Chapter 5, [Subsetting](https://adv-r.hadley.nz/subsetting.html). (Ch. 2-3 of the print edition),
 * [GitHub Guides](https://guides.github.com), especially: "Understanding the GitHub Flow", "Hello World", and "Getting Started with GitHub Pages".
@@ -108,8 +66,6 @@ In the first week, we will introduce some basic concepts of how data is recorded
 * Nelson, Meghan.  2015.  "[An Intro to Git and GitHub for Beginners (Tutorial).](http://product.hubspot.com/blog/git-and-github-tutorial-for-beginners)"
 * Jim McGlone, "[Creating and Hosting a Personal Site on GitHub
 A step-by-step beginner's guide to creating a personal website and blog using Jekyll and hosting it for free using GitHub Pages.](http://jmcglone.com/guides/github-pages/)".
-
-
 
 #### 2. Tabular data
 
@@ -128,12 +84,6 @@ This week discusses processing tabular data in R with functions from the `tidyve
 ##### Reading
 * Wickham, Hadley and Garett Grolemund.  2017.  _R for Data Science: Import, Tidy, Transform, Visualize, and Model Data_.  Sebastopol, CA: O'Reilly.  [Part II Wrangle](http://r4ds.had.co.nz/wrangle-intro.html), [Tibbles](http://r4ds.had.co.nz/tibbles.html), [Data Import](http://r4ds.had.co.nz/data-import.html), [Tidy Data](http://r4ds.had.co.nz/tidy-data.html) (Ch. 7-9 of the print edition).
 * The [Tidyverse collection of packages](https://www.tidyverse.org/) for R.
-
-
-##### Assignment 1: Processing data in R (practise assignment)
-- GitHub Classroom link available via Moodle on Monday, 3 October
-- Deadline on Friday, 14 October, 2pm
-
 
 
 #### 3. Data visualisation
@@ -187,12 +137,6 @@ We will learn how to work with unstructured data in the form of text and discuss
 - [Regular expressions in R vignette](https://cran.r-project.org/web/packages/stringr/vignettes/regular-expressions.html)
 
 
-##### Assignment 2: Data visualisation
-- GitHub Classroom link available via Moodle on Monday, 17 October
-- Deadline on Friday, 28 October, 2pm
-
-
-
 #### 5. HTML, CSS, and scraping static pages
 
 This week we cover the basics of web scraping for tables and unstructured data from static pages. We will also discuss the client-server model.
@@ -220,13 +164,6 @@ This week we cover the basics of web scraping for tables and unstructured data f
 
 
 #### 6. Reading week
-
-##### Assignment 3: Web scraping
-
-- GitHub Classroom link available via Moodle on Monday, 31 October
-- Deadline on Friday, 11 November, 2pm
-
-
 
 #### 7. XML, RSS, and scraping non-static pages
 
@@ -276,12 +213,6 @@ This week discusses how to work with Application Programming Interfaces (APIs) t
 
 ##### Further reading
 * Ruths and Pfeffer. 2014. [_Social media for large studies of behavior_](http://science.sciencemag.org/content/346/6213/1063.full). Science.
-
-##### Assignment 4: APIs
-
-- GitHub Classroom link available via Moodle on Tuesday, 15 November
-- Deadline on Monday, 28 November, 11am
-
 
 #### 9. Creating and managing databases
 
@@ -357,8 +288,3 @@ In this week, we focus on the setup of computation environments on the Internet.
 ##### Further reading
 * Puparelia, Nayan. 2016. "Cloud Computing." MIT Press. Ch. 1-3.
 * Botta, Alessio, Walter De Donato, Valerio Persico, and Antonio Pescapé. 2016. "[Integration of Cloud Computing and Internet of Things: A Survey.](http://iranarze.ir/wp-content/uploads/2017/03/6229-English-IranArze.pdf)" Future Generation Computer Systems 56: 684–700.
-
-
-#### Take-home assignment
-- Furhter information will be provided via Moodle in December
-- Deadline in January, exact date TBC
