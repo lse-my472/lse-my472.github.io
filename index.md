@@ -11,6 +11,7 @@ colorlinks: true
 ### Michaelmas Term 2023
   
 [Main course repo](https://github.com/lse-my472/lse-my472.github.io)
+
 [Moodle page](https://moodle.lse.ac.uk/course/view.php?id=6307)
 
 ### Instructors
