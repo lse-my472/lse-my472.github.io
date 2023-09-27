@@ -21,11 +21,20 @@ Office hour slots to be booked via LSE's StudentHub
 * [Thomas Robinson](mailto:t.robinson7@lse.ac.uk), Department of Methodology.  
 * [Dan de Kadt](mailto:d.n.de-kadt@lse.ac.uk), Department of Methodology.
 
+### Assignments
+
+|  |  Type |  Due date  |
+|:--:|:-------:|:------|
+| 1 | [Formative problem set](#assignment-1) | 12 October 2023, 4pm |
+| 2 | [Summative problem set](#assignment-2) | 2 November 2023, 4pm |
+| 3 | [Summative problem set](#assignment-3) | 7 December 2023, 4pm |
+| 4 | [Take home assessment](#assignment-4) | 10 January 2024, 4pm |
+
 
 ### Quick links to topics
 
 | Week |  Topic |  Lecturer  |
-|:--:|:-------:|:------|:------------|
+|:--:|:-------:|:------|
 | 1  | [Introduction](#1-introduction) |  Thomas Robinson | 
 | 2  | [Tabular data](#2-tabular-data) |  Thomas Robinson |  
 | 3  | [Data visualisation](#3-data-visualisation) |  Thomas Robinson |  
@@ -86,6 +95,13 @@ This week discusses processing tabular data in R with functions from the `tidyve
 * Wickham, Hadley and Garett Grolemund.  2017.  _R for Data Science: Import, Tidy, Transform, Visualize, and Model Data_.  Sebastopol, CA: O'Reilly.  [Part II Wrangle](http://r4ds.had.co.nz/wrangle-intro.html), [Tibbles](http://r4ds.had.co.nz/tibbles.html), [Data Import](http://r4ds.had.co.nz/data-import.html), [Tidy Data](http://r4ds.had.co.nz/tidy-data.html) (Ch. 7-9 of the print edition).
 * The [Tidyverse collection of packages](https://www.tidyverse.org/) for R.
 
+#### Assignment 1
+
+This is a *formative* assignment, and is due **12 October 2023 by 4pm**. You must submit your response as a knitted .html file via the Moodle page. 
+
+[Assignment 1 problem set](assignments/formative.html)
+
+[Template RMarkdown repository](https://github.com/lse-my472/472_assignment_template)
 
 #### 3. Data visualisation
 
@@ -163,6 +179,11 @@ This week we cover the basics of web scraping for tables and unstructured data f
 * Severance, Charles Russell. 2015. [_Introduction to Networking: How the Internet Works_](http://www.net-intro.com).  Charles Severance, 2015.
 * Duckett, Jon. 2011. _HTML and CSS: Design and Build Websites_.  New York: Wiley.
 
+#### Assignment 2
+
+This is a *summative* assignment, and is due **2 November 2023 by 4pm**. You must submit your response as a knitted .html file via the Moodle page. 
+
+Details TBC
 
 #### 6. Reading week
 
@@ -259,10 +280,11 @@ This week covers how to set up and use relational databases in the cloud and fun
 * [Analyzing Big Data in less time with Google BigQuery](https://www.youtube.com/watch?v=qqbYrQGSibQ) on YouTube
 
 
-##### Assignment 5: Databases
+##### Assignment 3
 
-- GitHub Classroom link available via Moodle on Monday, 28 November
-- Deadline on Friday, 9 December, 2pm
+This is a *summative* assignment, and is due **7 December 2023 by 4pm**. You must submit your response as a knitted .html file via the Moodle page. 
+
+Details TBC
 
 
 #### 11. Cloud computing
@@ -289,3 +311,9 @@ In this week, we focus on the setup of computation environments on the Internet.
 ##### Further reading
 * Puparelia, Nayan. 2016. "Cloud Computing." MIT Press. Ch. 1-3.
 * Botta, Alessio, Walter De Donato, Valerio Persico, and Antonio Pescapé. 2016. "[Integration of Cloud Computing and Internet of Things: A Survey.](http://iranarze.ir/wp-content/uploads/2017/03/6229-English-IranArze.pdf)" Future Generation Computer Systems 56: 684–700.
+
+##### Assignment 4
+
+This is a *summative* assignment, and is due **10 January 2024 by 4pm**. You must submit your response as a knitted .html file via the Moodle page. 
+
+Details TBC
