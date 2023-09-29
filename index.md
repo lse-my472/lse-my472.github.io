@@ -66,6 +66,10 @@ In the first week, we will introduce some basic concepts of how data is recorded
 * Review of Git/GitHub basics discussed in lecture
 * Branches, merges, and pull requests
 
+##### Guide on GitHub, collaboration and pull requests
+
+[YouTube video by Tom and Dan](https://youtu.be/EDe3bQXxX4g?si=vUsD4WJv5pS4Fx3o)
+
 ##### Readings
 * Wickham, Hadley.  Nd.  _Advanced R_, 2nd ed.  Ch 3, [Names and values](https://adv-r.hadley.nz/names-values.html), Chapter 4, [Vectors](https://adv-r.hadley.nz/vectors-chap.html), and Chapter 5, [Subsetting](https://adv-r.hadley.nz/subsetting.html). (Ch. 2-3 of the print edition),
 * [GitHub Guides](https://guides.github.com), especially: "Understanding the GitHub Flow", "Hello World", and "Getting Started with GitHub Pages".
