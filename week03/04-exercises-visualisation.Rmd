@@ -1,0 +1,152 @@
+---
+title: "MY472 - Week 3: Seminar exercises in visualisation"
+author: "Pablo Barberá, Friedrich Geiecke"
+date: "AT 2023"
+output: html_document
+---
+
+
+```{r}
+library("tidyverse")
+library("plotly")
+library("scales")
+```
+
+
+## 1. Unemployment in the US
+
+Try to replicate the following line chart that displays the evolution in the unemployment rate in the US over time. The challenge here consists of overlaying a set of shaded boxes in red or blue, depending on the party to which the president in power at the time belongs. To help with that part, you can see below how to create a data frame with the relevant information.
+
+```{r}
+
+# Creating a dataframe with the unemployment data
+unemp <- read.csv("data/unemployment.csv", stringsAsFactors = FALSE)
+
+# Creating a data frame with the background colour information
+name <- c("Truman", "Eisenhower", "Kennedy", "Johnson", "Nixon",
+        "Ford", "Carter", "Reagan", "Bush I", "Clinton", "Bush II",
+        "Obama")
+start <- as.Date(c("1948-01-01", "1953-01-20", "1961-01-20", "1963-11-22",
+        "1969-01-20", "1974-08-09", "1977-01-20", "1981-01-20",
+        "1989-01-20", "1993-01-20", "2001-01-20", "2009-01-20"))
+end <- c(start[-1], as.Date("2016-10-01"))
+party <- c("D", "R", "D", "D", "R", "R", "D", "R", "R", "D", "R", "D")
+pres <- data.frame(name, start, end, party, stringsAsFactors=F)
+
+
+```
+
+![](04-unemployment.png)
+Your code here:
+
+```{r}
+
+# Transforming date column to datetime (lubridate package!)
+
+
+
+# Creating a line-plot with unemployment and date
+
+
+
+# Adding the rectangle geometry (set axes limits so that background covers entire plot)
+
+
+
+# Adding president names
+
+
+
+# Adding lines to separate presidencies
+
+
+
+# Finally, moving legend and removing x axis title
+
+
+
+# Adjusting y axis
+
+
+
+```
+
+
+## 2. Interactive plots with Plotly
+
+A great package for interactive plots is `Plotly`. For the general documentation of the R package and a wide range of sample plots, see this [link](https://plotly.com/r/).
+
+In the following, the task is to create a 3D plot using the sample of public Facebook posts:
+
+- Restrict the sample to only posts with >= 5000 likes 
+- x-axis: Log of likes count
+- y-axis: Log of shares count
+- z-axis: Length of the message (create a new column with the `str_count` function)
+- Colour coding of points: Party
+
+Judging approximately from the figure, which party writes the longest posts in this sub sample? Which party has most likes and shares?
+
+Reading in the data and some initial processing:
+
+```{r}
+df <- read.csv("data/fb-congress-data.csv", stringsAsFactors = FALSE)
+
+# Transform date column to datetime
+df$date <- as_date(df$date)
+
+# Dropping some very uncommon post types
+nrow(df)
+df <- df %>%
+  filter(!post_type %in% c("music", "note"))
+nrow(df)
+```
+
+Creating the plot data:
+
+```{r}
+df_plot <- as_tibble(df[df$likes_count > 5000,])
+df_plot$message_length <- _________(df_plot$message)
+df_plot <- df_plot %>% select(likes_count, shares_count, message_length, party)
+df_plot <- drop_na(df_plot)
+df_plot$party <- as.factor(df_plot$party)
+```
+
+Plot:
+
+```{r}
+plotlyfigure1 <- plot_ly(df_plot, type= "scatter3d", mode = "markers", x = _________,
+               y = _________, z = _________, color = ~party)
+plotlyfigure1 <- plotlyfigure1 %>% layout(scene = list(xaxis = list(title = "Log likes count", type = "log"),
+                     yaxis = list(title = "Log shares count", type = "log"),
+                     zaxis = list(title = "Message length")))
+plotlyfigure1
+```
+
+
+Plotly can also create many plots similar to the ones that we have discussed with `ggplot2` before, e.g. violin plots:
+
+```{r}
+plotlyfigure2 <- plot_ly(df_plot[df_plot$message_length>500 &
+                                df_plot$party %in% c("Democrat", "Republican"),],
+                      type = _________, y = ~message_length, split = ~party)
+plotlyfigure2 <- plotlyfigure2 %>% layout(yaxis = list(title = "Message length"))
+
+plotlyfigure2
+```
+
+
+## 3. Interactive gg-plots
+
+Lastly, using the `ggplotly` function also allows to make a range of ggplot2 plots interactive:
+
+```{r}
+p <- ggplot(df[df$likes_count>0 & df$comments_count>0,], 
+        aes(x=likes_count, y = comments_count))
+p <- p + geom_hex() + scale_x_log10(labels = comma) + scale_y_log10(labels = comma) + 
+    scale_fill_continuous()
+
+# Creating an animated plot
+ggplotly(p)
+```
+
+Note, however, that this will work less well with sophisticated plots that have a lot of features such as the plot you created in Exercise 1.

@@ -1,0 +1,147 @@
+---
+title: "MY472 - Week 3: ggplot2 basics - grammar of graphics, geom types"
+author: "Thomas Robinson"
+date: "AT 2023"
+output: html_document
+---
+
+## Introduction
+
+This file is based on resources created by Pablo Barberá and Friedrich Geiecke. You can find their comprehensive examples of **ggplot** in the `ggplot2-basic.Rmd` and `scales-axes-legends.Rmd` files.
+
+In the examples below, we will be working with a random sample of 10,000 public Facebook posts by members of the U.S. Congress. 
+
+Loading packages:
+
+```{r}
+library("tidyverse")
+library("lubridate")
+library("scales")
+```
+
+Reading in the data and some initial processing:
+
+```{r}
+df <- read.csv("data/fb-congress-data.csv", stringsAsFactors = FALSE)
+
+# Transform date column to datetime
+df$date <- as_date(df$date)
+
+# Dropping some very uncommon post types and tidying labels
+nrow(df)
+df <- df %>%
+  filter(!post_type %in% c("music", "note")) %>% 
+  mutate(gender = ifelse(gender == "M", "Man", "Woman"), # original data is binary, otherwise we could use case_when
+         type = ifelse(type == "rep","House","Senate"))
+nrow(df)
+```
+
+
+## Number of likes 
+
+Let's consider a case where we wanted to understand how much engagement Congresspersons are getting on their posts. This is a *univariate* analysis, since we are concerned with the distribution of a single variable. We can plot this as a histogram:
+
+```{r}
+likes_plot <- ggplot(
+  data = df, # conventional to omit `data = ` 
+  mapping = aes(x = likes_count) # likewise, we often drop `mapping = `
+  ) 
+
+likes_hist <- likes_plot + geom_histogram()
+
+likes_hist
+  
+```
+
+This is a pretty rubbish graph! The problem we have is that most posts have limited engagement, but some tweets have *huge* levels of engagement, which results in a sparse (and relatively uninformative) visual.
+
+As part of the grammar of graphics, however, we can define the *scales* we use to translate variables to visuals. So, rather than show a linear, continuous scale on the x-axis, we can instead "log" the space to bring extreme values closer to smaller ones *visually*:
+```{r}
+likes_hist + scale_x_log10()
+```
+This graph is better, but from a presentation perspective, we should really tidy up the axes and theme:
+``` {r}
+likes_hist + 
+  scale_x_log10(labels = comma) + # rather than use scientific notation, use commas
+  labs(x = "Likes", y = "No. of posts") + # change the axis labels
+  theme_minimal() # a nice starting point for customising the theme
+```
+
+Great! But what if we wanted to distinguish Republicans and Democrats? We need a new aesthetic to distinguish between these two (categorical) groups. An intuitive aesthetic choice would be the colour **fill** (as distinguished from **color**, which is just the outline of the shape):
+
+```{r}
+party_likes <- ggplot(
+  data = df, # conventional to omit `data = ` 
+  mapping = aes(x = likes_count, fill = party) # likewise, we often drop `mapping = `
+  )
+
+party_likes +
+  geom_histogram() +
+  scale_x_log10(labels = comma) + 
+  labs(x = "Likes", y = "No. of posts", fill = "Political Party") + # note we change the legend title
+  theme_minimal() 
+```
+
+Not bad, but notice the default color scheme assigns the red colour to Democrats and the blue colour to Republicans, which is the opposite to what we want! (This isn't some mind-game by **ggplot**, it's just the fact that their default scheme is red-green-blue, and the colors are assigned to factor levels in alphabetical order.) We can fix this by manually defining the **fill** scale:
+```{r}
+party_likes +
+  geom_histogram() +
+  scale_x_log10(labels = comma) + 
+  scale_fill_manual(breaks = c("Democrat","Republican","Independent"),
+                    values = c("dodgerblue","firebrick","purple")) +
+  labs(x = "Likes", y = "No. of posts", fill = "Political Party") + 
+  theme_minimal() 
+```
+
+Sometimes, we might prefer to represent the distribution in a continuous way rather than using discrete bins. So we can substitute the histogram for a **density** geom. The problem here (and often with histograms too) is that the fill of the shapes means overlapping areas are hidden. We can tackle this by making our density plots slightly transparent, using the `alpha = ` argument of the geom:
+```{r}
+party_likes +
+  geom_density(alpha = 0.7) + # alpha = 0 means fully transparent, and alpha = 1 means opaque
+  scale_x_log10(labels = comma) + 
+  scale_fill_manual(breaks = c("Democrat","Republican","Independent"),
+                    values = c("dodgerblue","firebrick","purple")) +
+  labs(x = "Likes", y = "Density", fill = "Political Party") + # y is not a count anymore
+  theme_minimal() 
+```
+Notice that this isn't just changing the shape: the height of the distributions are now different compared to the histogram, because we are calculating the density **within each group** rather than the absolute number of posts.
+
+Suppose we now wanted to see these distributions by gender as well. We've already used the fill aesthetic to map party. As a naive example, why don't we map gender to the colour attribute:
+```{r}
+pty_gndr_likes <- ggplot(
+  df, # conventional to omit `data = ` 
+  aes(x = likes_count, fill = party, color = gender)
+  )
+
+pty_gndr_likes + 
+  geom_density(alpha = 0.7) + # alpha = 0 means fully transparent, and alpha = 1 means opaque
+  scale_x_log10(labels = comma) + 
+  scale_fill_manual(breaks = c("Democrat","Republican","Independent"),
+                    values = c("dodgerblue","firebrick","purple")) +
+  labs(x = "Likes", y = "Density", fill = "Political Party") + # y is not a count anymore
+  theme_minimal() 
+```
+
+Now that's confusing! What would be better is if we could separate the male and female plots into separate panes or **facets**. To do this, we perform a special form of mapping where some variable is used to define subsets of the data we should generate the same *form* of visual for. In **ggplot2*, we simply use `facet_wrap()`:
+```{r}
+
+party_likes + # note we're reusing the old mapping without gender
+  facet_wrap("gender") + # we specify the "facetting" variable
+  geom_density(alpha = 0.7) + 
+  scale_x_log10(labels = comma) + 
+  scale_fill_manual(breaks = c("Democrat","Republican","Independent"),
+                    values = c("dodgerblue","firebrick","purple")) +
+  labs(x = "Likes", y = "Density", fill = "Political Party") +
+  theme_minimal() 
+```
+
+If we want to subset the plots by two variables, we can use `facet_grid()` instead. This allows us to specify a matrix of plots, where we map variables explicitly to the rows and columns of the plot space:
+```{r}
+party_likes + 
+  facet_grid("gender~type") + # row~column
+  geom_density(alpha = 0.7) + 
+  scale_x_log10(labels = comma) + 
+  scale_fill_manual(breaks = c("Democrat","Republican","Independent"),
+                    values = c("dodgerblue","firebrick","purple")) +
+  labs(x = "Likes", y = "Density", fill = "Political Party") +
+  theme_minimal() 
+```
