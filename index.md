@@ -116,6 +116,7 @@ The lecture this week will offer an overview of the principles of exploratory da
 
 - [Slides](week03/MY472-week03-visualisation.pdf)
 - Lecture code: [Anscombe](week03/01-anscombe.Rmd), [ggplot2 walkthrough](week03/02-ggplot-walkthrough.Rmd)
+- Data: [Congressional Facebook posts](week03/data/fb-congress-data.csv), [unemployment data](week03/data/unemployment.csv)
 - Further reference code: [ggplot2 basics](week03/03a-ggplot2-basics.Rmd), [ggplot2 scales, axes, and legends](week03/03b-scales-axes-legends.Rmd)
 
 
