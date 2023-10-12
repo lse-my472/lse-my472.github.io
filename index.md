@@ -123,7 +123,7 @@ The lecture this week will offer an overview of the principles of exploratory da
 ##### Seminar
 
 - Code: [Exercises in visualistion](week03/04-exercises-visualisation.Rmd), [solution](week03/04-exercises-visualisation-solution.Rmd)
-
+- Graphic to replicate: [Unemployment rates](week03/04-unemployment.png)
 
 ##### Reading
 

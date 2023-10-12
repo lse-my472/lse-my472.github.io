@@ -145,7 +145,8 @@ Just like in the lecture example, we use pivot_wider() to generate these variabl
 
 ```{r}
 ip_and_unemployment_wide <- ip_and_unemployment %>%
-  pivot_wider(names_from = series, values_from = value)
+  pivot_wider(names_from = series, values_from = value,
+              id_cols = c("country","date"))
 ip_and_unemployment_wide
 ```
 
