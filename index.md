@@ -144,10 +144,12 @@ We will learn how to work with unstructured data in the form of text and discuss
 
 - [Slides](week04/MY472-week04-text.pdf)
 - Code: [Regular expressions in R](week04/01-regular-expressions-in-r.Rmd), [text analysis](week04/02-text-analysis.Rmd), [parsing pdfs](week04/03-parsing-pdfs.Rmd)
+- Data: [Sample texts](week04/data/sample_texts.txt), [Keynes' "General Theory" cover](week04/data/general_theory_cover.pdf)
 
 ##### Seminar
 
 - Code: [Exercises in text analysis](week04/04-exercises-text-analysis.Rmd), [solution](week04/04-exercises-text-analysis-solution.Rmd)
+- Data: [UoL institutions](week04/data/uol.txt)
 
 
 ##### Reading
