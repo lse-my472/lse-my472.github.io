@@ -191,7 +191,7 @@ This week we cover the basics of web scraping for tables and unstructured data f
 
 This is a *summative* assignment, and is due **2 November 2023 by 4pm**. You must submit your response as a knitted .html file via the Moodle page. 
 
-Details TBC
+[Assignment 2 problem set](assignments/assignment_2.html)
 
 #### 6. Reading week
 
