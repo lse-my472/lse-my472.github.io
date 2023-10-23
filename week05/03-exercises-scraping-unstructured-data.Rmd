@@ -1,0 +1,249 @@
+---
+title: "MY472 - Week 5: Exercises in scraping unstructured data"
+author: "Friedrich Geiecke"
+output: html_document
+---
+
+These exercises discuss scraping unstructured data. We will use Wikipedia as an example. While there is also the Wikidata API which would allow to obtain data in an already structured format (we will discuss web APIs in week 8), the Wikipedia website itself is a very helpful example to study web scraping.
+
+```{r}
+library("tidyverse")
+library("rvest")
+```
+
+## 1. CSS selectors for single elements, multiple elements, and nested elements
+
+To study some fundamentals of scraping with selectors, let us look at the Wikipedia page of [Emmy Noether](https://en.wikipedia.org/wiki/Emmy_Noether), one of the most important mathematicians of the 20th century. 
+
+```{r}
+url_noether <- "https://en.wikipedia.org/wiki/Emmy_Noether"
+html_noether <- read_html(url_noether)
+```
+
+__Scraping single elements__
+
+The first example will be to collect only a single element of the HTML code, i.e. here the caption of the first image. It is on the right hand side of the website and begins with "Noether grew up in ...". Inspect the caption with your browser, copy its CSS selector, and scrape the caption by completing the code below:
+
+```{r}
+first_caption_element <- html_noether %>% html_elements(css = ________)
+first_caption_text <- first_caption_element %>% html_text() 
+first_caption_text
+```
+
+__Scraping multiple elements with a single selector__
+
+Copying CSS selectors with the browser such as in the previous example typically selects a distinct element. If the goal is to scrape multiple elements with a single selector, our knowledge of HTML and CSS is very helpful to define a more general selector. Inspect the website's code but now try to define an own selector to scrape the captions of all images displayed on the page in one go (hint: which class name do they all seem to share?):
+
+```{r}
+all_caption_elements <- html_noether %>% html_elements(css = ________)
+all_caption_texts <- all_caption_elements %>% html_text() 
+all_caption_texts
+```
+
+__Nested selectors__
+
+Lastly, let us study how we can define CSS selectors that more narrowly define the content we would like to scrape. For example, the selector `.someclassname p` would only scrape all paragraph tags within a class called "someclassname", i.e. it would not scrape any paragraph tags from other parts of the website. As another example, `div p a`, would scrape all hyperlink tags which are contained in paragraph tags which themselves are contained in division tags. It would not scrape any other hyperlinks. Note also that the different class names/tags are just separated by a space.
+
+In our example here, imagine we wanted to scrape the captions of only the images on the left hand side of the page. When looking at the page's source code, can you define a CSS selector which achieves this (hint: if a class name contains a space, you can replace this space with a `.` in the CSS selector)?
+
+```{r}
+all_lhs_caption_elements <- html_noether %>% html_elements(css = ________)
+all_lhs_caption_texts <- all_lhs_caption_elements %>% html_text() 
+all_lhs_caption_texts
+```
+
+## 2. Extracting biographical information from a Wikipedia page
+
+As another example, let us collect some biographical information from the box on the right hand side of a person's Wikipedia page. We will look at the page of the physics Nobel laureate Richard Feynman and afterwards try to collect comparable information for all Nobel laureates in physics. As a side note, for an interesting discussion of the scientific method by Feynman, see this [link](https://youtu.be/EYPapE-3FRw); in particular the first 2.5 minutes are also very relevant for social scientists that work with mathematical models.
+
+```{r}
+url_feynman <- "https://en.wikipedia.org/wiki/Richard_Feynman"
+html_feynman <- read_html(url_feynman)
+```
+
+Say we would like to collect some baseline information about the person. The box on the right hand side seems the natural starting point. Each item in this box has content in a cell on the left (e.g. "Alma mater") and on the right (e.g. "Massachusetts Institute of Technology (S.B.) Princeton University (PhD)"). Inspecting with the browser reveals that the left cell has a class name "infobox-label" and the right "infobox-data". Try to complete the following by adding the CSS selectors for these two class names. This allows to obtain all relevant label and data elements from the box in one go similarly to the selector which we defined before that could scrape all captions:
+
+```{r}
+label_elements_feynman <- html_feynman %>% html_elements(css = ________)
+data_elements_feynman <- html_feynman %>% html_elements(css = ________)
+```
+
+Next, extract the text from these elements:
+
+```{r}
+labels_feynman <- label_elements_feynman %>% ________
+data_feynman <- data_elements_feynman %>% ________
+```
+
+Printing the first entries:
+
+```{r}
+labels_feynman[1:5]
+```
+
+```{r}
+data_feynman[1:5]
+```
+
+From these vectors, how would you access just the birth date information?
+
+```{r}
+data_feynman[________]
+```
+
+The title of his PhD thesis?
+
+```{r}
+data_feynman[________]
+```
+
+The information could now be stored in a data frame. In the optional advanced example of the next section, we will look at how we could automate this approach for all physics laureates rather than just Richard Feynman.
+
+## 3. Optional advanced example: Combining information from multiple pages
+
+The last example of this document is to collect information on all Nobel laureates in physics via Wikipedia. It could be done by navigating to the page of each laureate and then collecting information from the content of that page. __We look at scientists as an example here, but this logic, i.e. navigating from a base page that contains links to a range of other pages, is widely applicable and very useful in web scraping. Think e.g. of a website with names of firms, countries, politicians, etc. each linking to an own page that contains information about the respective entry.__
+
+
+```{r}
+url <- "https://en.wikipedia.org/wiki/List_of_Nobel_laureates"
+nobels_html <- read_html(url)
+```
+
+You can scrape the full table by adding its CSS selector here:
+
+```{r}
+nobel_table_wikipedia <- html_elements(nobels_html, css = ________)[[1]] %>% html_table(fill=TRUE)
+nobel_table_wikipedia
+```
+
+This does return the names of all laureates, however, no further information about them such as their institutions, dissertation supervisors, etc. For the example of only the physics laureates, let us therefore obtain such data.
+
+First, create vector containing only the physics laureates with one element being one scientist:
+
+```{r}
+# Vector with all names of physics laureates (requires to separate multiple laureates in some years)
+physicists_names <- nobel_table_wikipedia$Physics %>% str_split(";") %>% unlist()
+
+# Drop entries of the physics column which don't contain names (years without laureates)
+physicists_names <- physicists_names[physicists_names != "None"]
+physicists_names <- physicists_names[physicists_names != "Cancelled due to World War II"]
+
+# Drop the last row of the column which just says "Physics"
+physicists_names <- physicists_names[-length(physicists_names)]
+
+# Exemplary names
+length(physicists_names)
+physicists_names[1:10]
+```
+
+The information later collected for each laureate will be stored in a table with columns for fields, institutions, doctoral advisors, and doctoral students.
+
+```{r}
+physicists <- tibble(name = physicists_names, fields = NA, institutions = NA, doctoral_advisors = NA, doctoral_students = NA)
+physicists
+```
+
+Next, store all hyperlinks contained in the website's HTML code in a vector (what is the CSS selector for a hyperlink?). This is one possible approach which allows to navigate to each individual laureate's page later:
+
+```{r}
+all_link_elements <- html_elements(nobels_html, css = ________)
+all_link_texts <- all_link_elements %>% html_text()
+```
+
+In the following, some code to extract and clean texts from a person's Wikipedia page is wrapped into a helper function. It uses the same idea as the Feynman example considered initially and furthermore cleans the texts. It works relatively well to clean texts for fields, institutions, doctoral advisors, and doctoral students as these are needed to fill out the table above. Other entries, such as the birth year, would require cleaning with a different set of regular expressions.
+
+```{r}
+# Helper function to clean texts
+helper_function <- function(x, labels, data) {
+  
+  #
+  # Only works well with fields, institutions, doctoral advisors, and doctoral students
+  #
+  
+  # First, also create a plural version of the label string, e.g. if the label
+  # "x" is "advisor", the function will also check whether the Wikipedia page
+  # mentions "advisors" instead
+  x_plural <- paste0(x,"s")
+  
+  # Check singular
+  if (x %in% labels) {
+    text <- data[labels==x]
+  }
+  # Check plural
+  else if (x_plural %in% labels) {
+    text <- data[labels==x_plural]
+    }
+  else {return(NA)} # return statement stops the rest of the function from running
+  
+  ## Clean text
+  # Remove new line signs and replace them with ;
+  text <- text %>% str_replace_all("\n", "; ")
+  # Remove any resulting ; at the beginning of the string
+  text <- text %>% str_replace_all("^; ", "")
+  # Remove superscripts and content added in parentheses
+  text <- text %>% str_replace_all("\\[.*\\]", "")
+  text <- text %>% str_replace_all("\\(.*\\)", "")
+  # Sometimes words in the Wikipedia texts are not correctly separated with a white space
+  # The following e.g. transforms "University of LondonCambridge University" into
+  # "University of London; Cambridge University"
+  text <- text %>% str_replace_all("([[:lower:]])([[:upper:]])", "\\1; \\2") # note: [[:lower:]] e.g. contains é which is not contained in [a-z]
+  # Sometimes long residual website code is contained at the beginning of text before
+  # the first ; -> It will be deleted in the following
+  text_split <- str_split(text, "; ")[[1]]
+  if (nchar(text_split[1]) > 200) { # Before the first semicolon, are there more than 200 characters?
+    text <- text_split[2:length(text_split)] %>% paste(collapse = "; ")}
+  return(text)
+  
+}
+
+## Illustration with the Feynman examples discussed earlier
+
+# Obtain institution
+helper_function("Institutions", labels_feynman, data_feynman)
+# Obtain doctoral advisor(s)
+helper_function("Doctoral advisor", labels_feynman, data_feynman)
+```
+
+Putting all these pieces together allows to collect the information for each physics laureate by navigating to their individual page:
+
+```{r}
+# Loop over all names of physics laureates
+for (current_name in physicists_names) {
+  
+  # Obtain relevant link element for the current laureate's name
+  current_laureate_element <- all_link_elements[all_link_texts == current_name][1]
+  
+  ## Navigate to URL of current laureate
+  # Get target of hyperlink
+  current_partial_url <- current_laureate_element %>% html_attr("href")
+  current_url <- paste("https://en.wikipedia.org",  current_partial_url, sep = "")
+  # Load page
+  current_html <- read_html(current_url)
+  
+  # Get labels and data
+  labels <- current_html %>% html_elements(css = ".infobox-label") %>% html_text()
+  data <- current_html %>% html_elements(css = ".infobox-data") %>% html_text()
+  
+  # Clean text and store in data frame
+  physicists[physicists$name == current_name, "fields"] <- helper_function("Field", labels, data)
+  physicists[physicists$name == current_name, "institutions"] <- helper_function("Institution", labels, data)
+  physicists[physicists$name == current_name, "doctoral_advisors"] <- helper_function("Doctoral advisor", labels, data)
+  physicists[physicists$name == current_name, "doctoral_students"] <- helper_function("Doctoral students", labels, data)
+  
+  # Wait half a second before next request
+  Sys.sleep(0.5)
+  
+}
+
+physicists
+```
+
+The cleaned texts in the data frame are not 100% consistent and some further fine tuning of the regular expressions would be required for rare cases, however, the data quality is already quite good. The example shows that with some lines of code and navigating through Wikipedia it was already possible to assemble a notable database of scientists, their institutions, advisors and doctoral students all from different webpages.
+
+Who was the doctoral advisor of most scientists that became physics prize winners?
+
+```{r}
+all_advisors <- physicists$doctoral_advisors %>% str_split("; ") %>% unlist()
+all_advisors <- tibble(advisor = all_advisors) %>% drop_na()
+all_advisors %>% count(advisor) %>% arrange(desc(n))
+```
