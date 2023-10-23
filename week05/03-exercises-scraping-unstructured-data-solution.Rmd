@@ -25,17 +25,17 @@ __Scraping single elements__
 The first example will be to collect only a single element of the HTML code, i.e. here the caption of the first image. It is on the right hand side of the website and begins with "Noether grew up in ...". Inspect the caption with your browser, copy its CSS selector, and scrape the caption by completing the code below:
 
 ```{r}
-first_caption_element <- html_noether %>% html_elements(css = "div.thumb:nth-child(11) > div:nth-child(1) > div:nth-child(2)")
+first_caption_element <- html_noether %>% html_elements(css = "div.mw-parser-output > figure:nth-child(11)") #inspected in Google Chrome 10/23/2023
 first_caption_text <- first_caption_element %>% html_text() 
 first_caption_text
 ```
 
 __Scraping multiple elements with a single selector__
 
-Copying CSS selectors with the browser such as in the previous example typically selects a distinct element. If the goal is to scrape multiple elements with a single selector, our knowledge of HTML and CSS is very helpful to define a more general selector. Inspect the website's code but now try to define an own selector to scrape the captions of all images displayed on the page in one go (hint: which class name do they all seem to share?):
+Copying CSS selectors with the browser such as in the previous example typically selects a distinct element. If the goal is to scrape multiple elements with a single selector, our knowledge of HTML and CSS is very helpful to define a more general selector. Inspect the website's code but now try to define your own selector to scrape the captions of all images displayed on the page in one go (hint: what do they all seem to share?):
 
 ```{r}
-all_caption_elements <- html_noether %>% html_elements(css = ".thumbcaption")
+all_caption_elements <- html_noether %>% html_elements(css = "figcaption") #source viewed in Google Chrome 10/23/2023
 all_caption_texts <- all_caption_elements %>% html_text() 
 all_caption_texts
 ```
@@ -47,7 +47,7 @@ Lastly, let us study how we can define CSS selectors that more narrowly define t
 In our example here, imagine we wanted to scrape the captions of only the images on the left hand side of the page. When looking at the page's source code, can you define a CSS selector which achieves this (hint: if a class name contains a space, you can replace this space with a `.` in the CSS selector)?
 
 ```{r}
-all_lhs_caption_elements <- html_noether %>% html_elements(css = ".thumb.tleft .thumbcaption")
+all_lhs_caption_elements <- html_noether %>% html_elements(css = ".mw-halign-left figcaption") #source viewed in Google Chrome 10/23/2023
 all_lhs_caption_texts <- all_lhs_caption_elements %>% html_text() 
 all_lhs_caption_texts
 ```
