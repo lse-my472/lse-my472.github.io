@@ -67,13 +67,13 @@ Now we can plot to see how the number of people applying for a Social Security N
 ```{r}
 # Pivot longer function
 social_security_data_long <- pivot_longer(data = social_security_data[, 1:3],
-  cols = c("male", "female"), names_to = "gender", values_to = "individuals")
+  cols = c("male", "female"), names_to = "sex", values_to = "individuals")
 
 # Creating the plot
 ggplot(social_security_data_long) +
-  aes(x = year, y = individuals, group = gender, colour = gender) +
+  aes(x = year, y = individuals, group = sex, colour = sex) +
   geom_line() + xlab("Year") + ylab("Individuals") +
-  scale_colour_manual(name ="Gender", values = c(1, 2), labels = c("Female", "Male"))
+  scale_colour_manual(name ="Birth Sex", values = c(1, 2), labels = c("Female", "Male"))
 ```
 
 ### Scraping web data in table format: A more advanced example
@@ -96,15 +96,13 @@ One option is to go through these tables in this list manually and select the co
 tables[5] # position 5 happens to be the correct table (checked 23/10/2023)
 ```
 
-
 Alternatively, the table of interest can be identified directly with a right-click and "Inspect" or "Inspect Element" in the browser. Clicking on the relevant part of the page's code then allows to copy identifiers such as the CSS selector.
 
-CSS selector: table.wikitable:nth-child(21) (extracted with Firefox "Inspect Element" on 24/10/2022)
+CSS selector: table.wikitable:nth-child(25) (extracted with Firefox "Inspect Element" on 23/10/2023)
 
-An alternative option is to look at the full source code of the website. In Google Chrome e.g., go to _View_ > _Developer_ > _View Source_. All browsers should have similar options to view the source code of a website. In the source code, search for the text of the page (e.g. _2021 rank_). Right above it you will see: `<table class="wikitable sortable ..." ...>`. This is the CSS selector. Using this selector, however, might still return several tables.
+An alternative option is to look at the full source code of the website. In Google Chrome e.g., go to _View_ > _Developer_ > _View Source_. All browsers should have similar options to view the source code of a website. In the source code, search for the text of the page (e.g. _2022 rank_). Right above it you will see: `<table class="wikitable sortable ..." ...>`. This is the CSS selector. Using this selector, however, might still return several tables.
 
 Now that we know what we're looking for, let's use `html_elements()` to identify all the elements of the page that have that CSS class (note that we use a dot before the name of the class because the R function expects CSS notation). Whereas we will find several elements with the CSS selector ".wikitable" which we would have to search subsequently, we will only find one with the very specific selector obtained with inspect element.
-
 
 ```{r}
 table_raw <- html_elements(html, css = "tba")
@@ -121,7 +119,7 @@ data_pop
 As in the previous case, we still need to clean the data before we can use it. For this particular example, let's see if this dataset provides evidence in support of [Zipf's law for population ranks](https://en.wikipedia.org/wiki/Zipf%27s_law). Keeping only the columns of interest and transforming into a tibble:
 
 ```{r}
-data_pop <- data_pop %>% select(c("City", "2021rank", "2021estimate"))
+data_pop <- data_pop %>% select(c("City", "2022rank", "2022estimate"))
 data_pop
 ```
 
@@ -130,8 +128,8 @@ Renaming and cleaning columns:
 ```{r}
 # Renaming the columns
 data_pop <- rename(data_pop, city_name = "City",
-                   rank = "2021rank",
-                   population = "2021estimate")
+                   rank = "2022rank",
+                   population = "2022estimate")
 
 # Removing superscripts in the city names
 data_pop$city_name <- gsub("\\[.*\\]", "", data_pop$city_name)
