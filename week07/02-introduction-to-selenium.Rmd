@@ -1,0 +1,76 @@
+---
+title: "MY472 - Week 7: A first script using RSelenium"
+author: "Friedrich Geiecke, Daniel de Kadt"
+date: "7 November 2023"
+output: html_document
+---
+
+Note: Using `RSelenium` usually requires Java DK. First, try to see whether it is already installed on your computer - only install `RSelenium` with `install.packages("RSelenium")` and try to run the code in this document. If that does not work properly, next try to install Java DK. You can download the current version from here: https://www.oracle.com/java/technologies/downloads/. After its installation, restart RStudio.
+
+Loading the Selenium package:
+
+```{r}
+#install.packages("RSelenium") -- run once to install the package on your computer
+library("RSelenium")
+#install.packages("netstat") -- this is optional, to allow the use of free_port()
+library("netstat")
+```
+
+Launching the driver and browser (if the port is already in use, choose a different number with four digits, e.g. `rsDriver(browser=c("firefox"), port = 1234L)`). Alternatively -- as we do here -- choose a random free port using `netstat:free_port`. This code will now open what we call a 'marionette' browser (you can figure out why). Do not close this browser window!
+
+```{r}
+# note that we use 'chromever = NULL' as chrome drivers seem to be buggy as of 11/6/23
+rD <- rsDriver(browser=c("firefox"), port = free_port(random = TRUE), chromever = NULL) 
+driver <- rD$client
+```
+
+Navigate to the Google website:
+
+```{r}
+url <- "https://www.google.com/"
+driver$navigate(url)
+```
+
+Since recently there can be new privacy terms that have to be accepted once in some regions.
+
+Side note: Some such cases with pop-up windows on websites might require frame switching (although it seems that the 2023 version of Google does not require this at the moment). Should the code below not run on your computer after you have entered the correct XPath, try to uncomment the `swithToFrame` functions. As the the window is in the foreground, it can be that we have to switch the frame. Without this switching of the frame, we might not be able to click on the right element. Whether switching the frame is necessary depends on the design of the underlying website which can change.
+
+As an exercise, the XPaths of the relevant elements have to be obtained with the Inspect function of the browser and then be pasted into this code replacing the "tba".
+
+```{r}
+#driver$switchToFrame(0) # can be un-commented and tried if code does not run
+
+# note the use of single quotes around 'tba' -- this is because the xpath will sometimes include double quotes. if you have double quotes inside a string, you need to use single quotes to define the extent of the string.
+agree_button <- driver$findElement(using = "xpath", value = 'tba')
+agree_button$clickElement()
+
+#driver$switchToFrame(1)
+```
+
+Next, we will search for the LSE:
+
+```{r}
+search_field <- driver$findElement(using = "xpath", value = 'tba')
+search_field$sendKeysToElement(list("london school of economics"))
+Sys.sleep(1)
+search_field$sendKeysToElement(list(key = "enter"))
+```
+
+And navigate to the LSE website by clicking on the first link of the search results:
+
+```{r}
+first_link <- driver$findElement(using = "xpath", value = 'tba')
+first_link$clickElement()
+```
+
+Lastly, let us close the driver and browser:
+
+```{r}
+# close the Rselenium processes:
+driver$close()
+rD$server$stop()
+
+# close the associated Java processes (if using Mac or Linux this may not be necessary -- Google for correct command)
+system("taskkill /im java.exe /f", intern=FALSE, ignore.stdout=FALSE)
+```
+
