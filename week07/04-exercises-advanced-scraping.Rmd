@@ -61,7 +61,7 @@ accept_button <- driver$___________(using = "xpath",
 # 2. Click on the button:
 accept_button$_____________()
 
-# Switch back to default frame
+# Switch back to default frame -- if this does not work try driver$switchToFrame(NA)
 driver$switchToFrame(NULL)
 ```
 

@@ -61,8 +61,8 @@ accept_button <- driver$findElement(using = "xpath",
 # 2. Click on the button:
 accept_button$clickElement()
 
-# Switch back to default frame
-driver$switchToFrame(NULL)
+# Switch back to default frame -- if this does not work try driver$switchToFrame(NA)
+driver$switchToFrame(NULL) 
 ```
 
 Let's assume we want to see the results of the constituency here. We can feed post code or constituency names, and check the results.  First, let's identify the elements that we're trying to scrape. Then, send the text to the field and "enter" key inputs.
