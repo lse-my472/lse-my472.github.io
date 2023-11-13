@@ -1,0 +1,146 @@
+---
+title: "Reading JSON into R"
+author: "Friedrich Geiecke, Daniel de Kadt"
+date: "14 November 2023"
+output: html_document
+---
+
+We are going to work with JSON files that come either from our local machine (we have downloaded and saved them from somewhere), or JSON files that come from what are called public APIs (APIs that anyone can interact with). Loading packages:
+
+```{r}
+library("jsonlite")
+library("tidyverse")
+```
+
+Before we look at real-world examples, let us first study our own simple files. Specify the directory where the JSON files are stored:
+
+```{r}
+current_dir <- "./data/"
+```
+
+Reading/parsing the first file into R:
+
+```{r}
+example_1_parsed <- fromJSON(paste(current_dir, "example_1.json", sep = ""))
+
+class(example_1_parsed)
+
+names(example_1_parsed)
+```
+
+The key-value structure is of JSON objects is transformed into (nested) lists in R:
+
+```{r}
+example_1_parsed
+```
+
+We can e.g. access the grades array with:
+
+```{r}
+example_1_parsed$grades
+```
+
+The JSON array became a vector in R. Also note e.g. that the JSON notation of the Boolean as `false` was transformed into the R notation of `FALSE`.
+
+The supervisor element is again a list itself. This emphasises the nested structure of such files:
+
+```{r}
+class(example_1_parsed$supervisor)
+```
+
+We can access the supervisor's department with:
+
+```{r}
+example_1_parsed$supervisor$department
+```
+
+Let us proceed with the second example. Here we had built the JSON file such that it contained a tabular data structure. We can parse the file in the usual list format, however, also transform it into a dataframe.
+
+```{r}
+example_2_parsed <- fromJSON(paste(current_dir, "example_2.json", sep = ""))
+
+class(example_2_parsed)
+
+names(example_2_parsed)
+```
+
+List:
+
+```{r}
+example_2_parsed
+```
+
+Dataframe:
+
+```{r}
+example_2_parsed %>% as_tibble()
+```
+
+Note that the JSON `null` was transformed into an NA.
+
+Lastly, let us look at a slightly more realistic example. Again we obtain a list for the JSON file, however, `jsonlite` actually understands here that each of the keys in the JSON (AT and WT) stores tabular data which itself can be represented as a dataframe in R. That is, each of the highest elements of the list is itself tabular data. 
+
+```{r}
+example_3_parsed <- fromJSON(paste(current_dir, "example_3.json", sep = ""))
+
+class(example_3_parsed)
+
+names(example_3_parsed)
+```
+
+The data frame contained in the AT key:
+
+```{r}
+example_3_parsed$AT
+```
+
+The data frame contained in the WT key:
+
+```{r}
+example_3_parsed$WT
+```
+
+In this case, our prior efforts won't work (at least, not in a useful way):
+
+```{r}
+example_3_parsed %>% as_tibble()
+```
+
+Instead, we will need to tackle this in a nested fashion. We first need each element of the list to be a data frame or tibble, and then append those  together. To allow for this nested approach, we can use the `do.call` function, which lets us apply a function -- in this case `rbind` -- across the elements of a list (it's easy in this case because example_3_parsed is already well formatted as data frames). So, we can extract the information in both AT and WT as follows:
+
+```{r}
+do.call(rbind, example_3_parsed)
+```
+
+So far we have explored locally stored JSON files. Now let's move on to JSON files we can access directly from the web, via a simple public API. Essentially, we are able to input a URL into the `fromJSON` function, and read whatever JSON file is returned. For now, we are just going to query a public API that has a single non-variable endpoint which returns (in this case) a random fact about cats:  
+
+```{r}
+api_url <- "https://catfact.ninja/fact"
+
+fromJSON(api_url)
+```
+
+Because this is such a simple API, if we wanted to return more results, we'd need to get a little creative. Note how this time we include, within our `do.call` an `lapply` across the elements of our output list, converting each element into a tibble with `as_tibble`. 
+
+```{r}
+api_queryer <- function(results_count = 10, api_url = "https://catfact.ninja/fact"){
+  
+  run_result <- c()
+  results <- list()
+
+  for(i in 1:results_count){
+    results[[i]] <- fromJSON(api_url)  
+    Sys.sleep(1)
+  }
+  
+  return(results)
+}
+
+# run our function -- we can leave the defaults
+cat_facts_output <- api_queryer()
+
+# convert to a nicely formatted tibble (though in this case it would be ideal if it were a kibble -- this is a cat joke):
+cat_facts <- do.call(rbind, lapply(cat_facts_output, as_tibble, stringsAsFactors = FALSE))
+
+cat_facts
+```
