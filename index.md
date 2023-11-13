@@ -230,12 +230,12 @@ This week discusses how to work with Application Programming Interfaces (APIs) t
 ##### Lecture
 
 - [Slides](week08/MY472-week08-APIs.pdf)
-- Code: [JSON in R](week08/01-json-in-r.Rmd), [NYT API](week08/02-nytimes-api.Rmd), [Twitter REST API](week08/03-twitter-rest-api.Rmd)
+- Code: [JSON in R](week08/01-json-in-r.Rmd), [AIC API](week08/02-aic-api.Rmd)
 
 
 ##### Seminar
 
-- Code: [Twitter streaming API](week08/04-twitter-streaming-api.Rmd)
+- Code: [NY Times API](week08/03-nyt-api.Rmd), [NY Times API solution](week08/03-nyt-api-solution.Rmd)
 
 
 ##### Reading
