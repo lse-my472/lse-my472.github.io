@@ -225,7 +225,7 @@ Continuing from the material covered in Week 5, we will learn the advanced topic
 
 #### 8. Working with APIs
 
-This week discusses how to work with Application Programming Interfaces (APIs) that offer developers and researchers access to data in a structured format. Our running examples will be the New York Times API and the Twitter API.
+This week discusses how to work with Application Programming Interfaces (APIs) that offer developers and researchers access to data in a structured format. 
 
 ##### Lecture
 
@@ -239,7 +239,7 @@ This week discusses how to work with Application Programming Interfaces (APIs) t
 
 
 ##### Reading
-* Steinert-Threlkeld. 2018. [_Twitter as Data_](https://www.cambridge.org/core/elements/twitter-as-data/27B3DE20C22E12E162BFB173C5EB2592). Cambridge University Press.
+* Barberá & Steinert-Threlkeld. 2018. ["How to use social media data for political science research"](http://pablobarbera.com/static/social-media-data-generators.pdf). In _The Sage handbook of research methods in political science and international relations_, pages 404-423.
 
 ##### Further reading
 * Ruths and Pfeffer. 2014. [_Social media for large studies of behavior_](http://science.sciencemag.org/content/346/6213/1063.full). Science.
