@@ -264,11 +264,13 @@ This session will offer an introduction to relational databases: structure, logi
 ##### Further reading
 * Stephens et al. 2009. [_Teach yourself SQL in one hour a day_](https://books.google.co.uk/books?hl=en&lr=&id=9fDZ_rVoxx0C&oi=fnd&pg=PR5&dq=%22Sams+Teach+Yourself+SQL+in+24+Hours%22&ots=UkaClJDMem&sig=wgLy-DG3bc7g0LO0_Ojy5Cy2Ejs#v=onepage&q=%22Sams%20Teach%20Yourself%20SQL%20in%2024%20Hours%22&f=false). Sam's Publishing.
 
-##### Assignment 3
+
+#### Assignment 3
 
 This is a *summative* assignment, and is due **7 December 2023 by 4pm**. You must submit your response as a knitted .html file via the Moodle page. 
 
 [Assignment 3 problem set](assignments/assignment_3.html), [ivyleague.csv](assignments/ivyleague.csv)
+
 
 #### 10. NoSQL and cloud databases
 
