@@ -292,7 +292,7 @@ This week covers how to set up and use relational databases in the cloud and fun
 
 This is a *summative* assignment, and is due **7 December 2023 by 4pm**. You must submit your response as a knitted .html file via the Moodle page. 
 
-Details TBC
+[Assignment 3 problem set](assignments/assignment_3.html), [ivyleague.csv](assignments/ivyleague.csv)
 
 
 #### 11. Cloud computing
