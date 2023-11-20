@@ -258,7 +258,7 @@ This session will offer an introduction to relational databases: structure, logi
 
 ##### Lecture
 
-- [Slides](week09/my472-week09-sql.pdf)
+- [Slides](week09/MY472-week09-sql.pdf)
 - Code: [SQL introduction](week09/01-sql-intro.Rmd), [join and aggregation in SQL](week09/02-sql-join-and-aggregation.Rmd)
 
 
