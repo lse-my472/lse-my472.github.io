@@ -17,7 +17,7 @@ library(DBI)
 ```
 
 ```{r, eval=FALSE}
-# Create database: This will create a file in our hard drive if it does not exist already
+# Create database: This will create a file in our hard drive if it does not exist already. Note, you could equally use "facebook-db.db" here.
 db <- dbConnect(RSQLite::SQLite(), "data/facebook-db.sqlite")
 
 # Reading the first file into R
@@ -44,7 +44,7 @@ for (f in fls){
   message(f)
 
   # Read file into memory
-  fb <- invisible (read.csv(f, stringsAsFactors = FALSE))
+  fb <- read.csv(f, stringsAsFactors = FALSE)
   
   # Adding to table in SQL database
   dbWriteTable(db, "posts", fb, append = TRUE)
@@ -100,11 +100,13 @@ Continuing with our previous example, this is the list of query clauses that we 
 
 - __WHERE__: filter out unwanted data
 
-And then two important query clauses that we will introduce in the next coding exercise:  
+And then three important query clauses that we will introduce in the next coding exercise:  
 
 - __GROUP BY__: groups rows together by common column values
 
 - __ORDER BY__: sorts the rows in the final result set by one or more columns
+
+- __JOIN__ (and friends): join two tables together based on columns
 
 
 Recall the column names both in the congress and in the posts table:
@@ -171,10 +173,16 @@ dbGetQuery(db, "SELECT from_name, type, date, likes_count
               AND likes_count > 500
            LIMIT 10")
 
-# OR operator -- note the importance of the parentheses. What happens if you remove them?
+# OR operator
 dbGetQuery(db, "SELECT from_name, type, date, comments_count 
            FROM posts
            WHERE comments_count > 100 AND (type = 'photo' OR type = 'video')
+           LIMIT 10")
+
+# OR operator again -- note the importance of the parentheses...
+dbGetQuery(db, "SELECT from_name, type, date, comments_count 
+           FROM posts
+           WHERE comments_count > 100 AND type = 'photo' OR type = 'video'
            LIMIT 10")
 
 # Membership of a set: IN ('')
