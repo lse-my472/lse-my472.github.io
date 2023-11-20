@@ -244,6 +244,14 @@ This week discusses how to work with Application Programming Interfaces (APIs) t
 ##### Further reading
 * Ruths and Pfeffer. 2014. [_Social media for large studies of behavior_](http://science.sciencemag.org/content/346/6213/1063.full). Science.
 
+
+#### Assignment 3
+
+This is a *summative* assignment, and is due **7 December 2023 by 4pm**. You must submit your response as a knitted .html file via the Moodle page. 
+
+[Assignment 3 problem set](assignments/assignment_3.html), [ivyleague.csv](assignments/ivyleague.csv)
+
+
 #### 9. Creating and managing databases
 
 This session will offer an introduction to relational databases: structure, logic, and main types. We will learn how to write SQL code, a language designed to query this type of databases that is currently employed by many companies; and how to use it from R using the DBI package.
@@ -263,13 +271,6 @@ This session will offer an introduction to relational databases: structure, logi
 
 ##### Further reading
 * Stephens et al. 2009. [_Teach yourself SQL in one hour a day_](https://books.google.co.uk/books?hl=en&lr=&id=9fDZ_rVoxx0C&oi=fnd&pg=PR5&dq=%22Sams+Teach+Yourself+SQL+in+24+Hours%22&ots=UkaClJDMem&sig=wgLy-DG3bc7g0LO0_Ojy5Cy2Ejs#v=onepage&q=%22Sams%20Teach%20Yourself%20SQL%20in%2024%20Hours%22&f=false). Sam's Publishing.
-
-
-#### Assignment 3
-
-This is a *summative* assignment, and is due **7 December 2023 by 4pm**. You must submit your response as a knitted .html file via the Moodle page. 
-
-[Assignment 3 problem set](assignments/assignment_3.html), [ivyleague.csv](assignments/ivyleague.csv)
 
 
 #### 10. NoSQL and cloud databases
