@@ -180,11 +180,11 @@ dbGetQuery(db,
 
 
 ```{r}
-# Average number of likes and comments, per candidate using a CTE (just for demonstration)
+# Average number of likes and comments, per candidate using a CTE with aliasing (just for demonstration)
 dbGetQuery(db, 
   "WITH 
     
-    tweet_metrics AS(
+    fb_metrics AS(
       SELECT screen_name, 
       AVG(likes_count) AS avg_likes_count, 
       AVG(comments_count) AS avg_comments_count
@@ -194,11 +194,11 @@ dbGetQuery(db,
   
   SELECT
     c.screen_name,
-    tw.avg_likes_count,
-    tw.avg_comments_count
+    fm.avg_likes_count,
+    fm.avg_comments_count
   FROM congress c
-  INNER JOIN tweet_metrics tw
-  ON c.screen_name = tw.screen_name;
+  INNER JOIN fb_metrics fm
+  ON c.screen_name = fm.screen_name;
   ")
 
 ```
