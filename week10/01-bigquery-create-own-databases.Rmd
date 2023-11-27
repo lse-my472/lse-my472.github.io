@@ -18,13 +18,13 @@ First, we need to create a project with the BigQuery sandbox as described [here]
 
 ```{r}
 # Project name (project ID)
-project_name <- "class-demonstration-my472-2023"
+project_name <- "tba"
 
 # Billing (project ID)
-billing_id <- "class-demonstration-my472-2023"
+billing_id <- "tba"
 
 # Dataset name (created on website)
-dataset_name <- "my472_example"
+dataset_name <- "tba"
 ```
 
 We can now use the `DBI` package and syntax that we have used before to access our online database, add and delete tables, and run queries.

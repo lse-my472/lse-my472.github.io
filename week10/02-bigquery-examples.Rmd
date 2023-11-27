@@ -29,7 +29,7 @@ We are first going to explore a dataset of London crime statistics. The data inc
 project_name <- "bigquery-public-data"
 
 # Billing (main project ID)
-billing_info <- "class-demonstration-my472-2023"
+billing_info <- "tba"
 
 # Dataset name (London crime database within the public databases)
 dataset_name <- "london_crime"
