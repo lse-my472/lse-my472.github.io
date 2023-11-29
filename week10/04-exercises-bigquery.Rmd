@@ -1,0 +1,77 @@
+---
+title: "MY472 - Week 10: Seminar exercises on BigQuery"
+author: "Pablo Barberá, Friedrich Geiecke"
+date: "30 November 2023"
+output: html_document
+---
+
+## Data
+
+We will use the NYC Bicycle Hire data we looked at in lecture. The database contains Citi Bike trips (NYC's bike-sharing service) since Citi Bike launched in September 2013.
+
+```{r}
+library("DBI")
+library("bigrquery")
+```
+
+## Queries
+
+1. First, connect to the database and see the first 5 entries.
+
+```{r}
+# Project name (now accessing the public datasets)
+project_name <- "bigquery-public-data"
+
+# Billing (main project ID)
+billing_info <- "tba"
+
+# Dataset name (part of the public datasets)
+dataset_name <- _________
+```
+
+```{r}
+db <- dbConnect(
+  bigrquery::bigquery(),
+  project = project_name,
+  dataset = dataset_name,
+  billing = billing_info
+)
+db
+```
+
+All tables in the database:
+
+```{r}
+dbListTables(db)
+```
+
+```{r}
+# First 5 entries
+dbGetQuery(db,
+           "...")
+```
+
+2. What is the average trip duration based on the age of the riders?
+
+```{r}
+
+```
+
+3. What is the average distance of a CitiBike trip based on the age of the riders?
+
+```{r}
+
+```
+
+4. What is the average speed of a CitiBike trip?
+
+```{r}
+
+```
+
+5. What is the average speed based on age?
+
+```{r}
+
+```
+

@@ -1,0 +1,133 @@
+---
+title: "MY472 - Week 10: Seminar exercises on BigQuery - solution"
+author: "Pablo Barberá, Friedrich Geiecke, Daniel de Kadt"
+date: "30 November 2023"
+output: html_document
+---
+
+## Data
+
+We will use the NYC Bicycle Hire data we looked at in lecture. The database contains Citi Bike trips (NYC's bike-sharing service) since Citi Bike launched in September 2013.
+
+```{r}
+library("DBI")
+library("bigrquery")
+```
+
+## Queries
+
+1. First, connect to the database and see the first 5 entries.
+
+```{r}
+# Project name (now accessing the public datasets)
+project_name <- "bigquery-public-data"
+
+# Billing (main project ID)
+billing_info <- "tba"
+
+# Dataset name (part of the public datasets)
+dataset_name <- "new_york"
+```
+
+```{r}
+db <- dbConnect(
+  bigrquery::bigquery(),
+  project = project_name,
+  dataset = dataset_name,
+  billing = billing_info
+)
+db
+```
+
+All tables in the database:
+
+```{r}
+dbListTables(db)
+```
+
+```{r}
+# First 5 entries
+dbGetQuery(db,
+           "SELECT *
+           FROM citibike_trips
+           LIMIT 5")
+```
+
+2. What is the average trip duration based on the age of the riders?
+
+```{r}
+res2 <- dbGetQuery(db,
+                   "SELECT (2020-birth_year) AS age,
+                      AVG( TIMESTAMP_DIFF(stoptime, starttime, MINUTE) ) AS duration_minutes,
+                      COUNT(*) AS trip_count
+                   FROM citibike_trips
+                   GROUP BY age
+                   ORDER BY age")
+```
+
+```{r}
+# Age against duration
+ggplot(data = subset(res2, age < 100), aes(x = age, y = duration_minutes)) +
+  geom_line() +
+  labs(x = "Age", y = "Duration (minutes)",
+       title = "Age vs. Duration Minutes") +
+  theme_minimal()
+# Age distribution
+ggplot(data = subset(res2, !is.na(age) & age < 100), aes(x = age, y = trip_count)) +
+  geom_bar(stat = "identity") +
+  labs(x = "Age", y = "Trip Count",
+       title = "Age Distribution") +
+  theme_minimal()
+```
+
+3. What is the average distance of a CitiBike trip based on the age of the riders?
+
+```{r}
+res3 <- dbGetQuery(db,
+                   "SELECT (2017-birth_year) AS age,
+                      AVG( (ABS(start_station_latitude-end_station_latitude) +
+                            ABS(start_station_longitude-end_station_longitude)) * 111) AS avg_distance_km 
+                   FROM citibike_trips
+                   GROUP BY age
+                   ORDER BY age")
+```
+
+```{r}
+ggplot(data = subset(res3, age < 100), aes(x = age, y = avg_distance_km)) +
+  geom_line() +
+  labs(x = "Age", y = "Average Distance (km)",
+       title = "Age vs. Average Distance (km)") +
+  theme_minimal()
+```
+
+4. What is the average speed of a CitiBike trip?
+
+```{r}
+dbGetQuery(db,
+          "SELECT AVG( ((ABS(start_station_latitude-end_station_latitude) + 
+                        ABS(start_station_longitude-end_station_longitude)) * 111) /
+                    (TIMESTAMP_DIFF(stoptime, starttime, MINUTE)/60) ) AS avg_speed_km_h
+          FROM citibike_trips")
+```
+
+5. What is the average speed based on age?
+
+```{r}
+res5 <- dbGetQuery(db,
+                  "SELECT AVG( ((ABS(start_station_latitude-end_station_latitude) +
+                                 ABS(start_station_longitude-end_station_longitude)) * 111) /
+                            (TIMESTAMP_DIFF(stoptime, starttime, MINUTE)/60) ) AS avg_speed_km_h,
+                          (2017 - birth_year) AS age
+                  FROM citibike_trips
+                  GROUP BY age
+                  ORDER BY age")
+```
+
+```{r}
+ggplot(data = subset(res5, age < 100), aes(x = age, y = avg_speed_km_h)) +
+  geom_line() +
+  labs(x = "Age", y = "Speed (km/h)",
+       title = "Age vs. Average Speed (km/h)") +
+  theme_minimal()
+```
+
