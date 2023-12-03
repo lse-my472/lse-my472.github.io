@@ -335,14 +335,13 @@ To complete this exercise, you will need to download Docker.
 
 a) In your text scraping application directory, create an empty Dockerfile (remember: Dockerfiles do not have file extensions)
 
-b) On the first line of this Dockerfile, add `FROM rocker/shiny:4.1.0` to access the base image
+b) On the first line of this Dockerfile, add `FROM rocker/shiny-verse:4.3.0` to access the base image
+
+  * The shiny-verse package includes many packages pre-installed (like `tidyverse` and `rvest`)
 
 c) On a new line, change the working directory by adding `WORKDIR /srv/shiny-server/`
 
-d) On a new line, add the command `COPY ./app.R ./app.R` to copy your application script into the container
-
-e) Finally, add one more line that will install the 'rvest' package: 
-  `RUN R -e "install.packages('rvest', dependencies=TRUE, repos='http://cran.rstudio.com/')"`
+d) Finally, on another new line, add the command `COPY ./app.R ./app.R` to copy your application script into the container
 
 e) Build your image using `docker build -t textscraping .` and give it the tag "textscraping"
   * If using an Apple Silicon Mac, the build may fail. You can avoid this error by setting the platform manually by running `docker build --platform linux/amd64 -t textscraping .`
@@ -350,7 +349,7 @@ e) Build your image using `docker build -t textscraping .` and give it the tag "
 
 f) When the image is built, start a container using `docker run --rm -p 3838:3838 textscraping`
 
-g) Go to http://127.0.0.1:3838/ in your browser to see your application in action
+g) Go to http://127.0.0.1:3838/ or localhost:3838 in your browser to see your application in action
 
 (Remember, when you're done, in your console type Ctrl + a + d to stop and remove the container!)
 
