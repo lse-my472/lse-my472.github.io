@@ -295,20 +295,20 @@ This week covers how to set up and use relational databases in the cloud and fun
 ##### Further reading
 * [Analyzing Big Data in less time with Google BigQuery](https://www.youtube.com/watch?v=qqbYrQGSibQ) on YouTube
 
-#### 11. Cloud computing
+#### 11. Cloud computing and containerization
 
-In this week, we focus on the setup of computation environments on the Internet. We will introduce the cloud computing concepts and learn why the big shift to the cloud computing is occurring in the industry and how it is relevant to data scientists. We will then set up different instances in the cloud and study cloud computing through an example of continuous scraping.
+This week we will focus on the setup of computation environments run outside our host system. We will introduce cloud computing and discuss why it is relevant to data scientists. We will then introduce the concept of containerization and the Docker platform. We will set up different instances in the cloud and on our own local machines, and study cloud computing through an example of Shiny dashboards.
 
 ##### Lecture
 
 - [Slides](week11/my472-week11-cloud.pdf)
 - [Connecting to the instance with Windows via PuTTY](week11/manual-for-windows.pdf)
-- Code: [Hello world](week11/hello_world.R), [continuous scraping within R only](week11/scraping_example_r_only.R), [installing R packages on the EC2 instance](week11/install_packages.R), [continuous scraping via a schedule](week11/scraping_example_to_schedule.R)
-- Optional code: [Using storage outside the EC2 instance](week11/using-s3-through-r.Rmd)
+- Code: [Prime number finder](week11/primer_finder.R), [installing R packages on an EC2 instance](week11/install_packages.R), [Dockerfile](week11/Dockerfile)
+- Optional code: [Using storage outside the EC2 instance](week11/optional/using-s3-through-r.Rmd), [Parallel computing](week11/optional/parallel-computing.Rmd)
 
 ##### Seminar
 
-- Code: [Exercises in parallel computing](exercises-parallel-computing.Rmd)
+- Code: [Exercises in shiny](week11/exercises-shiny.Rmd)
 
 
 ##### Reading
