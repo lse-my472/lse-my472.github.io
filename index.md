@@ -301,9 +301,9 @@ This week we will focus on the setup of computation environments run outside our
 
 ##### Lecture
 
-- [Slides](week11/my472-week11-cloud.pdf)
+- [Slides](week11/MY472-week11-cloud.pdf)
 - [Connecting to the instance with Windows via PuTTY](week11/manual-for-windows.pdf)
-- Code: [Prime number finder](week11/primer_finder.R), [installing R packages on an EC2 instance](week11/install_packages.R), [Dockerfile](week11/Dockerfile)
+- Code: [Prime number finder](week11/prime_finder.R), [installing R packages on an EC2 instance](week11/install_packages.R), [Dockerfile](week11/Dockerfile)
 - Optional code: [Using storage outside the EC2 instance](week11/optional/using-s3-through-r.Rmd), [Parallel computing](week11/optional/parallel-computing.Rmd)
 
 ##### Seminar
