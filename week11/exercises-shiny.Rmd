@@ -345,7 +345,7 @@ d) Finally, on another new line, add the command `COPY ./app.R ./app.R` to copy 
 
 e) Build your image using `docker build -t textscraping .` and give it the tag "textscraping"
   * If using an Apple Silicon Mac, the build may fail. You can avoid this error by setting the platform manually by running `docker build --platform linux/amd64 -t textscraping .`
-  * This step will take some time to run (around 20 minutes)
+  * This step will take some time to run as it downloads the base image
 
 f) When the image is built, start a container using `docker run --rm -p 3838:3838 textscraping`
 
