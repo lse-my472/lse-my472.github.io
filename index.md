@@ -322,6 +322,6 @@ This week we will focus on the setup of computation environments run outside our
 
 ##### Assignment 4
 
-This is a *summative* assignment. There are **two parts** to the assignment, the first part of which is due **10 January 2024 by 4pm**. Please read the instructions **very carefully**
+This is a *summative* assignment. There are **two parts** to the assignment, the first part of which is due **10 January 2024 by 4pm**. Please read the instructions **very carefully**:
 
 [Final Assignment](assignments/final_assignment.html)
