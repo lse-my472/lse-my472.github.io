@@ -7,49 +7,54 @@ colorlinks: true
   
 <!-- ![LSE](images/lse-logo.jpg) -->
 # MY472 Data for Data Scientists
-  
-### Michaelmas Term 2023
-  
-[Main course repo](https://github.com/lse-my472/lse-my472.github.io)
 
-[Moodle page](https://moodle.lse.ac.uk/course/view.php?id=6307)
+_Please note that the information on this page is provisional until the start of the term, although it is unlikely to change substantially._
+  
+### Autumn Term 2024
+  
+Moodle page (TBD)
 
 ### Instructors
 
 Office hour slots to be booked via LSE's StudentHub
 
-* [Thomas Robinson](mailto:t.robinson7@lse.ac.uk), Department of Methodology.  
+Course convenor: 
+
+* [Ryan Hübert](mailto:r.hubert@lse.ac.uk), Department of Methodology.
+
+Class instructors:
+
 * [Dan de Kadt](mailto:d.n.de-kadt@lse.ac.uk), Department of Methodology.
+* [Charlotte Kuberka](mailto:l.kuberka@lse.ac.uk), Department of Methodology.
 
 ### Assignments
 
 |  |  Type |  Due date  |
 |:--:|:-------:|:------|
-| 1 | [Formative problem set](#assignment-1) | 12 October 2023, 4pm |
-| 2 | [Summative problem set](#assignment-2) | 2 November 2023, 4pm |
-| 3 | [Summative problem set](#assignment-3) | 7 December 2023, 4pm |
-| 4 | [Take home assessment](#assignment-4) | 10 January 2024, 4pm |
+| 1 | Formative problem sets (10 total) | in class |
+| 2 | [Summative mid-term problem set](#mid-term-problem-set) | 8 November 2024, 5pm |
+| 3 | [Summative final take home assignment](#final-take-home-assignment) | 17 January 2025, 5pm |
 
 
 ### Quick links to topics
 
 | Week |  Topic |  Lecturer  |
 |:--:|:-------:|:------|
-| 1  | [Introduction](#1-introduction) |  Thomas Robinson | 
-| 2  | [Tabular data](#2-tabular-data) |  Thomas Robinson |  
-| 3  | [Data visualisation](#3-data-visualisation) |  Thomas Robinson |  
-| 4  | [Textual data](#4-textual-data) |  Thomas Robinson |  
-| 5  | [HTML, CSS, and scraping static pages](#5-html-css-and-scraping-static-pages) |  Dan de Kadt |
+| 1  | [Introduction](#1-introduction) |  Ryan Hübert | 
+| 2  | [Tabular data](#2-tabular-data) |  Ryan Hübert |  
+| 3  | [Data visualisation](#3-data-visualisation) |  Ryan Hübert |  
+| 4  | [Textual data](#4-textual-data) |  Ryan Hübert |  
+| 5  | [HTML, CSS, and scraping static pages](#5-html-css-and-scraping-static-pages) |  Ryan Hübert |
 | 6  | _Reading week_ |  
-| 7  | [XML, RSS, and scraping non-static pages](#7-xml-rss-and-scraping-non-static-pages) |  Dan de Kadt |   
-| 8  | [Working with APIs](#8-working-with-apis) |  Dan de Kadt |  
-| 9  | [Creating and managing databases](#9-creating-and-managing-databases) |  Dan de Kadt |  
-| 10 | [Interacting with online databases](#10-nosql-and-cloud-databases)|  Dan de Kadt |  
-| 11 | [Cloud computing](#11-cloud-computing) |  Thomas Robinson |  
+| 7  | [XML, RSS, and scraping non-static pages](#7-xml-rss-and-scraping-non-static-pages) |  Ryan Hübert |   
+| 8  | [Working with APIs](#8-working-with-apis) |  Ryan Hübert |  
+| 9  | [Creating and managing databases](#9-creating-and-managing-databases) |  Ryan Hübert |  
+| 10 | [Interacting with online databases](#10-nosql-and-cloud-databases)|  Ryan Hübert |  
+| 11 | [Cloud computing](#11-cloud-computing) |  Ryan Hübert |  
 
 ### Detailed course schedule
 
-*Please note, links to slides and code scripts will be updated/added in advance of each week's teaching.*
+*Important note: links to slides and code scripts will be updated/added in advance of each week's teaching.*
 
 #### 1. Introduction
 
@@ -57,9 +62,9 @@ In the first week, we will introduce some basic concepts of how data is recorded
 
 ##### Lecture
 
-- [Slides](week01/MY472-week01-intro.pdf)
-- Code: [A plain R script](week01/00-standard-script.R), [a first R markdown example](week01/01-rmarkdown.Rmd), and a recap on [vectors, lists, data frames](week01/02-vectors-lists-dfs.Rmd)
-- [Seminar](week01/seminar1.pdf)
+- [Lecture](#)
+- Code: [A plain R script](#), [a first R markdown example](#), and a recap on [vectors, lists, data frames](#)
+- [Seminar](#)
 
 ##### Seminar
 
@@ -68,7 +73,7 @@ In the first week, we will introduce some basic concepts of how data is recorded
 
 ##### Guide on GitHub, collaboration and pull requests
 
-[YouTube video by Tom and Dan](https://youtu.be/EDe3bQXxX4g?si=vUsD4WJv5pS4Fx3o)
+[YouTube video by Dr Tom Robinson and Dr Dan de Kadt](https://youtu.be/EDe3bQXxX4g?si=vUsD4WJv5pS4Fx3o)
 
 ##### Readings
 * Wickham, Hadley.  Nd.  _Advanced R_, 2nd ed.  Ch 3, [Names and values](https://adv-r.hadley.nz/names-values.html), Chapter 4, [Vectors](https://adv-r.hadley.nz/vectors-chap.html), and Chapter 5, [Subsetting](https://adv-r.hadley.nz/subsetting.html). (Ch. 2-3 of the print edition),
@@ -87,25 +92,18 @@ This week discusses processing tabular data in R with functions from the `tidyve
 
 ##### Lecture
 
-- [Slides](week02/MY472-week02-tabular.pdf)
-- Code: [Conditionals, loops, and functions](week02/01-conditionals-loops-functions.Rmd), [data processing in R](week02/02-processing-data.Rmd), [industrial production dataset](week02/ip.csv), and [industrial production and unemployment dataset](week02/ip_and_unemployment.csv)
+- [Slides](#)
+- Code: [Conditionals, loops, and functions](#), [data processing in R](#), [industrial production dataset](#), and [industrial production and unemployment dataset](#)
 
 ##### Seminar
 
-- Code: [Dplyr exercises](week02/03-exercises-tabular-data.Rmd), [solution](week02/03-exercises-tabular-data-solution.Rmd)
+- Code: [Dplyr exercises](#), [solution](#)
 
 
 ##### Reading
 * Wickham, Hadley and Garett Grolemund.  2017.  _R for Data Science: Import, Tidy, Transform, Visualize, and Model Data_.  Sebastopol, CA: O'Reilly.  [Part II Wrangle](http://r4ds.had.co.nz/wrangle-intro.html), [Tibbles](http://r4ds.had.co.nz/tibbles.html), [Data Import](http://r4ds.had.co.nz/data-import.html), [Tidy Data](http://r4ds.had.co.nz/tidy-data.html) (Ch. 7-9 of the print edition).
 * The [Tidyverse collection of packages](https://www.tidyverse.org/) for R.
 
-#### Assignment 1
-
-This is a *formative* assignment, and is due **12 October 2023 by 4pm**. You must submit your response as a knitted .html file via the Moodle page. 
-
-[Assignment 1 problem set](assignments/formative.html)
-
-[Template RMarkdown repository](https://github.com/lse-my472/472_assignment_template)
 
 #### 3. Data visualisation
 
@@ -114,16 +112,16 @@ The lecture this week will offer an overview of the principles of exploratory da
 
 ##### Lecture
 
-- [Slides](week03/MY472-week03-visualisation.pdf)
-- Lecture code: [Anscombe](week03/01-anscombe.Rmd), [ggplot2 walkthrough](week03/02-ggplot-walkthrough.Rmd)
-- Data: [Congressional Facebook posts](week03/data/fb-congress-data.csv), [unemployment data](week03/data/unemployment.csv)
-- Further reference code: [ggplot2 basics](week03/03a-ggplot2-basics.Rmd), [ggplot2 scales, axes, and legends](week03/03b-scales-axes-legends.Rmd)
+- [Slides](#)
+- Lecture code: [Anscombe](#), [ggplot2 walkthrough](#)
+- Data: [Congressional Facebook posts](#), [unemployment data](#)
+- Further reference code: [ggplot2 basics](#), [ggplot2 scales, axes, and legends](#)
 
 
 ##### Seminar
 
-- Code: [Exercises in visualistion](week03/04-exercises-visualisation.Rmd), [solution](week03/04-exercises-visualisation-solution.Rmd)
-- Graphic to replicate: [Unemployment rates](week03/04-unemployment.png)
+- Code: [Exercises in visualistion](#), [solution](#)
+- Graphic to replicate: [Unemployment rates](#)
 
 ##### Reading
 
@@ -142,14 +140,14 @@ We will learn how to work with unstructured data in the form of text and discuss
 
 ##### Lecture
 
-- [Slides](week04/MY472-week04-text.pdf)
-- Code: [Regular expressions in R](week04/01-regular-expressions-in-r.Rmd), [text analysis](week04/02-text-analysis.Rmd), [parsing pdfs](week04/03-parsing-pdfs.Rmd)
-- Data: [Sample texts](week04/data/sample_texts.txt), [Keynes' "General Theory" cover](week04/data/general_theory_cover.pdf)
+- [Slides](#)
+- Code: [Regular expressions in R](#), [text analysis](#), [parsing pdfs](#)
+- Data: [Sample texts](#), [Keynes' "General Theory" cover](#)
 
 ##### Seminar
 
-- Code: [Exercises in text analysis](week04/04-exercises-text-analysis.Rmd), [solution](week04/04-exercises-text-analysis-solution.Rmd)
-- Data: [UoL institutions](week04/data/uol.txt)
+- Code: [Exercises in text analysis](#), [solution](#)
+- Data: [UoL institutions](#)
 
 
 ##### Reading
@@ -158,7 +156,7 @@ We will learn how to work with unstructured data in the form of text and discuss
 
 ##### Further reading
 - Wickham, Hadley and Garett Grolemund.  2017, [Chapter 14](http://r4ds.had.co.nz/strings.html)
-- [Regular expressions cheat sheet](week04/regular-expressions-cheat-sheet-v2.pdf)
+- [Regular expressions cheat sheet](#)
 - [Regular expressions in R vignette](https://cran.r-project.org/web/packages/stringr/vignettes/regular-expressions.html)
 
 
@@ -168,13 +166,13 @@ This week we cover the basics of web scraping for tables and unstructured data f
 
 ##### Lecture
 
-- [Slides](week05/MY472-week05-scraping-1.pdf)
-- Code: [Website example](week05/data/website_5.html), [selecting elements](week05/01-selecting-elements.Rmd), [scraping tables](week05/02-scraping-tables.Rmd)
+- [Slides](#)
+- Code: [Website example](#), [selecting elements](#), [scraping tables](#)
 
 
 ##### Seminar
 
-- Code: [Scraping unstructured data](week05/03-exercises-scraping-unstructured-data.Rmd), [solution](week05/03-exercises-scraping-unstructured-data-solution.Rmd)
+- Code: [Scraping unstructured data](#), [solution](#)
 
 
 ##### Reading
@@ -187,11 +185,11 @@ This week we cover the basics of web scraping for tables and unstructured data f
 * Severance, Charles Russell. 2015. [_Introduction to Networking: How the Internet Works_](http://www.net-intro.com).  Charles Severance, 2015.
 * Duckett, Jon. 2011. _HTML and CSS: Design and Build Websites_.  New York: Wiley.
 
-#### Assignment 2
+#### Mid-term problem set
 
-This is a *summative* assignment, and is due **2 November 2023 by 4pm**. You must submit your response as a knitted .html file via the Moodle page. 
+This is a *summative* assignment worth 50% of your final mark. It is due **8 November 2024 by 5pm**. You must submit your response as a knitted .html file via the Moodle page. 
 
-[Assignment 2 problem set](assignments/assignment_2.html)
+_Details to be posted later in the term._
 
 #### 6. Reading week
 
@@ -201,12 +199,12 @@ Continuing from the material covered in Week 5, we will learn the advanced topic
 
 ##### Lecture
 
-- [Slides](week07/MY472-week07-scraping-2.pdf)
-- Code: [Scraping RSS](week07/01-newspaper-rss.Rmd), [introduction to RSelenium](week07/02-introduction-to-selenium.Rmd), [RSelenium example with the LSE website](week07/03-selenium-lse.Rmd)
+- [Slides](#)
+- Code: [Scraping RSS](#), [introduction to RSelenium](#), [RSelenium example with the LSE website](#)
 
 ##### Seminar
 
-- Code: [Scraping UK election data](week07/04-exercises-advanced-scraping.Rmd), [solution](week07/04-exercises-advanced-scraping-solution.Rmd)
+- Code: [Scraping UK election data](#), [solution](#)
 
 
 ##### Reading
@@ -222,20 +220,19 @@ Continuing from the material covered in Week 5, we will learn the advanced topic
 * Mozilla Developer Web Docs. [_A First Splash into JavaScript_](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/First_steps/A_first_splash).
 
 
-
 #### 8. Working with APIs
 
 This week discusses how to work with Application Programming Interfaces (APIs) that offer developers and researchers access to data in a structured format. 
 
 ##### Lecture
 
-- [Slides](week08/MY472-week08-APIs.pdf)
-- Code: [JSON in R](week08/01-json-in-r.Rmd), [AIC API](week08/02-aic-api.Rmd)
+- [Slides](#)
+- Code: [JSON in R](#), [AIC API](#)
 
 
 ##### Seminar
 
-- Code: [NY Times API](week08/03-nyt-api.Rmd), [NY Times API solution](week08/03-nyt-api-solution.Rmd)
+- Code: [NY Times API](#), [NY Times API solution](#)
 
 
 ##### Reading
@@ -245,26 +242,19 @@ This week discusses how to work with Application Programming Interfaces (APIs) t
 * Ruths and Pfeffer. 2014. [_Social media for large studies of behavior_](http://science.sciencemag.org/content/346/6213/1063.full). Science.
 
 
-#### Assignment 3
-
-This is a *summative* assignment, and is due **7 December 2023 by 4pm**. You must submit your response as a knitted .html file via the Moodle page. 
-
-[Assignment 3 problem set](assignments/assignment_3.html), [ivyleague.csv](assignments/ivyleague.csv)
-
-
 #### 9. Creating and managing databases
 
 This session will offer an introduction to relational databases: structure, logic, and main types. We will learn how to write SQL code, a language designed to query this type of databases that is currently employed by many companies; and how to use it from R using the DBI package.
 
 ##### Lecture
 
-- [Slides](week09/MY472-week09-sql.pdf)
-- Code: [SQL introduction](week09/01-sql-intro.Rmd), [join and aggregation in SQL](week09/02-sql-join-and-aggregation.Rmd)
+- [Slides](#)
+- Code: [SQL introduction](#), [join and aggregation in SQL](#)
 
 
 ##### Seminar
 
-- Code: [SQL exercises](week09/03-exercises-sql.Rmd), [solution](week09/03-exercises-sql-solution.Rmd)
+- Code: [SQL exercises](#), [solution](#)
 
 ##### Reading
 * Beaulieu. 2009. [_Learning SQL_](https://books.google.co.uk/books?hl=en&lr=&id=1PgCCVryjOQC&oi=fnd&pg=PR3&dq=learning+sql+alan&ots=X6M3Iaz1wO&sig=38Fp1kDlxM8TF7miw0K2CNcKib4#v=onepage&q=learning%20sql%20alan&f=false). O'Reilly. (Chapters 1, 3, 4, 5, 8)
@@ -279,12 +269,12 @@ This week covers how to set up and use relational databases in the cloud and fun
 
 ##### Lecture
 
-- [Slides](week10/my472-week10-nosql-and-cloud-db.pdf)
-- Code: [Creating own databases in the cloud](week10/01-bigquery-create-own-databases.Rmd), [querying large cloud databases](week10/02-bigquery-examples.Rmd), [MongoDB](week10/03-mongodb-demo.Rmd)
+- [Slides](#)
+- Code: [Creating own databases in the cloud](#), [querying large cloud databases](#), [MongoDB](#)
 
 ##### Seminar
 
-- Code: [Exercises BigQuery](week10/04-exercises-bigquery.Rmd), [SQL joins](week10/05-exercises-sql-joins.Rmd), [SQL subqueries](week10/06-exercises-sql-subqueries.Rmd), [solution BigQuery](week10/04-exercises-bigquery-solution.Rmd), [solution joins](week10/05-exercises-sql-joins-solution.Rmd), [solution subqueries](week10/06-exercises-sql-subqueries-solution.Rmd)
+- Code: [Exercises BigQuery](#), [SQL joins](#), [SQL subqueries](#), [solution BigQuery](#), [solution joins](#), [solution subqueries](#)
 
 ##### Required
 * Beaulieu. 2009. [_Learning SQL_](https://books.google.co.uk/books?hl=en&lr=&id=1PgCCVryjOQC&oi=fnd&pg=PR3&dq=learning+sql+alan&ots=X6M3Iaz1wO&sig=38Fp1kDlxM8TF7miw0K2CNcKib4#v=onepage&q=learning%20sql%20alan&f=false). O'Reilly. (Chapters 2)
@@ -301,14 +291,14 @@ This week we will focus on the setup of computation environments run outside our
 
 ##### Lecture
 
-- [Slides](week11/MY472-week11-cloud.pdf)
-- [Connecting to the instance with Windows via PuTTY](week11/manual-for-windows.pdf)
-- Code: [Prime number finder](week11/prime_finder.R), [installing R packages on an EC2 instance](week11/install_packages.R), [Dockerfile](week11/Dockerfile)
-- Optional code: [Using storage outside the EC2 instance](week11/optional/using-s3-through-r.Rmd), [Parallel computing](week11/optional/parallel-computing.Rmd)
+- [Slides](#)
+- [Connecting to the instance with Windows via PuTTY](#)
+- Code: [Prime number finder](#), [installing R packages on an EC2 instance](#), [Dockerfile](#)
+- Optional code: [Using storage outside the EC2 instance](#), [Parallel computing](#)
 
 ##### Seminar
 
-- Code: [Exercises in shiny](week11/exercises-shiny.Rmd)
+- Code: [Exercises in shiny](#)
 
 
 ##### Reading
@@ -320,8 +310,8 @@ This week we will focus on the setup of computation environments run outside our
 * Puparelia, Nayan. 2016. "Cloud Computing." MIT Press. Ch. 1-3.
 * Botta, Alessio, Walter De Donato, Valerio Persico, and Antonio Pescapé. 2016. "[Integration of Cloud Computing and Internet of Things: A Survey.](http://iranarze.ir/wp-content/uploads/2017/03/6229-English-IranArze.pdf)" Future Generation Computer Systems 56: 684–700.
 
-##### Assignment 4
+##### Final take home assignment
 
-This is a *summative* assignment. There are **two parts** to the assignment, the first part of which is due **10 January 2024 by 4pm**. Please read the instructions **very carefully**:
+This is a *summative* assignment worth 50% of your final mark. It is due **17 January 2025 by 5pm**. 
 
-[Final Assignment](assignments/final_assignment.html)
+_Details to be posted later in the term._

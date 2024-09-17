@@ -1,5 +1,5 @@
 # LSE MY472 Data for Data Scientists
 
-Course Website for Michaelmas Term 2023
+Course Website for Autumn Term 2024
 
-Convenors: Dr Thomas Robinson and Dr Dan de Kadt
+Convenor: Dr Ryan Hübert
