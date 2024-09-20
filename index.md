@@ -28,20 +28,20 @@ Office hour slots to be booked via LSE's [StudentHub](https://studenthub.lse.ac.
 * [Charlotte Kuberka](mailto:l.kuberka@lse.ac.uk), Department of Government.
 
 
-### Assignments
+### Assessments
 
 |  |  Type |  Due date  |
-|:--:|:-------:|:------|
+|:--:|:-------|:------|
 | 1 | Formative in-class exercises | during seminars |
 | 2 | [Formative practice problem set](#formative-problem-set) | Friday, 18 October 2024, 5pm |
 | 3 | [Summative mid-term problem set](#mid-term-problem-set) | Friday, 8 November 2024, 5pm |
-| 4 | [Summative final take home assignment](#final-take-home-assignment) | Wednesday, 15 January 2025, 5pm |
+| 4 | [Summative final take-home assessment](#final-take-home-assessment) | Wednesday, 15 January 2025, 5pm |
 
 
 ### Quick links to topics
 
 | Week |  Topic |  Lecturer  |
-|:--:|:-------:|:------|
+|:--:|:-------|:------|
 | 1  | [Introduction](#1-introduction) |  Ryan Hübert | 
 | 2  | [Tabular data](#2-tabular-data) |  Ryan Hübert |  
 | 3  | [Data visualisation](#3-data-visualisation) |  Ryan Hübert |  
@@ -108,7 +108,7 @@ This week discusses processing tabular data in R with functions from the `tidyve
 
 #### Formative problem set
 
-This is a *formative* assignment, and is due **18 October 2024 by 5pm**. You must submit your response as a knitted .html file via the Moodle page. 
+This is a *formative* assessment, and is due **18 October 2024 by 5pm**. You must submit your response as a knitted .html file via the Moodle page. 
 
 _Details to be posted later in the term._
 
@@ -193,7 +193,7 @@ This week we cover the basics of web scraping for tables and unstructured data f
 
 #### Mid-term problem set
 
-This is a *summative* assignment worth 50% of your final mark. It is due **8 November 2024 by 5pm**. You must submit your response as a knitted .html file via the Moodle page. 
+This is a *summative* assessment worth 50% of your final mark. It is due **8 November 2024 by 5pm**. You must submit your response as a knitted .html file via the Moodle page. 
 
 _Details to be posted later in the term._
 
@@ -316,8 +316,8 @@ This week we will focus on the setup of computation environments run outside our
 * Puparelia, Nayan. 2016. "Cloud Computing." MIT Press. Ch. 1-3.
 * Botta, Alessio, Walter De Donato, Valerio Persico, and Antonio Pescapé. 2016. "[Integration of Cloud Computing and Internet of Things: A Survey.](http://iranarze.ir/wp-content/uploads/2017/03/6229-English-IranArze.pdf)" Future Generation Computer Systems 56: 684–700.
 
-##### Final take home assignment
+##### Final take-home assessment
 
-This is a *summative* assignment worth 50% of your final mark. It is due **Wednesday, 15 January 2025 by 5pm**. 
+This is a *summative* assessment worth 50% of your final mark. It is due **Wednesday, 15 January 2025 by 5pm**. 
 
 _Details to be posted later in the term._
