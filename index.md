@@ -12,28 +12,30 @@ _Please note that the information on this page is provisional until the start of
   
 ### Autumn Term 2024
   
-Moodle page (TBD)
+[Course Moodle page](https://moodle.lse.ac.uk/course/view.php?id=10954)
+
+*Lectures will take place every Wednesday during Autumn Term from 13:00-15:00 in CLM.2.02, except for Week 6 (reading week).*
+
+See the course Moodle page for information about weekly seminars.
+
 
 ### Instructors
 
-Office hour slots to be booked via LSE's StudentHub
+Office hour slots to be booked via LSE's [StudentHub](https://studenthub.lse.ac.uk/).
 
-Course convenor: 
-
-* [Ryan Hübert](mailto:r.hubert@lse.ac.uk), Department of Methodology.
-
-Class instructors:
-
+* [Ryan Hübert](mailto:r.hubert@lse.ac.uk), Department of Methodology. _Course convenor_.
 * [Dan de Kadt](mailto:d.n.de-kadt@lse.ac.uk), Department of Methodology.
-* [Charlotte Kuberka](mailto:l.kuberka@lse.ac.uk), Department of Methodology.
+* [Charlotte Kuberka](mailto:l.kuberka@lse.ac.uk), Department of Government.
+
 
 ### Assignments
 
 |  |  Type |  Due date  |
 |:--:|:-------:|:------|
-| 1 | Formative problem sets (10 total) | in class |
-| 2 | [Summative mid-term problem set](#mid-term-problem-set) | 8 November 2024, 5pm |
-| 3 | [Summative final take home assignment](#final-take-home-assignment) | 17 January 2025, 5pm |
+| 1 | Formative in-class exercises | during seminars |
+| 2 | [Formative practice problem set](#formative-problem-set) | Friday, 18 October 2024, 5pm |
+| 3 | [Summative mid-term problem set](#mid-term-problem-set) | Friday, 8 November 2024, 5pm |
+| 4 | [Summative final take home assignment](#final-take-home-assignment) | Wednesday, 15 January 2025, 5pm |
 
 
 ### Quick links to topics
@@ -54,7 +56,7 @@ Class instructors:
 
 ### Detailed course schedule
 
-*Important note: links to slides and code scripts will be updated/added in advance of each week's teaching.*
+*Important note: links to slides and code scripts will be updated/added in advance of each week's teaching. There may also be minor adjustments/updates to the weekly readings posted below.*
 
 #### 1. Introduction
 
@@ -104,6 +106,11 @@ This week discusses processing tabular data in R with functions from the `tidyve
 * Wickham, Hadley and Garett Grolemund.  2017.  _R for Data Science: Import, Tidy, Transform, Visualize, and Model Data_.  Sebastopol, CA: O'Reilly.  [Part II Wrangle](http://r4ds.had.co.nz/wrangle-intro.html), [Tibbles](http://r4ds.had.co.nz/tibbles.html), [Data Import](http://r4ds.had.co.nz/data-import.html), [Tidy Data](http://r4ds.had.co.nz/tidy-data.html) (Ch. 7-9 of the print edition).
 * The [Tidyverse collection of packages](https://www.tidyverse.org/) for R.
 
+#### Formative problem set
+
+This is a *formative* assignment, and is due **18 October 2024 by 5pm**. You must submit your response as a knitted .html file via the Moodle page. 
+
+_Details to be posted later in the term._
 
 #### 3. Data visualisation
 
@@ -131,7 +138,6 @@ The lecture this week will offer an overview of the principles of exploratory da
 * Hughes, A. (2015) ["Visualizing inequality: How graphical emphasis
 shapes public opinion"](https://journals.sagepub.com/doi/abs/10.1177/2053168015622073) Research and Politics.
 * Tufte, E. (2002) ["The visual display of quantitative information"](https://www.edwardtufte.com/tufte/books_vdqi).
-
 
 
 #### 4. Textual data
@@ -312,6 +318,6 @@ This week we will focus on the setup of computation environments run outside our
 
 ##### Final take home assignment
 
-This is a *summative* assignment worth 50% of your final mark. It is due **17 January 2025 by 5pm**. 
+This is a *summative* assignment worth 50% of your final mark. It is due **Wednesday, 15 January 2025 by 5pm**. 
 
 _Details to be posted later in the term._
