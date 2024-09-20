@@ -316,7 +316,7 @@ This week we will focus on the setup of computation environments run outside our
 * Puparelia, Nayan. 2016. "Cloud Computing." MIT Press. Ch. 1-3.
 * Botta, Alessio, Walter De Donato, Valerio Persico, and Antonio Pescapé. 2016. "[Integration of Cloud Computing and Internet of Things: A Survey.](http://iranarze.ir/wp-content/uploads/2017/03/6229-English-IranArze.pdf)" Future Generation Computer Systems 56: 684–700.
 
-##### Final take-home assessment
+#### Final take-home assessment
 
 This is a *summative* assessment worth 50% of your final mark. It is due **Wednesday, 15 January 2025 by 5pm**. 
 
