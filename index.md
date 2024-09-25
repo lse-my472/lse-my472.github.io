@@ -5,7 +5,7 @@ classoption: DIV=14
 colorlinks: true
 ---
   
-# MY472 Data for Data Scientists
+<!-- # MY472 Data for Data Scientists -->
 
 ## Course Website for Autumn 2024
 
