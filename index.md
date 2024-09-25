@@ -7,11 +7,11 @@ colorlinks: true
   
 <!-- # MY472 Data for Data Scientists -->
 
-## Course Website for Autumn 2024
+# Course Website for Autumn 2024
 
 **Important note:** _All information on this page is provisional until the start of the term._
   
-### Course Format and Scheduling
+## Course Format and Scheduling
 
 **Lectures:** There is a two-hour lecture each week during the term on **Wednesdays from 13:00 to 15:00 in CLM.2.02**.
 
