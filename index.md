@@ -5,7 +5,9 @@ classoption: DIV=14
 colorlinks: true
 ---
   
-# MY472 Course Website for Autumn Term 2024
+# MY472 Data for Data Scientists
+
+## Course Website for Autumn 2024
 
 **Important note:** _All information on this page is provisional until the start of the term._
   
