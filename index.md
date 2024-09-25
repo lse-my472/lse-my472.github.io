@@ -5,58 +5,62 @@ classoption: DIV=14
 colorlinks: true
 ---
   
-<!-- ![LSE](images/lse-logo.jpg) -->
-# MY472 Data for Data Scientists
+# MY472 Course Website for Autumn Term 2024
 
-_Please note that the information on this page is provisional until the start of the term, although it is unlikely to change substantially._
+**Important note:** _All information on this page is provisional until the start of the term._
   
-### Autumn Term 2024
-  
-[Course Moodle page](https://moodle.lse.ac.uk/course/view.php?id=10954)
+### Course Format and Scheduling
 
-*Lectures will take place every Wednesday during Autumn Term from 13:00-15:00 in CLM.2.02, except for Week 6 (reading week).*
+**Lectures:** There is a two-hour lecture each week during the term on **Wednesdays from 13:00 to 15:00 in CLM.2.02**.
 
-See the course Moodle page for information about weekly seminars.
+**Seminars:** There is a one-hour "lab-style" seminar each week during the term. See the [LSE Timetable](https://info.lse.ac.uk/Current-Students/Timetables) for the schedule and locations for the seminars.
 
+_There are no lectures or seminars during week 6, which is LSE's reading week._
+
+### Important Course Links
+
+- [Course Moodle page](https://moodle.lse.ac.uk/course/view.php?id=10954)
+<!-- - [Course GitHub repository](https://github.com/lse-my472/lse-my472.github.io) -->
 
 ### Instructors
 
-Office hour slots to be booked via LSE's [StudentHub](https://studenthub.lse.ac.uk/).
+Office hour slots with all instructors should be booked via LSE's [StudentHub](https://studenthub.lse.ac.uk/).
 
 * [Ryan Hübert](mailto:r.hubert@lse.ac.uk), Department of Methodology. _Course convenor_.
 * [Dan de Kadt](mailto:d.n.de-kadt@lse.ac.uk), Department of Methodology.
 * [Charlotte Kuberka](mailto:l.kuberka@lse.ac.uk), Department of Government.
-
 
 ### Assessments
 
 |  |  Type |  Due date  |
 |:--:|:-------|:------|
 | 1 | Formative in-class exercises | during seminars |
-| 2 | [Formative practice problem set](#formative-problem-set) | Friday, 18 October 2024, 5pm |
-| 3 | [Summative mid-term problem set](#mid-term-problem-set) | Friday, 8 November 2024, 5pm |
+| 2 | [Formative practice problem set](#formative-problem-set) | Friday, 1 November 2024, 5pm |
+| 3 | [Summative mid-term problem set](#mid-term-problem-set) | Friday, 22 November 2024, 5pm |
 | 4 | [Summative final take-home assessment](#final-take-home-assessment) | Wednesday, 15 January 2025, 5pm |
 
+### Outline of Topics
 
-### Quick links to topics
+**Important note:** _There may be some small changes to and/or reorganisation of the course topics during the first weeks of the course._
 
 | Week |  Topic |  Lecturer  |
 |:--:|:-------|:------|
 | 1  | [Introduction](#1-introduction) |  Ryan Hübert | 
 | 2  | [Tabular data](#2-tabular-data) |  Ryan Hübert |  
-| 3  | [Data visualisation](#3-data-visualisation) |  Ryan Hübert |  
+| 3  | [Data visualisation](#3-data-visualisation) |  Ryan Hübert | 
 | 4  | [Textual data](#4-textual-data) |  Ryan Hübert |  
 | 5  | [HTML, CSS, and scraping static pages](#5-html-css-and-scraping-static-pages) |  Ryan Hübert |
 | 6  | _Reading week_ |  
 | 7  | [XML, RSS, and scraping non-static pages](#7-xml-rss-and-scraping-non-static-pages) |  Ryan Hübert |   
 | 8  | [Working with APIs](#8-working-with-apis) |  Ryan Hübert |  
-| 9  | [Creating and managing databases](#9-creating-and-managing-databases) |  Ryan Hübert |  
-| 10 | [Interacting with online databases](#10-nosql-and-cloud-databases)|  Ryan Hübert |  
-| 11 | [Cloud computing](#11-cloud-computing) |  Ryan Hübert |  
+| 9  | [Other data types](#9-other-data-types) |  Ryan Hübert |  
+| 10 | [Creating and managing databases](#10-creating-and-managing-databases) |  Ryan Hübert |  
+| 11 | [Interacting with online databases](#11-nosql-and-cloud-databases)|  Ryan Hübert |  
+
 
 ### Detailed course schedule
 
-*Important note: links to slides and code scripts will be updated/added in advance of each week's teaching. There may also be minor adjustments/updates to the weekly readings posted below.*
+**Important note:** _Links to slides and code scripts will be updated/added in advance of each week's teaching. There may also be minor adjustments/updates to the weekly readings posted below, so please monitor regularly._
 
 #### 1. Introduction
 
@@ -110,7 +114,9 @@ This week discusses processing tabular data in R with functions from the `tidyve
 
 This is a *formative* assessment, and is due **18 October 2024 by 5pm**. You must submit your response as a knitted .html file via the Moodle page. 
 
-_Details to be posted later in the term._
+Feedback on the Practice Problem Set will be returned by 1st November (if submitted by the deadline).
+
+_More details to be made available later in the term._
 
 #### 3. Data visualisation
 
@@ -195,7 +201,9 @@ This week we cover the basics of web scraping for tables and unstructured data f
 
 This is a *summative* assessment worth 50% of your final mark. It is due **8 November 2024 by 5pm**. You must submit your response as a knitted .html file via the Moodle page. 
 
-_Details to be posted later in the term._
+Feedback on the Mid-term problem set will be returned as per the ASDS/SRM handbook.
+
+_More details to be made available later in the term._
 
 #### 6. Reading week
 
@@ -248,7 +256,25 @@ This week discusses how to work with Application Programming Interfaces (APIs) t
 * Ruths and Pfeffer. 2014. [_Social media for large studies of behavior_](http://science.sciencemag.org/content/346/6213/1063.full). Science.
 
 
-#### 9. Creating and managing databases
+#### 9. Other data types
+
+We will learn how to work with other data types, such as spatial data. Time permitting, we will also briefly discuss compute constraints and parallelization.
+
+##### Lecture
+
+- [Slides](#)
+
+##### Seminar
+
+- Code: to be posted
+
+##### Reading
+* To be posted
+
+##### Further reading
+* To be posted
+
+#### 10. Creating and managing databases
 
 This session will offer an introduction to relational databases: structure, logic, and main types. We will learn how to write SQL code, a language designed to query this type of databases that is currently employed by many companies; and how to use it from R using the DBI package.
 
@@ -269,7 +295,7 @@ This session will offer an introduction to relational databases: structure, logi
 * Stephens et al. 2009. [_Teach yourself SQL in one hour a day_](https://books.google.co.uk/books?hl=en&lr=&id=9fDZ_rVoxx0C&oi=fnd&pg=PR5&dq=%22Sams+Teach+Yourself+SQL+in+24+Hours%22&ots=UkaClJDMem&sig=wgLy-DG3bc7g0LO0_Ojy5Cy2Ejs#v=onepage&q=%22Sams%20Teach%20Yourself%20SQL%20in%2024%20Hours%22&f=false). Sam's Publishing.
 
 
-#### 10. NoSQL and cloud databases
+#### 11. NoSQL and cloud databases
 
 This week covers how to set up and use relational databases in the cloud and fundamentals of a document based NoSQL database.
 
@@ -291,33 +317,9 @@ This week covers how to set up and use relational databases in the cloud and fun
 ##### Further reading
 * [Analyzing Big Data in less time with Google BigQuery](https://www.youtube.com/watch?v=qqbYrQGSibQ) on YouTube
 
-#### 11. Cloud computing and containerization
-
-This week we will focus on the setup of computation environments run outside our host system. We will introduce cloud computing and discuss why it is relevant to data scientists. We will then introduce the concept of containerization and the Docker platform. We will set up different instances in the cloud and on our own local machines, and study cloud computing through an example of Shiny dashboards.
-
-##### Lecture
-
-- [Slides](#)
-- [Connecting to the instance with Windows via PuTTY](#)
-- Code: [Prime number finder](#), [installing R packages on an EC2 instance](#), [Dockerfile](#)
-- Optional code: [Using storage outside the EC2 instance](#), [Parallel computing](#)
-
-##### Seminar
-
-- Code: [Exercises in shiny](#)
-
-
-##### Reading
-* Rajaraman, V. 2014. "[Cloud Computing.](https://www.ias.ac.in/article/fulltext/reso/019/03/0242-0258)" Resonance 19(3): 242–58.
-* AWS: [What is cloud computing](https://aws.amazon.com/what-is-cloud-computing/).
-* Azure: [Developer guide](https://docs.microsoft.com/en-us/azure/guides/developer/azure-developer-guide).
-
-##### Further reading
-* Puparelia, Nayan. 2016. "Cloud Computing." MIT Press. Ch. 1-3.
-* Botta, Alessio, Walter De Donato, Valerio Persico, and Antonio Pescapé. 2016. "[Integration of Cloud Computing and Internet of Things: A Survey.](http://iranarze.ir/wp-content/uploads/2017/03/6229-English-IranArze.pdf)" Future Generation Computer Systems 56: 684–700.
 
 #### Final take-home assessment
 
 This is a *summative* assessment worth 50% of your final mark. It is due **Wednesday, 15 January 2025 by 5pm**. 
 
-_Details to be posted later in the term._
+_More details to be made available later in the term._
