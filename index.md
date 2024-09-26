@@ -108,14 +108,6 @@ This week discusses processing tabular data in R with functions from the `tidyve
 * Wickham, Hadley and Garett Grolemund.  2017.  _R for Data Science: Import, Tidy, Transform, Visualize, and Model Data_.  Sebastopol, CA: O'Reilly.  [Part II Wrangle](http://r4ds.had.co.nz/wrangle-intro.html), [Tibbles](http://r4ds.had.co.nz/tibbles.html), [Data Import](http://r4ds.had.co.nz/data-import.html), [Tidy Data](http://r4ds.had.co.nz/tidy-data.html) (Ch. 7-9 of the print edition).
 * The [Tidyverse collection of packages](https://www.tidyverse.org/) for R.
 
-### Formative problem set
-
-This is a *formative* assessment, and is due **1 November 2024 by 5pm**. You must submit your response as a knitted .html file via the Moodle page. 
-
-Feedback on the Practice Problem Set will be returned by 15th November (if submitted by the deadline).
-
-_More details to be made available later in the term._
-
 ### 3. Data visualisation
 
 The lecture this week will offer an overview of the principles of exploratory data analysis through (good) data visualization. In the coding session and seminars, we will practice producing our own graphs using ggplot2.
@@ -143,6 +135,13 @@ The lecture this week will offer an overview of the principles of exploratory da
 shapes public opinion"](https://journals.sagepub.com/doi/abs/10.1177/2053168015622073) Research and Politics.
 * Tufte, E. (2002) ["The visual display of quantitative information"](https://www.edwardtufte.com/tufte/books_vdqi).
 
+### Formative problem set
+
+This is a *formative* assessment, and is due **1 November 2024 by 5pm**. You must submit your response as a knitted .html file via the Moodle page. 
+
+Feedback on the Practice Problem Set will be returned by 15th November (if submitted by the deadline).
+
+_More details to be made available later in the term._
 
 ### 4. Textual data
 
@@ -195,6 +194,8 @@ This week we cover the basics of web scraping for tables and unstructured data f
 * Severance, Charles Russell. 2015. [_Introduction to Networking: How the Internet Works_](http://www.net-intro.com).  Charles Severance, 2015.
 * Duckett, Jon. 2011. _HTML and CSS: Design and Build Websites_.  New York: Wiley.
 
+### 6. Reading week
+
 ### Mid-term problem set
 
 This is a *summative* assessment worth 50% of your final mark. It is due **22 November 2024 by 5pm**. You must submit your response as a knitted .html file via the Moodle page. 
@@ -202,8 +203,6 @@ This is a *summative* assessment worth 50% of your final mark. It is due **22 No
 Feedback on the Mid-term problem set will be returned as per the ASDS/SRM handbook.
 
 _More details to be made available later in the term._
-
-### 6. Reading week
 
 ### 7. XML, RSS, and scraping non-static pages
 
