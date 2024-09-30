@@ -66,9 +66,9 @@ In the first week, we will introduce some basic concepts of how data is recorded
 
 #### Lecture
 
-- [Lecture](#)
-- Code: [A plain R script](#), [a first R markdown example](#), and a recap on [vectors, lists, data frames](#)
-- [Seminar](#)
+- [Lecture](week01/MY472-week01-intro.pdf)
+- Code: [A plain R script](week01/00-standard-script.R), [a first R markdown example](week01/01-rmarkdown.Rmd), and a recap on [vectors, lists, data frames](week01/02-vectors-lists-dfs.Rmd)
+- [Seminar](week01/MY472-week01-seminar.pdf)
 
 #### Seminar
 
@@ -104,7 +104,7 @@ This week discusses processing tabular data in R with functions from the `tidyve
 - Code: [Dplyr exercises](#), [solution](#)
 
 
-#### Reading
+#### Readings
 * Wickham, Hadley and Garett Grolemund.  2017.  _R for Data Science: Import, Tidy, Transform, Visualize, and Model Data_.  Sebastopol, CA: O'Reilly.  [Part II Wrangle](http://r4ds.had.co.nz/wrangle-intro.html), [Tibbles](http://r4ds.had.co.nz/tibbles.html), [Data Import](http://r4ds.had.co.nz/data-import.html), [Tidy Data](http://r4ds.had.co.nz/tidy-data.html) (Ch. 7-9 of the print edition).
 * The [Tidyverse collection of packages](https://www.tidyverse.org/) for R.
 
