@@ -81,14 +81,15 @@ In the first week, we will introduce some basic concepts of how data is recorded
 
 #### Readings
 * Wickham, Hadley.  Nd.  _Advanced R_, 2nd ed.  Ch 3, [Names and values](https://adv-r.hadley.nz/names-values.html), Chapter 4, [Vectors](https://adv-r.hadley.nz/vectors-chap.html), and Chapter 5, [Subsetting](https://adv-r.hadley.nz/subsetting.html). (Ch. 2-3 of the print edition),
-* [GitHub Guides](https://guides.github.com), especially: "Understanding the GitHub Flow", "Hello World", and "Getting Started with GitHub Pages".
-* GitHub.  "[Markdown Syntax](https://guides.github.com/pdfs/markdown-cheatsheet-online.pdf)" (a cheatsheet).
+* [GitHub Docs](https://docs.github.com/), especially: "[About GitHub and Git](https://docs.github.com/en/get-started/start-your-journey/about-github-and-git)", "[Hello World](https://docs.github.com/en/get-started/start-your-journey/hello-world)", and "[GitHub flow](https://docs.github.com/en/get-started/using-github/github-flow)".
+* GitHub.  "[Basic formatting syntax](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax)" (a markdown cheatsheet).
+* Markdown Guide. "[Markdown Cheat Sheet](https://www.markdownguide.org/cheat-sheet/)."
 
 #### Additional readings
 * Lake, P. and Crowther, P. 2013. _Concise guide to databases: A Practical Introduction_.  London: Springer-Verlag.  Chapter 1, [Data, an Organizational Asset](https://books.google.co.uk/books?id=SuK2BAAAQBAJ&pg=PA301&lpg=PA301&dq=Concise+Guide+to+Databases+pdf&source=bl&ots=pEJj8miMrf&sig=3nrRgpk3kF7fXzcWUWpJ_uzpfl0&hl=en&sa=X&ved=0ahUKEwiAkM3JrbHWAhXE7xQKHWseCZAQ6AEISzAH#v=onepage&q=Concise%20Guide%20to%20Databases%20pdf&f=false)
 * Nelson, Meghan.  2015.  "[An Intro to Git and GitHub for Beginners (Tutorial).](http://product.hubspot.com/blog/git-and-github-tutorial-for-beginners)"
 * Jim McGlone, "[Creating and Hosting a Personal Site on GitHub
-A step-by-step beginner's guide to creating a personal website and blog using Jekyll and hosting it for free using GitHub Pages.](http://jmcglone.com/guides/github-pages/)".
+A step-by-step beginner's guide to creating a personal website and blog using Jekyll and hosting it for free using GitHub Pages.](http://jmcglone.com/guides/github-pages/)". (See also <https://docs.github.com/en/pages/quickstart>.)
 
 ### 2. Tabular data
 
