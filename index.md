@@ -5,8 +5,6 @@ classoption: DIV=14
 colorlinks: true
 ---
   
-**Important note:** _The information on this page is provisional until the first lecture._
-  
 ## Course format and scheduling
 
 **Lectures:** There is a two-hour lecture each week during the term on **Wednesdays from 13:00 to 15:00 in CLM.2.02**.
@@ -18,7 +16,7 @@ _There are no lectures or seminars during week 6, which is LSE's reading week._
 ## Important course links
 
 - [Course Moodle page](https://moodle.lse.ac.uk/course/view.php?id=10954)
-<!-- - [Course GitHub repository](https://github.com/lse-my472/lse-my472.github.io) -->
+- [Course GitHub repository](https://github.com/lse-my472/lse-my472.github.io)
 
 ## Instructors
 
@@ -97,12 +95,12 @@ This week discusses processing tabular data in R with functions from the `tidyve
 
 #### Lecture
 
-- [Slides](#)
-- Code: [Conditionals, loops, and functions](#), [data processing in R](#), [industrial production dataset](#), and [industrial production and unemployment dataset](#)
+- [Slides](x)
+- Code: [Conditionals, loops, and functions](x), [data processing in R](x), [industrial production dataset](x), and [industrial production and unemployment dataset](x)
 
 #### Seminar
 
-- Code: [Dplyr exercises](#), [solution](#)
+- Code: [Dplyr exercises](x), [solution](x)
 
 
 #### Readings
@@ -116,16 +114,16 @@ The lecture this week will offer an overview of the principles of exploratory da
 
 #### Lecture
 
-- [Slides](#)
-- Lecture code: [Anscombe](#), [ggplot2 walkthrough](#)
-- Data: [Congressional Facebook posts](#), [unemployment data](#)
-- Further reference code: [ggplot2 basics](#), [ggplot2 scales, axes, and legends](#)
+- [Slides](x)
+- Lecture code: [Anscombe](x), [ggplot2 walkthrough](x)
+- Data: [Congressional Facebook posts](x), [unemployment data](x)
+- Further reference code: [ggplot2 basics](x), [ggplot2 scales, axes, and legends](x)
 
 
 #### Seminar
 
-- Code: [Exercises in visualistion](#), [solution](#)
-- Graphic to replicate: [Unemployment rates](#)
+- Code: [Exercises in visualistion](x), [solution](x)
+- Graphic to replicate: [Unemployment rates](x)
 
 #### Reading
 
@@ -150,14 +148,14 @@ We will learn how to work with unstructured data in the form of text and discuss
 
 #### Lecture
 
-- [Slides](#)
-- Code: [Regular expressions in R](#), [text analysis](#), [parsing pdfs](#)
-- Data: [Sample texts](#), [Keynes' "General Theory" cover](#)
+- [Slides](x)
+- Code: [Regular expressions in R](x), [text analysis](x), [parsing pdfs](x)
+- Data: [Sample texts](x), [Keynes' "General Theory" cover](x)
 
 #### Seminar
 
-- Code: [Exercises in text analysis](#), [solution](#)
-- Data: [UoL institutions](#)
+- Code: [Exercises in text analysis](x), [solution](x)
+- Data: [UoL institutions](x)
 
 
 #### Reading
@@ -166,7 +164,7 @@ We will learn how to work with unstructured data in the form of text and discuss
 
 #### Further reading
 - Wickham, Hadley and Garett Grolemund.  2017, [Chapter 14](http://r4ds.had.co.nz/strings.html)
-- [Regular expressions cheat sheet](#)
+- [Regular expressions cheat sheet](x)
 - [Regular expressions in R vignette](https://cran.r-project.org/web/packages/stringr/vignettes/regular-expressions.html)
 
 
@@ -176,13 +174,13 @@ This week we cover the basics of web scraping for tables and unstructured data f
 
 #### Lecture
 
-- [Slides](#)
-- Code: [Website example](#), [selecting elements](#), [scraping tables](#)
+- [Slides](x)
+- Code: [Website example](x), [selecting elements](x), [scraping tables](x)
 
 
 #### Seminar
 
-- Code: [Scraping unstructured data](#), [solution](#)
+- Code: [Scraping unstructured data](x), [solution](x)
 
 
 #### Reading
@@ -211,12 +209,12 @@ Continuing from the material covered in Week 5, we will learn the advanced topic
 
 #### Lecture
 
-- [Slides](#)
-- Code: [Scraping RSS](#), [introduction to RSelenium](#), [RSelenium example with the LSE website](#)
+- [Slides](x)
+- Code: [Scraping RSS](x), [introduction to RSelenium](x), [RSelenium example with the LSE website](x)
 
 #### Seminar
 
-- Code: [Scraping UK election data](#), [solution](#)
+- Code: [Scraping UK election data](x), [solution](x)
 
 
 #### Reading
@@ -238,13 +236,13 @@ This week discusses how to work with Application Programming Interfaces (APIs) t
 
 #### Lecture
 
-- [Slides](#)
-- Code: [JSON in R](#), [AIC API](#)
+- [Slides](x)
+- Code: [JSON in R](x), [AIC API](x)
 
 
 #### Seminar
 
-- Code: [NY Times API](#), [NY Times API solution](#)
+- Code: [NY Times API](x), [NY Times API solution](x)
 
 
 #### Reading
@@ -260,7 +258,7 @@ We will learn how to work with other data types, such as spatial data. Time perm
 
 #### Lecture
 
-- [Slides](#)
+- [Slides](x)
 
 #### Seminar
 
@@ -278,13 +276,13 @@ This session will offer an introduction to relational databases: structure, logi
 
 #### Lecture
 
-- [Slides](#)
-- Code: [SQL introduction](#), [join and aggregation in SQL](#)
+- [Slides](x)
+- Code: [SQL introduction](x), [join and aggregation in SQL](x)
 
 
 #### Seminar
 
-- Code: [SQL exercises](#), [solution](#)
+- Code: [SQL exercises](x), [solution](x)
 
 #### Reading
 * Beaulieu. 2009. [_Learning SQL_](https://books.google.co.uk/books?hl=en&lr=&id=1PgCCVryjOQC&oi=fnd&pg=PR3&dq=learning+sql+alan&ots=X6M3Iaz1wO&sig=38Fp1kDlxM8TF7miw0K2CNcKib4#v=onepage&q=learning%20sql%20alan&f=false). O'Reilly. (Chapters 1, 3, 4, 5, 8)
@@ -299,12 +297,12 @@ This week covers how to set up and use relational databases in the cloud and fun
 
 #### Lecture
 
-- [Slides](#)
-- Code: [Creating own databases in the cloud](#), [querying large cloud databases](#), [MongoDB](#)
+- [Slides](x)
+- Code: [Creating own databases in the cloud](x), [querying large cloud databases](x), [MongoDB](x)
 
 #### Seminar
 
-- Code: [Exercises BigQuery](#), [SQL joins](#), [SQL subqueries](#), [solution BigQuery](#), [solution joins](#), [solution subqueries](#)
+- Code: [Exercises BigQuery](x), [SQL joins](x), [SQL subqueries](x), [solution BigQuery](x), [solution joins](x), [solution subqueries](x)
 
 #### Required
 * Beaulieu. 2009. [_Learning SQL_](https://books.google.co.uk/books?hl=en&lr=&id=1PgCCVryjOQC&oi=fnd&pg=PR3&dq=learning+sql+alan&ots=X6M3Iaz1wO&sig=38Fp1kDlxM8TF7miw0K2CNcKib4#v=onepage&q=learning%20sql%20alan&f=false). O'Reilly. (Chapters 2)
