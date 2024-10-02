@@ -1,0 +1,41 @@
+---
+title: "Functions in R"
+author: "Lara Charlotte Kuberka"
+date: "2023-10-30"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+#### Function components
+All R functions have three parts:
+
+- the body(), the code inside the function.
+
+- the formals(), the list of arguments which controls how you can call the function.
+
+- the environment(), the “map” of the location of the function’s variables.
+
+#### Built-in Functions in R
+- print(). Displays an R object on the R console
+- min(), max(). Calculates the minimum and maximum of a numeric vector
+- sum(). Calculates the sum of a numeric vector
+- mean(). Calculates the mean of a numeric vector
+- range(). Calculates the minimum and maximum values of a numeric vector
+- str(). Displays the structure of an R object
+- ncol(). Returns the number of columns of a matrix or a dataframe
+- length(). Returns the number of items in an R object, such as a vector, a list, and a matrix.
+
+
+#### User Defined Functions
+
+````
+function_name <- function(argument_1, argument_2) { 
+  function body
+  return (output)
+}
+````
+
+#### Types of arguments in R functions

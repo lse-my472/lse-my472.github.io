@@ -1,0 +1,153 @@
+---
+title: "APIs"
+author: "Charlotte Kuberka"
+date: "2024-01-02"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+#### Working with APIs
+
+Working with JSON files that are stored locally or that come from what are called public APIs (APIs that anyone can interact with). 
+
+Loading packages:
+  
+```{r}
+library("jsonlite")
+library("tidyverse")
+```
+
+
+## First: working with JSON files that are stored locally 
+
+Define current working director 
+
+```{r}
+current_dir <- "./data/" 
+```
+
+
+Reading/parsing the first file into R:
+
+```{r}
+example_1_parsed <- fromJSON(paste(current_dir, "example_1.json", sep = ""))
+
+class(example_1_parsed)
+
+names(example_1_parsed)
+```
+
+
+Key-value structure of JSON objects is transformed into (nested) lists in R
+ --> we can access each array with the $ operator
+```{r}
+example_1_parsed
+```
+
+
+The JSON array became a vector in R. Also note e.g. that the JSON notation of the Boolean as `false` was transformed into the R notation of `FALSE`.
+The supervisor element is again a list itself. This emphasises the nested structure of such files:
+
+We can access the supervisor's department with:
+
+```{r}
+example_1_parsed$supervisor$department
+```
+
+
+We can also transform JSON objects into dataframes
+
+Dataframe:
+
+```{r}
+example_2_parsed %>% as_tibble()
+```
+
+
+When having nested dataframes in JSON Objects:
+
+We first need each element of the list to be a data frame or tibble, and then append those  together. To allow for this nested approach, we can use the `do.call` function, which lets us apply a function -- in this case `rbind` -- across the elements of a list (it's easy in this case because example_3_parsed is already well formatted as data frames). So, we can extract the information in both AT and WT as follows:
+
+```{r}
+do.call(rbind, example_3_parsed)
+```
+
+
+## Second: Working with JSON files that we access directly from the web
+
+
+ Essentially, we are able to input a URL into the `fromJSON` function, and read whatever JSON file is returned. For now, we are just going to query a public API that has a single non-variable endpoint which returns (in this case) a random fact about cats:  
+
+```{r}
+api_url <- "https://catfact.ninja/fact"
+
+fromJSON(api_url)
+```
+
+
+Loading packages:
+  
+```{r}
+library("httr")
+library("jsonlite")
+library("tidyverse")
+library("jpeg") #to let us read .jpegs/.jpgs
+library("grid") #to let us plot images
+```
+
+
+### using the Artwork Search API
+
+This API has multiple **models** or "resources" (essentially, representations of the underlying data that exist in some relational databases somewhere -- more next week), each of which can be queried via three **endpoints**. 
+
+```{r}
+artworks_url <- "https://api.artic.edu/api/v1/artworks"
+
+fromJSON(artworks_url)
+
+artists_url <- "https://api.artic.edu/api/v1/artists"
+
+fromJSON(artists_url)
+```
+Let's focus, for now, on the artworks model. As we just saw, our query produced a large number of columns ("fields"), many of which we don't really want or need. Consulting the documentation, and using what we know about the structure of URLs, we see that we can specify fields for our query:
+
+```{r}
+artworks_url_fields <- "https://api.artic.edu/api/v1/artworks?fields=id,title,artist_display,date_display"
+
+fromJSON(artworks_url_fields)
+```
+
+
+working with different API data
+
+```{r}
+# create vector to get EINs from ivy league unis to merge later 
+
+ein_ivy <- ivy_league_uni$ein
+
+# using function: 
+
+finance_data_url <- "https://projects.propublica.org/nonprofits/api/v2/organizations"
+
+
+financial_data_ivy_league <- lapply(ein_ivy , function(i){
+  
+  ivy_url <- i
+  finance_data <- fromJSON(paste0(finance_data_url, "/", ivy_url, ".json"))
+  data <- finance_data$filings_with_data %>% as_tibble
+  
+  return(data)
+  
+}) %>% bind_rows(.id = 'ID') %>% 
+  select(ein, totrevenue, totassetsend, tax_prd_yr) %>%
+  rename(total_revenue = totrevenue, total_assets = totassetsend, year = tax_prd_yr)
+
+```
+
+
+
+

@@ -1,0 +1,169 @@
+---
+title: "Quanteda"
+author: "Lara Charlotte Kuberka"
+date: "2023-10-25"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+R has three types of objects: vector, data frame and matrix. 
+Since many of the quanteda objects behave similarly to these objects, you need to understand how to interact with them.
+
+## Vectors
+As a language for statistical analysis, R"s most basic objects are vectors. Vectors contain a set of values. In the examples below, vec_num is a numeric vector, while vec_char is a chracter vector. 
+
+```{r}
+vec_num <- c(1, 5, 6, 3)
+print(vec_num)
+print(vec_num[1])
+print(vec_num[1:2])
+
+vec_char <- c("apple", "banana", "mandarin", "melon")
+print(vec_char[1:2])
+
+```
+
+##  Concatenating two vectors 
+- You can also concatenate elements of character vectors using paste(). Since the two vectors in the example have the same length, elements in the same position of the vectors are concatenated.
+
+- Paste0() is a function in R that is used to concatenate (join together) strings or character vectors. It takes multiple arguments and combines them into a single character vector with no separation between them.
+
+```{r}
+vec_char2 <- paste(c("red", "yellow", "orange", "green"), vec_char)
+print(vec_char2)
+```
+
+Finally, you can set names to elements of a numeric vector using names().
+
+```{r}
+names(vec_num) <- vec_char
+print(vec_num)
+```
+
+
+## Data frames
+A data frame combines multiple vectors to construct a dataset. You can only combine vectors into a data frame if they have the same lengths. However, they can be different types. nrow() and ncol() show the number of rows (observations) and variables in a data frame.
+
+```{r}
+dat_fruit <- data.frame(name = vec_char, count = vec_num)
+print(dat_fruit)
+```
+
+## Matrices
+Similar to a data frame, a matrix contains multi-dimensional data. In contrast to a data frame, its values must all be the same type.
+
+```{r}
+mat <- matrix(c(1, 3, 6, 8, 3, 5, 2, 7), nrow = 2)
+print(mat)
+```
+
+
+## Workflow in Quanteda:
+
+#### 1. Corpus
+
+- Saves character strings and variables in a data frame
+- Combines texts with document-level variables
+
+
+#### 2. Tokens
+
+- Stores tokens in a list of vectors
+- More efficient than character strings, but preserves positions of words
+- Positional (string-of-words) analysis is performed using textstat_collocations(), tokens_ngrams() and tokens_select() or fcm() with window option
+
+
+#### 3.Document-feature matrix (DFM)
+
+- Represents frequencies of features in documents in a matrix
+- The most efficient structure, but it does not have information on positions of words
+- Non-positional (bag-of-words) analysis are performed using many of the textstat_* and textmodel_* functions
+
+
+
+
+```{r, echo=FALSE, fig.cap="Caption for the Image", out.width="80%"}
+knitr::include_graphics("~/Desktop/quanteda_structure.png")
+```
+
+
+
+## Construct a Corpus
+
+You can create a corpus from various available sources:
+
+1. A character vector consisting of one document per element
+Example:
+
+- data_char_ukimmig2010 is a named character vector and consists of sections of British election manifestos on immigration and asylum.
+
+corp_immig <- corpus(data_char_ukimmig2010, 
+                     docvars = data.frame(party = names(data_char_ukimmig2010)))
+print(corp_immig)
+
+
+2. A data frame consisting of a character vector for documents, and additional vectors for document-level variable
+
+Using read.csv(), load an example file from path_data as a data frame called dat_inaug. Note that your file does not have to be formatted as .csv. You can build a quanteda corpus from any file format that R can import as a data frame (see, for instance, the rio package for importing various files as data frames into R).
+
+ _set path_
+path_data <- system.file("extdata/", package = "readtext")
+
+_import csv file_
+dat_inaug <- read.csv(paste0(path_data, "/csv/inaugCorpus.csv"))
+names(dat_inaug)
+
+_Construct a corpus from the “texts” column in data_
+
+corp_inaug <- corpus(dat_inaug, text_field = "texts")
+print(corp_inaug)
+
+_You can edit the docnames for a corpus to change them from text1, text2 etc., to a meaningful identifier._
+
+docid <- paste(dat_inaug$Year, 
+               dat_inaug$FirstName, 
+               dat_inaug$President, sep = " ")
+docnames(corp_inaug) <- docid
+print(corp_inaug)
+
+## Document- level Variables
+
+- quanteda‘s objects keep information associated with documents. They are called “document-level variables”, or “docvars”, and are accessed using docvars().
+
+#### Extracting document-level variables
+If you want to extract individual elements of document variables, you can specify field.
+
+docvars(corp, field = "Year")
+corp$Year
+
+#### Assigning document-level variables
+docvars() also allows you to create or update document variables.
+
+docvars(corp, field = "Century") <- floor(docvars(corp, field = "Year") / 100) + 1
+head(docvars(corp))
+
+corp$Century <- floor(corp$Year / 100) + 1
+
+
+## Change units of texts
+
+corpus_reshape() allows you to change the unit of texts between documents, paragraphs and sentences. Since it records document identifiers, texts can be restored to the original unit even if the corpus is modified by other functions.
+
+#### Change the unit of texts to sentences.
+
+corp_sent <- corpus_reshape(corp, to = "sentences")
+print(corp_sent)
+
+#### Restore the original documents.
+
+corp_doc <- corpus_reshape(corp_sent, to = "documents")
+print(corp_doc)
+
+
+## Extract Tags from Texts
+Using corpus_segment(), you can extract segments of texts and tags from documents. This is particularly useful when you analyze sections of documents or transcripts separately.
+
+
