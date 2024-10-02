@@ -4,6 +4,8 @@ documentclass: scrartcl
 classoption: DIV=14
 colorlinks: true
 ---
+
+Welcome!
   
 ## Course format and scheduling
 
