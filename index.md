@@ -97,17 +97,19 @@ This week discusses processing tabular data in R with functions from the `tidyve
 
 #### Lecture
 
-- [Slides](x)
-- Code: [Conditionals, loops, and functions](x), [data processing in R](x), [industrial production dataset](x), and [industrial production and unemployment dataset](x)
+- [Slides](week02/MY472-week02-tabular.pdf)
+- Code: [Conditionals, loops, and functions](week02/.Rmd), [data processing in R](week02/.Rmd), [industrial production dataset](week02/ip.csv), and [industrial production and unemployment dataset](week02/ip_and_unemployment.csv)
 
 #### Seminar
 
-- Code: [Dplyr exercises](x), [solution](x)
+- Code: [Dplyr exercises](week02/03-exercises-tabular-data.Rmd), [solution](week02/03-exercises-tabular-data-solution.Rmd)
 
 
 #### Readings
 * Wickham, Hadley and Garett Grolemund.  2017.  _R for Data Science: Import, Tidy, Transform, Visualize, and Model Data_.  Sebastopol, CA: O'Reilly.  [Part II Wrangle](http://r4ds.had.co.nz/wrangle-intro.html), [Tibbles](http://r4ds.had.co.nz/tibbles.html), [Data Import](http://r4ds.had.co.nz/data-import.html), [Tidy Data](http://r4ds.had.co.nz/tidy-data.html) (Ch. 7-9 of the print edition).
 * The [Tidyverse collection of packages](https://www.tidyverse.org/) for R.
+
+*Note: there is a newer version of the Wickham and Grolemund text from 2023, which is available at <https://r4ds.hadley.nz/>.*
 
 ### 3. Data visualisation
 
