@@ -98,7 +98,7 @@ This week discusses processing tabular data in R with functions from the `tidyve
 #### Lecture
 
 - [Slides](week02/MY472-week02-tabular.pdf)
-- Code: [Conditionals, loops, and functions](week02/.Rmd), [data processing in R](week02/.Rmd), [industrial production dataset](week02/ip.csv), and [industrial production and unemployment dataset](week02/ip_and_unemployment.csv)
+- Code: [Conditionals, loops, and functions](week02/01-conditionals-loops-functions.Rmd), [data processing in R](week02/02-processing-data.Rmd), [industrial production dataset](week02/ip.csv), and [industrial production and unemployment dataset](week02/ip_and_unemployment.csv)
 
 #### Seminar
 
