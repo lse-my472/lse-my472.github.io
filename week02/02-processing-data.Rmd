@@ -89,10 +89,13 @@ print(ip_and_unemployment)
 
 For further features of tibbles, see <https://r4ds.had.co.nz/tibbles.html>.
 
+You can also import a `csv` file directly into a tibble by using the `read_csv` 
+function, which is available from the `readr` package in `tidyverse`.
+
 Another useful way to view the full dataset can be the function `View()` in 
 RStudio:
 
-```{r}
+```{r, eval=FALSE}
 View(ip)
 View(ip_and_unemployment)
 ```
@@ -264,7 +267,9 @@ ip_and_unemployment_wide %>%
 
 #### Summary statistics
 
-Another frequent goal is to compute summary statistics. This can be done with the "summary" function, the following e.g. depicts the mean and standard deviation of UK industrial production percentage changes since January 2019:
+Another frequent goal is to compute summary statistics. This can be done with 
+the `summarise` function, the following e.g. depicts the mean and standard 
+deviation of UK industrial production percentage changes since January 2019:
 
 ```{r}
 ip_and_unemployment_wide %>%
@@ -277,7 +282,8 @@ ip_and_unemployment_wide %>%
 
 #### Grouping
 
-Next, a very useful function is "group_by()" which creates groups within the data frame:
+Next, a very useful function is `group_by()` which creates groups within the 
+data frame:
 
 ```{r}
 group_by(ip_and_unemployment_wide, country)
@@ -297,7 +303,9 @@ ip_and_unemployment_wide %>%
 
 #### Creating new variables
 
-In some cases we might also want to add transformations of variables or features to the data frame. This can be done with the command "mutate()". For example, we might be interested in the percentage change of US unemployment, not just its level.
+In some cases we might also want to add transformations of variables or features 
+to the data frame. This can be done with the command `mutate()`. For example, we 
+might be interested in the percentage change of US unemployment, not just its level.
 
 ```{r}
 ip_and_unemployment_wide <- ip_and_unemployment_wide %>% group_by(country) %>% 
@@ -308,11 +316,19 @@ ip_and_unemployment_wide
 
 __Question:__ Why did we need `group_by` here?
 
-When using such an approach with lag() or lead(), it is important that the observations in the dataset are sorted chronologically. In the datasets here, this should already be given, however, you might frequently encounter datasets where it is not the case. In such datasets (and in fact generally) it is key to transform date variables from characters into proper date formats which can be used in operations such as sorting. This is left as an exercise here, for a discussion see https://r4ds.had.co.nz/dates-and-times.html. Dates can then e.g. be sorted like other values with the function "arrange()".
-
-
+When using such an approach with `lag()` or `lead()`, it is important that the 
+observations in the dataset are sorted chronologically. In the datasets here, 
+this should already be given, however, you might frequently encounter datasets 
+where it is not the case. In such datasets (and in fact generally) it is key to 
+transform date variables from characters into proper date formats which can be 
+used in operations such as sorting. This is left as an exercise here, for a 
+discussion see <https://r4ds.had.co.nz/dates-and-times.html>. Dates can then 
+e.g. be sorted like other values with the function `arrange()`.
 
 ### References
 
-- R for Data Science by Grolemund and Wickham (https://r4ds.had.co.nz/)
-- For a more in-depth discussion than in this file, also see Garrett Grolemund's great video series of key tidyverse functions to process data (note that the pivot commands are called gather and spread as these videos discuss a slightly older version of the package) (https://www.youtube.com/watch?v=jOd65mR1zfw&list=PL9HYL-VRX0oQOWAFoKHFQAsWAI3ImbNPk).
+- R for Data Science by Grolemund and Wickham (<https://r4ds.had.co.nz/>)
+- For a more in-depth discussion than in this file, also see Garrett Grolemund's 
+great video series of key tidyverse functions to process data (note that the pivot 
+commands are called gather and spread as these videos discuss a slightly older 
+version of the package) (<https://www.youtube.com/watch?v=jOd65mR1zfw&list=PL9HYL-VRX0oQOWAFoKHFQAsWAI3ImbNPk>).
