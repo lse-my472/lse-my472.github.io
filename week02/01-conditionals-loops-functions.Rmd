@@ -1,15 +1,22 @@
 ---
-title: "Conditionals, loops, and functions"
-author: "Ken Benoit, Friedrich Geiecke, Thomas Robinson"
-date: "October 2023"
+title: "MY472 - Week 2: Conditionals, loops, and functions"
+author: "Ryan Hübert (AT 2024)"
+date: "October 2024"
 output: html_document
 ---
 
-In this file, we will continue to review a few key concepts which you have seen in the preparatory course.
+In this file, we will continue to review a few key concepts which you have seen 
+in the preparatory course.
+
+**Attribution statement:** _The following teaching materials have been 
+iteratively developed by current and former instructors, including: Ken Benoit, 
+Friedrich Geiecke, Thomas Robinson and Ryan Hübert._
 
 ### Conditionals
 
-Conditionals execute blocks of code when certain logical conditions are met or not met. Recall the following list of logical operators also discussed in the first week:
+Conditionals execute blocks of code when certain logical conditions are met or 
+not met. Recall the following list of logical operators also discussed in the 
+first week:
 
 ```{r}
 1 != 2 # not equal to
@@ -24,7 +31,11 @@ is.na(NA) # is NA
 !is.na(42) # is not NA
 ```
 
-Using these with "if" and "else" statements allows to run blocks of code depending on whether a logical condition is met or not, i.e. evaluates to true or false. In this course we might for example use conditionals while scraping to run different code depending on which site is currently accessed. The following simple example illustrates an if statement:
+Using these with "if" and "else" statements allows to run blocks of code 
+depending on whether a logical condition is met or not, i.e. evaluates to true 
+or false. In this course we might for example use conditionals while scraping to 
+run different code depending on which site is currently accessed. The following 
+simple example illustrates an if statement:
 
 ```{r}
 x <- 2
@@ -43,7 +54,8 @@ if (x > 4) {
   }
 ```
 
-There might also be an alternative block of code we would like to run in case the condition is not met. This can be achieved with an if-else structure:
+There might also be an alternative block of code we would like to run in case 
+the condition is not met. This can be achieved with an if-else structure:
 
 ```{r}
 x <- 3
@@ -73,7 +85,10 @@ if (x < y) {
 
 ### Loops
 
-We use loops whenever we need to run the same function (or chunk of code) across different units. For example, in this course we may use a loop when we have multiple Twitter accounts and we want to run sentiment analysis for tweets posted by each of them, or when scraping data from multiple elements of a webpage.
+We use loops whenever we need to run the same function (or chunk of code) across 
+different units. For example, in this course we may use a loop when we have 
+multiple Twitter accounts and we want to run sentiment analysis for tweets 
+posted by each of them, or when scraping data from multiple elements of a webpage.
 
 "For" loops are probably the most common type of loop and are easily implemented in R:
 
@@ -84,13 +99,15 @@ for (i in 1:10) {
 ```
 
 Note the structure: 
+
 ```{r, eval = FALSE}
 for (i in VECTOR) {
     # do something with i but not necessarily
 }
 ```
 
-In each iteration, i takes a different value of the VECTOR; "i" can be anything, we can e.g. also just name it number:
+In each iteration, i takes a different value of the VECTOR; "i" can be anything, 
+we can e.g. also just name it number:
 
 ```{r}
 for (number in 1:10) {
@@ -98,7 +115,8 @@ for (number in 1:10) {
 }
 ```
 
-We can also iterate over different vectors than integers sequences with for loops:
+We can also iterate over different vectors than integers sequences with for 
+loops:
 
 ```{r}
 vector_of_texts <- c("hello", "world", "in", "a", "for", "loop")
@@ -107,7 +125,8 @@ for (text in vector_of_texts) {
 }
 ```
 
-Another type of loop is the while loop, it runs for as long as a logical condition is true:
+Another type of loop is the while loop, it runs for as long as a logical 
+condition is true:
 
 ```{r}
 x <- 1
@@ -117,9 +136,15 @@ while (x < 11) {
 }
 ```
 
-This while loop mimics the for loop above. More generally, while loops are more flexible. For example, you might run a while loop until a certain user input is given and sets a condition to false. One thing to be careful about with while loops is not to create conditions which are always true. This leads to infinite loops. For example "while (2 < 4) {print("hello word")}" would run forever.
+This while loop mimics the for loop above. More generally, while loops are more 
+flexible. For example, you might run a while loop until a certain user input is 
+given and sets a condition to false. One thing to be careful about with while 
+loops is not to create conditions which are always true. This leads to infinite 
+loops. For example "while (2 < 4) {print("hello word")}" would run forever.
 
-A nice feature of loops is that we can use values from the  previous iteration. For instance, we can get the first 40 terms in the Fibonacci sequence using a for loop.
+A nice feature of loops is that we can use values from the  previous iteration. 
+For instance, we can get the first 40 terms in the Fibonacci sequence using a 
+for loop.
 
 ```{r}
 fib <- c(0, 1, rep(NA, 38)) # initialize fib sequence with a vector (0, 1, NA, NA, NA, NA, ...)
@@ -129,7 +154,8 @@ for (i in 3:40) {
 fib
 ```
 
-Note that here we created an empty vector to store the output of each iteration. A simpler example:
+Note that here we created an empty vector to store the output of each iteration. 
+A simpler example:
 
 ```{r}
 values <- rep(NA, 10)
@@ -139,7 +165,10 @@ for (i in 1:10) {
 values
 ```
 
-A structure that we will use often in this course is a loop that stores some data in different elements within a list. This will be very useful when the output from each iteration is a data frame, for example while downloading data from an API. For example:
+A structure that we will use often in this course is a loop that stores some 
+data in different elements within a list. This will be very useful when the 
+output from each iteration is a data frame, for example while downloading data 
+from an API. For example:
 
 ```{r}
 # Create empty list
@@ -162,7 +191,10 @@ grades
 
 ### Functions
 
-Functions are objects just like the vectors and data frames we have worked with, so we create them using an assignment. The following function works for a single element as well as element-wise on a vector, because the * operator is defined element-wise.
+Functions are objects just like the vectors and data frames we have worked with, 
+so we create them using an assignment. The following function works for a single 
+element as well as element-wise on a vector, because the * operator is defined 
+element-wise.
 
 ```{r}
 times_2 <- function(x) {x * 2}
@@ -170,7 +202,8 @@ times_2(6)
 times_2(1:5)
 ```
 
-We can also have multivariate inputs into functions, and return more complex objects, such as a vector or list.
+We can also have multivariate inputs into functions, and return more complex 
+objects, such as a vector or list.
 
 ```{r}
 two_numbers <- function(x, y) {
@@ -182,7 +215,8 @@ two_numbers <- function(x, y) {
 two_numbers(4, 11.93)
 ```
 
-A key conceptual feature of functions is that they have their own scope. What do you think the following cell will return?
+A key conceptual feature of functions is that they have their own scope. What do 
+you think the following cell will return?
 
 ```{r}
 my_function <- function(z) {
@@ -198,9 +232,12 @@ my_function(z)
 z
 ```
 
-For more discussion on scoping, see e.g. https://adv-r.hadley.nz/functions.html#lexical-scoping
+For more discussion on scoping, see e.g. 
+<https://adv-r.hadley.nz/functions.html#lexical-scoping>
 
-In modular code, particularly repeated tasks are written as functions. Functions therefore contain a wide range of possible code, e.g. conditions which allow the function to run different chunks depending on the input.
+In modular code, particularly repeated tasks are written as functions. Functions 
+therefore contain a wide range of possible code, e.g. conditions which allow the 
+function to run different chunks depending on the input.
 
 ```{r}
 compare_xy <- function(x, y) {
@@ -237,8 +274,12 @@ abs_numbers <- ifelse(numbers > 0, numbers, -numbers)
 abs_numbers
 ```
 
-A multi-condition version of `ifelse` which is nevertheless vectorised is the `case_when` function from the **dplyr** package:
+A multi-condition version of `ifelse` which is nevertheless vectorised is the 
+`case_when` function from the `dplyr` package, which is loaded as one of the 
+packages in `tidyverse`:
+
 ```{r}
+library(tidyverse)
 
 # Using case_when to return fizz-buzz (a classic coding exercise)
 numbers <- 1:15
@@ -253,10 +294,8 @@ fizzbuzz <- case_when(numbers %% 3 == 0 & numbers %% 5 == 0 ~ "fizzbuzz",
                       numbers %% 3 == 0 ~ "fizz",
                       numbers %% 5 == 0 ~ "buzz",
                       TRUE ~ "") # note, it's good practice to have a default
-fizzbuzz
+print(fizzbuzz)
 ```
 
-Further study: A great book to review fundamental and advanced concepts in R programming is Hadley Wickham's "Advanced R" https://adv-r.hadley.nz/
-
-
-
+Further study: A great book to review fundamental and advanced concepts in R 
+programming is Hadley Wickham's "Advanced R" <https://adv-r.hadley.nz/>
