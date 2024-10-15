@@ -70,10 +70,9 @@ head(ip_and_unemployment)
 ```
     
 What are the highest unemployment rates for France and Spain during the time of 
-the sample?  What are the lowest values for monthly percentage changes of 
-industrial production for the two countries? Make sure to delete NA values in 
-only the time series of interest. (_Optional_: can you create a function that 
-would do this for any country?)
+the sample?  What are the lowest values for industrial production for the two 
+countries? Make sure to delete NA values in only the time series of interest. 
+(_Optional_: can you create a function that would do this for any country?)
 
 ```{r q1}
 # Q1 --------------------------------------------------------------------------
