@@ -113,15 +113,15 @@ This week discusses processing tabular data in R with functions from the `tidyve
 
 ### 3. Data visualisation
 
-The lecture this week will offer an overview of the principles of exploratory data analysis through (good) data visualization. In the coding session and seminars, we will practice producing our own graphs using ggplot2.
+The lecture this week will offer an overview of the principles of exploratory data analysis through summarising data and (good) data visualisation. In the coding session and seminars, we will practice producing our own graphs using ggplot2.
 
 
 #### Lecture
 
-- [Slides](x)
-- Lecture code: [Anscombe](x), [ggplot2 walkthrough](x)
-- Data: [Congressional Facebook posts](x), [unemployment data](x)
-- Further reference code: [ggplot2 basics](x), [ggplot2 scales, axes, and legends](x)
+- [Slides](week03/MY472-week03-visualisation.pdf)
+- Lecture code: [Anscombe quartet](week03/01-anscombe.Rmd), [ggplot2 walkthrough](week03/02-ggplot-walkthrough.Rmd)
+- Data: [Congressional Facebook posts](week03/data/fb-congress-data.csv), [unemployment data](week03/data/unemployment.csv)
+- Further reference code: [ggplot2 basics](week03/03a-ggplot2-basics.Rmd), [ggplot2 scales, axes, and legends](week03/03b-scales-axes-legends.Rmd)
 
 
 #### Seminar
@@ -133,10 +133,16 @@ The lecture this week will offer an overview of the principles of exploratory da
 
 * Wickham, Hadley and Garett Grolemund.  2017.  _R for Data Science: Import, Tidy, Transform, Visualize, and Model Data_.  Sebastopol, CA: O'Reilly.  [Data visualization](https://r4ds.had.co.nz/data-visualisation.html), [Graphics for communication](https://r4ds.had.co.nz/graphics-for-communication.html) (Ch. 1 and 22 of the print edition).
 
+
 #### Further reading
+
+* Healy, Kieran. 2019. _Data Visualization: A Practical Introduction._ Princeton, NJ: Princeton University Press, ch. 1. Book available at <https://socviz.co/>.
 * Hughes, A. (2015) ["Visualizing inequality: How graphical emphasis
 shapes public opinion"](https://journals.sagepub.com/doi/abs/10.1177/2053168015622073) Research and Politics.
 * Tufte, E. (2002) ["The visual display of quantitative information"](https://www.edwardtufte.com/tufte/books_vdqi).
+* Wilkinson, Leland and Graham Wills. 2005. _The Grammar of Graphics_. 2nd ed. New York: Springer, 2005. Ch. 1. [E-book available at LSE Library](https://librarysearch.lse.ac.uk/permalink/44LSE_INST/1f110cn/alma99128824410302021).
+
+
 
 ### Formative problem set
 

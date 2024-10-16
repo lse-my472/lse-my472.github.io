@@ -1,79 +1,129 @@
 ---
 title: "MY472 - Week 3: ggplot2 basics - grammar of graphics, geom types"
-author: "Thomas Robinson"
-date: "AT 2023"
+author: "Ryan Hübert"
+date: "AT 2024"
 output: html_document
 ---
 
+**Attribution statement:** _The following teaching materials have been iteratively developed by current and former instructors, including: Tom Robinson and Ryan Hübert. This file is based on resources created by Pablo Barberá and Friedrich Geiecke. You can find their comprehensive examples of **ggplot** in the `03a-ggplot2-basics.Rmd` and `03b-scales-axes-legends.Rmd` files._
+
 ## Introduction
 
-This file is based on resources created by Pablo Barberá and Friedrich Geiecke. You can find their comprehensive examples of **ggplot** in the `ggplot2-basic.Rmd` and `scales-axes-legends.Rmd` files.
+In the examples below, we will be working with a random sample of 10,000 public Facebook posts by members of the U.S. Congress.
 
-In the examples below, we will be working with a random sample of 10,000 public Facebook posts by members of the U.S. Congress. 
+Load two packages that we will use.
 
-Loading packages:
-
-```{r}
-library("tidyverse")
-library("lubridate")
-library("scales")
+```{r} 
+library(tidyverse)
+library(scales)
 ```
 
-Reading in the data and some initial processing:
+Begin by reading in the data and some initial processing. We will read the data directly into R as a tibble, which requires us to use `read_csv()` from the `readr` package (in `tidyverse`), instead of `read.csv()`.
+
+Note that `read_csv()` will try to anticipate each column's type: reading seemingly numeric columns as `dbl` or `int`, date characters as `date`, etc. There are situations where you are importing raw data and you **do not** want R to automatically reformat variables, in which case you include the option `col_types = cols(.default = col_character())` in `read_csv`. This will import all variables as text just as they are stored in the `.csv` file.
 
 ```{r}
-df <- read.csv("data/fb-congress-data.csv", stringsAsFactors = FALSE)
+# Import directly as a tibble using tidyverse
+df <- read_csv("data/fb-congress-data.csv") # this is a relative file path
+# df <- read_csv("/Users/r.hubert/Local/week03/data/fb-congress-data.csv") # this is an absolute file path
 
-# Transform date column to datetime
-df$date <- as_date(df$date)
+# Quickly look at the data (always good practice!)
+head(df) # Could also run View(df)
 
-# Dropping some very uncommon post types and tidying labels
-nrow(df)
+# Dropping some very uncommon post types and tidying the gender and type labels
+print(nrow(df)) # How many rows did we start with?
 df <- df %>%
   filter(!post_type %in% c("music", "note")) %>% 
-  mutate(gender = ifelse(gender == "M", "Man", "Woman"), # original data is binary, otherwise we could use case_when
-         type = ifelse(type == "rep","House","Senate"))
-nrow(df)
+  mutate(gender = if_else(gender == "M", "Man", "Woman"), 
+         type = if_else(type == "rep","House","Senate"))
+print(nrow(df))  # How many rows did we end with?
 ```
-
 
 ## Number of likes 
 
-Let's consider a case where we wanted to understand how much engagement Congresspersons are getting on their posts. This is a *univariate* analysis, since we are concerned with the distribution of a single variable. We can plot this as a histogram:
+Let's consider a case where we wanted to understand how much engagement Members of Congress are getting on their posts. This is a *univariate* analysis, since we are concerned with the distribution of a single variable. 
+
+We can begin by looking at some simple summary statistics; i.e., summarising the `likes_count` variable.
 
 ```{r}
-likes_plot <- ggplot(
-  data = df, # conventional to omit `data = ` 
-  mapping = aes(x = likes_count) # likewise, we often drop `mapping = `
-  ) 
+## "Standard" summary statistics 
+df %>% 
+  summarise(min = min(likes_count), 
+            mean = mean(likes_count), 
+            median = median(likes_count),
+            max = max(likes_count), 
+            n = n())
 
+## What percentage of posts got zero likes?
+df %>% 
+  mutate(zero_likes = if_else(likes_count==0,1,0)) %>%
+  summarize(zero_likes_percent = mean(zero_likes) * 100)
+```
+
+But we can view *more* information about this variable if we plot it as a histogram. Here we will use `ggplot` to (1) create a `ggplot` object, and (2) add a histogram layer. Every time we add a component to a specific graphic in `ggplot2`, we *add* it (using `+`).
+
+Note: below we do not specify a lot of details about what we want to see from our histogram, so `ggplot` will choose "sensible" defaults for us. Note also: datasets and mappings you specify when you initialise the plot will automatically be used for all additional layers unless you say otherwise.
+
+```{r}
+## Initialise a plot and assign it the name `likes_plot`
+likes_plot <- ggplot(data = df, mapping = aes(x = likes_count)) 
+## Note: it is conventional for people to omit `data = ` and `mapping = `
+##       since ggplot will undersand df is your data and aes(.) is your mapping
+
+## Add a histogram layer
 likes_hist <- likes_plot + geom_histogram()
 
+## Now see what it looks like
 likes_hist
-  
 ```
 
 This is a pretty rubbish graph! The problem we have is that most posts have limited engagement, but some tweets have *huge* levels of engagement, which results in a sparse (and relatively uninformative) visual.
 
 As part of the grammar of graphics, however, we can define the *scales* we use to translate variables to visuals. So, rather than show a linear, continuous scale on the x-axis, we can instead "log" the space to bring extreme values closer to smaller ones *visually*:
+
 ```{r}
-likes_hist + scale_x_log10()
+likes_hist + 
+  scale_x_log10()
 ```
-This graph is better, but from a presentation perspective, we should really tidy up the axes and theme:
+
+**Note**: You should always read and try to deal with non-fatal warnings! It is not usually good practice to leave errors and warnings unresolved in your scripts. Here, `ggplot` is warning us that:
+
+1. it is using its default binning rule (create 30 bins); and 
+2. the log transformation caused some values to be dropped (why?)
+
+In spite of the warnings, this graph is better than the previous. From a presentation perspective, we should really tidy up the axes and theme. Let's do that, and also make a couple modifications to get rid of the two warnings. 
+
 ``` {r}
+# Redefine the likes_hist object to resolve warnings
+likes_hist <- df %>% 
+  filter(likes_count > 0) %>% # resolve warning 2: can't log transform zeroes 
+  ggplot(aes(x = likes_count)) + 
+  geom_histogram(bins=30) # resolve warning 1: just use ggplot default
+
+# Now make it prettier
 likes_hist + 
   scale_x_log10(labels = comma) + # rather than use scientific notation, use commas
   labs(x = "Likes", y = "No. of posts") + # change the axis labels
   theme_minimal() # a nice starting point for customising the theme
 ```
 
+Maybe we would like to add the mean and median on this plot in a new layer?
+
+``` {r}
+likes_hist + 
+  scale_x_log10(labels = comma) + 
+  labs(x = "Likes", y = "No. of posts") + 
+  geom_vline(xintercept = mean(df$likes_count), color = "blue", linewidth=1.5) + 
+  annotate("text", x = mean(df$likes_count)-100, y = 1200, label = "mean", angle=90, size=5, color="blue") + 
+  geom_vline(xintercept = median(df$likes_count), color = "red", linewidth=1.5) + 
+  annotate("text", x = median(df$likes_count)-16, y = 300, label = "median", angle=90, size=5, color="red") + 
+  theme_minimal()
+```
+
 Great! But what if we wanted to distinguish Republicans and Democrats? We need a new aesthetic to distinguish between these two (categorical) groups. An intuitive aesthetic choice would be the colour **fill** (as distinguished from **color**, which is just the outline of the shape):
 
 ```{r}
-party_likes <- ggplot(
-  data = df, # conventional to omit `data = ` 
-  mapping = aes(x = likes_count, fill = party) # likewise, we often drop `mapping = `
-  )
+party_likes <- ggplot(data = df, mapping = aes(x = likes_count, fill = party))
 
 party_likes +
   geom_histogram() +
@@ -82,7 +132,8 @@ party_likes +
   theme_minimal() 
 ```
 
-Not bad, but notice the default color scheme assigns the red colour to Democrats and the blue colour to Republicans, which is the opposite to what we want! (This isn't some mind-game by **ggplot**, it's just the fact that their default scheme is red-green-blue, and the colors are assigned to factor levels in alphabetical order.) We can fix this by manually defining the **fill** scale:
+Not bad, but notice the default color scheme assigns the red colour to Democrats and the blue colour to Republicans, which is the opposite to what we want! (This isn't some mind-game by `ggplot`, it's just the fact that their default scheme is red-green-blue, and the colors are assigned to factor levels in alphabetical order.) We can fix this by manually defining the `fill` scale:
+
 ```{r}
 party_likes +
   geom_histogram() +
@@ -94,6 +145,7 @@ party_likes +
 ```
 
 Sometimes, we might prefer to represent the distribution in a continuous way rather than using discrete bins. So we can substitute the histogram for a **density** geom. The problem here (and often with histograms too) is that the fill of the shapes means overlapping areas are hidden. We can tackle this by making our density plots slightly transparent, using the `alpha = ` argument of the geom:
+
 ```{r}
 party_likes +
   geom_density(alpha = 0.7) + # alpha = 0 means fully transparent, and alpha = 1 means opaque
@@ -103,14 +155,13 @@ party_likes +
   labs(x = "Likes", y = "Density", fill = "Political Party") + # y is not a count anymore
   theme_minimal() 
 ```
+
 Notice that this isn't just changing the shape: the height of the distributions are now different compared to the histogram, because we are calculating the density **within each group** rather than the absolute number of posts.
 
 Suppose we now wanted to see these distributions by gender as well. We've already used the fill aesthetic to map party. As a naive example, why don't we map gender to the colour attribute:
+
 ```{r}
-pty_gndr_likes <- ggplot(
-  df, # conventional to omit `data = ` 
-  aes(x = likes_count, fill = party, color = gender)
-  )
+pty_gndr_likes <- ggplot(df, aes(x = likes_count, fill = party, color = gender))
 
 pty_gndr_likes + 
   geom_density(alpha = 0.7) + # alpha = 0 means fully transparent, and alpha = 1 means opaque
@@ -122,6 +173,7 @@ pty_gndr_likes +
 ```
 
 Now that's confusing! What would be better is if we could separate the male and female plots into separate panes or **facets**. To do this, we perform a special form of mapping where some variable is used to define subsets of the data we should generate the same *form* of visual for. In **ggplot2*, we simply use `facet_wrap()`:
+
 ```{r}
 
 party_likes + # note we're reusing the old mapping without gender
@@ -135,6 +187,7 @@ party_likes + # note we're reusing the old mapping without gender
 ```
 
 If we want to subset the plots by two variables, we can use `facet_grid()` instead. This allows us to specify a matrix of plots, where we map variables explicitly to the rows and columns of the plot space:
+
 ```{r}
 party_likes + 
   facet_grid("gender~type") + # row~column
@@ -144,4 +197,17 @@ party_likes +
                     values = c("dodgerblue","firebrick","purple")) +
   labs(x = "Likes", y = "Density", fill = "Political Party") +
   theme_minimal() 
+```
+
+Finally, we may want to save a plot. There are many ways to do this, but let's use the out-of-the-box saving function in `ggplot2`, which is called `ggsave`. 
+
+```{r}
+ggsave(filename = "my_pretty_plot.png", 
+       plot = last_plot(), # save the last plot made, or a specific plot you assigned a name?
+       path = "/Users/r.hubert/Local/", # where to save? if you don't specify anything, will save in current folder
+       width = 15, # for printing, think about the paper size
+       height = 8, # for printing, think about the paper size
+       units = "cm", # units used for width/height
+       dpi = 300, # resolution: use 300 for printing, 72 for screen
+       bg = "white") # don't need this unless you use theme_minimal()
 ```
