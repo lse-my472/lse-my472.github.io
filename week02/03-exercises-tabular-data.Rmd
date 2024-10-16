@@ -25,9 +25,12 @@ folder you would like to store your local copy of your repo. You should replace
 `<url>` with the HTTPS link to your GitHub repo.
 
 ```{bash, eval = FALSE}
-cd <path>
-git _________ <url>
-cd _________
+
+cd /Users/charlottekuberka/Desktop/Political Science/LSE/LSE Courses/LSE MRes Political Science/lse-my472.github.io
+
+git clone https://github.com/CharlotteKub/seminar02.git
+
+cd seminar02
 ```
 
 Now, save this Rmd file, close it, and move it into your local copy of the 
@@ -38,9 +41,9 @@ Next, stage, commit and push your changes to your repo, using "added seminar
 file" as your commit message.
 
 ```{bash, eval = FALSE}
-git _________ 03-exercises-tabular-data.Rmd
-git _________ -m "_________"
-git _________
+git add 03-exercises-tabular-data.Rmd
+git commit -m "added the 03 exercise file"
+git push
 ```
 
 Check on the GitHub website that this file now appears in your repository.
@@ -49,12 +52,12 @@ Now, let's get to work with R. Start with setting up your workspace:
 
 ```{r setup}
 # load in libraries:
-suppressMessages(library(_________))
-# or just library(____________)
+suppressMessages(library(tidyverse))
+# or just library(tidyverse)
 
 # read ip_and_unemployment.csv
-ip_and_unemployment <- _________________
-head(______)
+ip_and_unemployment <- read_csv("/Users/charlottekuberka/Desktop/Political Science/LSE/LSE Courses/LSE MRes Political Science/lse-my472.github.io/Week02/ip_and_unemployment.csv")
+head(ip_and_unemployment)
 
 ```
     
@@ -67,32 +70,34 @@ would do this for any country?)
 ```{r q1}
 # Q1 --------------------------------------------------------------------------
 
+?pivot_wider()
+
 # data processing
 ipu_clean <- ip_and_unemployment %>%
-  pivot_____(id_cols = c(_____, _____), 
-              names_from = ______, values_from = ______)  # long to wide
+  pivot_wider(id_cols = c("country", "date"), 
+              names_from = series, values_from = value)  # long to wide
 
 # France
 ipu_clean %>%
-  filter(country == _____) %>%
-  _____(unemployment == max(_______, na.rm = TRUE) | 
+  filter(country == "france") %>%
+  filter(unemployment == max(unemployment, na.rm = TRUE) | 
            ip == min(ip, na.rm = TRUE)) 
     # need to add na.rm = TRUE, because ip contains NA and min() will return NA
     # if there is one NA, unless na.rm = TRUE
 
 # Spain
 ipu_clean %>%
-  _____(_____ == _____) %>%
-  filter(unemployment == ________________________  | 
-           __ == ____________________)
+  filter(country == "spain") %>%
+  filter(unemployment == max(unemployment, na.rm = TRUE)  | 
+             ip == min(ip, na.rm = TRUE)) 
 
 # Optional --------------------------------------------------------------------
 filter_worst_months <- function(x) {
   filtered <- ipu_clean %>%
-    _____(country == x) %>%
-    _____(____________ == ________________________ | 
-             ip == ________________________)
-  return(_______)
+    filter(country == x) %>%
+    filter(unemployment == max(unemployment, na.rm = TRUE) | 
+             ip == min(ip, na.rm = TRUE))
+  return(filtered)
 }
 
 filter_worst_months("germany")
@@ -109,18 +114,19 @@ functions? (_Optional_: can you calculate the % of values that are non-NA?)
 # Q2 --------------------------------------------------------------------------
 # Non-NA group_by and summarise
 ipu_clean %>%
-  _______(country) %>%
-  __________(nonNA_ip = sum(!is.na(__)),
-            nonNA_ue = sum(_________________))
+  group_by(country) %>%
+  summarise(nonNA_ip = sum(!is.na(ip)),
+            nonNA_ue = sum(!is.na(unemployment)))
+
+?summarise()
 
 # Optional --------------------------------------------------------------------
 ipu_clean %>%
-  group_by(_______) %>%
-  __________(nonNA_ip = _____________),
-            nonNA_ue = ____________________),
-            nonNA_ip_pct = nonNA_ip / length(__),
-            nonNA_ue_pct = nonNA_ue / ______________________)
-
+  group_by(country) %>%
+  summarise(nonNA_ip = sum(!is.na(ip)),
+            nonNA_ue = sum(!is.na(unemployment)),
+            nonNA_ip_pct = nonNA_ip / length(ip),
+            nonNA_ue_pct = nonNA_ue / length(unemployment))
 
 ```
 
@@ -136,9 +142,9 @@ local git repository and the remote copy on GitHub reflects your work so far.
 When you commit your changes, use "finished first half" as your commit message.
 
 ```{bash, eval = FALSE}
-git _________ 03-exercises-tabular-data.Rmd
-git _________ -m "_________"
-git _________
+git add 03-exercises-tabular-data.Rmd
+git commit -m "finished first half"
+git push
 ```
 
 Before you do the final analysis, create a branch of your git repository that
@@ -147,8 +153,8 @@ the idea that you are using it for your final analysis. Switch to the final
 branch and double check you are on the final branch.
 
 ```{bash, eval = FALSE}
-git _________ final 
-git _________ final
+git branch final 
+git checkout final
 git branch
 ```
 
@@ -171,27 +177,29 @@ computation, some can be simpler than the solution sketch here)
 # Q3 --------------------------------------------------------------------------
 # Data transformations with mutate
 ipu_clean %>%
-  _______(ip_sq = _______,
-         ________________ = _______________,
-         ip_unemployment = ___________________) %>%
+  mutate(ip_sq = ip ^ 2,
+         log_unemployment = log(unemployment),
+         ip_unemployment = ip*unemployment) %>%
   head()
+
 
 # Optional --------------------------------------------------------------------
 # The skeleton code acts a possible hint, but you may prefer to do this more complex task your own way
 library(lubridate)
 (yeartoyear <- ipu_clean %>%
-  _______(yr = year(dmy(____)),
-         mth = month(dmy(____))) %>%
-  _____(-____) %>%
-  pivot______(id_cols = c("______", "___"),
-              _________ = yr, names_prefix = "yr",
-              ___________ = c("ip", "unemployment")) %>%
+  mutate(yr = year(dmy(date)),
+         mth = month(dmy(date))) %>%
+  select(-date) %>%
+  pivot_wider(id_cols = c("country", "mth"),
+              names_from = yr, names_prefix = "yr",
+              values_from = c("ip", "unemployment")) %>%
   mutate(ip_yty = ip_yr2020 - ip_yr2019,
-         unemployment_yty = ___________________ - ____________________) %>%
-  select(country, mth, _____, _____________________) %>%
+         unemployment_yty = unemployment_yr2020 - unemployment_yr2019) %>%
+   select(country, mth, ip_yty, unemployment_yty) %>%
   drop_na())
 
-head(_________)
+
+head(yeartoyear)
 
 ```
 
@@ -200,10 +208,10 @@ remote copy on GitHub reflects your work so far. When you commit your changes,
 use "finished second half" as your commit message.
 
 ```{bash, eval = FALSE}
-git _________ 03-exercises-tabular-data.Rmd
-git _________ -m "_________"
+git add 03-exercises-tabular-data.Rmd
+git commit -m "finished second half"
 git push --set-upstream origin final
-git _________ 
+git push 
 ```
 
 (Pop quiz: what is the third line above doing?)
@@ -213,7 +221,7 @@ the `main` branch. **First, save and close this file.** Then switch to the
 `main` branch as follows.
 
 ```{bash, eval = FALSE}
-git _________ main 
+git checkout main 
 ```
 
 After you switch to the `main` branch, reopen this file and check that it no 

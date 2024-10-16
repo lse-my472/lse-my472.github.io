@@ -64,6 +64,10 @@ ip_df <- read.csv("ip.csv")
 # Cleaning column names
 colnames(ip_df) <- str_replace(colnames(ip_df), "X", "")
 head(ip_df)
+
+
+ip_df %>% pivot_longer(cols = !country, names_to = "Date", values_to = "IP")
+
 ```
 
 
