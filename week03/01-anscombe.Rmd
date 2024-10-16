@@ -1,10 +1,12 @@
 ---
 title: "Anscombe's quartet"
-date: "AT 2023"
+date: "AT 2024"
 output: github_document
 ---
 
-This file contains a famous example of how summary statistics of a dataset can be misleading, Anscombe, F. J. (1973) Graphs in statistical analysis. American Statistician 27 (1): 17-21.
+This file contains a famous example of how summary statistics of a dataset can 
+be misleading, Anscombe, F. J. (1973) Graphs in statistical analysis. American 
+Statistician 27 (1): 17-21.
 
 Four pairs of vectors with identical means:
 
@@ -43,10 +45,10 @@ anscombe %>%
   pivot_longer(everything(),
                names_to = c(".value","source"),
                names_pattern = "(.)(.)") %>% 
-  
   ggplot(aes(x = x, y = y)) +
   facet_wrap(~ source) +
   geom_point() +
+  geom_smooth(method='lm', formula = y~x, se = FALSE) + 
   theme_bw()
 ```
 

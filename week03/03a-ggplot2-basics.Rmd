@@ -1,7 +1,7 @@
 ---
 title: "MY472 - Week 3: ggplot2 basics - grammar of graphics, geom types"
 author: "Pablo Barberá, Friedrich Geiecke"
-date: "AT 2023"
+date: "AT 2024"
 output: html_document
 ---
 
@@ -14,9 +14,10 @@ For a review of the log scale, see for example this [video](https://www.youtube.
 Loading packages:
 
 ```{r}
+# install.packages("hexbin") ## IF NOT INSTALLED YET
 library("tidyverse")
-library("lubridate")
 library("scales")
+library("hexbin")
 ```
 
 Reading in the data and some initial processing:

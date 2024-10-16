@@ -35,15 +35,29 @@ cd seminar02
 
 Now, save this Rmd file, close it, and move it into your local copy of the 
 GitHub repo you just created and cloned. After you have done this, reopen this
-file in RStudio.
+file in RStudio. Also store copies of the two `csv` datasets in your repo folder.
 
-Next, stage, commit and push your changes to your repo, using "added seminar 
-file" as your commit message.
+Next, stage all the files you just added to your local repo. Note: the dot tells 
+git to stage all the files in the folder, not just a single file. The dot can be 
+dangerous because you may unintentionally stage files you do not want to have on 
+GitHub. Before staging all the files in the repo folder with the dot, check 
+what's in the folder by running the command `ls` in the terminal and check you 
+are only staging files you want to save to GitHub. Once you're satisfied stage 
+as follows.
 
 ```{bash, eval = FALSE}
+git _________ .
+```
+
+Commit and push your changes to your repo, using "added seminar files" as your 
+commit message.
+
+```{bash, eval = FALSE}
+
 git add 03-exercises-tabular-data.Rmd
 git commit -m "added the 03 exercise file"
 git push
+
 ```
 
 Check on the GitHub website that this file now appears in your repository.
@@ -62,10 +76,9 @@ head(ip_and_unemployment)
 ```
     
 What are the highest unemployment rates for France and Spain during the time of 
-the sample?  What are the lowest values for monthly percentage changes of 
-industrial production for the two countries? Make sure to delete NA values in 
-only the time series of interest. (_Optional_: can you create a function that 
-would do this for any country?)
+the sample?  What are the lowest values for industrial production for the two 
+countries? Make sure to delete NA values in only the time series of interest. 
+(_Optional_: can you create a function that would do this for any country?)
 
 ```{r q1}
 # Q1 --------------------------------------------------------------------------

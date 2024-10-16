@@ -1,7 +1,7 @@
 ---
 title: "MY472 - Week 3: ggplot2 basics - axes, scales, legends, polishing plots"
 author: "Pablo Barberá, Friedrich Geiecke"
-date: "AT 2023"
+date: "AT 2024"
 output: html_document
 ---
 
@@ -12,8 +12,8 @@ We will continue working with a random sample of 10,000 public Facebook posts by
 For a review of the log scale, see for example this [video](https://www.youtube.com/watch?v=sBhEi4L91Sg).
 
 ```{r}
+# install.packages("gridExtra") ## IF NOT INSTALLED YET
 library("tidyverse")
-library("lubridate")
 library("scales")
 library("gridExtra")
 ```
