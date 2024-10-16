@@ -1,16 +1,16 @@
 ---
 title: "MY472 - Week 2: Seminar exercises in visualisation - solution"
 author: "Pablo Barberá, Friedrich Geiecke"
-date: "AT 2023"
+date: "AT 2024"
 output: html_document
 ---
 
 
 ```{r}
-library("tidyverse")
-library("plotly")
-library("scales")
-library("lubridate")
+# install.packages("plotly") ## IF NOT ALREADY INSTALLED
+library(tidyverse)
+library(plotly)
+library(scales)
 ```
 
 
@@ -19,9 +19,8 @@ library("lubridate")
 Try to replicate the following line chart that displays the evolution in the unemployment rate in the US over time. The challenge here consists of overlaying a set of shaded boxes in red or blue, depending on the party to which the president in power at the time belongs. To help with that part, you can see below how to create a data frame with the relevant information.
 
 ```{r}
-
 # Creating a dataframe with the unemployment data
-unemp <- read.csv("data/unemployment.csv", stringsAsFactors = FALSE)
+unemp <- read_csv("data/unemployment.csv")
 
 # Creating a data frame with the background colour information
 name <- c("Truman", "Eisenhower", "Kennedy", "Johnson", "Nixon",
@@ -33,24 +32,12 @@ start <- as.Date(c("1948-01-01", "1953-01-20", "1961-01-20", "1963-11-22",
 end <- c(start[-1], as.Date("2016-10-01"))
 party <- c("D", "R", "D", "D", "R", "R", "D", "R", "R", "D", "R", "D")
 pres <- data.frame(name, start, end, party, stringsAsFactors=F)
-
-
 ```
 
 ![](04-unemployment.png)
-Your code here:
 
 ```{r}
-
-```
-
-Solution:
-
-```{r}
-
-# Transforming date column to datetime (lubridate package!)
-unemp$date <- as_date(unemp$date)
-
+# Define range of unemployment and date variables
 yrng <- range(unemp$unemp, na.rm=TRUE)
 xrng <- range(unemp$date, na.rm=TRUE)
 
@@ -72,25 +59,26 @@ pq
 
 # Adding president names
 pq <- pq + 
-  geom_text(data=pres, 
+  geom_text(data=pres,
             aes(x=start, y=yrng[2], label=name),
-    size=3, hjust=0.25, vjust=1.25, angle=90) 
+            size=3, hjust=0.25, vjust=1.25, angle=90) 
 
 # Adding lines to separate presidencies
-pq <- pq + geom_vline(data=pres, aes(xintercept=as.numeric(start)),
-    color="grey50", linetype=5, size=0.5)
+pq <- pq + 
+  geom_vline(data=pres, aes(xintercept=as.numeric(start)),
+             color="grey50", linetype=5, linewidth=0.5)
 
 pq
 
 # Finally, moving legend and removing x axis title
-library(grid)
-pq <- pq + theme(
-    axis.title.x = element_blank(),
-    legend.position = "bottom",
-    legend.margin = unit(-1, "cm") ) +
-    scale_fill_manual("Party of President", 
-        values=alpha(c("blue", "red"), 0.2),
-        labels= c("Democratic", "Republican"))
+# library(grid)
+pq <- pq + 
+  theme(axis.title.x = element_blank(),
+        legend.position = "bottom",
+        legend.margin = unit(-1, "cm") ) +
+  scale_fill_manual("Party of President", 
+                    values=alpha(c("blue", "red"), 0.2),
+                    labels= c("Democratic", "Republican"))
 
 pq
 
@@ -99,7 +87,6 @@ pq <- pq +
   scale_y_continuous("Unemployment Rate", labels = percent,
             limits = c(0.02, 0.115), breaks=c(0.02, 0.04, 0.06, 0.08, 0.10, 0.12)) +
   coord_cartesian(ylim = c(0.02, 0.12))
-
 
 pq
 ```
@@ -122,10 +109,7 @@ Judging approximately from the figure, which party writes the longest posts in t
 Reading in the data and some initial processing:
 
 ```{r}
-df <- read.csv("data/fb-congress-data.csv", stringsAsFactors = FALSE)
-
-# Transform date column to datetime
-df$date <- as_date(df$date)
+df <- read_csv("data/fb-congress-data.csv")
 
 # Dropping some very uncommon post types
 nrow(df)
@@ -137,7 +121,7 @@ nrow(df)
 Creating the plot data:
 
 ```{r}
-df_plot <- as_tibble(df[df$likes_count > 5000,])
+df_plot <- df[df$likes_count > 5000,]
 df_plot$message_length <- str_count(df_plot$message)
 df_plot <- df_plot %>% select(likes_count, shares_count, message_length, party)
 df_plot <- drop_na(df_plot)
@@ -147,8 +131,8 @@ df_plot$party <- as.factor(df_plot$party)
 Plot:
 
 ```{r}
-plotlyfigure1 <- plot_ly(df_plot, type= "scatter3d", mode = "markers", x = ~likes_count,
-               y = ~shares_count, z = ~message_length, color = ~party)
+plotlyfigure1 <- plot_ly(df_plot, type= "scatter3d", mode = "markers", 
+                         x = ~likes_count, y = ~shares_count, z = ~message_length, color = ~party)
 plotlyfigure1 <- plotlyfigure1 %>% layout(scene = list(xaxis = list(title = "Log likes count", type = "log"),
                      yaxis = list(title = "Log shares count", type = "log"),
                      zaxis = list(title = "Message length")))

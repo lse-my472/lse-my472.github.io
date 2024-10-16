@@ -1,15 +1,16 @@
 ---
 title: "MY472 - Week 3: Seminar exercises in visualisation"
 author: "Pablo Barberá, Friedrich Geiecke"
-date: "AT 2023"
+date: "AT 2024"
 output: html_document
 ---
 
 
 ```{r}
-library("tidyverse")
-library("plotly")
-library("scales")
+# install.packages("plotly") ## IF NOT ALREADY INSTALLED
+library(tidyverse)
+library(plotly)
+library(scales)
 ```
 
 
@@ -18,9 +19,8 @@ library("scales")
 Try to replicate the following line chart that displays the evolution in the unemployment rate in the US over time. The challenge here consists of overlaying a set of shaded boxes in red or blue, depending on the party to which the president in power at the time belongs. To help with that part, you can see below how to create a data frame with the relevant information.
 
 ```{r}
-
 # Creating a dataframe with the unemployment data
-unemp <- read.csv("data/unemployment.csv", stringsAsFactors = FALSE)
+unemp <- read_csv("data/unemployment.csv")
 
 # Creating a data frame with the background colour information
 name <- c("Truman", "Eisenhower", "Kennedy", "Johnson", "Nixon",
@@ -32,16 +32,12 @@ start <- as.Date(c("1948-01-01", "1953-01-20", "1961-01-20", "1963-11-22",
 end <- c(start[-1], as.Date("2016-10-01"))
 party <- c("D", "R", "D", "D", "R", "R", "D", "R", "R", "D", "R", "D")
 pres <- data.frame(name, start, end, party, stringsAsFactors=F)
-
-
 ```
 
 ![](04-unemployment.png)
-Your code here:
 
 ```{r}
-
-# Transforming date column to datetime (lubridate package!)
+# Define range of unemployment and date variables
 
 
 
@@ -89,10 +85,7 @@ Judging approximately from the figure, which party writes the longest posts in t
 Reading in the data and some initial processing:
 
 ```{r}
-df <- read.csv("data/fb-congress-data.csv", stringsAsFactors = FALSE)
-
-# Transform date column to datetime
-df$date <- as_date(df$date)
+df <- read_csv("data/fb-congress-data.csv")
 
 # Dropping some very uncommon post types
 nrow(df)
@@ -104,7 +97,7 @@ nrow(df)
 Creating the plot data:
 
 ```{r}
-df_plot <- as_tibble(df[df$likes_count > 5000,])
+df_plot <- df[df$likes_count > 5000,]
 df_plot$message_length <- _________(df_plot$message)
 df_plot <- df_plot %>% select(likes_count, shares_count, message_length, party)
 df_plot <- drop_na(df_plot)
