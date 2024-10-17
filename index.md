@@ -126,8 +126,8 @@ The lecture this week will offer an overview of the principles of exploratory da
 
 #### Seminar
 
-- Code: [Exercises in visualistion](x), [solution](x)
-- Graphic to replicate: [Unemployment rates](x)
+- Code: [Exercises in visualistion](week03/04-exercises-visualisation.Rmd), [solution](week03/04-exercises-visualisation-solution.Rmd)
+- Graphic to replicate: [Unemployment rates](week03/04-unemployment.png)
 
 #### Reading
 
@@ -138,7 +138,7 @@ The lecture this week will offer an overview of the principles of exploratory da
 
 * Healy, Kieran. 2019. _Data Visualization: A Practical Introduction._ Princeton, NJ: Princeton University Press, ch. 1. Book available at <https://socviz.co/>.
 * Hughes, A. (2015) ["Visualizing inequality: How graphical emphasis
-shapes public opinion"](https://journals.sagepub.com/doi/abs/10.1177/2053168015622073) Research and Politics.
+shapes public opinion"](https://journals.sagepub.com/doi/abs/10.1177/2053168015622073) Research and Politics.	
 * Tufte, E. (2002) ["The visual display of quantitative information"](https://www.edwardtufte.com/tufte/books_vdqi).
 * Wilkinson, Leland and Graham Wills. 2005. _The Grammar of Graphics_. 2nd ed. New York: Springer, 2005. Ch. 1. [E-book available at LSE Library](https://librarysearch.lse.ac.uk/permalink/44LSE_INST/1f110cn/alma99128824410302021).
 
