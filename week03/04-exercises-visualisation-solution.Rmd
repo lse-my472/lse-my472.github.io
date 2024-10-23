@@ -84,6 +84,8 @@ pq
 
 # Finally, moving legend and removing x axis title
 library(grid)
+
+
 pq <- pq + theme(
     axis.title.x = element_blank(),
     legend.position = "bottom",

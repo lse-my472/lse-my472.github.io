@@ -26,11 +26,14 @@ unemp <- read.csv("data/unemployment.csv", stringsAsFactors = FALSE)
 name <- c("Truman", "Eisenhower", "Kennedy", "Johnson", "Nixon",
         "Ford", "Carter", "Reagan", "Bush I", "Clinton", "Bush II",
         "Obama")
+
 start <- as.Date(c("1948-01-01", "1953-01-20", "1961-01-20", "1963-11-22",
         "1969-01-20", "1974-08-09", "1977-01-20", "1981-01-20",
         "1989-01-20", "1993-01-20", "2001-01-20", "2009-01-20"))
 end <- c(start[-1], as.Date("2016-10-01"))
+
 party <- c("D", "R", "D", "D", "R", "R", "D", "R", "R", "D", "R", "D")
+
 pres <- data.frame(name, start, end, party, stringsAsFactors=F)
 
 
@@ -42,30 +45,128 @@ Your code here:
 ```{r}
 
 # Transforming date column to datetime (lubridate package!)
+# unemp data 
 
+str(unemp$date)
+
+
+#lubridate::as_date()
+unemp$date <- as_date(unemp$date)
 
 
 # Creating a line-plot with unemployment and date
 
 
+line_plot <- ggplot() + geom_line(data = unemp, mapping = aes(x = date , y = unemp))
+print(line_plot)
 
 # Adding the rectangle geometry (set axes limits so that background covers entire plot)
 
+sum(is.na(unemp))
+
+?scale_fill_manual()
+
+
+
+
+#### way 1 ###
+# just using the min and max values of the variables (date + unemployment) to plot the tiles 
+
+lines_rectangle <- line_plot + 
+geom_rect(data = pres, aes(xmin = start, xmax = end, fill = party, ymin = 0, ymax = 0.12), alpha = 0.2) + scale_fill_manual(breaks = c("D", "R"), values = c("blue", "red")) + labs(fill = "Party")
+
+
+print(lines_rectangle)
+
+
+############# way 2 ################
+
+# getting the min and max values of both variables to set scale and axes accordingly
+
+yrng <- range(unemp$unemp, na.rm=TRUE)
+xrng <- range(unemp$date, na.rm=TRUE)
+
+
+lines_rectangle2 <- line_plot + 
+  geom_rect(data = pres, aes(xmin = start, xmax = end, fill = party, ymin=yrng[1]-0.05, ymax=yrng[2]+0.05), alpha = 0.2) +
+  scale_fill_manual(breaks = c("D", "R"), values = c("blue", "red"), labels = c("Democrats", "Republican")) + # labs(fill = "Party")+
+    scale_x_date(limits=xrng, expand=c(0,0)) 
+
+# scale_x_date() is used to customize the x-axis when it represents date data, 
+# using limits = xrng:  xrng is a numeric vector of length two to define the limits of the scale (first value = start of axis, second value = end of axis)
+# expand() = controls the expansion of the scale. The expand=c(0,0) argument removes any no additional space between the edges of the plot area and the data itself meaning the data will fit exactly within the limits specified without any extra space.
+
+
+print(lines_rectangle2)
+
+
+?scale_x_date()
+
+###################################
+
+?scale_fill_manual()
+?geom_rect()
 
 
 # Adding president names
 
 
 
+lines_rectangle_pres <- lines_rectangle2 + 
+  geom_text(data = pres, mapping = aes(x = start, y = yrng[2], label = name),
+            angle = 90, size = 3)
+
+
+
+
+lines_rectangle_pres <- lines_rectangle_pres +
+  geom_vline(data = pres, mapping = aes(xintercept = start),
+             linetype = "dashed", color = "grey55")
+
+
+?geom_vline()
+
+
+
+
+
+
+lines_rectangle_pres <- lines_rectangle2 + 
+  geom_text(data=pres, 
+            aes(x=start, y=yrng[2], label=name),   # deciding on position for text 
+    size=3, hjust=0.25, vjust=1.25, angle=90)      # modifying size, angle = 90° for text being vertical  
+
 # Adding lines to separate presidencies
+lines_rectangle_pres <- lines_rectangle_pres + 
+  geom_vline(data=pres, 
+             aes(xintercept=as.numeric(start)),   # xintercept = makes a line at every point of the start values
+    color="grey50", linetype=5, size=0.5)
 
 
 
+lines_rectangle_pres
 # Finally, moving legend and removing x axis title
+library(grid)
+
+lines_rectangle_pres <- lines_rectangle_pres + theme(
+    axis.title.x = element_blank(),
+    legend.position = "bottom",
+    legend.margin = unit(-1, "cm")) +  # legend.margin = margin(t = -10, unit = "pt")  -> Specify margin with `margin()`
+    labels(fill = "Party of President")
 
 
+lines_rectangle_pres
 
 # Adjusting y axis
+
+lines_rectangle_pres <- lines_rectangle_pres +
+  scale_y_continuous("Unemployment Rate", labels = percent,
+            limits = c(0.02, 0.115), breaks=c(0.02, 0.04, 0.06, 0.08, 0.10, 0.12)) +
+  coord_cartesian(ylim = c(0.02, 0.12))
+
+lines_rectangle_pres
+
+
 
 
 
@@ -105,7 +206,7 @@ Creating the plot data:
 
 ```{r}
 df_plot <- as_tibble(df[df$likes_count > 5000,])
-df_plot$message_length <- _________(df_plot$message)
+df_plot$message_length <- str_count(df_plot$message) # str_count = counts the number of words in an observation (here: a message)
 df_plot <- df_plot %>% select(likes_count, shares_count, message_length, party)
 df_plot <- drop_na(df_plot)
 df_plot$party <- as.factor(df_plot$party)
@@ -114,8 +215,9 @@ df_plot$party <- as.factor(df_plot$party)
 Plot:
 
 ```{r}
-plotlyfigure1 <- plot_ly(df_plot, type= "scatter3d", mode = "markers", x = _________,
-               y = _________, z = _________, color = ~party)
+plotlyfigure1 <- plot_ly(df_plot, type= "scatter3d", mode = "markers", x = ~likes_count,
+               y = ~shares_count, z = ~message_length, color = ~party)
+
 plotlyfigure1 <- plotlyfigure1 %>% layout(scene = list(xaxis = list(title = "Log likes count", type = "log"),
                      yaxis = list(title = "Log shares count", type = "log"),
                      zaxis = list(title = "Message length")))
@@ -128,10 +230,11 @@ Plotly can also create many plots similar to the ones that we have discussed wit
 ```{r}
 plotlyfigure2 <- plot_ly(df_plot[df_plot$message_length>500 &
                                 df_plot$party %in% c("Democrat", "Republican"),],
-                      type = _________, y = ~message_length, split = ~party)
+                      type = "violin", y = ~message_length, split = ~party)
 plotlyfigure2 <- plotlyfigure2 %>% layout(yaxis = list(title = "Message length"))
 
 plotlyfigure2
+yes
 ```
 
 
