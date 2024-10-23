@@ -1,19 +1,22 @@
 ---
 title: "MY472 - Week 4: Reading PDF documents into R"
-author: "Friedrich Geiecke, Thomas Robinson"
-date: "AT 2023"
+author: "Ryan Hübert"
+date: "AT 2024"
 output: html_document
 ---
+
+**Attribution statement:** _The following teaching materials have been iteratively developed by current and former instructors, including: Friedrich Geiecke, Thomas Robinson and Ryan Hübert._
 
 Loading packages:
 
 ```{r}
-#install.packages("tesseract")
-#install.packages("pdftools")
+#install.packages("tesseract") # install if you need to
+#install.packages("pdftools") # install if you need to
+#install.packages("quanteda") # install if you need to
 
-library("pdftools")
-library("stringr")
-library("quanteda")
+library(pdftools)
+library(stringr)
+library(quanteda)
 ```
 
 
@@ -59,7 +62,7 @@ principia_dfm
 Things become much trickier if the PDFs do not contain machine readable text, but instead image such as scans. You can usually detect this case if you cannot select text in a PDF with your mouse. Yet, there is open source OCR (optical character recognition) software which can be used. In R, the package `tesseract` offers an implementation of Google's Tesseract and `pdftools` has a function which implicitly calls the `tesseract` package. 
 
 ```{r}
-#install.packages(tesseract)
+#install.packages(tesseract) # install if you need to
 library(tesseract)
 ```
 

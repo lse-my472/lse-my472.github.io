@@ -1,17 +1,19 @@
 ---
 title: "MY472 - Week 4: Introductory quantitative text analysis"
-author: "Friedrich Geiecke"
-date: "AT 2023"
+author: "Ryan Hübert"
+date: "AT 2024"
 output: html_document
 ---
+
+**Attribution statement:** _The following teaching materials have been iteratively developed by current and former instructors, including: Friedrich Geiecke and Ryan Hübert._
 
 Loading packages:
 
 ```{r}
-library("quanteda")
-library("quanteda.textplots")
-library("tidyverse")
-library("scales")
+library(quanteda)
+library(quanteda.textplots)
+library(tidyverse)
+library(scales)
 ```
 
 
@@ -20,31 +22,30 @@ library("scales")
 In R, text can e.g. be stored in a character vector or in columns of a data frame. Let us look at a simple example:
 
 ```{r}
-exemplary_documents <- c("This is the text of a first document.", "This is a text of a second document.", "And of a third document.")
-names(exemplary_documents) <- c("Document A", "Document B", "Document C")
-exemplary_documents
+sample_documents <- c("This is the text of a first document.", "This is a text of a second document.", "And of a third document.")
+names(sample_documents) <- c("Document A", "Document B", "Document C")
+sample_documents
 ```
 
 Next, we create a `corpus` object from the texts using the `quanteda` package. For a detailed tutorial of this package and textual analysis with it see the following [link](https://tutorials.quanteda.io/). The corpus object stores the documents and a data frame containing so called document variables (`docvars`) that describe the individual documents. When creating the corpus for our example, let us store the name and the number of characters of each document as the document variables.
 
 ```{r}
-exemplary_corpus <- corpus(exemplary_documents,
-
-                           docvars = data.frame(name = names(exemplary_documents),
-                                                characters = str_count(exemplary_documents))
-                           )
+sample_corpus <- corpus(sample_documents,
+                        docvars = data.frame(name = names(sample_documents),
+                                             characters = str_count(sample_documents))
+                        )
 ```
 
 This corpus consists of three documents and two docvars:
 
 ```{r}
-exemplary_corpus
+sample_corpus
 ```
 
 We can access the docvars data frame with:
 
 ```{r}
-docvars(exemplary_corpus)
+docvars(sample_corpus)
 ```
 
 #### 2. Dictionary methods
@@ -85,25 +86,27 @@ dfmplain
 We can now apply dictionary methods to these data. For this we first create a dictionary object from a simple named list. Note that this list could also e.g. contain two character vectors for words associated with positive and negative sentiments.
 
 ```{r}
-short_dictionary <- dictionary(list(taxation = c("tax", "taxes", "taxation"),
-                                    unemployment = c("unemployment", "unemployed"))
-                               )
+short_dictionary <- list(taxation = c("tax", "taxes", "taxation"), 
+                         unemployment = c("unemployment", "unemployed"))
+short_dictionary <- dictionary(short_dictionary)
 short_dictionary
 ```
 
 We can actually use our knowledge of globs and regular expressions to build a dictionary as well. In glob notation:
 
 ```{r}
-short_dictionary_glob <- dictionary(list(taxation = c("*tax*"),
-                                    unemployment = c("unemploy*"))
-                               )
+short_dictionary_glob <- list(taxation = c("*tax*"),
+                              unemployment = c("unemploy*"))
+short_dictionary_glob <- dictionary(short_dictionary_glob)
 short_dictionary_glob
 ```
 
 Using `*tax*`, the following features are e.g. selected:
 
 ```{r}
-dfmplain %>% dfm_select(pattern = "*tax*", valuetype = "glob") %>% featnames()
+dfmplain %>% 
+  dfm_select(pattern = "*tax*", valuetype = "glob") %>% 
+  featnames()
 ```
 
 We found some words that we might not have thought of before. Yet, the list also indicates the limitation of dictionary approaches: Taxing can e.g. mean _demanding_ rather than taxing income or wealth.
@@ -111,10 +114,12 @@ We found some words that we might not have thought of before. Yet, the list also
 Similarly we can use regular expressions to build a dictionary (recall that the `*` has a different meaning in regular expressions!). We just have to indicate in the `dfm_select` function that we are now looking up terms with regular expression notation.
 
 ```{r}
-short_dictionary_regex <- dictionary(list(taxation = c("tax[a-z]*"),
-                                    unemployment = c("unemploy[a-z]*"))
-                               )
-dfmplain %>% dfm_select(pattern = "tax[a-z]*", valuetype = "regex") %>% featnames()
+short_dictionary_regex <- list(taxation = c("tax[a-z]*"),
+                               unemployment = c("unemploy[a-z]*"))
+short_dictionary_regex <- dictionary(short_dictionary_regex)
+dfmplain %>% 
+  dfm_select(pattern = "tax[a-z]*", valuetype = "regex") %>% 
+  featnames()
 ```
 
 What would(n't) be selected with "tax[a-z]+" and why?
@@ -122,8 +127,9 @@ What would(n't) be selected with "tax[a-z]+" and why?
 With our dictionary and the dfm, we can then create a new dfm containing the counts of words found for each of the two sub-dictionaries. We use our glob dictionary and specify in the `dfm_lookup` function to use the glob notation. Note that in the case of sentiment analysis, the resulting dfm could e.g. have one column for positive and one column for negative sentiment keywords, in our example it has one for taxation and one for unemployment words.
 
 ```{r}
-dfm_dictionary <- dfm_lookup(dfmplain, dictionary = short_dictionary_glob,
-                               valuetype = "glob") # note that the function is case insensitive by default
+dfm_dictionary <- dfm_lookup(dfmplain, 
+                             dictionary = short_dictionary_glob,
+                             valuetype = "glob") # note that the function is case insensitive by default
 dfm_dictionary
 ```
 
