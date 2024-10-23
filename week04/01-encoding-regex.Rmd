@@ -20,15 +20,15 @@ library(tidyverse)
 First, let's examine how special characters can affect file size. Since `readr` encodes all text files with UTF-8, the accents will require more bytes
 
 ```{r}
-root <- ""
+ddir <- "" # insert file path to the directory with the data
 
 # Write a plain text file with my last name
 raw <- "Hübert" # how many bytes should you expect?
-write_file(raw, paste0(root, "hubert1.txt")) # note: default encoding is UTF-8
+write_file(raw, paste0(ddir, "hubert1.txt")) # note: default encoding is UTF-8
 
 # Write a plain text file with my last name, but omit the accent
 raw <- "Hubert" # how many bytes should you expect?
-write_file(raw, paste0(root, "hubert2.txt")) # note: default encoding is UTF-8
+write_file(raw, paste0(ddir, "hubert2.txt")) # note: default encoding is UTF-8
 ```
 
 By default `readr` will encode files it saves as UTF-8. See <https://readr.tidyverse.org/reference/locale.html>. As far as I know, you cannot choose a different encoding when you write a file in `readr` using `write_file`. For the most part, this is not only okay, it's preferable. Let's see why through some examples. 
@@ -43,10 +43,10 @@ First note that the UTF-32 encoded file is more than double the size of UTF-8 (j
 
 ```{r}
 ## This works
-read_file(paste0(root, "utf-examples-8.txt"))  # This works (sort of...)
+read_file(paste0(ddir, "utf-examples-8.txt"))  # This works (sort of...)
 ## These do not work
-read_file(paste0(root, "utf-examples-16.txt"))  # This drops most of the characters
-read_file(paste0(root, "utf-examples-32.txt"))  # This drops most of the characters
+read_file(paste0(ddir, "utf-examples-16.txt"))  # This drops most of the characters
+read_file(paste0(ddir, "utf-examples-32.txt"))  # This drops most of the characters
 ```
 
 The longer the text (i.e., more characters), the worse the "bloat" from UTF-32 becomes. To see this one more time, in week 4 materials, I saved three files starting with "methodology" which contain the text from the Methodology Department's [About us](https://www.lse.ac.uk/Methodology/About-us/About-us) page. Notice that a file encoded as UTF-8 takes up 3,284 bytes of storage, but the file encoded as UTF-32 takes up 13,124 bytes. It's the exact same text, just stored more inefficiently! 
@@ -62,25 +62,25 @@ Finally, let's look at some Chinese characters. We will try to read a file conta
 This prints hexadecimal code points mapped to approximately "ÉϺ£": 
 
 ```{r, error = TRUE}
-read_file(paste0(root, "shanghai.txt")) 
+read_file(paste0(ddir, "shanghai.txt")) 
 ```
 
 This does not work at all:
 
 ```{r, error = TRUE}
-read_file(paste0(root, "shanghai.txt"), locale = locale(encoding="utf-8"))
+read_file(paste0(ddir, "shanghai.txt"), locale = locale(encoding="utf-8"))
 ```
 
 This does not print the same characters:
 
 ```{r, error = TRUE}
-read_file(paste0(root, "shanghai.txt"), locale = locale(encoding="utf-16")) 
+read_file(paste0(ddir, "shanghai.txt"), locale = locale(encoding="utf-16")) 
 ```
 
 Maybe R can help us?? (Nope!)
 
 ```{r, error = TRUE}
-guess_encoding(paste0(root, "shanghai.txt"))
+guess_encoding(paste0(ddir, "shanghai.txt"))
 ```
 
 Maybe Terminal can help??
@@ -96,7 +96,7 @@ No, it can't... it guesses the encoding is [ISO-8859-1](https://en.wikipedia.org
 If we just *happen* to know the encoding, we can finally read the file correctly:
 
 ```{r}
-read_file(paste0(root, "shanghai.txt"), locale = locale(encoding="gb18030"))
+read_file(paste0(ddir, "shanghai.txt"), locale = locale(encoding="gb18030"))
 ```
 
 What a nightmare! But if you find yourself in this situation and are lucky enough to figure out a file's encoding, you should always save a new version encoding in a more standard encoding, like UTF-8. You might even consider using a file name indicating it is encoded with UTF-8 so that the next person will thank you!
@@ -104,15 +104,15 @@ What a nightmare! But if you find yourself in this situation and are lucky enoug
 Since `readr` encodes as UTF-8 by default, we can do the following:
 
 ```{r}
-shanghai <- read_file(paste0(root, "shanghai.txt"), locale = locale(encoding="gb18030"))
+shanghai <- read_file(paste0(ddir, "shanghai.txt"), locale = locale(encoding="gb18030"))
 print(shanghai)
-write_file(shanghai, paste0(root, "shanghai_utf-8.txt"))
+write_file(shanghai, paste0(ddir, "shanghai_utf-8.txt"))
 ```
 
 Now that we've saved with UTF-8 encoding, let's see how much easier it is to read the file:
 
 ```{r}
-read_file(paste0(root, "shanghai_utf-8.txt"))
+read_file(paste0(ddir, "shanghai_utf-8.txt"))
 ```
 
 Note here that we no longer have to specify an encoding, as R assumes it is UTF-8, and it is. We get the expected text.

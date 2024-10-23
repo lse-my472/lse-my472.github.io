@@ -158,9 +158,17 @@ We will learn how to work with unstructured data in the form of text and discuss
 
 #### Lecture
 
-- [Slides](x)
-- Code: [Regular expressions in R](x), [text analysis](x), [parsing pdfs](x)
-- Data: [Sample texts](x), [Keynes' "General Theory" cover](x)
+- [Slides](week04/MY472-week04-text.pdf)
+- Code: [Encoding and regex](week04/01-encoding-regex.Rmd), [text analysis](week04/02-text-analysis.Rmd), [parsing pdfs](week04/03-parsing-pdfs.Rmd)
+- Data: 
+	- [Keynes' "General Theory" cover](week04/data/general_theory_cover.pdf)
+	- [Methodology about us (UTF-8)](week04/data/methodology-8.txt)
+	- [Methodology about us (UTF-16)](week04/data/methodology-16.txt)
+	- [Methodology about us (UTF-32)](week04/data/methodology-32.txt)
+	- [UTF example (8-bit)](week04/data/utf-examples-8.txt)
+	- [UTF example (16-bit)](week04/data/utf-examples-16.txt)
+	- [UTF example (32-bit)](week04/data/utf-examples-32.txt)
+	- [Shanghai](week04/data/shanghai.txt)
 
 #### Seminar
 
