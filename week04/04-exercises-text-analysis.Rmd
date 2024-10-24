@@ -7,7 +7,7 @@ output: html_document
 
 **Attribution statement:** _The following teaching materials have been iteratively developed by current and former instructors, including: Friedrich Geiecke, Thomas Robinson and Ryan Hübert._
 
-## Exercise 1
+## Exercise 1: character encoding
 
 Suppose that you are doing a project analysing news articles from around the world in different languages. Your collaborator sends you a news article saved in a plain-text file. Unfortunately, he does not know how it is encoded, or even which languages it is in. Figure out the file's character encoding and its language (Google or ChatGPT can help you identify the language if you cannot recognize it yourself). Then write a new copy on your computer with UTF-8 encoding and using a file name that indicates it is UTF-8.
 
@@ -21,9 +21,12 @@ write_file(___________, ___________)
 ```
 
 
-## Exercise 2
+## Exercise 2: regex in R
 
 Useful reference for string functions in R: <https://stringr.tidyverse.org/articles/stringr.html>
+
+Useful reference for constructing regular expressions (regex) patterns: <https://github.com/rstudio/cheatsheets/blob/main/regex.pdf>
+
 
 The file `uol.txt` in the course repo for this week (in the `data` folder) contains a list of 17 member institutions of the University of London. In R via `str_view()`, write down a regular expression which finds all postcodes. Note that in some of the postcodes there are white spaces between the two parts and in others not. The regular expression has to work with both.
 
@@ -42,7 +45,7 @@ print(txt)
 
 Hint: In R, the way to reference a group in the replace is `"\\1"`.
 
-## Exercise 3
+## Exercise 3: basic text analysis
 
 The `quanteda` package contains a lot of sample collections of documents you can use to practice your skills turning texts into quantitative datasets and then doing some basic text analysis. One of these contains the immigration section of the manifestos of nine UK political parties from 2010. It is called `data_char_ukimmig2010`, and it can be accessed after loading `quanteda`.
 

@@ -182,7 +182,7 @@ We will learn how to work with unstructured data in the form of text and discuss
 
 #### Further reading
 - Wickham, Hadley and Garett Grolemund.  2017, [Chapter 14](http://r4ds.had.co.nz/strings.html)
-- [Regular expressions cheat sheet](x)
+- [Regular expressions cheat sheet](https://github.com/rstudio/cheatsheets/blob/main/regex.pdf)
 - [Regular expressions in R vignette](https://cran.r-project.org/web/packages/stringr/vignettes/regular-expressions.html)
 
 
