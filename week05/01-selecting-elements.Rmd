@@ -1,9 +1,11 @@
 ---
 title: "MY472 - Week 5: Selecting elements on websites"
-author: "Friedrich Geiecke"
-date: "25 October 2022"
+author: "Ryan Hübert"
+date: "Autumn Term 2024"
 output: html_document
 ---
+
+**Attribution statement:** _The following teaching materials have been iteratively developed by current and former instructors, including: Friedrich Geiecke and Ryan Hübert._
 
 ```{r}
 library(rvest)
@@ -12,7 +14,7 @@ library(rvest)
 Let us use our simple self-made website to illustrate how elements of websites can be selected and scraped. First, let us read the HTML content of the site:
 
 ```{r}
-url <- "https://lse-my472.github.io/week05/data/website_5.html"
+url <- "https://lse-my472.github.io/week05/data/css2.html"
 html <- read_html(url)
 ```
 
@@ -39,9 +41,11 @@ We can return the texts of all paragraphs contained in the list with a loop:
 
 ```{r}
 for (i in 1:length(relevant_elements)) {
-  
   print(html_text(relevant_elements[[i]]))
-  
+}
+## alternatively
+for (i in relevant_elements) {
+  print(html_text(i))
 }
 ```
 
@@ -55,9 +59,7 @@ relevant_elements
 ```{r}
 # Printing all elements
 for (i in 1:length(relevant_elements)) {
-  
   print(html_text(relevant_elements[[i]]))
-  
 }
 ```
 
@@ -74,11 +76,11 @@ In fact, only one node is returned in the list. It is the correct division conta
 html_text(relevant_elements[[1]])
 ```
 
-Lastly, when inspecting an element and copying the CSS selector in your browser, often a so called pseudo class is returned which names the nth child of a parent element. Conceptually, this makes use of the tree representation of such documents. For example, let us select and scrape only the first paragraph in the second division. "Inspect element" (in Firefox) yields exactly such a type of CSS selector ".division-two > p:nth-child(2)". This simply means that the paragraph of interest is the second child of the division parent element "div" which we previously named "division two". Thinking of our website as a tree, what is the first child of this parent element?
+Lastly, when inspecting an element and copying the CSS selector in your browser, often a so called pseudo class is returned which names the nth child of a parent element. Conceptually, this makes use of the tree representation of such documents. For example, let us select and scrape only the first paragraph in the second division. "Inspect element" (in Google Chrome) yields exactly such a type of CSS selector "body > div.division-two > p:nth-child(2)". This simply means that the paragraph of interest is the second child of the division parent element "div" which we previously named "division two". Thinking of our website as a tree, what is the first child of this parent element?
 
 Scraping with this CSS selector yields the correct element from our website:
 
 ```{r}
-relevant_elements <- html_elements(html, css = "tba")
+relevant_elements <- html_elements(html, css = "__________") # fill this in during lecture
 html_text(relevant_elements[[1]])
 ```

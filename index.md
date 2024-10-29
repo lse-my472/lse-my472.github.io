@@ -192,8 +192,9 @@ This week we cover the basics of web scraping for tables and unstructured data f
 
 #### Lecture
 
-- [Slides](x)
-- Code: [Website example](x), [selecting elements](x), [scraping tables](x)
+- [Slides](week05/MY472-week05-scraping-1.pdf)
+- Examples: [Website example 1](week05/data/html1.html), [Website example 2](week05/data/html2.html), [Website example 3](week05/data/html3.html), [Website example 4](week05/data/css1.html), [Website example 5](week05/data/css2.html)
+- Code: , [selecting elements](week05/01-selecting-elements.Rmd), [scraping tables](week05/02-scraping-tables.Rmd)
 
 
 #### Seminar

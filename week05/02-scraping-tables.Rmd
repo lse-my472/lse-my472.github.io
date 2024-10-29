@@ -1,9 +1,11 @@
 ---
 title: "MY472 - Week 5: Scraping tabular data"
-author: "Pablo Barbera, Friedrich Geiecke, Akitaka Matsuo"
-date: "25 October 2022"
+author: "Ryan Hübert"
+date: "Autumn Term 2024"
 output: html_document
 ---
+
+**Attribution statement:** _The following teaching materials have been iteratively developed by current and former instructors, including: Pablo Barberá, Friedrich Geiecke, Akitaka Matsuo and Ryan Hübert._
 
 ### Scraping web data in table format
 
@@ -36,7 +38,6 @@ substr(html_content, 1, 1000)
 To extract all the tables in the html code automatically, we use `html_table()`. Note that it returns a list of data frames which has length 1 here as there is only one table on this website.
 
 ```{r}
-
 # Extracting tables in the document
 tab <- html_table(html_content, fill = TRUE)
 
@@ -46,7 +47,6 @@ str(tab)
 
 # Save the dataframe (tibble)
 social_security_data <- tab[[1]]
-social_security_data <- as_tibble(social_security_data)
 social_security_data
 ```
 
@@ -88,24 +88,22 @@ class(tables)
 length(tables)
 ```
 
-The function returns 15 different tables. The option `fill=TRUE` is used because some of the tables appear to have incomplete rows.
+The function returns 10 different tables. The option `fill=TRUE` is used because some of the tables appear to have incomplete rows.
 
 One option is to go through these tables in this list manually and select the correct one:
 
 ```{r}
-tables[5] # position 5 happens to be the correct table (checked 23/10/2023)
+print(tables[3]) # position 3 happens to be the correct table (checked 29/10/2024)
 ```
 
 Alternatively, the table of interest can be identified directly with a right-click and "Inspect" or "Inspect Element" in the browser. Clicking on the relevant part of the page's code then allows to copy identifiers such as the CSS selector.
 
-CSS selector: table.wikitable:nth-child(25) (extracted with Firefox "Inspect Element" on 23/10/2023)
-
-An alternative option is to look at the full source code of the website. In Google Chrome e.g., go to _View_ > _Developer_ > _View Source_. All browsers should have similar options to view the source code of a website. In the source code, search for the text of the page (e.g. _2022 rank_). Right above it you will see: `<table class="wikitable sortable ..." ...>`. This is the CSS selector. Using this selector, however, might still return several tables.
+You can also look at the full source code of the website to find the relevant selector. In Google Chrome e.g., go to `View > Developer > View Source`. All browsers should have similar options to view the source code of a website. In the source code, search for the text of the page (e.g. _2020 land area_). Above it you will see: `<table class="sortable wikitable ..." ...>`. This is the CSS selector. Using this selector, however, might still return several tables or none (as we'll see).
 
 Now that we know what we're looking for, let's use `html_elements()` to identify all the elements of the page that have that CSS class (note that we use a dot before the name of the class because the R function expects CSS notation). Whereas we will find several elements with the CSS selector ".wikitable" which we would have to search subsequently, we will only find one with the very specific selector obtained with inspect element.
 
 ```{r}
-table_raw <- html_elements(html, css = "tba")
+table_raw <- html_elements(html, css = "_____")
 length(table_raw) # now a list of length 1
 ```
 
@@ -119,7 +117,7 @@ data_pop
 As in the previous case, we still need to clean the data before we can use it. For this particular example, let's see if this dataset provides evidence in support of [Zipf's law for population ranks](https://en.wikipedia.org/wiki/Zipf%27s_law). Keeping only the columns of interest and transforming into a tibble:
 
 ```{r}
-data_pop <- data_pop %>% select(c("City", "2022rank", "2022estimate"))
+data_pop <- data_pop %>% select(c("City", "2023estimate"))
 data_pop
 ```
 
@@ -127,9 +125,8 @@ Renaming and cleaning columns:
 
 ```{r}
 # Renaming the columns
-data_pop <- rename(data_pop, city_name = "City",
-                   rank = "2022rank",
-                   population = "2022estimate")
+data_pop <- data_pop %>% 
+  rename(city_name = "City", population = "2023estimate")
 
 # Removing superscripts in the city names
 data_pop$city_name <- gsub("\\[.*\\]", "", data_pop$city_name)
@@ -137,7 +134,13 @@ data_pop$city_name <- gsub("\\[.*\\]", "", data_pop$city_name)
 # Removes commas and transform population figures into numbers
 data_pop$population <- as.numeric(gsub(",", "", data_pop$population))
 
-data_pop
+# Remove the first row which is a header, not a data row
+data_pop <- data_pop %>% filter(city_name!="City")
+
+# Create a new variable that has each city's ranking
+data_pop <- data_pop %>% 
+  arrange(desc(population)) %>%
+  mutate(rank = row_number())
 ```
 
 Now we're ready to generate the figure:
