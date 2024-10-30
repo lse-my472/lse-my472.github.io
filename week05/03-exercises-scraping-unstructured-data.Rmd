@@ -7,8 +7,8 @@ output: html_document
 These exercises discuss scraping unstructured data. We will use Wikipedia as an example. While there is also the Wikidata API which would allow to obtain data in an already structured format (we will discuss web APIs in week 8), the Wikipedia website itself is a very helpful example to study web scraping.
 
 ```{r}
-library("tidyverse")
-library("rvest")
+library(tidyverse)
+library(rvest)
 ```
 
 ## 1. CSS selectors for single elements, multiple elements, and nested elements
@@ -22,7 +22,7 @@ html_noether <- read_html(url_noether)
 
 __Scraping single elements__
 
-The first example will be to collect only a single element of the HTML code, i.e. here the caption of the first image. It is on the right hand side of the website and begins with "Noether grew up in ...". Inspect the caption with your browser, copy its CSS selector, and scrape the caption by completing the code below:
+The first example will be to collect only a single element of the HTML code, i.e. here the caption of the second image. It is on the right hand side of the website and begins with "Noether grew up in ...". Inspect the caption with your browser, copy its CSS selector, and scrape the caption by completing the code below:
 
 ```{r}
 first_caption_element <- html_noether %>% html_elements(css = ________)
@@ -75,7 +75,7 @@ labels_feynman <- label_elements_feynman %>% ________
 data_feynman <- data_elements_feynman %>% ________
 ```
 
-Printing the first entries:
+Print the entry labels and values:
 
 ```{r}
 labels_feynman[1:5]
@@ -95,6 +95,12 @@ The title of his PhD thesis?
 
 ```{r}
 data_feynman[________]
+```
+
+Notice there are some issues in some of the values, such as "Education" and "Known for". Use some regular expressions and `str_` functions to clean up the "Education" field. Hint: first inspect it and see if you can figure out a good way to delete all the code and keep all the text.
+
+```{r}
+data_feynman[labels_feynman=="Education"] <- ________(data_feynman[labels_feynman=="Education"], "________", "________")
 ```
 
 The information could now be stored in a data frame. In the optional advanced example of the next section, we will look at how we could automate this approach for all physics laureates rather than just Richard Feynman.
