@@ -199,7 +199,7 @@ This week we cover the basics of web scraping for tables and unstructured data f
 
 #### Seminar
 
-- Code: [Scraping unstructured data](x), [solution](x)
+- Code: [Scraping unstructured data](week05/03-exercises-scraping-unstructured-data.Rmd), [solution](week05/03-exercises-scraping-unstructured-data-solution.Rmd)
 
 
 #### Reading
