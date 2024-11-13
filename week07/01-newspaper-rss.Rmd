@@ -1,23 +1,23 @@
 ---
 title: "MY472 - Week 7: Scraping newspaper RSS feeds"
-date: "11 November 2023"
+date: "Autumn Term 2024"
 output: html_document
 ---
 
 Loading packages:
 
 ```{r}
-library("rvest")
-library("tidyverse")
-library("xml2")
+library(rvest)
+library(tidyverse)
+library(xml2)
 ```
 
 In this example, we will scrape an RSS feed and some articles from the [The Guardian](www.theguardian.com). Combining the techniques we have covered in the course so far, the goal is to produce a tabular dataset in which one line represents an article.
 
-You can read through the [Guardian's RSS documentation](https://www.theguardian.com/help/feeds). As you can see, RSS is provided for each of the news category and the url is always https://www.theguardian.com/####/rss. You can even find some sub category of a specific news category. For instance, the following works: [https://www.theguardian.com/world/japan/rss](https://www.theguardian.com/world/japan/rss). As an example, let us look at the Brexit RSS feed:
+You can read through the [Guardian's RSS documentation](https://www.theguardian.com/help/feeds). As you can see, RSS is provided for each of the news category and the url is always https://www.theguardian.com/####/rss. You can even find some sub category of a specific news category. For instance, the following works: [https://www.theguardian.com/world/japan/rss](https://www.theguardian.com/world/japan/rss). As an example, let us look at the RSS feed about space-related articles:
 
 ```{r}
-url <- "https://www.theguardian.com/politics/eu-referendum/rss"
+url <- "https://www.theguardian.com/science/space/rss"
 ```
 
 Before scraping, we can check the structure of the xml document in the browser. We need to know what the element for each article is called and find the xml tag "item". Next, we read in the document and extract these elements.
@@ -27,6 +27,7 @@ Note: `xml_nodes()` was deprecated in rvest 1.0.0 and it is advised to use `html
 ```{r}
 # Reading the xml document
 rss_xml <- read_xml(url)
+Sys.sleep(2) # You should always put delays after sending requests to webservers -- this is good etiquette! 
 
 # Extracting the items in the RSS feed
 elements <- html_elements(rss_xml, css = "item")
@@ -107,11 +108,11 @@ text_extractor <- function(current_url, sec = 2){
 }
 ```
 
-Before we begin the loop, let us reduce the dataset to only the first 10 articles to save some time in this illustration:
+Before we begin the loop, let us reduce the dataset to only the first 5 articles to save some time in this illustration:
 
 ```{r}
-# Storing only the first ten rows of the dataframe
-data_articles_small <- data_articles[1:10,]
+# Storing only the first 5 rows of the dataframe
+data_articles_small <- data_articles[1:5,]
 ```
 
 For loop:
@@ -131,7 +132,9 @@ for (i in 1:nrow(data_articles_small)) {
 }
 ```
 
-In R, however, we often use apply functions which offer a more compact notation. The function `sapply()` allows to apply another function element-wise to a vector and returns a vector. This vector is assigned to the dataframe as a new column (takes a little time to run):
+In R, however, we often use apply functions which offer a more compact notation. These functions also often perform computations more quickly. But in this situation, we are purposefully slowing down our code (good scraping etiquette!), so an apply function won't be a big improvement over the loop in terms of speed. 
+
+The function `sapply()` allows to apply another function element-wise to a vector and returns a vector. This vector is assigned to the dataframe as a new column (takes a little time to run):
 
 ```{r}
 data_articles_small$full_text_2 <- sapply(data_articles_small$article_url, text_extractor)

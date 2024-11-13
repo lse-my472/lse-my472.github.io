@@ -1,69 +1,96 @@
 ---
 title: "MY472 - Week 7: A first script using RSelenium"
-author: "Friedrich Geiecke, Daniel de Kadt"
-date: "7 November 2023"
+date: "Autumn Term 2024"
 output: html_document
 ---
 
-Note: Using `RSelenium` usually requires Java DK. First, try to see whether it is already installed on your computer - only install `RSelenium` with `install.packages("RSelenium")` and try to run the code in this document. If that does not work properly, next try to install Java DK. You can download the current version from here: https://www.oracle.com/java/technologies/downloads/. After its installation, restart RStudio.
-
-Loading the Selenium package:
-
-```{r}
-#install.packages("RSelenium") -- run once to install the package on your computer
-library("RSelenium")
-#install.packages("netstat") -- this is optional, to allow the use of free_port()
-library("netstat")
+```{r setup, include=FALSE} 
+# Because this script creates a marionette browser using RSelenium, I want to 
+# be able to knit to HTML without evaluating each chunk.
+knitr::opts_chunk$set(eval=FALSE)
 ```
 
-Launching the driver and browser (if the port is already in use, choose a different number with four digits, e.g. `rsDriver(browser=c("firefox"), port = 1234L)`). Alternatively -- as we do here -- choose a random free port using `netstat:free_port`. This code will now open what we call a 'marionette' browser (you can figure out why). Do not close this browser window!
+**Important set-up steps:**
+
+1. Using `RSelenium` usually requires Java DK. First, try to see whether it is already installed on your computer - only install `RSelenium` with `install.packages("RSelenium")` and try to run the code in this document. If that does not work properly, next try to install Java DK. You can download the current version from here: <https://www.oracle.com/java/technologies/downloads/>. After its installation, restart RStudio.
+
+2. We will use the Firefox browser with `RSelenium` because it tends to work best. If it is not already installed on your computer, please install it from here: <https://www.mozilla.org/firefox/new/>.
+
+First, let's load the `RSelenium` package as well as the `netstat` package. If they are not installed, then you can run the two `install.packages` command below.
 
 ```{r}
-# note that we use 'chromever = NULL' as chrome drivers seem to be buggy as of 11/6/23
-rD <- rsDriver(browser=c("firefox"), port = free_port(random = TRUE), chromever = NULL) 
+#install.packages("RSelenium") -- if needed, run once to install the package on your computer
+#install.packages("netstat") -- if needed, run once to install the package on your computer
+library(RSelenium)
+library(netstat) # this is optional, to allow the use of free_port()
+```
+
+Now, we will launching the driver and browser (if the port is already in use, choose a different number with four digits, e.g. `rsDriver(browser=c("firefox"), port = 1234L)`). Alternatively -- as we do here -- choose a random free port using `netstat:free_port`. This code will now open what we call a 'marionette' browser (you can figure out why). Do not close this browser window!
+
+```{r}
+rD <- rsDriver(browser=c("firefox"), port = free_port(random = TRUE))
 driver <- rD$client
 ```
 
-Navigate to the Google website:
+Getting `RSelenium` to work might take a little effort. For example, some users will get the following error message when they try to launch the browser:
+
+```
+Error in if (file.access(phantompath, 1) < 0) { : 
+  argument is of length zero
+```
+
+If you get this error, you can try to run these lines in R and then restart RStudio.
+
+```{r, eval=FALSE}
+# binman::rm_platform("phantomjs")
+# wdman::selenium(retcommand = TRUE)
+```
+
+See this page for more information: <https://stackoverflow.com/questions/46202062/i-got-error-like-error-in-if-file-accessphantompath-1-0-argument-is-o> about this specific error. More generally, you should use Google to find resources to help you troubleshoot any other errors you get. In case you haven't noticed this yet: Stack Overflow is an amazing crowd-sourced resource for fixing coding errors.
+
+Now, let's navigate to the Google website:
 
 ```{r}
 url <- "https://www.google.com/"
 driver$navigate(url)
 ```
 
-Since recently there can be new privacy terms that have to be accepted once in some regions.
+These days, many countries and regions of the world require websites to allow users to opt out of accepting cookies. When you navigate to Google, you may get a pop-up window asking you to accept or reject. 
 
-Side note: Some such cases with pop-up windows on websites might require frame switching (although it seems that the 2023 version of Google does not require this at the moment). Should the code below not run on your computer after you have entered the correct XPath, try to uncomment the `swithToFrame` functions. As the the window is in the foreground, it can be that we have to switch the frame. Without this switching of the frame, we might not be able to click on the right element. Whether switching the frame is necessary depends on the design of the underlying website which can change.
+Side note: some websites with pop-up windows might require "frame switching" in order to click the accept or reject button. As of November 2024, it does not appear that Google requires this. However, if you find that your code does not work after finding the accept/reject buttons using XPath, then you should try: switch frames using `driver$switchToFrame(0)`, click the right button, then switch frames again using `driver$switchToFrame(1)`. Whether switching the frame is necessary depends on the design of the underlying website which can change.
 
-As an exercise, the XPaths of the relevant elements have to be obtained with the Inspect function of the browser and then be pasted into this code replacing the "tba".
+Below, you should choose whether you want to accept or reject the cookies (your choice!). I will reject them by using XPath to find the element of the page with the text "Reject all".
 
 ```{r}
-#driver$switchToFrame(0) # can be un-commented and tried if code does not run
+# driver$switchToFrame(0) # can be un-commented and tried if code does not run
 
-# note the use of single quotes around 'tba' -- this is because the xpath will sometimes include double quotes. if you have double quotes inside a string, you need to use single quotes to define the extent of the string.
-agree_button <- driver$findElement(using = "xpath", value = 'tba')
-agree_button$clickElement()
+# agree_button <- driver$findElement(using = "xpath", value = '//div[text()="Accept all"]') # notice that the "Accept all" text is in a div tag!
+# agree_button$clickElement()
+reject_button <- driver$findElement(using = "xpath", value = "//div[text()='Reject all']") # notice that the "Reject all" text is in a div tag!
+reject_button$clickElement()
 
-#driver$switchToFrame(1)
+# driver$switchToFrame(1) # can be un-commented and tried if code does not run
 ```
 
-Next, we will search for the LSE:
+Notice the use of single and double quotes in the XPaths above. If you use double quotes inside the XPath, you need to use single quotes around the whole XPath (and vice versa). This is an important issue in coding with strings.
+
+Next, we will search for the LSE. Important note: you will very often need `Sys.sleep()` with `RSelenium`, because it runs too fast for many web browsers and/or webservers. In fact, we will consider it good etiquette to _always_ include delays when you are interacting with a webpage (i.e., making requests to a web server).
 
 ```{r}
-search_field <- driver$findElement(using = "xpath", value = 'tba')
+search_field <- driver$findElement(using = "xpath", value = 'tbd')
 search_field$sendKeysToElement(list("london school of economics"))
-Sys.sleep(1)
+Sys.sleep(1) 
 search_field$sendKeysToElement(list(key = "enter"))
 ```
 
 And navigate to the LSE website by clicking on the first link of the search results:
 
 ```{r}
-first_link <- driver$findElement(using = "xpath", value = 'tba')
+first_link <- driver$findElement(using = "xpath", value = 'tbd')
 first_link$clickElement()
 ```
 
-Lastly, let us close the driver and browser:
+Lastly, let us close the driver and browser. Check that your marionette browser is actually closed now.
 
 ```{r}
 # close the Rselenium processes:
