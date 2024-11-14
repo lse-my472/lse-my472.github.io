@@ -50,7 +50,7 @@ description <- elements %>%
   
 # Extract date and process as datetime
 datetime <- elements %>%
-  html_element("dc\\:date") %>% 
+  html_element("dc[:]date") %>% 
   xml_text() %>%
   parse_datetime() 
 

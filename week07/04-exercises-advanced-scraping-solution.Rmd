@@ -1,0 +1,277 @@
+---
+title: "MY472 - Week 7: Seminar exercises in scraping data behind web forms - solution"
+date: "Autumn Term 2024"
+output: html_document
+---
+
+```{r setup, include=FALSE} 
+# Because this script creates a marionette browser using RSelenium, I want to 
+# be able to knit to HTML without evaluating each chunk.
+knitr::opts_chunk$set(eval=FALSE)
+```
+
+The most difficult scenario for web scraping is when data is hidden behind multiple pages that can only be accessed entering information into web forms. There are a few approaches that might work in these cases, with varying degree of difficulty and reliability, but often the best method is to use [Selenium](https://en.wikipedia.org/wiki/Selenium_(software)).
+
+Selenium automates web browsing sessions, and was originally designed for testing purposes. You can simulate clicks, enter information into web forms, add some waiting time between clicks, etc. To learn how it works, we will scrape a heavily javascripted [website of 2017 General Election results](https://www.theguardian.com/politics/ng-interactive/2017/jun/08/live-uk-election-results-in-full-2017). (You can download the information from the government websites, but well, this is an example.)
+
+```{r}
+url <- "https://www.theguardian.com/politics/ng-interactive/2024/jul/04/uk-general-election-results-2024-live-in-full"
+```
+
+As you can see, the information we want to scrape is dynamically displayed by putting information in the search field. By checking the website source, you can confirm that the information is not in the `html` but rendered dynamically when you select a particular url.
+
+The first step is to load the RSelenium. Then, we will start a browser running in the background. I will use Firefox, but also Chrome should work.
+
+```{r}
+library(RSelenium)
+library(tidyverse)
+library(rvest)
+library(xml2)
+library(netstat)
+```
+
+We first start Selenium server in Firefox:
+
+```{r}
+# Start the Selenium server:
+rD <- rsDriver(browser=c("firefox"), verbose = F, port = netstat::free_port(random = TRUE), chromever = NULL) 
+driver <- rD$client # note this alternative but equivalent call for setting the driver client
+
+# Navigate to the selected URL address
+driver$navigate(url)
+Sys.sleep(0.5)
+```
+
+This should open a browser window (in Firefox) with the specified URL.
+
+Here's how we would check that it worked:
+
+```{r}
+# Get the page source code of the current page
+src <- driver$getPageSource()
+
+# and see its first 1000 characters
+substr(src, 1, 1000) # This is a really nice function to have to look at portions of a string
+```
+
+First things first: the following code will remove the cookie banner at the bottom.
+
+```{r}
+# We need to click on "Yes, I accept" button:
+
+# If you get an error saying "NoSuchElement" below, then you might not be on the correct frame.
+# The cookie pop-up window is on frame 1
+# driver$switchToFrame(1)
+# Note: when I (Ryan) run this, I have to switch frames; you probably will to
+
+# 1. Use a command to locate the button on the page
+accept_button <- driver$findElement(using = "xpath", value = '//button[text()="Yes, I accept"]') 
+
+# Exercise: If you did *not* want to accept, then what would be the xpath you would use instead?
+
+# 2. Click on the button:
+accept_button$clickElement()
+Sys.sleep(0.5)
+
+# Switch back to default frame -- if this does not work try driver$switchToFrame(NULL)
+# driver$switchToFrame(NA) 
+```
+
+There is a search bar that allows you to find each MP constituency's results using either post codes or constituency names. Let's find the results from the constituency around LSE, using postcode "WC2A2AE". First, find the search bar using the inspect elements tool, and then enter "WC2A2AE" into the search bar.
+
+Note the way we are doing this: first we create an object that has the XPath we want, then we use that XPath in commands as we need. This is a convenient way to do this because _every time_ you need to do something with the search bar, you will need to find the element on the page. So, you can just write the XPath once and then reuse it over and over again. This also helps prevents coding errors --- since we are defining the XPath as its own object, if we need to change it, the change will carry through to all the rest of our code below.
+
+```{r}
+# 1. First, construct an XPath finding the search bar on the page
+search_field_xpath <- '//*[@name="search"]'
+
+# 2. Using this XPath, find the node on the page
+search_field <- driver$findElement(using = 'xpath', value = search_field_xpath)
+
+# 3. send a post code to the search field
+search_field$sendKeysToElement(list("WC2A2AE"))
+
+Sys.sleep(0.5)
+```
+
+Notice that when you put text into the search bar, a dynamic list appears of all possible matches. It is difficult to use the inspect feature tool to figure out how to identify the element(s) corresponding to this list because it disappears when you try to click on it. You can use RSelenium and rvest to figure out how to extract this list, by writing an XPath that finds the element(s) that contain the text "Cities of London and Westminster".
+
+```{r}
+read_html(driver$getPageSource()[[1]]) |> 
+  html_elements(xpath="//*[text()='Cities of London and Westminster']")
+```
+
+We can see that the list of suggestions pops up as a list (`ul` and `li` html tags---review these if you do not recall). Now, extract out all the constituency names. In this case, there is only one, but there may be situations where there are multiple options.
+
+```{r}
+sugg_list_xpath <- '//ul[@aria-label="Search suggestions"]/li'
+sugg_list <- driver$findElements(using="xpath", value=sugg_list_xpath)
+sugg_list <- unlist(lapply(sugg_list, function(x) x$getElementText()[[1]]))
+```
+
+Next, find the first constituency listed using an XPath selector for the `aria-label` in the relevant `li` tag. 
+
+```{r}
+constituency_xpath <- paste0('//li[@aria-label="', sugg_list[1], '"]')
+constituency <- driver$findElement(using="xpath", value=constituency_xpath)
+constituency$clickElement()
+Sys.sleep(0.5)
+```
+
+Now create a function that (1) extracts the results from the panel that appears on the bottom left, and (2) cleans it up a little by (a) turning `Votes` into a numeric, (b) splitting `% (pt change)` into two columns also formatted as numeric, and (c) adding a column with the constituency name.
+
+```{r}
+extract_results <- function(){
+  results <- driver$getPageSource()[[1]] %>%
+  read_html() %>%
+  html_table() # <- extract the tables
+
+  results <- results[1][[1]] # Which of the tables extracted is the correct one?
+  
+  results <- results %>%
+    mutate(Votes = as.numeric(str_replace(Votes, "[^0-9]", ""))) %>%
+    mutate(Percent = as.numeric(str_replace(`% (pt change)`, " *[(].+", ""))) %>%
+    mutate(Change = str_extract(`% (pt change)`, "[(]([+-]?[0-9.]*)[)]", group = 1)) %>%
+    mutate(Change = as.numeric(if_else(str_detect(Change,"[0-9]"), Change, "0"))) %>%
+    mutate(Constituency = sugg_list[1]) %>%
+    select(-`% (pt change)`)
+  
+  return(results)
+}
+
+## Test that it works:
+extract_results()
+```
+
+Now that you've extracted and formated the results table for this constituency, you will need to close the pop up for this constituency and completely clear out the search bar.
+
+```{r}
+# 1. First, construct an XPath to find the "X" button that closes the pop up
+close_results <- "//button[@class='_button_1bibm_1 _buttonBorder_1bibm_14']"
+
+# 2. Then find and click it
+driver$findElement(using="xpath", value=close_results)$clickElement()
+Sys.sleep(0.5)
+
+# 3. Clear the text from search bar (if there is any) 
+## Note here: if there is text, a "X" should appear on the right, which you would need to find and click
+## 3a. First, construct an XPath to find the "X" button that clears the search bar
+clear_search_xpath <- '//button[@class="_button_1bibm_1 false"]'
+## 3b. Find this button (if it exists)
+clear_search <- driver$findElements(using="xpath", value=clear_search_xpath)
+## 3c. If it does not exist, then `clear_search` will be empty (length=0),
+##     but if it is not empty, then grab the first element of clear_search and click it
+if(length(clear_search) > 0){
+  clear_search[[1]]$clickElement()
+  Sys.sleep(0.5)
+}
+```
+
+One of the annoying aspects of this page is that you have to wait until results show up after you enter a post code or constituency name. Depending on the speed of your network connection/webserver/browser, this might take time. You can include delays (you should!), and you can also automate. Below, we create a function that takes a search string and "smartly" returns the list of suggestions, including clearing previous searches. If no suggestions are found in the search bar, an `NA` is returned.
+
+```{r}
+find_consts <- function(search_string, max_secs = 15){
+  # Find the search field (Hint: using code from above) ------------------------
+  search_field <- driver$findElement(using = 'xpath', value = search_field_xpath)
+  # Check if it is empty; if not, clear it (Hint: using code from above) -------
+  clear_search <- driver$findElements(using="xpath", value = clear_search_xpath)
+  if(length(clear_search) > 0){
+    clear_search[[1]]$clickElement()
+    Sys.sleep(0.5)
+  }
+  # Search for text (Hint: using code from above) ------------------------------
+  search_field$sendKeysToElement(list(search_string))
+  # Wait for suggestions to appear, or cancel search after max_sec seconds -----
+  begin_wait <- Sys.time() # record when you started waiting
+  ## 1. Try to extract suggestions; if they're not there, sugg_list will be empty (have length = 0)
+  sugg_list <- driver$findElements(using="xpath", value=sugg_list_xpath)
+  ## 2. as long as the suggestion list is empty, wait one second and try again until it's no longer empty, otherwise return NA
+  while(length(sugg_list) == 0){
+    Sys.sleep(1)
+    sugg_list <- driver$findElements(using="xpath", value=sugg_list_xpath)
+    if(Sys.time() - begin_wait > max_secs){
+      return(NA)
+    }
+  }
+  Sys.sleep(0.5)
+  # Extract text from suggestion list (Hint: using code from above) ------------
+  sugg_list <- unlist(lapply(sugg_list, function(x) x$getElementText()[[1]]))
+  # Return the suggestion list -------------------------------------------------
+  return(sugg_list)
+}
+```
+
+Let's test out this function with the phrase "Manchester" which will return multiple suggestions.
+
+```{r}
+find_consts("Manchester", max_secs = 3)
+```
+
+Now, let's build a function that takes a specific search term, then loops over all the constituencies listed and extracts data for each. For example, above, you saw "Manchester" produced three results. 
+
+```{r}
+get_data <- function(search_term, wait_secs = 5){
+  sugg_list <- find_consts(search_term)
+  all_results <- NULL
+  for(i in sugg_list){
+    constituency <- find_consts(i)
+    constituency <- driver$findElement(using="xpath", value=paste0('//li[@aria-label="', constituency, '"]'))
+    constituency$clickElement()
+    Sys.sleep(wait_secs)
+    all_results <- bind_rows(all_results, extract_results())
+  }
+  return(all_results)
+}
+```
+
+Now, make sure your function works when you search "Manchester".
+
+```{r}
+manchester_results <- get_data("Manchester")
+```
+
+We think that we have identified the necessary steps to get the data for constituencies listed when you search for a specific term. We can now go over the list of constituency names and get candidate data from _all_ constituencies.
+
+First, note that we can get them from Wikipedia.
+
+```{r}
+url_const <- "https://en.wikipedia.org/wiki/United_Kingdom_Parliament_constituencies"
+
+const <- read_html(url_const) %>%
+  html_table(fill = TRUE) 
+const <- const[[5]] ## Extract the list of English constituencies; we could also get Scottish, Welsh, and NI constituencies by finding their tables on the same page -- you can do this as a challenge if you want!
+const <- const$Constituency
+Sys.sleep(0.5)
+
+## show the first 10
+const[1:10]
+```
+
+Finally, you can iterate over all these using the function you defined above. Let's only do a random sample of 5 so that we don't overload Guardian's servers! Your list of five will be different than others!
+
+```{r}
+const_sample <- sample(const,5)
+results_sample <- lapply(const_sample, function(x) get_data(x))
+```
+
+The last line used `lapply` to apply the `get_data()` function to each of the constituencies in your random sample. The `lapply` function always generates a list, so the `results_sample` object is a list of five separate tables, one set of results for each constituency. You need to bind all together using `bind_rows`.
+
+```{r}
+results_sample <- do.call(bind_rows, results_sample)
+```
+
+Take a look at your table.
+
+```{r}
+results_sample
+```
+
+Close the session:
+
+```{r}
+driver$close()
+rD$server$stop()
+
+# close the associated Java processes if necessary:
+system("taskkill /im java.exe /f", intern=FALSE, ignore.stdout=FALSE)
+```

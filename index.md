@@ -233,7 +233,7 @@ Continuing from the material covered in Week 5, we will learn the advanced topic
 
 #### Seminar
 
-- Code: [Scraping UK election data](x), [solution](x)
+- Code: [Scraping UK election data](week07/04-exercises-advanced-scraping.Rmd), [solution](week07/04-exercises-advanced-scraping-solution.Rmd)
 
 
 #### Reading
