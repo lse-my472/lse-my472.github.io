@@ -1,23 +1,22 @@
 ---
-title: "Art Institute of Chicago API"
-author: "Daniel de Kadt"
-date: "14 November 2023"
+title: "Week 8: Art Institute of Chicago API"
+date: "Autumn Term 2024"
 output: html_document
 ---
-  
-### Artwork Search API
 
-Loading packages:
+**Attribution statement:** _The following teaching materials have been iteratively developed by current and former instructors, including: Daniel de Kadt and Ryan Hübert._
+
+Our cat facts API is cute but it's not terribly useful unless we want to pull "random" objects out of an API pipeline, which probably is not the case. So instead, let's explore a more useful public API, from the [Art Institute of Chicago](https://api.artic.edu/docs/#quick-start). This API has multiple **models** or "resources" (essentially, representations of the underlying data that exist in some databases somewhere), each of which can be queried via three **endpoints**:
+
+First, we load some packages.
   
 ```{r}
 library("httr")
 library("jsonlite")
 library("tidyverse")
-library("jpeg") #to let us read .jpegs/.jpgs
-library("grid") #to let us plot images
+library("jpeg") # to let us read .jpegs/.jpgs
+library("grid") # to let us plot images
 ```
-
-Our cat facts API is cute but it's not terribly useful unless we want to pull "random" objects out of an API pipeline, which probably is not the case. So instead, let's explore a more useful public API, from the [Art Institute of Chicago](https://api.artic.edu/docs/#quick-start). This API has multiple **models** or "resources" (essentially, representations of the underlying data that exist in some relational databases somewhere -- more next week), each of which can be queried via three **endpoints**. 
 
 Much like our cat facts API, we can just do a direct call to the base URL, which corresponds in this case to the **listings endpoint**. Queries to this endpoint return pages from all listings of the AIC collection. In this case, by default get back the first page of results only, and we get a lot of data for each artwork or each artist (depending on which model we query):
 
@@ -39,14 +38,14 @@ artworks_url_fields <- "https://api.artic.edu/api/v1/artworks?fields=id,title,ar
 fromJSON(artworks_url_fields)
 ```
 
-Now let's switch to a different endpoint, the **detail endpoint** where we can request information on specific artworks. We're sitll using the artworks model, and again we'll only query specific fields for the artwork(s) of interest. We'll start to build this up in a slightly more principled fashion, using `paste0()`, which concatenates strings. Below, the first string in our `paste0()` function is the `artworks_url` model URL we defined above, the second string is some required formatting, the third string is the specific `artwork` of interest (can you figure out which artwork it is?), and the third string is the specific set of `fields` we want. 
+Now let's switch to a different endpoint, the **detail endpoint** where we can request information on specific artworks. We're still using the artworks model, and again we'll only query specific fields for the artwork(s) of interest. We'll start to build this up in a slightly more principled fashion, using `paste0()`, which concatenates strings. Below, the first string in our `paste0()` function is the `artworks_url` model URL we defined above, the second string is some required formatting, the third string is the specific `artwork` of interest (can you figure out which artwork it is?), and the third string is the specific set of `fields` we want. 
 
 ```{r}
-# define our fields of interest
-fields <- "?fields=id,title,artist_display,date_display"
-
 # provide an artwork to study
 artwork <- "28560"
+
+# define our fields of interest
+fields <- "?fields=id,title,artist_display,date_display"
 
 # build the query and retrieve JSON
 artwork_detail_url <- paste0(artworks_url, "/", artwork, fields)
@@ -55,6 +54,9 @@ fromJSON(artwork_detail_url)
 
 # to show only the data we want
 fromJSON(artwork_detail_url)$data
+
+## Important note: every time you directly call to the URL, you're making a request -- be weary about rate limits and unexpected charges!
+## Exercise: how can you set up this code chunk so that you are not making multiple identical calls?
 ```
 
 The next endpoint is perhaps the most interesting for us: the **search endpoint**. This allows us to search the model of interest, and return only the data that results from that search. This is great because it lets us narrow down our requests and not overload the AIC's servers, and because it lets us look for specific types of art (you can imagine how useful this would be in a social science application). In furtherance of our feline API efforts, let's start by searching for artwork about cats:
@@ -63,13 +65,14 @@ The next endpoint is perhaps the most interesting for us: the **search endpoint*
 # artworks model, search endpoint url:
 artworks_search_url <- "https://api.artic.edu/api/v1/artworks/search?q="
 
-# define search terms. we use gsub(" ", "%20", "x") here to replace spaces between search terms with "%20" which is how we often represent spaces in a URL. 
-search_terms <- gsub(" ", "%20", "cat")
+# define search terms. 
+search_terms <- "black cat" # What do you want to search for
+search_terms <- str_replace(search_terms, " ", "%20") # replace spaces between search terms with "%20" for making a URL
 
 # build the query:
-cat_search_url <- paste0(artworks_search_url, search_terms)
+black_cat_search_url <- paste0(artworks_search_url, search_terms)
 
-fromJSON(cat_search_url)
+fromJSON(black_cat_search_url)
 ```
 
 What we've done above is to use the logic of the AIC API to build particular URLs of interest, and then query them directly with `fromJSON`. Now let's start writing queries in a slightly more elegant fashion, using the `httr` package (you can also use `httr2`, which is a newer re-write of `httr` that is in early versioning). These packages are high-level interfaces of [`curl`](https://github.com/jeroen/curl), developed for flexible and customisable querying of web resources from R. For now, we will use the `GET` function from `httr`. Among other things, the `GET` function allows us to input the `url` of interest, an additional `path` (which we won't use in this case), and a detailed `query` list which can take as many elements as there are parameters for our API. 
@@ -105,9 +108,9 @@ First, we have to retrieve from the default API (but using the images model) the
 ```{r}
 # query the API:
 cat_image_search <- GET(artworks_search_url, # the API endpoint of interest
-                    query = list(q = search_terms, 
-                                 fields = "title, image_id",
-                                 size = 1)) # query allows us to specify parameters, which we find in the API documentation
+                        query = list(q = search_terms, 
+                                     fields = "title, image_id",
+                                     size = 1)) # query allows us to specify parameters, which we find in the API documentation
 json_cat_image_search <- content(cat_image_search, "parsed")
 
 # directly extract the image id (as we are just working with one request, we don't need to worry about flattening the data)

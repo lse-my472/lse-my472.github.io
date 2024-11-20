@@ -255,9 +255,9 @@ This week discusses how to work with Application Programming Interfaces (APIs) t
 
 #### Lecture
 
-- [Slides](x)
-- Code: [JSON in R](x), [AIC API](x)
-
+- [Slides](week08/MY472-week08-APIs.pdf)
+- Code: [JSON in R](week08/01-json-in-r.Rmd), [AIC API](week08/02-aic-api.Rmd)
+- Data: [example_1.json](week08/data/example_1.json), [example_2.json](week08/data/example_2.json), [example_3.json](week08/data/example_3.json)
 
 #### Seminar
 

@@ -1,9 +1,10 @@
 ---
-title: "Reading JSON into R"
-author: "Friedrich Geiecke, Daniel de Kadt"
-date: "14 November 2023"
+title: "Week 8: Reading JSON into R"
+date: "Autumn Term 2024"
 output: html_document
 ---
+
+**Attribution statement:** _The following teaching materials have been iteratively developed by current and former instructors, including: Friedrich Geiecke, Daniel de Kadt and Ryan Hübert._
 
 We are going to work with JSON files that come either from our local machine (we have downloaded and saved them from somewhere), or JSON files that come from what are called public APIs (APIs that anyone can interact with). Loading packages:
 
@@ -12,20 +13,16 @@ library("jsonlite")
 library("tidyverse")
 ```
 
-Before we look at real-world examples, let us first study our own simple files. Specify the directory where the JSON files are stored:
+In the `data` folder in for this week's lecture materials, there are three simple JSON files. Let's use R's tools to work with each of them.
+
+#### First example
+
+We begin by reading and parsing the first file in R.
 
 ```{r}
-current_dir <- "./data/"
-```
-
-Reading/parsing the first file into R:
-
-```{r}
-example_1_parsed <- fromJSON(paste(current_dir, "example_1.json", sep = ""))
-
-class(example_1_parsed)
-
-names(example_1_parsed)
+example_1_parsed <- fromJSON("data/example_1.json") # load the json file
+class(example_1_parsed) # this is a list, whose elements you can access with `$`
+names(example_1_parsed) # what are the names of the elements of the list?
 ```
 
 The key-value structure is of JSON objects is transformed into (nested) lists in R:
@@ -34,7 +31,7 @@ The key-value structure is of JSON objects is transformed into (nested) lists in
 example_1_parsed
 ```
 
-We can e.g. access the grades array with:
+We can access the "grades" array with:
 
 ```{r}
 example_1_parsed$grades
@@ -54,13 +51,13 @@ We can access the supervisor's department with:
 example_1_parsed$supervisor$department
 ```
 
+#### Second example
+
 Let us proceed with the second example. Here we had built the JSON file such that it contained a tabular data structure. We can parse the file in the usual list format, however, also transform it into a dataframe.
 
 ```{r}
-example_2_parsed <- fromJSON(paste(current_dir, "example_2.json", sep = ""))
-
+example_2_parsed <- fromJSON("data/example_2.json")
 class(example_2_parsed)
-
 names(example_2_parsed)
 ```
 
@@ -78,13 +75,13 @@ example_2_parsed %>% as_tibble()
 
 Note that the JSON `null` was transformed into an NA.
 
+#### Third example
+
 Lastly, let us look at a slightly more realistic example. Again we obtain a list for the JSON file, however, `jsonlite` actually understands here that each of the keys in the JSON (AT and WT) stores tabular data which itself can be represented as a dataframe in R. That is, each of the highest elements of the list is itself tabular data. 
 
 ```{r}
-example_3_parsed <- fromJSON(paste(current_dir, "example_3.json", sep = ""))
-
+example_3_parsed <- fromJSON("data/example_3.json")
 class(example_3_parsed)
-
 names(example_3_parsed)
 ```
 
@@ -112,6 +109,8 @@ Instead, we will need to tackle this in a nested fashion. We first need each ele
 do.call(rbind, example_3_parsed)
 ```
 
+#### Example using an API
+
 So far we have explored locally stored JSON files. Now let's move on to JSON files we can access directly from the web, via a simple public API. Essentially, we are able to input a URL into the `fromJSON` function, and read whatever JSON file is returned. For now, we are just going to query a public API that has a single non-variable endpoint which returns (in this case) a random fact about cats:  
 
 ```{r}
@@ -122,7 +121,7 @@ fromJSON(api_url)
 
 Because this is such a simple API, if we wanted to return more results, we'd need to get a little creative. Note how this time we include, within our `do.call` an `lapply` across the elements of our output list, converting each element into a tibble with `as_tibble`. 
 
-```{r}
+```{r, eval=FALSE}
 api_queryer <- function(results_count = 10, api_url = "https://catfact.ninja/fact"){
   
   run_result <- c()
