@@ -67,7 +67,7 @@ artworks_search_url <- "https://api.artic.edu/api/v1/artworks/search?q="
 
 # define search terms. 
 search_terms <- "black cat" # What do you want to search for
-search_terms <- str_replace(search_terms, " ", "%20") # replace spaces between search terms with "%20" for making a URL
+search_terms <- str_replace_all(search_terms, " ", "%20") # replace spaces between search terms with "%20" for making a URL
 
 # build the query:
 black_cat_search_url <- paste0(artworks_search_url, search_terms)
