@@ -262,7 +262,7 @@ This week discusses how to work with Application Programming Interfaces (APIs) t
 
 #### Seminar
 
-- Code: [NY Times API](x), [NY Times API solution](x)
+- Code: [NY Times API](week08/03-nyt-api.Rmd), [NY Times API solution](week08/03-nyt-api-solution.Rmd)
 
 
 #### Reading
