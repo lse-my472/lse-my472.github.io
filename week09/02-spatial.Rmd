@@ -16,6 +16,8 @@ library(rvest)
 library(xml2)
 ```
 
+## Live birth data
+
 We will explore patterns in the data for live births in London. The data is maintained by government of London in in the London Datastore, available here: <https://data.london.gov.uk/>.
 
 First, let's create a directory to store the data we'll use.
@@ -64,6 +66,8 @@ bf %>%
   geom_col() + 
   scale_y_continuous(labels = scales::label_comma())
 ```
+
+## London borough data
 
 Now let's look at some maps showing patterns in each of London's boroughs. First, we get the geographic data so that we can make maps of the London boroughs. It is available at the URL below, which you should download and unzip.
 
@@ -124,6 +128,8 @@ ggplot(gf) +
   theme_void()
 ```
 
+## Plotting live births data on the borough map
+
 Now, let's create some visualisations of the London births data by borough. First, we need to merge together our births data with our geometry data.
 
 ```{r, eval=FALSE}
@@ -170,12 +176,12 @@ ggplot(df[df$year %in% c(2001,2023),]) +
 
 ```
 
+## Land cover map (raster)
+
 Finally, let's work with some raster data. We'll use the UKCEH Land Cover map (from 2023), which you can get here: <https://catalogue.ceh.ac.uk/documents/73ecb85e-c55a-4505-9c39-526b464e1efd>. You will have to create an account and agree to the terms of service to download this data. Here we will overlay the borough boundaries over the land cover raster map. 
 
-
-
 ```{r, eval=FALSE}
-rf <- rast("tba")
+rf <- rast(paste0(odir,"/FME_6431656F_1732708856777_35721/data/ab10ea4a-1788-4d25-a6df-f1aff829dfff/gblcm2023_25m.tif"))
 
 # This file has three layers. The first one is the one we want (after reading the docs): `gblcm2023_25m_1`
 # Quick plot to be sure we have the right data:

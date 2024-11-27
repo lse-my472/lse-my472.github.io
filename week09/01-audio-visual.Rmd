@@ -137,7 +137,13 @@ To do this, we can plot a spectrogram using `seewave`'s function `spectro()`. We
 spectro(mlk.clip)
 ```
 
-Pitch/frequency is a really useful piece of data for identifying "different sounds." For human speech, it is useful for voice recognition. Finally, if you want to save a sound file, you camn use the `writeWave()` function.
+Pitch/frequency is a really useful piece of data for identifying "different sounds." For human speech, it is useful for voice recognition. If you want to look at the dominant frequencies in a recording (dominant in the sense that they're highest amplitude), then you can plot a periodogram.
+
+```{r, eval=FALSE}
+periodogram(mlk.clip)
+```
+
+Finally, if you want to save a sound file, you camn use the `writeWave()` function.
 
 ```{r, eval=FALSE}
 writeWave(mlk.clip, str_replace(mlk.file, ".mp3", "_clip.wav"))
@@ -145,9 +151,7 @@ writeWave(mlk.clip, str_replace(mlk.file, ".mp3", "_clip.wav"))
 
 ## Image data
 
-Let's grab the photos of the Methodology Department's senior leadership team from the page <https://www.lse.ac.uk/Methodology/People> and then look at how they're represented as data in R.
-
-First, we do some basic webscraping like you've already learned. Start by loading the relevant packages, creating a directory to store the data and reading the relevant HTML into R.
+Let's grab the photos of the Methodology Department's academic staff from the page <https://www.lse.ac.uk/Methodology/People> and then look at how they're represented as data in R. First, we do some basic webscraping like you've already learned. Start by loading the relevant packages, creating a directory to store the data and reading the relevant HTML into R.
 
 ```{r, eval=FALSE}
 library("tidyverse")
