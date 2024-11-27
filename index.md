@@ -274,11 +274,12 @@ This week discusses how to work with Application Programming Interfaces (APIs) t
 
 ### 9. Other data types
 
-We will learn how to work with other data types, such as spatial data. Time permitting, we will also briefly discuss compute constraints and parallelization.
+We will learn how to work with other data types, including audio, visual and spatial data.
 
 #### Lecture
 
-- [Slides](x)
+- [Slides](week09/MY472-week9-other-data.pdf)
+- Code: [01-audio-visual.Rmd](week09/01-audio-visual.Rmd), [01-audio-visual.Rmd](week09/02-spatial.Rmd)
 
 #### Seminar
 

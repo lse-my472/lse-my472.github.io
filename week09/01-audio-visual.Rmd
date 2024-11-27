@@ -1,0 +1,350 @@
+---
+title: 'Week 9: Audio and Photo Data'
+date: "Autumn Term 2024"
+output: html_document
+---
+
+In this document, you will explore how to ingest audio and image data into R, how to manipulate it, and how to create some visualisations.
+
+## Audio data
+
+We begin with audio data, where we will use the `tuneR` and `seewave` packages. Note: you may need to install these packages before you can run this code.
+
+```{r, eval=FALSE}
+# install.packages("tuneR")
+# install.packages("seewave")
+library("tuneR")
+library("seewave")
+library("tidyverse")
+```
+
+Let's find some audio files to work with. We'll primarily work with `.wav` and `.mp3` files. 
+
+Given our social science orientation, we're going to focus on voice recordings of famous speeches. There are many places to find audio data, and here are a few examples:
+
+- The Internet Archive has lots of audio clips of famous and historical speeches
+- The U.S. Supreme Court releases audio recordings of its current and recent oral arguments ([link](https://www.supremecourt.gov/oral_arguments/argument_audio/))
+- The U.S National Archives has audio recordings of historical Supreme Court oral arguments from 1955 ([link](https://www.archives.gov/research/court-records/oral-arguments))
+
+Unfortunately, it is not always easy to get *downloadable* audio recordings of more recent speeches, as many are embedded in websites. (There may be ways to get around this, but you should be very sure to read the terms of service before doing so.)
+
+Here are a few recordings that you can download and work with on your own time:
+
+- [Winston Churchill's "We shall never surrender" speech](https://ia904501.us.archive.org/25/items/Winston_Churchill/1940-06-04_BBC_Winston_Churchill_We_Shall_Never_Surrender.mp3)
+- [Nelson Mandela's "I am prepared to die" speech](https://www.nationalarchives.gov.za/node/5603213) (note this is watermarked and partial)
+- [Martin Luther King's "I have a dream" speech](https://ia801605.us.archive.org/25/items/MLKDream/MLKDream.mp3)
+- [John F. Kennedy's inaugural address](https://ia804509.us.archive.org/21/items/JFK_Inaugural_Address_19610120/JFK_Inaugural_Address_19610120.mp3)
+- [John F. Kennedy's moon speech](https://ia803208.us.archive.org/28/items/jfks19620912/jfk_1962_0912_spaceeffort_vbr.mp3)
+
+Let's look at Martin Luther King's "I have a dream" speech and do some analysis. First we need to get the file. We will do this by (1) setting a working directory and then (2) downloading the `.mp3` file into this directory.
+
+```{r, eval=FALSE}
+odir <- "tba" # Change this to a location on your computer
+
+# Check if the directory exists, and if not, create it
+if(dir.exists(odir)){ } else { dir.create(odir) }
+```
+
+```{r, eval=FALSE}
+# Set download URL and download file into the directory
+url <- "https://ia801605.us.archive.org/25/items/MLKDream/MLKDream.mp3"
+
+# Create path for the file we are downloading
+mlk.file <- url %>% 
+  str_extract("/([^/]+)$", group=1) %>%
+  paste0(odir, "/", .)
+
+# Check if you already downloaded it, and if not, do so
+if(file.exists(mlk.file)) { } else {
+  download.file(url, mlk.file)
+}
+```
+
+Now let's load the audio data into R using the `readMP3` function in `tuneR`, and then let's examine what the data looks like in R. 
+
+```{r, eval=FALSE}
+mlk <- readMP3(mlk.file) # use readWave() for a .wav file
+print(class(mlk)) # what class is it?
+print(mlk) # what does the object look like?
+```
+
+Notice that when we print the `mlk` object it gives us a lot of useful information about the audio. First, we can see that this audio was digitised by sampling at 22.05 kHz, meaning that there were 22050 samples per second yielding approximately $22050 \times 983.41 \approx 21,684,191$ samples. We can also see that the file was quantised in 16 bit, meaning that the amplitude readings were rounded to $2^{16} = 65,536$ values.
+
+Pieces of this data can be accessed using the `@` symbol. For example:
+
+```{r, eval=FALSE}
+print(mlk@samp.rate) # what is the sampling frequency in Hz?
+print(mlk@bit) # how many bits used to quantise?
+print(mlk@pcm) # how many bits used to quantise?
+print(mlk@stereo) # is the audio recorded in mono or stereo?
+```
+
+(This isn't actually a stereo recording: it's a **dual mono** recording, meaning that it is a mono recording that is duplicated in both channels. I'll show you this later.)
+
+Before we proceed, note that it is pretty memory-intensive to work with the entire audio file. So, let's extract a short (and famous!) clip from 11:13 (673 seconds) to 11:26 (686 seconds).
+
+```{r, eval=FALSE}
+mlk.clip <- extractWave(mlk, from=673, to=686, xunit='time')
+```
+
+We can play the clip directly in R, although you may need to set your player first (especially on macOS or Linux). To do this, use the function `setWavPlayer()`. On my two Mac Silicon machines, the player application in this location works: `/usr/bin/afplay`.
+
+```{r, eval=FALSE}
+setWavPlayer('/usr/bin/afplay') # works on silicon Mac
+tuneR::play(mlk.clip)
+```
+
+Now let's look at the data. We can access the sampled amplitudes with `@left` and `@right` (think of these as speakers). Mono recordings will only have data in `@left` and stereo recordings will have data in both. For the most part, voice recordings are always mono recordings as mono recordings do a better job of reducing background noise and accentuating speech. 
+
+Also keep in mind that most modern speaker systems and headphones will convert mono recordings into dual mono so that they are output in both speakers. If you use the wav player inside `tuneR`, however mono recordings will only come out on the left side (e.g., your left headphone).
+
+Notice that this audio is coded as stereo audio, but it is not. We can see this by comparing the data on the left and right sides: since they are identical, this is actually dual mono. "True" stereo would have different sound on the left and right.
+
+```{r, eval=FALSE}
+# This tests for dual mono:
+all(mlk@left == mlk@right) # This tests to see if all sample readings are identical across left and right; they are!
+
+# Since this is not stereo, let's just remove the right channel
+mlk.clip <- mono(mlk.clip, which = "left")
+
+# now let's look at the first 50 samples on the left in the short clip
+print(mlk.clip@left[1:50])
+```
+
+Recall that the sampling frequency is 22050, meaning that this audio recording has 22050 samples for every second of sound. That means that each sample is taken every 0.00004535147392 seconds. 
+
+Now, let's plot the samples to see the approximation of the analog sound wave. (This is an oscillogram.) 
+
+We will do this manually using `ggplot`. First we create a tibble with the sound data. Let's put time on the x axis and amplitude (the samples) on the y axis.
+
+```{r, eval=FALSE}
+tp <- tibble(seconds = (1:length(mlk.clip@left))/mlk.clip@samp.rate,
+             amplitude = mlk.clip@left)
+ggplot(tp, aes(x = seconds, y = amplitude)) + 
+  geom_line()
+
+## let's zoom in to a ~0.005 second clip by subsetting to 110 samples
+very.small.clip <- tp[1:110,]
+ggplot(very.small.clip, aes(x = seconds, y = amplitude)) + 
+  geom_line()
+```
+
+This is a quite nice visualisation because we can see how the digital audio samples approximate real-life sound waves. However, there are three pieces of important information depicted in a 2D visualisation: time, amplitude (loudness), and frequency (pitch). Maybe we would like to see all three pieces of information on the same visualisation. For example, since amplitude measures "dominance" of sound, maybe we want to know what frequencies/pitches are most dominant in MLK's speech?
+
+To do this, we can plot a spectrogram using `seewave`'s function `spectro()`. We will not go into detail about how these are created, but you can see here which frequencies are dominant over time in MLK's speech.
+
+```{r, eval=FALSE}
+spectro(mlk.clip)
+```
+
+Pitch/frequency is a really useful piece of data for identifying "different sounds." For human speech, it is useful for voice recognition. Finally, if you want to save a sound file, you camn use the `writeWave()` function.
+
+```{r, eval=FALSE}
+writeWave(mlk.clip, str_replace(mlk.file, ".mp3", "_clip.wav"))
+```
+
+## Image data
+
+Let's grab the photos of the Methodology Department's senior leadership team from the page <https://www.lse.ac.uk/Methodology/People> and then look at how they're represented as data in R.
+
+First, we do some basic webscraping like you've already learned. Start by loading the relevant packages, creating a directory to store the data and reading the relevant HTML into R.
+
+```{r, eval=FALSE}
+library("tidyverse")
+library("rvest")
+
+# Create folder for the files we are downloading
+odir <- "tba" # Change this to a location on your computer
+
+# Check if the directory exists, and if not, create it
+if(dir.exists(odir)){ } else { dir.create(odir) }
+
+# Set download URL and download file into the directory
+lse.url <- "https://www.lse.ac.uk/Methodology/People"
+
+# Read the url using rvest -- only do this once! (Remember your etiquette!)
+raw <- read_html(lse.url)
+```
+
+From the raw HTML source file, we will extract the names of the MY faculty, as well as URLs where we can download their photos. We'll store this in a dataframe (that we'll also save).
+
+```{r, eval=FALSE}
+# Extract information about each member of the SLT, store in dataframe
+## 1. find the part of the webpage listing the team
+my <- raw %>% 
+  html_elements(xpath="//section[@class='accordion']") %>%
+  keep(~ grepl("Academic Staff", html_text(.x))) %>%
+  html_elements(xpath=".//div[@class='accordion__imgTxt']") %>%
+  keep(~ grepl("Professor", html_text(.x)))
+## 2. Get the names of each
+name <- my %>% 
+  html_elements(xpath=".//div[@class='accordion__txt']/p/strong") %>%
+  html_text() %>%
+  str_squish() %>%
+  keep(.!="")
+## 3. Get url to each image
+url <- my %>% 
+  html_elements(xpath=".//img") %>% # Notice here: use the period to select *within* my node
+  html_attr(name="src") %>% 
+  paste0("https://www.lse.ac.uk", .)
+## 4. Create file names for each image
+filename <- url %>% 
+  str_extract("/([^/]+)$") %>% 
+  paste0(odir,.)
+
+# Create a tibble to store the data
+df <- tibble(name, url, filename)
+
+# Save the data for future use
+write_csv(df, paste0(odir,"/data.csv"))
+
+# Loop over the rows and download the images
+for(p in 1:nrow(df)){
+  # Check if we already have it saved, and if so, skip to next person.  (Remember your etiquette!)
+  if(file.exists(df$filename[p])){
+    next
+  }
+  download.file(df$url[p], df$filename[p])
+  Sys.sleep(3) # Time delay. (Remember your etiquette!)
+}
+```
+
+Now, let's look at one of these photos. First, let's examine the metadata using the `exifr` package.
+
+```{r, eval=FALSE}
+# install.packages("exifr")
+library("exifr")
+
+# Select Ryan!
+p <- which(str_detect(df$name, "Ryan"))
+
+## Read in an image's metadata
+metadata <- read_exif(df$filename[p])
+metadata <- as.matrix(cbind(as.vector(metadata[1,])))
+print(metadata)
+```
+
+Now let's actually import the image data.
+
+```{r, eval=FALSE}
+# install.packages("jpeg")
+library("jpeg")
+
+## Read in an image
+my.img <- readJPEG(df$filename[p])
+
+## Basic information about the object just imported
+print(class(my.img)) # note this is an array
+print(dim(my.img)) # the array has three 200x200 matrices 
+```
+
+The data from digital photos is imported as an array, which is a collection of three matrices. Each cell in each matrix represents a pixel, so in this case, we can see that our image is 200 pixels by 200 pixels. Each of the matrices represents one of the three primary colours. The first one is red, the second one is green and the third one is blue (remember: RGB, not to be confused with RBG for all of you U.S. Americans...).
+
+Let's take a look at what the top left 10x10 pixels looks like in each of the matrices.
+
+```{r, eval=FALSE}
+## Look to see what it looks like
+my.img[1:10,1:10,1] # top left 10 pixels in red channel
+my.img[1:10,1:10,2] # top left 10 pixels in green channel
+my.img[1:10,1:10,3] # top left 10 pixels in blue channel
+```
+
+When we "plot" the image (i.e., depict the photo), we need to use the data in the three matrices to create a colour for each pixel. A mixture of red, green and blue will generate a unique color for that pixel.
+
+For this we can use the `rgb()` function. For example, let's use the function to figure out the colour of the top left pixel.
+
+```{r, eval=FALSE}
+## input data for top left pixel
+tl.red <- my.img[1,1,1] # % of red
+tl.green <- my.img[1,1,2] # % of green
+tl.blue <- my.img[1,1,3] # % of blue
+print(c(tl.red,tl.green,tl.blue))
+
+## The scales library allows us to view colors
+library(scales)
+
+## What are the R/G/B colors we're mixing for the top left pixel?
+show_col(c(rgb(tl.red,0,0),rgb(0,tl.green,0),rgb(0,0,tl.blue)))
+
+## Now let's mix them
+tl_pix_col <- rgb(tl.red, tl.green, tl.blue)
+show_col(tl_pix_col)
+```
+
+We want to plot the image, so we need to create a dataframe that we can use with `ggplot`. The way we do this is by (1) mixing our red, green and blue matrices together with the `rgb()` function and then (2) creating a "long" tibble where `x` and `y` are pixel coordinates and `z` is the colour of the pixel for that coordinate.
+
+```{r, eval=FALSE}
+# Convert the image into a data frame for ggplot2
+tp <- tibble(expand.grid(y = dim(my.img)[1]:1, x = 1:dim(my.img)[2]))
+tp$r <- as.vector(my.img[,,1])
+tp$g <- as.vector(my.img[,,2])
+tp$b <- as.vector(my.img[,,3])
+tp$fill <- rgb(tp$r,tp$g,tp$b)
+
+# Now plot
+ggplot(tp, aes(x = x, y = y, fill = fill)) +
+  geom_raster() +
+  scale_fill_identity() +  # Use RGB colours in the fill column
+  coord_equal(ratio = 1) + 
+  labs(title = df$name[p]) +
+  theme_void() + # remove the axes and labels
+  theme(plot.title = element_text(hjust = 0.5, size = 16, face = "bold"),
+        plot.subtitle = element_text(hjust = 0.5, size = 12, face = "italic"))
+```
+
+We can visualise the primary colours in this image using a histogram.
+
+```{r, eval=FALSE}
+tp2 <- tp %>% 
+  select(-fill) %>% 
+  pivot_longer(c(r,b,g)) %>% 
+  mutate(name=factor(if_else(name=="r","red",if_else(name=="b","blue",if_else(name=="g","green",NA))), levels = c("red","green","blue")))
+
+ggplot(tp2) + 
+  geom_histogram(aes(x=value,fill=name), color="gray") + 
+  scale_fill_manual(values=c("red","green","blue")) + 
+  facet_grid(cols = vars(name)) + 
+  theme_bw()
+```
+
+Finally, let's play around with the colours a little to see how the data is stored. First, let's plot three versions of this photo only showing one of the primary colours.
+
+```{r, eval=FALSE}
+# Create a data frame for plotting
+tp2 <- bind_rows(tp %>% mutate(b=0,g=0) %>% mutate(fill=rgb(r,g,b), mask="red_only"), 
+                 tp %>% mutate(r=0,g=0) %>% mutate(fill=rgb(r,g,b), mask="blue_only"),
+                 tp %>% mutate(r=0,b=0) %>% mutate(fill=rgb(r,g,b), mask="green_only"))
+
+# Now plot
+ggplot(tp2, aes(x = x, y = y, fill = fill)) +
+  geom_raster() +
+  scale_fill_identity() +  # Use RGB colours in the fill column
+  coord_equal(ratio = 1) + 
+  labs(title = paste0(df$name[p], " in primary colours")) +
+  theme_void() + # remove the axes and labels
+  theme(plot.title = element_text(hjust = 0.5, size = 16, face = "bold"),
+        plot.subtitle = element_text(hjust = 0.5, size = 12, face = "italic"), 
+        strip.text = element_blank()) + 
+  facet_grid(cols = vars(mask))
+```
+
+Next, let's see what happens when we randomly re-order the RGB.
+
+```{r, eval=FALSE}
+# Create a data frame for plotting
+set.seed(2024)
+shuff <- sample(c("r","g","b"))
+tp2 <- tp %>%
+  mutate(fill=rgb(eval(sym(shuff[1])),eval(sym(shuff[2])),eval(sym(shuff[3]))))
+
+# Now plot
+ggplot(tp2, aes(x = x, y = y, fill = fill)) +
+  geom_raster() +
+  scale_fill_identity() +  # Use RGB colours in the fill column
+  coord_equal(ratio = 1) + 
+  labs(title = paste0(df$name[p], " in shuffled colours")) +
+  theme_void() + # remove the axes and labels
+  theme(plot.title = element_text(hjust = 0.5, size = 16, face = "bold"),
+        plot.subtitle = element_text(hjust = 0.5, size = 12, face = "italic"), 
+        strip.text = element_blank())
+```

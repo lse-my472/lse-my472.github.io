@@ -1,0 +1,218 @@
+---
+title: 'Week 9: Spatial Data'
+date: "Autumn Term 2024"
+output: html_document
+---
+
+In this document, you will explore how to ingest and plot simple spatial data. 
+
+First, let's load packages.
+
+```{r, eval=FALSE}
+library(tidyverse)
+library(sf)
+library(terra)
+library(rvest)
+library(xml2)
+```
+
+We will explore patterns in the data for live births in London. The data is maintained by government of London in in the London Datastore, available here: <https://data.london.gov.uk/>.
+
+First, let's create a directory to store the data we'll use.
+
+```{r, eval=FALSE}
+odir <- "tba" # Change this to a location on your computer
+
+# Check if the directory exists, and if not, create it
+if(dir.exists(odir)){ } else { dir.create(odir) }
+```
+
+Next, let's download the data and save in the directory.
+
+```{r, eval=FALSE}
+births.url <- "https://data.london.gov.uk/download/births-by-mothers-country-of-birth-in-london/df2c2591-c8df-4446-82b5-d518a73def17/births_by_mothers_country_of_birth_2001_to_2023.csv"
+births.file <- paste0(odir,"/", str_extract(births.url, "/([^/]+)$", group=1))
+if(file.exists(births.file)) { } else { download.file(births.url, births.file) }
+```
+
+Load the data and look at its structure and some patterns.
+
+```{r, eval=FALSE}
+bf <- read_csv(births.file)
+colnames(bf)
+head(bf)
+## seems to be organised at the year-geography level (columns: `year` and `gss_code`)
+
+# How many births in all of the London boroughs. in each year?
+bf %>%
+  filter(type=="London Borough") %>% 
+  group_by(year) %>%
+  summarise(total_births_london = sum(total_births_all)) %>%
+  ggplot(aes(x=year,y=total_births_london)) + 
+  geom_col() + 
+  scale_y_continuous(labels = scales::label_comma())
+```
+
+```{r, eval=FALSE}
+# How many births in all of the London boroughs, broken up by whether mother was UK born?
+bf %>%
+  filter(type=="London Borough") %>% 
+  group_by(year) %>%
+  summarise(uk_mothers = sum(total_births_uk_mothers), nonuk_mothers = sum(total_births_overseas_mothers)) %>%
+  pivot_longer(cols=c(uk_mothers, nonuk_mothers)) %>%
+  ggplot(aes(x=year,y=value,fill=name)) + 
+  geom_col() + 
+  scale_y_continuous(labels = scales::label_comma())
+```
+
+Now let's look at some maps showing patterns in each of London's boroughs. First, we get the geographic data so that we can make maps of the London boroughs. It is available at the URL below, which you should download and unzip.
+
+```{r, eval=FALSE}
+geom.data <- "https://data.london.gov.uk/download/statistical-gis-boundary-files-london/9ba8c833-6370-4b11-abdc-314aa020d5e0/statistical-gis-boundaries-london.zip"
+geom.file <- paste0(odir,"/", str_extract(geom.data, "/([^/]+)$", group=1))
+if(file.exists(geom.file)) { } else { 
+  download.file(geom.data, geom.file) 
+  unzip(geom.file, exdir = odir)
+}
+
+# Find the shape file for the boroughs
+boro.dir <- paste0(odir,"/",str_extract(geom.data, "/([^/]+).zip$", group=1),"/ESRI") 
+boro.file <- list.files(boro.dir)
+boro.file <- paste0(boro.dir,"/",boro.file[str_detect(boro.file,"Borough") & str_detect(boro.file,".shp$")])
+# load the shape file
+gf <- read_sf(boro.file)
+```
+
+Let's do some quick plots to make sure we have the right data.
+
+```{r, eval=FALSE}
+# quick plot to make sure we loaded the correct data?
+plot(st_geometry(gf))
+
+## Adding nice colouring
+plot(st_geometry(gf), col = sf.colors(n=10, alpha=0.3), border = 'black', axes = TRUE)
+```
+
+Let's do some more stuff with this spatial data. First, let's examine a map with the borough names on it. Here we are going to use `ggplot`.
+
+```{r, eval=FALSE}
+ggplot(gf) + 
+  geom_sf(color = "black", fill = "white", linewidth = 0.5) + 
+  geom_sf_text(aes(label=NAME), size=2) +
+  theme(plot.title = element_text(hjust = 0.5, size = 16, face = "bold"))
+```
+
+Now, let's add some dots at some interesting landmarks: LSE, Buckingham Palace and the Shard. Using Google Maps, ypou can get the long/lat coords of each location. I will now create a new tibble to store whatever "points" I want to add to the map. 
+
+```{r, eval=FALSE}
+# Create a tibble with the coordinates from Google Maps
+pf <- tibble(name = c("LSE", "Buckingham Palace", "The Shard"), 
+             lon = c(-0.1163, -0.1419, -0.0865), 
+             lat = c(51.5151, 51.5022, 51.5046))
+# Then turn it into an sf object with a projection (the one used by google maps is EPSG:4326)
+pf <- pf %>%
+  st_as_sf(coords = c("lon", "lat"), crs = "EPSG:4326")
+```
+
+Now, plot these points on our London borough map.
+
+```{r, eval=FALSE}
+ggplot(gf) + 
+  geom_sf(color = "gray", fill = "white", linewidth = 0.5, alpha=0.3) + 
+  geom_sf(data = pf, color = "red", size = 2) +
+  geom_sf_text(data=pf, aes(label=name, hjust = c(0,1.05,0), vjust = c(-1,1,1.6)), size=4) +
+  theme_void()
+```
+
+Now, let's create some visualisations of the London births data by borough. First, we need to merge together our births data with our geometry data.
+
+```{r, eval=FALSE}
+## Join data
+df <- full_join(gf, bf[bf$gss_code %in% gf$GSS_CODE,], by=c("GSS_CODE" = "gss_code"))
+```
+
+Next, let's see where the most births were in 2001 and compare it to 2023.
+
+```{r, eval=FALSE}
+ggplot(df[df$year %in% c(2001,2023),]) + # notice we subset the data
+  geom_sf(aes(fill = total_births_all), color = "black", linewidth = 1) + 
+  labs(title="Total births") + 
+  theme_void() +
+  theme(plot.title = element_text(hjust = 0.5, size = 16, face = "bold")) + 
+  facet_grid(cols = vars(year))
+```
+
+I find this shading odd -- usually you would expect higher numbers to be darker shading, so let's reverse the scale.
+
+```{r, eval=FALSE}
+ggplot(df[df$year %in% c(2001,2023),]) + # notice we subset the data
+  geom_sf(aes(fill = total_births_all), color = "black", linewidth = 1) + 
+  scale_fill_continuous(trans = 'reverse') + 
+  labs(title="Total births") + 
+  theme_void() +
+  theme(plot.title = element_text(hjust = 0.5, size = 16, face = "bold")) + 
+  facet_grid(cols = vars(year))
+```
+
+Finally, let's look at how the share of births by non-UK-born mothers has changed from 2001 to 2023. London has become more international!
+
+```{r, eval=FALSE}
+## Let's create a variables for proportion of uk mothers
+df$prop_nonuk_mothers <- df$total_births_overseas_mothers/df$total_births_all
+
+ggplot(df[df$year %in% c(2001,2023),]) +
+  geom_sf(aes(fill = prop_nonuk_mothers), color = "black", linewidth = 1) + 
+  scale_fill_continuous(trans = 'reverse') + 
+  labs(title="Proportion of Births to Non-UK-Born Mothers") + 
+  theme_void() +
+  theme(plot.title = element_text(hjust = 0.5, size = 16, face = "bold")) + 
+  facet_grid(cols = vars(year))
+
+```
+
+Finally, let's work with some raster data. We'll use the UKCEH Land Cover map (from 2023), which you can get here: <https://catalogue.ceh.ac.uk/documents/73ecb85e-c55a-4505-9c39-526b464e1efd>. You will have to create an account and agree to the terms of service to download this data. Here we will overlay the borough boundaries over the land cover raster map. 
+
+
+
+```{r, eval=FALSE}
+rf <- rast("tba")
+
+# This file has three layers. The first one is the one we want (after reading the docs): `gblcm2023_25m_1`
+# Quick plot to be sure we have the right data:
+plot(rf$gblcm2023_25m_1) 
+```
+
+The legend is not very informative. We can extract names for the numerical values as follows:
+
+```{r, eval=FALSE}
+labels <- read_xml("tba")
+labels <- labels %>% 
+  html_elements(xpath="//paletteEntry")
+labels <- tibble(value=as.integer(html_attr(labels, name="value")), label=html_attr(labels,name="label"))
+```
+
+Now let's layer our borough boundaries over this raster by cropping the raster map and doing some nice formatting
+
+```{r, eval=FALSE}
+## Some cleanup and cropping
+gf1 <- st_transform(gf, st_crs(rf)) # align the crs in both maps
+rf_cropped = crop(rf, gf1) # create a cropped map (the land cover map is national)
+
+## Turn raster data into a proper df for ggplot
+raster_df <- as.data.frame(rf_cropped, xy = TRUE)
+colnames(raster_df) <- c("x", "y", "value") # Ensure columns are named appropriately
+
+## Rename the numbers to the right labels of land cover
+raster_df$value <- left_join(tibble(raster_df[,c("x","value")]), labels)$label
+raster_df$value <- factor(raster_df$value, levels = labels$label)
+```
+
+Now plot!
+
+```{r, eval=FALSE}
+ggplot() +
+  geom_raster(data = raster_df, aes(x = x, y = y, fill = value)) +
+  scale_fill_viridis_d("UKCEH Land Cover\nCategories (2023)") +
+  geom_sf(data = gf, color = "white", fill = NA, linewidth = 0.75) + 
+  theme_minimal()
+```
