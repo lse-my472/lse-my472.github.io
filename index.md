@@ -286,10 +286,18 @@ We will learn how to work with other data types, including audio, visual and spa
 - Code: to be posted
 
 #### Reading
-* To be posted
+* Araya-Salas, Marcelo. 2023. _Bioacoustic Analysis in R: Organization for Tropical Studies_. <https://marce10.github.io/OTS_BIR_2023/>, tutorials on [sound](https://marce10.github.io/OTS_BIR_2023/sound.html), [spectrograms](https://marce10.github.io/OTS_BIR_2023/spectrograms.html) and [`seewave`](https://marce10.github.io/OTS_BIR_2023/seewave.html).
+* _Geocomputation with R_. <https://r.geocompx.org/>, ch. 2.
+* Zhang, Zhiyong. 2019. _Practical Data Processing for Social and Behavioral Research Using R_. <https://books.psychstat.org/rdata/index.html>, chs. 5 and 6.
 
 #### Further reading
-* To be posted
+* Cantú, Francisco. 2019. "The Fingerprints of Fraud: Evidence from Mexico’s 1988 Presidential Election." _American Political Science Review_ 113(3): 710-726. <https://www.cambridge.org/core/journals/american-political-science-review/article/fingerprints-of-fraud-evidence-from-mexicos-1988-presidential-election/8F3C1BCA4C53FE85EA48E51321E339E9>
+* _Geocomputation with R_. <https://r.geocompx.org/>, all chapters.
+* QGIS. "8. Coordinate Reference Systems." in _A Gentle Introduction to GIS_. <https://docs.qgis.org/3.34/en/docs/gentle_gis_introduction/coordinate_reference_systems.html>
+* [`sf` documentation](https://r-spatial.github.io/sf/index.html)
+* Sonos. "Mono vs. Stereo Sound: What's the Difference?" <https://www.sonos.com/en-gb/blog/mono-vs-stereo-sound>
+
+
 
 ### 10. Creating and managing databases
 
