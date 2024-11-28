@@ -1,0 +1,386 @@
+---
+title: 'Week 9: Seminar Exercises'
+date: "Autumn Term 2024"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, eval=TRUE)
+```
+
+In Exercise 1, you will create a map of electoral results from the 2024 UK parliamentary elections, and in Exercise 2, you will download photo(s) of some of the winning candidates (i.e., current sitting MPs).
+
+### Directory management and set up
+
+Before we proceed, let's do some "directory management" and load the relevant packages. We will create three directories: one for all your work in this seminar (the "root directory" or `root`), one where we will store all the data we download (the "data directory" or `ddir`) and one where we store any data or visualisations we produce (the "output directory" or `odir`). You will create each of these, _after checking whether you have already made them before_.
+
+```{r}
+## NOTE: PLEASE REPLACE "YOUR_PATH" WITH THE PATH TO THE LOCATION ON YOUR COMPUTER 
+##       WHERE YOU WOULD LIKE TO STORE ALL YOUR WORK FOR THESE EXERCISES!
+root <- "YOUR_PATH/seminar9" 
+ddir <- "YOUR_PATH/seminar9/data"
+odir <- "YOUR_PATH/seminar9/outputs"
+
+if(!dir.exists(root)) { dir.create(root) }
+if(!dir.exists(ddir)) { dir.create(ddir) }
+if(!dir.exists(odir)) { dir.create(odir) }
+```
+
+Let's load all the packages we are going to need. For these exercises, we will be (1) working with tabular data, (2) working with vector spatial data, (3) working with `.jpg` photos, and (4) doing some static webscraping and HTML parsing.
+
+```{r}
+library("tidyverse")
+library("sf")
+library("jpeg")
+library("rvest")
+```
+
+## Exercise 1: create map of electoral results of 2024 UK parliamentary elections
+
+### Part 1: get election returns
+
+The full election results are available at the following link: <https://researchbriefings.files.parliament.uk/documents/CBP-10009/HoC-GE2024-results-by-candidate.csv>
+
+You want to (1) create a path + file name for this file as it will be saved on your computer, (2) check if the file already exists on your computer and (3) download it into the correct folder if not.
+
+```{r}
+## URL to get the results
+results.url <- "https://researchbriefings.files.parliament.uk/documents/CBP-10009/HoC-GE2024-results-by-candidate.csv"
+
+## What is the path to the file?
+results.file <- str_extract(results.url, "/([^/]+)$") # get the file name from the link (see above)
+results.file <- paste0(ddir, results.file) # create the full path to the file on your computer
+
+## Check it worked: is this the right path?
+print(results.file)
+```
+
+Now, check if the file exists, meaning you already downloaded it to your `odir`. If not, download it! 
+
+If you get an error in the following code, it could be because the server is blocking some traffic. Wait and try again later. You might also need to update the link if this website moved files around. (Note: it worked for Ryan Hübert on 27th November 2024 at 4 pm.)
+
+```{r}
+## If the results aren't already downloaded, do it!
+if(!file.exists(results.file)) { download.file(results.url, results.file) }
+```
+
+Now, load the data as a tibble called `rf` and print the `head()` to see how it looks.
+
+```{r}
+rf <- read_csv(results.file)
+head(rf)
+```
+
+### Part 2: get MP constituency borders
+
+The UK government makes available datasets for plotting all sorts of spatial data. The 2024 parliamentery constituencies can be found here:
+
+<https://geoportal.statistics.gov.uk/datasets/ons::westminster-parliamentary-constituencies-july-2024-boundaries-uk-bsc-2/about>
+
+On the right hand side there is a link to download a `.geojson` file via the API, and that's what we will use below.
+
+```{r}
+borders.data <- "https://services1.arcgis.com/ESMARspQHYMw9BZ9/arcgis/rest/services/Westminster_Parliamentary_Constituencies_July_2024_Boundaries_UK_BSC/FeatureServer/0/query?outFields=*&where=1%3D1&f=geojson"
+
+borders.file <- paste0(ddir, "/mp_const.geojson") ## The url above doesn't have the file name, I made one up
+if(!file.exists(borders.file)) { download.file(borders.data, borders.file) }
+
+## Load the data and check it's right
+gf <- read_sf(borders.file)
+print(gf)
+plot(gf$geometry)
+```
+
+This is a very detailed map! Let's zoom in on Scotland, which is roughly north of 54.58 latitude and east of -7.786 longitude. For this, we use the `st_crop` function in `sf`.
+
+```{r}
+## First note the boundaries of the *entire* `gf` map:
+bounds <- as.list(st_bbox(gf))
+print(bounds)
+
+## We only want to crop the xmin and the ymin.
+bounds$ymin <- 54.58
+bounds$xmin <- -7.786
+
+## Create the cropped sf object and plot it
+scotland <- st_crop(gf, ymin = bounds$ymin, ymax = bounds$ymax, xmin = bounds$xmin, xmax = bounds$xmax)
+plot(scotland$geometry)
+```
+
+Now do this for greater London, but we do it in a different way. We get a list of all the constituencies in London (from Wikipedia) and subset the `gf` object by that list
+
+```{r}
+# Get the constituencies from Wikipedia -- only run this once!
+# Remember our scraping etiquette
+raw.html <- read_html("https://en.wikipedia.org/wiki/Parliamentary_constituencies_in_London") 
+```
+
+Now, using the HTML you extracted above, find the table lists each constituency in greater London.
+
+```{r}
+## Extract the names of the constitiencies 
+london.consts <- raw.html %>% 
+  html_table() %>%
+  .[[3]] ## Which table is the one on the page with the constituency names?
+
+## extract names
+london.consts <- london.consts$Constituency
+length(london.consts) # check there are 75, which there should be
+```
+
+In the following code chunk, you will create a new dummy column called `london` in `gf`, with a 1 indicating the constituency in in London and 0 if not. You'll notice that there is 
+
+```{r}
+## Now let's create a new variable in our gf that indicates whether a constituency
+## is a London constituency or not
+gf <- gf %>%
+  mutate(london = ifelse(str_to_lower(gf$PCON24NM) %in% str_to_lower(london.consts), 1, 0)) 
+# Pop quiz: why did we use "str_to_lower" here?
+
+# Check there are 75
+sum(gf$london) ## NO! Only 74!
+# What's missing?
+print(london.consts[!(london.consts %in% gf$PCON24NM[gf$london==1])])
+# Looks like the wikipedia page has a typo, it should be: Edmonton and Winchmore Hill
+
+# Let's manually find it in `gf` and recode it as london=1
+print(gf$PCON24NM[str_detect(gf$PCON24NM, "Edmonton and Winchmore Hill")]) # check it is right--yes, there's a typo
+gf$london[str_detect(gf$PCON24NM, "Edmonton and Winchmore Hill")] <- 1 # recode it
+
+sum(gf$london) # now there are 75
+
+## Plot only London constituencies
+plot(gf$geometry[gf$london==1])
+```
+
+### Part 3: merge election returns with spatial data
+
+We have two dataframes, one with election results (`rf`) and one with geometries (`gf`). We can try to link them up using the names of the constituencies, but as you saw above, slight variations can cause problems. Fortunately, each of these dataframes appears to have an ID number for each constituency. In `rf` it's called `ONS ID` and in `gf` it's called `PCON24CD`. But let's just double check that they are indeed the same:
+
+```{r}
+all(sort(unique(rf$`ONS ID`)) == sort(unique(gf$PCON24CD))) 
+# do you see what this function is doing? if not, break it down and explore it piece by piece
+```
+
+Let's now merge together into a big `df` dataframe with all the data!
+
+```{r}
+df <- full_join(gf, rf, by = c("PCON24CD" = "ONS ID"))
+```
+
+As you probably know, the Labour party won the 2024 election because it won in the highest most number of constituencies. Let's create some maps depicting the results of the election. 
+
+Let's start by creating a map that colour-codes each constituency based on which party won that constituency: red for Labour, blue for Conservative, orange for Liberal Democrat, and gray for other.
+
+But before we begin, notice that our `df` dataframe has a row for every candidate in each constituency, but what we want to do is plot data about the _winner_. We need two new variables: (1) the party of the winning candidate in each constituency, and (2) the winning marging (by how many % did the winner win). We can accomplish this doing some grouping and summarising, and saving into a new smaller dataset with the data we need. We'll call this dataset `wf` (for "winner's dataframe").
+
+```{r}
+## 1. create a new variable indicating what % of the vote each candidate won in each constituency,
+## then arrange it in descending order by vote % within each constituency
+wf <- df %>%
+  group_by(PCON24CD) %>% 
+  mutate(percent = Votes/sum(Votes)) %>%
+  ungroup() %>%
+  arrange(PCON24CD, desc(percent))
+
+## 2. What is the winning margin? Subtract the runner up's vote % from the winner's vote %
+wf <- wf %>% 
+  group_by(PCON24CD) %>% 
+  mutate(win_margin = round(percent-lead(percent), 4)) %>%
+  ungroup() %>%
+  select(PCON24CD,PCON24NM,london,percent,win_margin,`Party abbreviation`,geometry)
+
+## 3. drop all rows except the first one for each constituency
+wf <- wf %>% 
+  group_by(PCON24CD) %>% 
+  filter(row_number()==1) %>%
+  ungroup()
+```
+
+Now, let's calculate how many seats each party won using our `wf` dataframe.
+
+```{r}
+## Then look at count
+parties <- wf %>% 
+  count(`Party abbreviation`) %>%
+  as_tibble() %>% 
+  select(`Party abbreviation`, n) %>% 
+  arrange(desc(n))
+
+# Recode all parties except top three as "Other"
+wf$`Party abbreviation`[!wf$`Party abbreviation` %in% parties$`Party abbreviation`[1:3]] <- "Other"
+```
+
+Now, let's create a list containing the color corresponding to each of the three top parties
+
+```{r}
+## Create a color map for plotting
+cols <- list("Lab" = "red", 
+             "Con" = "blue",
+             "LD" = "orange", 
+             "Other" = "darkgray")
+```
+
+Make the plot of the map and compare your map to here: <https://en.wikipedia.org/wiki/2024_United_Kingdom_general_election>. Does it look right?
+
+```{r}
+z <- ggplot(wf) +
+  geom_sf(aes(fill = `Party abbreviation`), color = "black", linewidth = 0.1) + 
+  scale_fill_manual(values = unlist(cols)) + 
+  labs(title="Party of Winning Candidates\n2024 UK General Election") + 
+  theme_void() +
+  theme(plot.title = element_text(hjust = 0.5, size = 16, face = "bold"))
+print(z)
+```
+
+Let's now zoom into London by plotting the same map but only for the London constituencies:
+
+```{r}
+z <- ggplot(wf[wf$london==1, ]) +
+  geom_sf(aes(fill = `Party abbreviation`), color = "black", linewidth = 0.1) + 
+  scale_fill_manual(values = unlist(cols)) + 
+  labs(title="Party of Winning Candidates\n2024 UK General Election") + 
+  theme_void() +
+  theme(plot.title = element_text(hjust = 0.5, size = 16, face = "bold"))
+print(z)
+```
+
+Now for a more challenging exercise: shade each of the London constituencies by how big of a margin the winner had.
+
+```{r}
+z <- ggplot(wf[wf$london==1, ]) +
+  geom_sf(aes(fill = `Party abbreviation`, alpha = win_margin), color = "black", linewidth = 0.1) + 
+  scale_fill_manual(values = unlist(cols)) +
+  scale_alpha_continuous(range = c(0.1, 1)) + 
+  labs(title="Party of Winning Candidates\n2024 UK General Election") + 
+  theme_void() +
+  theme(plot.title = element_text(hjust = 0.5, size = 16, face = "bold")) + 
+  guides(alpha = "none")
+print(z)
+```
+
+## Exercise 2: collect MP photos
+
+In this exercise, you will collect photos of all the MPs listed on one randomly selected page of results at this website: <https://members.parliament.uk/members/commons>. First, let's create a new directory where we will save these photos and other data.
+
+```{r}
+## Where will we save the MP data and images?
+mdir <- paste0(ddir,"/mps")
+if(!dir.exists(mdir)) { dir.create(mdir) }
+```
+
+There are 33 pages of results. The following code will randomly sample one page and then download all the MPs from that page. We are doing this so that each student gets different photos.
+
+```{r}
+## Randomly pick one of the 33 pages
+# set.seed(821) # If you want to get the same "random" results every time, set the seed
+mp.page <- sample(1:32,1)
+
+## Get images of MPs
+mp.url <- paste0("https://members.parliament.uk/members/commons?page=",mp.page)
+raw <- read_html(mp.url) # just do the first page
+Sys.sleep(3) # Remember our webscraping etiquette! 
+```
+
+Now, create a dataframe with all the data you can extract from the page you just loaded, including URLs where you can find the MP's image.
+
+```{r}
+## Create a dataframe of all the MPs with images to extract
+url <- raw %>% html_elements(xpath="//div[@class='image']") %>% as.character() %>% str_extract("url[(]([^)]+)[)]", group=1)
+id <- str_extract(url,"Members/([0-9]+)", group = 1)
+image <- paste0(mdir,"/",id,".jpg")
+name <- raw %>% html_elements(xpath="//div[@class='primary-info']") %>% html_text() %>% str_squish()
+party <- raw %>% html_elements(xpath="//div[@class='secondary-info']") %>% html_text() %>% str_squish()
+const <- raw %>% html_elements(xpath="//div[@class='indicator indicator-label']") %>% html_text() %>% str_squish()
+df <- tibble(id, name, party, const, url, page=as.character(mp.page), image)
+write_csv(df, paste0(mdir, "/data.csv"))  
+
+# Look at the df
+head(df)
+```
+
+Now iterate over each of the MPs from the page and download each of their photos.
+
+```{r}
+## Download the images
+for(i in 1:nrow(df)){
+  if(file.exists(df$image[i])){
+    next
+  }
+  download.file(df$url[i], df$image[i], mode="wb")
+  Sys.sleep(runif(1,min=2,max=5)) # delay for a random number of seconds between 2 and 5
+}
+```
+
+For the first MP in your dataset, plot a picture of them.
+
+```{r}
+## Look at the first MP
+i <- 1
+
+## import the image data -- if you get an error, try the second one by setting i <- 2 above
+img <- readJPEG(df$image[i])
+
+## Create a long tibble that ggplot can recognise and plot as a raster
+tp <- tibble(expand.grid(y = dim(img)[1]:1, x = 1:dim(img)[2]))
+tp$r <- as.vector(img[,,1])
+tp$g <- as.vector(img[,,2])
+tp$b <- as.vector(img[,,3])
+tp$fill <- rgb(tp$r,tp$g,tp$b)
+
+# Now plot
+z <- ggplot(tp, aes(x = x, y = y, fill = fill)) +
+  geom_raster() +
+  scale_fill_identity() + 
+  coord_equal(ratio = 1) + 
+  labs(title = paste0(df$name[i]," (",substr(df$party[i],1,3),")"), subtitle = df$const[i]) +
+  theme_void() + 
+  theme(plot.title = element_text(hjust = 0.5, size = 16, face = "bold"),
+        plot.subtitle = element_text(hjust = 0.5, size = 12, face = "italic"), 
+        strip.text.x = element_text(size = 6))
+
+print(z)
+
+## If you want to save it:
+# pdf(paste0(odir, "/mp1.pdf"), width=3, height=3.5, family="Times")
+# print(z)
+# dev.off()
+```
+
+Finally, for a fun challenge: shuffle the colours and re-plot the photo with different colourings.
+
+```{r}
+rgb.cols <- c("rgb", "rbg", "grb", "gbr", "brg", "bgr")
+
+## Create a long tibble with multiple versions of the file with colors shuffled
+tp <- NULL
+for(z in rgb.cols){
+  rcols <- str_split(z,"")[[1]]
+  tmp <- tibble(expand.grid(y = dim(img)[1]:1, x = 1:dim(img)[2]))
+  tmp[[rcols[1]]] <- as.vector(img[,,1])
+  tmp[[rcols[2]]] <- as.vector(img[,,2])
+  tmp[[rcols[3]]] <- as.vector(img[,,3])
+  tmp$fill <- rgb(tmp$r,tmp$g,tmp$b)
+  tmp$cols <- z
+  tp <- bind_rows(tp, tmp)
+}
+
+# Now plot
+z <- ggplot(tp, aes(x = x, y = y, fill = fill)) +
+  geom_raster() +
+  scale_fill_identity() + 
+  coord_equal(ratio = 1) + 
+  labs(title = paste0(df$name[i]," (",substr(df$party[i],1,3),")"), subtitle = df$const[i]) +
+  theme_void() + 
+  theme(plot.title = element_text(hjust = 0.5, size = 16, face = "bold"),
+        plot.subtitle = element_text(hjust = 0.5, size = 12, face = "italic"), 
+        strip.text.x = element_text(size = 6)) + 
+  facet_wrap(vars(cols),nrow = 2, ncol = 3)
+
+print(z)
+
+## If you want to save it:
+# pdf(paste0(odir, "/mp2.pdf"), width=9, height=8, family="Times")
+# print(z)
+# dev.off()
+```

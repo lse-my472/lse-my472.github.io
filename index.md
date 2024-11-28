@@ -283,7 +283,7 @@ We will learn how to work with other data types, including audio, visual and spa
 
 #### Seminar
 
-- Code: to be posted
+- Code: [03-MPs.Rmd](week09/03-MPs.Rmd), [03-MPs-solution.Rmd](week09/03-MPs-solution.Rmd)
 
 #### Reading
 * Araya-Salas, Marcelo. 2023. _Bioacoustic Analysis in R: Organization for Tropical Studies_. <https://marce10.github.io/OTS_BIR_2023/>, tutorials on [sound](https://marce10.github.io/OTS_BIR_2023/sound.html), [spectrograms](https://marce10.github.io/OTS_BIR_2023/spectrograms.html) and [`seewave`](https://marce10.github.io/OTS_BIR_2023/seewave.html).
