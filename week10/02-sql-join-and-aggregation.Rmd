@@ -1,20 +1,28 @@
 ---
-title: "Further ways to query an SQLite database"
-author: "Pablo Barberá"
-date: "22 November 2022"
+title: "Week 10: Further ways to query an SQLite database"
+date: "Autumn Term 2024"
 output: html_document
 ---
+
+**Attribution statement:** _The following teaching materials have been iteratively developed by current and former instructors, including: Pablo Barberá and Ryan Hübert._
 
 ```{r}
 library(DBI)
 ```
 
-## Joining and querying multiple tables
-
-Now is where we get to see the magic of SQL. It makes it really easy to combine multiple SQL tables using __JOIN__. We just select columns from different tables and then specify what _key_ should be used to match them using __ON__. 
+First, let's do a little directory management. Where do we want to store our work for this lecture? Indicate the path below, naming it `ddir`. Then, be sure to put the folder `facebook-data` inside this folder.
 
 ```{r}
-db <- dbConnect(RSQLite::SQLite(), "data/facebook-db.sqlite")
+# Where is your data stored on your computer for this week's lecture?
+ddir <- "tba" 
+```
+
+## Joining and querying multiple tables
+
+Now is where we get to see the magic of SQL. It makes it really easy to combine multiple SQL tables using **`JOIN`**. We just select columns from different tables and then specify what _key_ should be used to match them using **`ON`**. 
+
+```{r}
+db <- dbConnect(RSQLite::SQLite(), paste0(ddir, "facebook-db.sqlite"))
 
 dbGetQuery(db, 
   "SELECT posts.likes_count, congress.party, posts.date
@@ -54,7 +62,7 @@ dbGetQuery(db, "SELECT COUNT(*) FROM posts")
 dbGetQuery(db, "SELECT COUNT(*) FROM congress")
 ```
 
-A key function for aggregation is __GROUP BY__ which allows to aggregate results based on values of a specific variables.
+A key function for aggregation is **`GROUP BY`** which allows to aggregate results based on values of a specific variables.
 
 ```{r}
 dbGetQuery(db, 
@@ -64,7 +72,7 @@ dbGetQuery(db,
   LIMIT 10")
 ```
 
-We can then e..g. order the results using __ORDER BY__. The default is alphabetical order for the first column, but we can change that:
+We can then e..g. order the results using **`ORDER BY`**. The default is alphabetical order for the first column, but we can change that:
 
 ```{r}
 # Sort by type_count
@@ -146,7 +154,7 @@ dbGetQuery(db,
 
 ```
 
-There are other functions besides just __COUNT__. We can also compute averages, the maximum and minimum of a column, the sum... We can also use functions like __SUBSTR__ to extract parts of a character string.
+There are other functions besides just **`COUNT`**. We can also compute averages, the maximum and minimum of a column, the sum... We can also use functions like **`SUBSTR`** to extract parts of a character string.
 
 ```{r}
 # Average number of posts by party

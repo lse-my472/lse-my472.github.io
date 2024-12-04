@@ -1,54 +1,66 @@
 ---
-title: "Creating and querying an SQLite database"
-author: "Pablo Barberá, Daniel de Kadt"
-date: "21 November 2023"
+title: "Week 10: Creating and querying an SQLite database"
+date: "Autumn Term 2024"
 output: html_document
 ---
 
+**Attribution statement:** _The following teaching materials have been iteratively developed by current and former instructors, including: Pablo Barberá, Daniel de Kadt and Ryan Hübert._
+
 ## Creating a database, adding, appending, and removing tables
 
-For this first part of the class, we will be working with a SQLite database, which is self-contained in a file within our hard drive, without any need to set up a server. The dataset we will work with is all Facebook posts by members of the U.S. Congress in 2017, as collected from the public Pages API while it was available. You can download the data from Moodle.
-
-We will start by connecting to the database, creating an .sqlite file, and adding the first table, with information at the level of member of congress. 
+For this first part of the class, we will be working with a SQLite database, which is self-contained in a file within our hard drive, without any need to set up a server. The dataset we will work with is all Facebook posts by members of the U.S. Congress in 2017, as collected from the public Pages API while it was available. You can download the data from Moodle under "Extra Materials". 
 
 ```{r}
 #install.packages(c("DBI", "RSQLite"))
 library(DBI)
+library(tidyverse)
 ```
 
-```{r, eval=FALSE}
+First, let's do a little directory management. Where do we want to store our work for this lecture? Indicate the path below, naming it `ddir`. Then, be sure to put the folder `facebook-data` inside this folder.
+
+```{r}
+# Where do you want your data to be stored on your computer?
+ddir <- "tba" 
+if(!dir.exists(ddir) & ddir != "tba") { dir.create(ddir) }
+```
+
+We will start by connecting to the database, creating an .sqlite file, and adding the first table, with information at the level of member of congress. 
+
+```{r}
 # Create database: This will create a file in our hard drive if it does not exist already. Note, you could equally use "facebook-db.db" here.
-db <- dbConnect(RSQLite::SQLite(), "data/facebook-db.sqlite")
+db <- dbConnect(RSQLite::SQLite(), paste0(ddir, "facebook-db.sqlite"))
 
 # Reading the first file into R
-congress <- read.csv("data/congress-facebook-2017.csv",
-	stringsAsFactors = FALSE)
+congress <- read_csv(paste0(ddir, "facebook-data/congress-facebook-2017.csv"))
 
 # Adding a first table: User-level data
-dbWriteTable(db, "congress", congress)
+### Note: need to add overwrite=TRUE if you already created the DB once before
+dbWriteTable(db, "congress", congress) 
+rm(congress) # remove tibble from environment once it's in the database
 
 # Testing that it works with a simple query
 dbListFields(db, "congress")
-dbGetQuery(db, "SELECT * FROM congress LIMIT 5")
+print(dbGetQuery(db, "SELECT * FROM congress LIMIT 5"))
 ```
 
-Note that we have used `dbWriteTable` to add the data frame to our database, and then check that it all worked with `dbListFields` and `dbGetQuery`. As we will see in a second, this second function is what we will use to query the database, and it will always return a table.
+Note that we have used `dbWriteTable()` to add the data frame to our database, and then check that it all worked with `dbListFields()` and `dbGetQuery()`. As we will see in a second, this second function is what we will use to query the database, and it will always return a table.
 
-We now switch to the second table. However, the files are too big to open them all in memory. Instead, we will open them one by one, and then __append__ them to the table. Let us see how that works...
+We now switch to the second table. However, the files are too big to open them all in memory. Instead, we will open them one by one, and then _append_ them to the table. Let us see how that works...
 
-```{r, eval=FALSE}
-fls <- list.files("data/posts", full.names = TRUE)
+```{r}
+fls <- list.files(paste0(ddir, "facebook-data/posts"), full.names = TRUE)
 
 for (f in fls){
-  
   message(f)
 
   # Read file into memory
-  fb <- read.csv(f, stringsAsFactors = FALSE)
+  fb <- read_csv(f, show_col_types = FALSE, col_types = paste0(rep("c", 17), collapse = ""))
   
   # Adding to table in SQL database
+  ### Again note: if you have created the DB once before, then this will simply duplicate the data in the posts table!
   dbWriteTable(db, "posts", fb, append = TRUE)
   
+  rm(fb) # remove tibble from environment once it's in the database
 }
 ```
 
@@ -66,15 +78,20 @@ dbGetQuery(db, 'SELECT * FROM posts LIMIT 5')
 
 # And we close the connection for now
 dbDisconnect(db)
+rm(db) # remove it from environment
 ```
-
 
 ## Querying the database
 
-Now that we have our tables in the database, let us see how we can query them. First we connect using `dbConnect` and then we type our query with `dbGetQuery`. Generally, we will write the query __clauses__ in capital letters and the column names in lowercase.
+Now that we have our tables in the database, let us see how we can query them. First we connect using `dbConnect()`.
 
 ```{r}
-db <- dbConnect(RSQLite::SQLite(), "data/facebook-db.sqlite")
+db <- dbConnect(RSQLite::SQLite(), paste0(ddir, "facebook-db.sqlite"))
+```
+
+Then we type our query with `dbGetQuery()`. Generally, we will write the query **`CLAUSES`** in capital letters and the column **`names`** in lowercase.
+
+```{r}
 test <- dbGetQuery(db, 'SELECT * FROM congress LIMIT 5')
 str(test)
 ```
@@ -89,24 +106,23 @@ SELECT * FROM congress LIMIT 5
 SELECT * FROM posts LIMIT 5
 ```
 
-
 Continuing with our previous example, this is the list of query clauses that we will use to work with the database table in this script:
 
-- __SELECT__: determines which columns to include in the query's result set
+- **`SELECT`**: determines which columns to include in the query's result set
 
-- __FROM__: identifies the tables from which to draw data and how tables should be joined
+- **`FROM`**: identifies the tables from which to draw data and how tables should be joined
 
-- __LIMIT__: in combination with SELECT, limits the number of records returned
+- **`LIMIT`**: in combination with SELECT, limits the number of records returned
 
-- __WHERE__: filter out unwanted data
+- **`WHERE`**: filter out unwanted data
 
 And then three important query clauses that we will introduce in the next coding exercise:  
 
-- __GROUP BY__: groups rows together by common column values
+- **`GROUP BY`**: groups rows together by common column values
 
-- __ORDER BY__: sorts the rows in the final result set by one or more columns
+- **`ORDER BY`**: sorts the rows in the final result set by one or more columns
 
-- __JOIN__ (and friends): join two tables together based on columns
+- **`JOIN`** (and friends): join two tables together based on columns
 
 
 Recall the column names both in the congress and in the posts table:
@@ -116,42 +132,82 @@ dbListFields(db, "congress")
 dbListFields(db, "posts")
 ```
 
-Let us start with some examples of __SELECT__:
+Let us start with some examples of **`SELECT`**. 
+
+##### Query one column
 
 ```{r}
 # Querying just one column
 dbGetQuery(db, "SELECT name FROM congress LIMIT 10")
+```
 
+##### Query multiple columns
+
+```{r}
 # Multiple columns
 dbGetQuery(db, "SELECT name, party FROM congress LIMIT 10")
+```
 
+##### Query multiple columns with some transformations (I)
+
+Notice here one of the columns we create is likes per comment, where dividing integer by integer will return an integer.
+
+- `UPPER(var)` returns `var` column capitalised.
+- `NULLIF(var,0)` returns a null if the denominator is zero.
+
+```{r}
 # Adding expressions (division returns integer) -- remember to use NULLIF(var,0) in the demoninator, which will return a null if dividing by zero.
 dbGetQuery(db, "SELECT from_name, likes_count/ NULLIF(comments_count, 0), UPPER(type) FROM posts LIMIT 10")
+```
 
+##### Query multiple columns with some transformations (II)
+
+Notice here one of the columns we create is likes per comment, where dividing float by integer will return an float.
+
+```{r}
 # Adding expressions (division returns float)
 dbGetQuery(db, "SELECT from_name, CAST(likes_count AS FLOAT)/ NULLIF(comments_count, 0), UPPER(type) FROM posts LIMIT 10")
+```
 
+##### Queries with aliases
+
+Notice the last examples created ugly column names for our likes per comment. Let's give that column a nicer name (an "alias").
+
+```{r}
 # Adding aliases to the new columns
 dbGetQuery(db, "SELECT from_name, CAST(likes_count AS FLOAT) / NULLIF(comments_count, 0) AS like_ratio FROM posts LIMIT 10")
+```
 
+##### Queries written in multiple lines
+
+```{r}
 # It is often a good idea to write a query in multiple lines so that it is easier to read:
 dbGetQuery(db, "SELECT from_name, CAST(likes_count AS FLOAT) / NULLIF(comments_count, 0) AS like_ratio 
            FROM posts 
            LIMIT 10")
+```
 
+##### Querying unique values from a column
+
+```{r}
 # Selecting unique values from a column
 dbGetQuery(db, "SELECT DISTINCT from_name 
            FROM posts 
            LIMIT 10")
+```
 
+Notice what happens without distinct
+
+```{r}
 # Not adding distinct
 dbGetQuery(db, "SELECT from_name 
            FROM posts 
            LIMIT 10")
-
 ```
 
-Now some examples of how we can use __WHERE__ to subset the database based on values of specific columns (note, the date column is in "YYYY-MM-DD" format):
+##### Querying by filtering rows using **`WHERE`**
+
+Now some examples of how we can use **`WHERE`** to subset the database based on values of specific columns (note, the date column is in "YYYY-MM-DD" format):
 
 ```{r}
 # Selecting based on values of a column
@@ -159,38 +215,62 @@ dbGetQuery(db, "SELECT name, party
            FROM congress
            WHERE party = 'Republican'
            LIMIT 10")
+```
 
+##### Querying by filtering rows by date
+
+```{r}
 # Greater than, working with dates
 dbGetQuery(db, "SELECT from_name, type, date 
            FROM posts
            WHERE date > '2017-01-01'
            LIMIT 10")
+```
 
+##### Querying by filtering rows with multiple conditions (I)
+
+```{r}
 # AND operator
 dbGetQuery(db, "SELECT from_name, type, date, likes_count 
            FROM posts
            WHERE date > '2017-06-01' AND type != 'photo' 
               AND likes_count > 500
            LIMIT 10")
+```
 
+##### Querying by filtering rows with multiple conditions (II)
+
+```{r}
 # OR operator
 dbGetQuery(db, "SELECT from_name, type, date, comments_count 
            FROM posts
            WHERE comments_count > 100 AND (type = 'photo' OR type = 'video')
            LIMIT 10")
+```
 
+##### Querying by filtering rows with multiple conditions (III)
+
+```{r}
 # OR operator again -- note the importance of the parentheses...
 dbGetQuery(db, "SELECT from_name, type, date, comments_count 
            FROM posts
            WHERE comments_count > 100 AND type = 'photo' OR type = 'video'
            LIMIT 10")
+```
 
+##### Querying by filtering rows matching with one of several values
+
+```{r}
 # Membership of a set: IN ('')
 dbGetQuery(db, "SELECT from_name, type, date, comments_count 
            FROM posts
            WHERE type IN ('video', 'event')
            LIMIT 10")
+```
 
+##### Querying by filtering rows with more flexible matches
+
+```{r}
 # Matching conditions:
 # _ matches exactly one character
 # % matches any number of characters
@@ -210,7 +290,12 @@ dbGetQuery(db, "SELECT from_name, message, date
            WHERE message LIKE '%london%'
            LIMIT 1")
 
+
 ```
 
+Disconnect, in case we haven't already.
 
-
+```{r}
+dbDisconnect(db)
+rm(db)
+```
