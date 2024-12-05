@@ -311,7 +311,7 @@ This session will offer an introduction to relational databases: structure, logi
 
 #### Seminar
 
-- Code: [SQL exercises](x), [solution](x)
+- Code: [SQL exercises](week10/03-exercises-sql.Rmd), [solution](week10/03-exercises-sql-solution.Rmd)
 
 #### Reading
 * Beaulieu. 2009. [_Learning SQL_](https://books.google.co.uk/books?hl=en&lr=&id=1PgCCVryjOQC&oi=fnd&pg=PR3&dq=learning+sql+alan&ots=X6M3Iaz1wO&sig=38Fp1kDlxM8TF7miw0K2CNcKib4#v=onepage&q=learning%20sql%20alan&f=false). O'Reilly. (Chapters 1, 3, 4, 5, 8)
