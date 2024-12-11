@@ -1,20 +1,23 @@
 ---
-title: "MY472 - Week 10: Creating and querying a database in the cloud"
-author: "Friedrich Geiecke"
-date: "28 November 2023"
+title: "MY472 - Week 11: Creating and querying a database in the cloud"
+date: "Autumn Term 2024"
 output: html_document
 ---
 
+**Attribution statement:** _The following teaching materials have been iteratively developed by current and former instructors, including: Friedrich Geiecke and Ryan Hübert._
+
 In this file we use the tools that we studied last week to host a database in the cloud. As an example, we will use the free sandbox version of BigQuery with the `rbigquery` [package](https://bigrquery.r-dbi.org/), but there are similar services available from many other providers.
 
-Loading packages:
+### Important set up steps
 
-```{r}
-library("DBI")
-library("bigrquery")
-```
+First, we need to create a project with the BigQuery sandbox, as described at <https://cloud.google.com/bigquery/docs/sandbox>. Note: unlike other Google Cloud services, the BigQuery sandbox does _not_ require to supply any billing information. However, you will need a Google account. If you already have a Google account but you would prefer not to share any personal data with the package, feel free to create a new Google account for this course/exercise.
 
-First, we need to create a project with the BigQuery sandbox as described [here](https://cloud.google.com/bigquery/docs/sandbox) (the sandbox does not require to supply any billing information). You can type `console.cloud.google.com/bigquery` into your browser and log in with a Google account. In the following we will use this Google account with the `bigrquery` package. If you prefer not to share any personal data with the package, feel free to create a new Google account for this exercise. Once you are logged in at `console.cloud.google.com/bigquery`, first create a project and then create a dataset (i.e. a database) within your project. Afterwards enter your project ID and the dataset name here:
+You can begin set up by typing <https://console.cloud.google.com/bigquery> into your browser and logging in with your chosen Google account. Once you are logged in at <https://console.cloud.google.com/bigquery>, you will need to:
+
+1. Create a project and note the project ID, and 
+2. create a "dataset" within your project and note the name you gave the dataset.
+
+But these two pieces of information here, so that we can use them below
 
 ```{r}
 # Project name (project ID)
@@ -27,7 +30,29 @@ billing_id <- "tba"
 dataset_name <- "tba"
 ```
 
-We can now use the `DBI` package and syntax that we have used before to access our online database, add and delete tables, and run queries.
+In the following exercise you will connect to this remote database using your chosen Google account, via the `bigrquery` package. 
+
+Before proceeding to the exercise, let's do a little directory management to save us some trouble later on. Where is the Congress Facebook data (from last week) stored on your computer? Indicate the path below, naming it `ddir`. Be sure to check that the folder `facebook-data` is inside whatever folder you call `ddir`.
+
+```{r}
+# Where is the Congress Facebook data stored on your computer?
+ddir <- "tba" 
+if(!dir.exists(ddir) & ddir != "tba") { dir.create(ddir) }
+```
+
+### Connecting to and working with your BigQuery database
+
+Loading packages:
+
+```{r}
+library("DBI")
+library("bigrquery")
+library("tidyverse")
+```
+
+Let's use the `DBI` package and syntax that we used last week to access our online database. As we did last week, we will add and delete tables, and run queries. 
+
+**Note: The first time you try to connect to the project you indicated above, you will need to go through some authentication steps so that Google can know it is you that is trying to access the remote database you set up. Please follow the prompts. See the bottom of this file for more information.**
 
 ```{r}
 db <- dbConnect(
@@ -36,15 +61,18 @@ db <- dbConnect(
   dataset = dataset_name,
   billing = billing_id
 )
+```
+
+Now let's look at the database object we just created.
+
+```{r}
 db
 ```
 
 As an example, let us add the congress table to the database. First read in the csv file (make sure to have all csv-files from last week in a folder `data` which is stored in the same folder as these markdown files):
 
 ```{r}
-# Reading the first file into R
-congress <- read.csv("data/congress-facebook-2017.csv",
-	stringsAsFactors = FALSE)
+congress <- read_csv(paste0(ddir, "/facebook-data/congress-facebook-2017.csv"))
 ```
 
 Now we can write this table into our online database. When you run the following code, a browser window should open where you authenticate the package to use your Google account. If you receive a "Can't get Google credentials" error when running this code chunk, just copy and paste the code into the R console directly which should then open the browser window. If you still get an error, try to update the `rlang` package (you will need to quit all R sessions to do this).
@@ -63,8 +91,37 @@ dbGetQuery(db, "SELECT * FROM congress LIMIT 5")
 
 Just like last week, R Markdown also allows to run these queries directly in its code chunks, just that we now use an online database as connection:
 
-```{sql, connection = db}
+```{sql, connection=db}
 SELECT * FROM congress LIMIT 5
 ```
 
+Disconnect, in case we haven't already.
 
+```{r}
+dbDisconnect(db)
+rm(db)
+```
+
+### Authenticating to Google Cloud
+
+On my MacBook Pro (M3), when I tried to connect to a Google Cloud BigQuery database for the first time, I was prompted:
+
+```
+Is it OK to cache OAuth access credentials in the folder ~/Library/Caches/gargle between R sessions?
+1: Yes
+2: No
+```
+
+I selected "1" (for Yes) and was directed to a Google sign-in page where I signed in and was asked to "Sign in to Tidyverse API Packages." I pressed "Continue" then selected "Select All" (to give full permissions), and then clicked "Continue". I was directed to a page indicating "Authentication complete. Please close this page and return to R." In the R console, I saw the following:
+
+```
+Is it OK to cache OAuth access credentials in the folder ~/Library/Caches/gargle between R sessions?
+1: Yes
+2: No
+Selection: 1
+Waiting for authentication in browser...
+Press Esc/Ctrl + C to abort
+Authentication complete.
+```
+
+Unfortunately, R seems to hang at this point, so you may need to do some fiddling to get back to an active R prompt. 

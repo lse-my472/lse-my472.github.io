@@ -1,15 +1,22 @@
 ---
 title: "MY472 - Week 10: MongoDB demo (optional)"
-author: "Pablo Barberá, Friedrich Geiecke, Akitaka Matsuo"
-date: "28 November 2023"
+date: "Autumn Term 2024"
 output: html_document
 ---
 
+**Attribution statement:** _The following teaching materials have been iteratively developed by current and former instructors, including: Pablo Barberá, Friedrich Geiecke and Akitaka Matsuo._
+
 In this document we will try to replicate with MongoDB what we did using SQLite last week. We will therefore use MongoDB through R here. Should you work with MongoDB in the future, you might use it e.g. via the MongoDB Shell (command line) or MongoDB Compass (a graphical user interface). See this [link](https://www.mongodb.com/developer-tools) for details. You can find the full manual [here](https://docs.mongodb.com/manual/). While we work with the database locally in this file, we could of course also host it in the cloud.
 
-This document is __optional__ in the course. If you would like to run the code yourself, you can follow the following instructions:
+This document is _optional_ in the course. If you would like to run the code yourself, you can follow the following instructions:
 
-Although we use MongoDB through R, we first need to install the software and run it in the background. If you are using a **Mac**, the following can be run in terminal.
+## Installing MongoDB
+
+Although we use MongoDB through R, we first need to install the MongoDB software and run it in the background.
+
+##### On macOS
+
+If you are using a Mac computer running macOS, the following can be run in terminal.
 
 ```{bash eval=FALSE}
 # Source and more information: https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x/
@@ -33,13 +40,17 @@ brew services start mongodb-community@5.0
 brew services stop mongodb-community@5.0
 ```
 
-On **Windows**, follow the instruction for the community edition here: https://docs.mongodb.com/manual/tutorial/install-mongodb-on-windows/
+##### On Windows
+
+If you are using a PC running a Windows OS, follow the instruction for the community edition here: https://docs.mongodb.com/manual/tutorial/install-mongodb-on-windows/
+
+## Working with a MongoDB
 
 Once we have installed MongoDB and have it running in the background, we can continue here. To compare queries with our SQLite application from last week, we will use the Facebook posts by members of the U.S. Congress in 2017, as collected from the public Pages API while it was available. You can download the data from Moodle, in case you have not done so already.
 
 Loading packages:
 
-```{r}
+```{r, eval=FALSE}
 library("tidyverse")
 library("mongolite")
 library("DBI")
@@ -47,7 +58,7 @@ library("microbenchmark")
 library("stringi")
 ```
 
-## Building the Mongo database
+#### Building the Mongo database
 
 First let us create a database and collection. Recall, that MongoDB needs to run in the background before you execute this code chunk.
 
@@ -97,7 +108,7 @@ for (f in fls){
 
 Testing that it worked and closing the connection:
 
-```{r}
+```{r, eval=FALSE}
 # Return the number of documents
 collection$count()
 
@@ -110,18 +121,18 @@ collection$find('{}', limit=5)  # '{}' indicates everything
 collection$disconnect()
 ```
 
-## Querying the Mongo database
+#### Querying the Mongo database
 
 Now that we have our documents in the database, let's see how we can query them. For comparison, also connect to the SQLite database from last week:
 
-```{r}
+```{r, eval=FALSE}
 # Change path to where you stored the SQLite database after you created it
 dbsql <- dbConnect(RSQLite::SQLite(), "tba")
 ```
 
 First, we connect to the database and collection using the function `mongo` and then query either using `*$find()` (for simple queries) or `*$aggregate()` (for more complex queries).
 
-```{r}
+```{r, eval=FALSE}
 # Connecting to the collection within the facebook database
 collection <- mongo(collection = "congress_posts_2017", db = "facebook")
 
@@ -134,7 +145,7 @@ dbGetQuery(dbsql, 'SELECT * FROM posts LIMIT 5')
 
 Let's start with some examples of __SELECT__:
 
-```{r}
+```{r, eval=FALSE}
 # Querying just one column
 collection$find(query = '{}', fields = '{"name": true}', limit = 10)
 
@@ -147,7 +158,7 @@ The SQL `WHERE` content is summarised in the `query` argument of the `*$find()` 
 
 AND operator:
 
-```{r}
+```{r, eval=FALSE}
 collection$find(query = '{"type": {"$ne": "photo"}, "likes_count": {"$gt": 500}}', 
         fields = '{"from_name": true, "type": true, "date": true, "likes_count": true}', 
         limit = 10)
@@ -165,7 +176,7 @@ dbGetQuery(dbsql, "SELECT from_name, type, date, likes_count
 
 OR operator:
 
-```{r}
+```{r, eval=FALSE}
 collection$find(query = '{"$or": [{"type": "photo"}, {"type": "video"}]}', 
         fields = '{"from_name": true, "type": true, "date": true, "likes_count": true}', 
         limit = 10)
@@ -178,7 +189,7 @@ dbGetQuery(dbsql, "SELECT from_name, type, date, likes_count
 
 Membership / IN:
 
-```{r}
+```{r, eval=FALSE}
 collection$find(query = '{"type": {"$in": ["photo",  "video"]}}', 
         fields = '{"from_name": true, "type": true, "date": true, "comments_count": true}', 
         limit = 10)
@@ -190,7 +201,7 @@ dbGetQuery(dbsql, "SELECT from_name, type, date, comments_count
 
 MongoDB does support regular expressions, for options see https://docs.mongodb.com/manual/reference/operator/query/regex/. This can be very helpful for queries.
 
-```{r}
+```{r, eval=FALSE}
 collection$find(query = '{"date": {"$regex": "2017-01-.{2}", "$options": "i"}}', 
         fields = '{"from_name": true, "type": true, "date": true, "likes_count": true}', 
         limit = 10)
@@ -220,7 +231,7 @@ dbGetQuery(dbsql, "SELECT from_name, message, date
 
 As a side note, we can also select rows/documents after a certain date, however, this is much more convenient in the SQLite implementation.
 
-```{r}
+```{r, eval=FALSE}
 dbGetQuery(dbsql, "SELECT from_name, type, date
            FROM posts
            WHERE date > '2017-01-01'
@@ -235,7 +246,7 @@ collection$find(query = paste0('{"datetime": {"$gt": {"$date": {"$numberLong": "
 
 When some aggregation is involved (e.g. `COUNT` or `GROUP BY`), use `*$aggregate()`. In the `aggregate` function, pipeline stages are entered as elements in arrays such as [{stage 1}, {stage 2}, ...], see this [documentation](https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline/). Using the __$group__ operator in aggregation is the analogue to SQL's __GROUP BY__:. 
 
-```{r}
+```{r, eval=FALSE}
 collection$aggregate('[ {"$group": {"_id": "$from_name", "count": {"$sum": 1}}},
                   {"$limit": 10} ]')
 
@@ -254,7 +265,7 @@ collection$aggregate('[{ "$match": {"party": "Republican"}},
 
 Like __ORDER BY__, we can use `"$sort"` after find or aggregate.
 
-```{r}
+```{r, eval=FALSE}
 # Sort by type_count
 collection$aggregate('[{"$group": {"_id": "$type", "type_count": {"$sum": 1}}},
                   {"$sort": {"type_count": 1}}]')
@@ -277,7 +288,7 @@ dbGetQuery(dbsql,
 
 Most popular post:
 
-```{r}
+```{r, eval=FALSE}
 collection$find(query = '{}',
              field = '{"from_name": true, "message": true, "likes_count": true, "datetime": true}',
              sort = '{"likes_count": -1}',
@@ -292,7 +303,7 @@ dbGetQuery(dbsql,
 
 Highest comment to like ratio:
 
-```{r}
+```{r, eval=FALSE}
 # We subset only posts with 1000 likes or more to avoid outliers
 
 collection$aggregate('[{"$match" : {"likes_count": {"$gt": 1000}}},
@@ -310,13 +321,13 @@ dbGetQuery(dbsql,
   LIMIT 5")
 ```
 
-## Joins in MongoDB
+#### Joins in MongoDB
 
 Joining in MongoDB is possible, however, easier in relational database which are built for this process. Let us look at a simple example:
 
 Creating additional data:
 
-```{r}
+```{r, eval=FALSE}
 set.seed(123)
 content <- as_tibble(congress$screen_name)
 colnames(content) <- "screen_name"
@@ -326,7 +337,7 @@ head(content)
 
 Adding the data to a new collection (now we have two collections in the `facebook` database: `congress_posts_2017` and `additional_data`):
 
-```{r}
+```{r, eval=FALSE}
 another_collection <- mongo(collection = "additional_data", db = "facebook")
 another_collection$insert(content)
 another_collection$find(query = '{}', sort = '{"screen_name": -1}',limit=5) 
@@ -334,7 +345,7 @@ another_collection$find(query = '{}', sort = '{"screen_name": -1}',limit=5)
 
 Merging this `additional_data` collection into our base collection `congress_posts_2017` is possible via the `$lookup`. It performs a left outer join of the collection linked to the `collection` object and a second collection specified in `from`:
 
-```{r}
+```{r, eval=FALSE}
 join_output <- collection$aggregate('[
     { "$project": {"screen_name": true, "type": true}},
     { "$sort": { "screen_name": -1 } },
@@ -349,11 +360,11 @@ join_output
 ```
 
 
-## Performance?
+#### Performance?
 
 For both databases, we have not done any tuning (e.g. indexing). But let us compare which is faster just for fun introducing the microbenchmark package:
 
-```{r}
+```{r, eval=FALSE}
 microbenchmark(sqlite = 
   dbGetQuery(dbsql, "SELECT from_name, type, date, likes_count 
            FROM posts
@@ -366,7 +377,7 @@ mongo = collection$find(query = '{"type": {"$ne": "photo"}, "likes_count": {"$gt
 ```
 
 
-```{r}
+```{r, eval=FALSE}
 microbenchmark(sqlite = 
   dbGetQuery(dbsql,
     "SELECT from_name, message, likes_count, comments_count, date,   

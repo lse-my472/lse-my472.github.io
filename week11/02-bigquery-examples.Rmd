@@ -1,9 +1,10 @@
 ---
-title: "MY472 - Week 10: Querying large databases via Google BigQuery"
-author: "Pablo Barberá, Friedrich Geiecke, Akitaka Matsu, Daniel de Kadt"
-date: "28 November 2023"
+title: "MY472 - Week 11: Querying large databases via Google BigQuery"
+date: "Autumn Term 2024"
 output: html_document
 ---
+
+**Attribution statement:** _The following teaching materials have been iteratively developed by current and former instructors, including: Pablo Barberá, Friedrich Geiecke, Akitaka Matsu, Daniel de Kadt and Ryan Hübert._
 
 In this file we will continue practicing how to query online databases with SQL. We will use our BigQuery setup from the previous document with two public databases to demonstrate queries for large datasets. We will also practice handling spatial data, and making maps.
 
@@ -52,15 +53,13 @@ dbListTables(db)
 dbListFields(db, "crime_by_lsoa")
 ```
 
-2. Let's count how many rows the table contains. Remember, if the code yields a Google credentials error, once copy-paste it into the R console directly which should then open the browser window for authentication -- alternatively try and reinstall `rlang`.
+2. Let's count how many rows the table contains. 
 
 ```{r}
-
-
 dbGetQuery(db, "SELECT COUNT(*) FROM crime_by_lsoa")
 ```
 
-3. We can also extract crimes per year
+3. We can also extract crimes per year.
 
 ```{r}
 dbGetQuery(db, "SELECT year, SUM(value) AS count_crime FROM crime_by_lsoa
@@ -68,7 +67,7 @@ dbGetQuery(db, "SELECT year, SUM(value) AS count_crime FROM crime_by_lsoa
            ORDER BY year")
 ```
 
-4. And the same but by year **and** borough
+4. And the same but by year **and** borough.
 
 ```{r}
 data_plot_1 <- dbGetQuery(db, "SELECT year, borough, SUM(value) AS count_crime
@@ -78,9 +77,9 @@ View(data_plot_1)
 ```
 
 ```{r fig.width=7, fig.height=4, echo=FALSE}
-data_plot_1 |> 
-  group_by(borough) |>
-  mutate(ratio = count_crime/count_crime[year == 2008]) |>
+data_plot_1 %>% 
+  group_by(borough) %>%
+  mutate(ratio = count_crime/count_crime[year == 2008]) %>%
   ggplot(aes(x = year, y = ratio, color = borough)) + 
     geom_line() + #add lines
     labs(title = "Crime in London's boroughs, over time", x = "Year", y = "Crime in Year = T / Crime in 2008") + #label the plot
@@ -95,7 +94,7 @@ data_plot_1 |>
 data_plot_2 <- dbGetQuery(db, "SELECT year, major_category,
             SUM(value) AS count_crime FROM crime_by_lsoa
             GROUP BY year, major_category")
-#View(data_plot_2)
+View(data_plot_2)
 ```
 
 ```{r}
@@ -110,20 +109,20 @@ ggplot(data_plot_2) + aes(x = year, y = count_crime, colour = major_category) +
 
 ```{r}
 # Call crime at the Lower Layer Super Output Area level
-crime_per_lsoa_code <- dbGetQuery(db, "SELECT lsoa_code, value AS count_crime
+crime_per_lsoa_code <- dbGetQuery(db, "SELECT lsoa_code, SUM(value) AS count_crime
             FROM crime_by_lsoa
             WHERE year = 2016
             GROUP BY lsoa_code")
 crime_per_lsoa_code
 ```
 
-Now we need some way to **map** this data. To do that, we need an object that has what is called a **geometry** -- a **mapping** of our data onto a two-dimensional representation over space. These files are typically called `shapefiles`, and are typically stored as `.shp` files that are connected to a series of related files of the same name but different extension (e.g. `.dbf` files, which are dBASE tables that store attributes/features/variables). We will download a shapefile for London's LSOAs from the London Government website, and then extract that `.zip` file (which includes a folder structure and many other files) into our data folder, creating a new sub-folder called `shapefiles`.  
+We will download a shapefile for London's LSOAs from the London Government website, and then extract that `.zip` file (which includes a folder structure and many other files) into our data folder, creating a new sub-folder called `shapefiles`. **Be sure to indicate your preferred local file path below.**
 
 ```{r}
 # Download a shapefile from the London Government website:
 url_dl <- "https://data.london.gov.uk/download/statistical-gis-boundary-files-london/9ba8c833-6370-4b11-abdc-314aa020d5e0/statistical-gis-boundaries-london.zip"
 file_name_dl <- "statistical-gis-boundaries-london.zip"
-file_path_dl <- "data/"
+file_path_dl <- "tba"
 
 download.file(url_dl, paste0(file_path_dl, file_name_dl), mode = "wb")
 
@@ -131,7 +130,7 @@ download.file(url_dl, paste0(file_path_dl, file_name_dl), mode = "wb")
 unzip(paste0(file_path_dl, file_name_dl),exdir=paste0(file_path_dl,"shapefiles"))
 
 # Read the shapefile:
-shp <- st_read("data/shapefiles/statistical-gis-boundaries-london/ESRI/LSOA_2011_London_gen_MHW.shp")
+shp <- st_read(paste0(file_path_dl, "/shapefiles/statistical-gis-boundaries-london/ESRI/LSOA_2011_London_gen_MHW.shp"))
 
 # Let's explore the shapefile a little: 
 class(shp)
@@ -143,7 +142,7 @@ Now that we have the shapefile downloaded, let's combine the shapefile and the d
 
 ```{r}
 # Merging our crime data into the shapefile:
-shp_to_plot <- shp |>
+shp_to_plot <- shp %>%
   left_join(crime_per_lsoa_code, by = join_by(LSOA11CD == lsoa_code))
 
 dim(shp_to_plot)
@@ -180,7 +179,7 @@ map
 breaks <- classInt::classIntervals(shp_to_plot$count_crime, n = 5, style = "jenks", dig.lab=10)
 breaks
 
-shp_to_plot <- shp_to_plot |>
+shp_to_plot <- shp_to_plot %>%
   mutate(count_crime_cut = cut(count_crime, breaks$brks, include.lowest = TRUE, dig.lab=10))
 
 map <- tm_shape(shp_to_plot) +
@@ -188,15 +187,22 @@ map <- tm_shape(shp_to_plot) +
   tm_layout(main.title = "Crime in London, 2016", legend.outside = TRUE, frame = FALSE)
   
 map
-tmap_save(map, "london_crime.png", dpi = 300)
+tmap_save(map, paste0(file_path_dl, "london_crime.png"), dpi = 300)
 
 # Finally, we can create a dynamic "live" map using tmaps:
 tmap_options(check.and.fix = TRUE) 
 tmap_mode("view")
 map
 
-tmap_save(map, "london_crime.html")
+tmap_save(map, paste0(file_path_dl, "london_crime.html"))
 tmap_mode("plot")
+```
+
+Disconnect, in case we haven't already.
+
+```{r}
+dbDisconnect(db)
+rm(db)
 ```
 
 ## NYC Bicycle Hire
@@ -288,23 +294,9 @@ dbGetQuery(db, "SELECT gender, AVG( (ABS(start_station_latitude-end_station_lati
   GROUP BY gender")
 ```
 
+Disconnect, in case we haven't already.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+```{r}
+dbDisconnect(db)
+rm(db)
+```

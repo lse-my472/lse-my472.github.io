@@ -326,8 +326,8 @@ This week covers how to set up and use relational databases in the cloud and fun
 
 #### Lecture
 
-- [Slides](x)
-- Code: [Creating own databases in the cloud](x), [querying large cloud databases](x), [MongoDB](x)
+- [Slides](week11/MY472-week11-nosql-and-cloud-db.pdf)
+- Code: [Creating own databases in the cloud](week11/01-bigquery-create-own-databases.Rmd), [querying large cloud databases](week11/02-bigquery-examples.Rmd), [MongoDB](week11/03-mongodb-demo.Rmd)
 
 #### Seminar
 
