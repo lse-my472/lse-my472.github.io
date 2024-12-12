@@ -1,9 +1,10 @@
 ---
-title: "MY472 - Week 10: Seminar exercises on BigQuery - solution"
-author: "Pablo Barberá, Friedrich Geiecke, Daniel de Kadt"
-date: "30 November 2023"
+title: "MY472 - Week 11: Seminar exercises on BigQuery - solution"
+date: "Autumn Term 2024"
 output: html_document
 ---
+
+**Attribution statement:** _The following teaching materials have been iteratively developed by current and former instructors, including: Pablo Barberá, Friedrich Geiecke, Daniel de Kadt and Ryan Hübert._
 
 ## Data
 

@@ -331,7 +331,7 @@ This week covers how to set up and use relational databases in the cloud and fun
 
 #### Seminar
 
-- Code: [Exercises BigQuery](x), [SQL joins](x), [SQL subqueries](x), [solution BigQuery](x), [solution joins](x), [solution subqueries](x)
+- Code: [Exercises BigQuery](week11/04-exercises-bigquery.Rmd), [solution BigQuery](week11/04-exercises-bigquery-solution.Rmd)
 
 #### Required
 * Beaulieu. 2009. [_Learning SQL_](https://books.google.co.uk/books?hl=en&lr=&id=1PgCCVryjOQC&oi=fnd&pg=PR3&dq=learning+sql+alan&ots=X6M3Iaz1wO&sig=38Fp1kDlxM8TF7miw0K2CNcKib4#v=onepage&q=learning%20sql%20alan&f=false). O'Reilly. (Chapters 2)
