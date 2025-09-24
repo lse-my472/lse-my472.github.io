@@ -1,0 +1,121 @@
+[
+  {
+    "objectID": "topics.html",
+    "href": "topics.html",
+    "title": "Topics",
+    "section": "",
+    "text": "Please note: the information on this website is preliminary and subject to change before the first lecture.\nWhen available, you can access each topic’s lecture slides via , seminar slides via  and supporting code via .\n\n\n\n\n\n\n\n\nWeek\nTopic\nLecturer\n\n\n\n\n1\nThe Computational Core      \nRyan Hübert\n\n\n2\nFundamentals of Digital Data      \nRyan Hübert\n\n\n3\nTabular Data      \nRyan Hübert\n\n\n4\nVisualisation      \nRyan Hübert\n\n\n5\nAccessing Data in the Cloud      \nRyan Hübert\n\n\n6\nReading week (no lecture or seminars)\n\n\n\n7\nScraping Static Webpages      \nRyan Hübert\n\n\n8\nScraping Dynamic Webpages      \nRyan Hübert\n\n\n9\nAudio and Image Processing      \nRyan Hübert\n\n\n10\nText as Data      \nRyan Hübert\n\n\n11\nLarge Language Models      \nRyan Hübert"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "MY472: Data for Data Scientists",
+    "section": "",
+    "text": "Please note: the information on this website is preliminary and subject to change before the first lecture."
+  },
+  {
+    "objectID": "index.html#course-instructors",
+    "href": "index.html#course-instructors",
+    "title": "MY472: Data for Data Scientists",
+    "section": "Course instructors",
+    "text": "Course instructors\nDr Ryan Hübert (course convenor)      Associate Professor, Department of Methodology\nDr Yuanmo He      LSE Fellow, Department of Methodology\nDr Thomas Robinson      Assistant Professor, Department of Methodology\nSalvatore Finizio (GTA)      PhD Student, Department of Geography and Environment\nCharlotte Kuberka (GTA)      PhD Student, Department of Government\nAsami Narita (GTA)    PhD Student, Department of Methodology\n\n\n\n\n\n\nBooking office hours\n\n\n\nAll office hours must be pre-booked via LSE’s StudentHub. Per department policy, GTA(s) do not hold regular office hours.\n\n\nKeep in mind that office hours are a limited resource. Please do not regularly book office hours and cancel them at the last minute, as this prevents other students from accessing this limited resource."
+  },
+  {
+    "objectID": "index.html#prerequisites",
+    "href": "index.html#prerequisites",
+    "title": "MY472: Data for Data Scientists",
+    "section": "Prerequisites",
+    "text": "Prerequisites\nThere are no formal prerequisites, but the course relies heavily on the R programming language. We will presume familiarity with core R programming skills. If you have no experience using R (or any other programming language), you are still welcome to join the course. Just keep in mind that the learning curve will steeper for you and you will need to set aside sufficient time to get up-to-speed with the programming skills required to be successful in the course.\n\n\n\n\n\n\nMandatory R course\n\n\n\nAll students should complete the R Advanced for Methodology Preparatory Course before the end of Week 1 of the Autumn Term. If you already have advanced R skills (covering all the modules in the preparatory course), then you do not need to complete it.\n\n\nDuring the first lecture, we will provide a link to complete a course on-boarding survey."
+  },
+  {
+    "objectID": "index.html#technical-requirements",
+    "href": "index.html#technical-requirements",
+    "title": "MY472: Data for Data Scientists",
+    "section": "Technical requirements",
+    "text": "Technical requirements\nFor this course, you must have a laptop that is capable of running the required software and doing the kinds of data science tasks we will cover. Any recent laptop running macOS or Windows with at least 8 GB of RAM should be sufficient, but please email the course convenor if you are unsure. Also, if you are considering purchasing a new laptop and want some advice, feel free to contact the course convenor.\n\n\n\n\n\n\nMinimum hardware requirements\n\n\n\nYou will not be able to use a tablet or iPad for the work in this course. You also might not be able to use a very old laptop or one with minimal technical specifications, such as some Chromebooks.\n\n\nMost of the materials in this course have been developed on Apple’s macOS, and the lectures and seminars will be primarily taught with Apple laptops. In our experience, Apple computers are the most commonly used for data science in academia and in industry. You may use other operating systems (Windows or Linux), but please be aware that we make no guarantees about the seamless interoperability of the course materials across all operating systems and/or all computers.\nWe expect students to install R and Positron on their computers, in addition to other software as necessary. You can install R from https://www.r-project.org/ and Positron from https://positron.posit.co/.\nAll students should create a GitHub account (if they have not already), and sign up for GitHub Education benefits. See https://github.com/education.\n\n\n\n\n\n\nTechnical requirements for in-person assessment\n\n\n\nDetails about the technical requirements for the in-person practical test will be announced during the term."
+  },
+  {
+    "objectID": "index.html#registration-and-auditing",
+    "href": "index.html#registration-and-auditing",
+    "title": "MY472: Data for Data Scientists",
+    "section": "Registration and auditing",
+    "text": "Registration and auditing\nAny questions or problems relating to course registration should be directed to the Methodology Department staff at methodology.admin@lse.ac.uk.\nStudents interested in auditing this course should complete this form and await a reply."
+  },
+  {
+    "objectID": "index.html#course-format-and-scheduling",
+    "href": "index.html#course-format-and-scheduling",
+    "title": "MY472: Data for Data Scientists",
+    "section": "Course format and scheduling",
+    "text": "Course format and scheduling\nDuring Autumn Term, there will be 20 hours of lectures and 15 hours of seminar. There are no lectures or seminars during week 6, which is LSE’s reading week.\nThere is a two-hour lecture each week during the term on Wednesdays from 13:00 to 15:00 in CLM.2.02 (see the campus map). Lecture slides and example code will be updated in advance of each week’s lecture.\nThere is a 1.5 hour “lab-style” seminar each week during the term. See the LSE Timetable for the schedule and locations for the seminars. Seminar exercises will be updated in advance of each week’s seminars. Students must attend their assigned seminar."
+  },
+  {
+    "objectID": "index.html#course-related-communications",
+    "href": "index.html#course-related-communications",
+    "title": "MY472: Data for Data Scientists",
+    "section": "Course-related communications",
+    "text": "Course-related communications\n\nLSE MY472 (AT 2025) Slack\nThis course uses a Slack workspace to manage communications. Announcements to the class will be sent in the #announcements channel of the course Slack workspace. Please be sure that you check this channel regularly, and configure your Slack settings to receive notifications.\n\n\n\n\n\n\nReceiving notifications and announcements\n\n\n\nYou are responsible for ensuring you receive all course-related communications sent in Moodle, to your LSE email address and/or in the course Slack workspace.\n\n\n\n\nCommunication guidelines\nHow should I contact the instructor(s)? We expect that will communicate with us via your LSE email address or the course Slack workspace. Please do not send us emails from personal email accounts.\nWhich instructor should I contact? For general course-related questions, you should contact the course convenor, Ryan Hübert. If you have specific questions about your seminar, you may contact your seminar instructors.\nWhich topics are appropriate for electronic messages? Please reserve your electronic messaging for short logistical questions that are easy for us to answer quickly. If you have more involved questions about course content, please sign up for office hours.\nHow should I write my messages? Please keep your messages to the instructors brief, clear, direct and professional. Do not send us excessively long emails written by an LLM. While it is rare, instructors sometimes receive messages that are rude, hostile or otherwise unprofessional. In these instances, we may either ignore your message or ask that you attend an in-person meeting to discuss how to improve your communication."
+  },
+  {
+    "objectID": "index.html#administrative-support",
+    "href": "index.html#administrative-support",
+    "title": "MY472: Data for Data Scientists",
+    "section": "Administrative support",
+    "text": "Administrative support\nIf you have any administrative queries about this course or would like to book a Zoom call with the course administrator, please contact methodology.admin@lse.ac.uk."
+  },
+  {
+    "objectID": "index.html#attribution-statement",
+    "href": "index.html#attribution-statement",
+    "title": "MY472: Data for Data Scientists",
+    "section": "Attribution statement",
+    "text": "Attribution statement\nThe teaching materials in this course been iteratively developed by current and former instructors, including Pablo Barberá, Ken Benoit, Daniel de Kadt, Friedrich Geiecke, Ryan Hübert, Akitaka Matsuo and Thomas Robinson."
+  },
+  {
+    "objectID": "assessments.html",
+    "href": "assessments.html",
+    "title": "Assessments and marking",
+    "section": "",
+    "text": "Please note: the information on this website is preliminary and subject to change before the first lecture."
+  },
+  {
+    "objectID": "assessments.html#assessment-schedule",
+    "href": "assessments.html#assessment-schedule",
+    "title": "Assessments and marking",
+    "section": "Assessment schedule",
+    "text": "Assessment schedule\nThere are three assessments in this course.\n\n\n\n\nType\nDue date\n\n\n\n\n1\nFormative in-class exercises\nWeekly\n\n\n2\nFormative data science project\nTBA\n\n\n3\nSummative in-person practical test (100%)\n11 December 2025\n\n\n\nAdditional details for each assessment will be sent via course announcements."
+  },
+  {
+    "objectID": "assessments.html#disability-accommodations",
+    "href": "assessments.html#disability-accommodations",
+    "title": "Assessments and marking",
+    "section": "Disability accommodations",
+    "text": "Disability accommodations\nIf you have an official disability accommodation related to exams, please contact the course convenor within the first two weeks of the term to ensure proper arrangements can be made for the in-person practical test."
+  },
+  {
+    "objectID": "assessments.html#extension-requests",
+    "href": "assessments.html#extension-requests",
+    "title": "Assessments and marking",
+    "section": "Extension requests",
+    "text": "Extension requests\nIf you would like to request an extension on an assignment, please review the department policies here.\nExtension requests must be made directly to the department at the email address listed in the department policies linked above. The instructors do not grant extension requests.\n\n\n\n\n\n\nExtensions on the in-person practical test\n\n\n\nPlease be sure that you will be available to take the in-person practical test on 11 December 2025. Except for a documented and verified emergency approved by the Department or the School, no extensions will be granted for the in-person practical test. If you do not attend the in-person practical test, we will report your absence to the School and you will need to resit during an approved resit period if you wish to receive a mark in this course."
+  },
+  {
+    "objectID": "assessments.html#marking",
+    "href": "assessments.html#marking",
+    "title": "Assessments and marking",
+    "section": "Marking",
+    "text": "Marking\nEach registered non-auditing student will receive a numerical mark in this course. This mark will be based on the student’s performance on the summative assessment only. For a taught master’s program at LSE:\n\nmarks ranging from 70 to 100 are classified as distinction;\nmarks ranging from 60 to 70 are classified as merit;\nmarks ranging from 50 to 60 are classified as pass; and\nmarks below 50 are classified as fail.\n\nPlease keep in mind that the marking scale at LSE may differ from your prior institution(s).\nFormative assessments are meant to help you develop your skills. Students may receive feedback on formative assessments in some situations. In these situations, students should expect feedback within 3 term weeks of submission, assuming they submitted on time.\nIf you are not yet familiar with the assessment system at LSE, please review LSE’s Understanding Results webpage.\nIf you are used to an American-style grading system, you might find this LSE website helpful for better understanding the marking system."
+  },
+  {
+    "objectID": "assessments.html#academic-integrity",
+    "href": "assessments.html#academic-integrity",
+    "title": "Assessments and marking",
+    "section": "Academic integrity",
+    "text": "Academic integrity\nAs scholars and educators, your instructors take academic integrity very seriously. Any academic misconduct will be dealt with in accordance with the LSE Regulations on Assessment Offences.\nIf you are unfamiliar with the norms and expectations around academic integrity at LSE (or UK universities more generally), then you should review the resources available on LSE’s website and especially the School’s Academic Integrity Awareness Week webpage."
+  },
+  {
+    "objectID": "assessments.html#generative-ai",
+    "href": "assessments.html#generative-ai",
+    "title": "Assessments and marking",
+    "section": "Generative AI",
+    "text": "Generative AI\nExcept when otherwise noted, we freely allow use of generative AI tools such as ChatGPT and Claude to support your learning, as long as your use of these tools would not be considered academic misconduct. Academic misconduct with generative AI includes—but is not limited to—using these tools to substantially complete your work or to fabricate data or other information."
+  }
+]

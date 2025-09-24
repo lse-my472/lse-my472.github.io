@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.33">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>MY472: Data for Data Scientists – MY472</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./assets/lse-square.png" rel="icon" type="image/png">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-ea385d0e468b0dd5ea5bf0780b1290d9.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-a14e3238c51140e99ccc48519b6ed9ce.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="./index.html" class="navbar-brand navbar-brand-logo">
+    <img src="./assets/lse-square.png" alt="" class="navbar-logo">
+    </a>
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">MY472</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="./index.html" aria-current="page"> 
+<span class="menu-text">General Information</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./assessments.html"> 
+<span class="menu-text">Assessments</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-course-topics" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Course Topics</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-course-topics">    
+        <li>
+    <a class="dropdown-item" href="./topics.html">
+ <span class="dropdown-text">Outline of Topics</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://lse-my472.github.io/"> <i class="bi bi-megaphone" role="img" aria-label="Announcements">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://lse-my472.github.io/"> <i class="bi bi-camera-reels" role="img" aria-label="Lecture Recordings">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://lse-my472.github.io/"> <i class="bi bi-slack" role="img" aria-label="Slack">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://lse-my472.github.io/"> <i class="bi bi-github" role="img" aria-label="GitHub">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#course-instructors" id="toc-course-instructors" class="nav-link active" data-scroll-target="#course-instructors">Course instructors</a></li>
+  <li><a href="#prerequisites" id="toc-prerequisites" class="nav-link" data-scroll-target="#prerequisites">Prerequisites</a></li>
+  <li><a href="#technical-requirements" id="toc-technical-requirements" class="nav-link" data-scroll-target="#technical-requirements">Technical requirements</a></li>
+  <li><a href="#registration-and-auditing" id="toc-registration-and-auditing" class="nav-link" data-scroll-target="#registration-and-auditing">Registration and auditing</a></li>
+  <li><a href="#course-format-and-scheduling" id="toc-course-format-and-scheduling" class="nav-link" data-scroll-target="#course-format-and-scheduling">Course format and scheduling</a></li>
+  <li><a href="#course-related-communications" id="toc-course-related-communications" class="nav-link" data-scroll-target="#course-related-communications">Course-related communications</a>
+  <ul class="collapse">
+  <li><a href="#lse-my472-at-2025-slack" id="toc-lse-my472-at-2025-slack" class="nav-link" data-scroll-target="#lse-my472-at-2025-slack">LSE MY472 (AT 2025) Slack</a></li>
+  <li><a href="#communication-guidelines" id="toc-communication-guidelines" class="nav-link" data-scroll-target="#communication-guidelines">Communication guidelines</a></li>
+  </ul></li>
+  <li><a href="#administrative-support" id="toc-administrative-support" class="nav-link" data-scroll-target="#administrative-support">Administrative support</a></li>
+  <li><a href="#attribution-statement" id="toc-attribution-statement" class="nav-link" data-scroll-target="#attribution-statement">Attribution statement</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">MY472: Data for Data Scientists</h1>
+<p class="subtitle lead">Autumn Term 2025</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p><strong>Please note: the information on this website is preliminary and subject to change before the first lecture.</strong></p>
+<section id="course-instructors" class="level2">
+<h2 class="anchored" data-anchor-id="course-instructors">Course instructors</h2>
+<p><strong>Dr Ryan Hübert</strong> (course convenor)&nbsp;&nbsp;&nbsp;<a href="mailto:R.Hubert@lse.ac.uk"><i class="bi bi-envelope-at" style="font-size: 1rem;"></i></a>&nbsp;&nbsp;<a href="https://ryanhubert.github.io/"><i class="bi bi-link-45deg" style="font-size: 1rem;"></i></a><br> Associate Professor, Department of Methodology</p>
+<p><strong>Dr Yuanmo He</strong>&nbsp;&nbsp;&nbsp;<a href="mailto:Y.He54@lse.ac.uk"><i class="bi bi-envelope-at" style="font-size: 1rem;"></i></a>&nbsp;&nbsp;<a href="https://yuanmohe.com/"><i class="bi bi-link-45deg" style="font-size: 1rem;"></i></a><br> LSE Fellow, Department of Methodology</p>
+<p><strong>Dr Thomas Robinson</strong>&nbsp;&nbsp;&nbsp;<a href="mailto:T.Robinson7@lse.ac.uk"><i class="bi bi-envelope-at" style="font-size: 1rem;"></i></a>&nbsp;&nbsp;<a href="https://ts-robinson.com/"><i class="bi bi-link-45deg" style="font-size: 1rem;"></i></a><br> Assistant Professor, Department of Methodology</p>
+<p><strong>Salvatore Finizio</strong> (GTA)&nbsp;&nbsp;&nbsp;<a href="mailto:S.Finizio@lse.ac.uk"><i class="bi bi-envelope-at" style="font-size: 1rem;"></i></a>&nbsp;&nbsp;<a href="https://www.linkedin.com/in/salvatorefinizio/"><i class="bi bi-link-45deg" style="font-size: 1rem;"></i></a><br> PhD Student, Department of Geography and Environment</p>
+<p><strong>Charlotte Kuberka</strong> (GTA)&nbsp;&nbsp;&nbsp;<a href="mailto:L.Kuberka@lse.ac.uk"><i class="bi bi-envelope-at" style="font-size: 1rem;"></i></a>&nbsp;&nbsp;<a href="https://github.com/CharlotteKub"><i class="bi bi-link-45deg" style="font-size: 1rem;"></i></a><br> PhD Student, Department of Government</p>
+<p><strong>Asami Narita</strong> (GTA)&nbsp;&nbsp;&nbsp;<a href="mailto:A.Narita@lse.ac.uk"><i class="bi bi-envelope-at" style="font-size: 1rem;"></i></a><br> PhD Student, Department of Methodology</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Booking office hours
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>All office hours must be pre-booked via LSE’s <a href="https://studenthub.lse.ac.uk/">StudentHub</a>. Per department policy, GTA(s) do not hold regular office hours.</p>
+</div>
+</div>
+<p>Keep in mind that office hours are a limited resource. Please do not regularly book office hours and cancel them at the last minute, as this prevents other students from accessing this limited resource.</p>
+</section>
+<section id="prerequisites" class="level2">
+<h2 class="anchored" data-anchor-id="prerequisites">Prerequisites</h2>
+<p>There are no formal prerequisites, but the course relies heavily on the <a href="https://www.r-project.org/">R programming language</a>. We will presume familiarity with core R programming skills. If you have no experience using R (or any other programming language), you are still welcome to join the course. Just keep in mind that the learning curve will steeper for you and you will need to set aside sufficient time to get up-to-speed with the programming skills required to be successful in the course.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Mandatory R course
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>All students should complete the <a href="https://moodle.lse.ac.uk/course/view.php?id=8669">R Advanced for Methodology Preparatory Course</a> before the end of Week 1 of the Autumn Term. If you already have advanced R skills (covering all the modules in the preparatory course), then you do not need to complete it.</p>
+</div>
+</div>
+<p>During the first lecture, we will provide a link to complete a course on-boarding survey.</p>
+</section>
+<section id="technical-requirements" class="level2">
+<h2 class="anchored" data-anchor-id="technical-requirements">Technical requirements</h2>
+<p>For this course, you must have a laptop that is capable of running the required software and doing the kinds of data science tasks we will cover. Any recent laptop running macOS or Windows with at least 8 GB of RAM should be sufficient, but please email the course convenor if you are unsure. Also, if you are considering purchasing a new laptop and want some advice, feel free to contact the course convenor.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Minimum hardware requirements
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>You will <em>not</em> be able to use a tablet or iPad for the work in this course. You also might not be able to use a very old laptop or one with minimal technical specifications, such as some Chromebooks.</p>
+</div>
+</div>
+<p>Most of the materials in this course have been developed on Apple’s macOS, and the lectures and seminars will be primarily taught with Apple laptops. In our experience, Apple computers are the most commonly used for data science in academia and in industry. You may use other operating systems (Windows or Linux), but please be aware that we make no guarantees about the seamless interoperability of the course materials across all operating systems and/or all computers.</p>
+<p>We expect students to install R and Positron on their computers, in addition to other software as necessary. You can install R from <a href="https://www.r-project.org/">https://www.r-project.org/</a> and Positron from <a href="https://positron.posit.co/">https://positron.posit.co/</a>.</p>
+<p>All students should create a GitHub account (if they have not already), and sign up for GitHub Education benefits. See <a href="https://github.com/education">https://github.com/education</a>.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Technical requirements for in-person assessment
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Details about the technical requirements for the in-person practical test will be announced during the term.</p>
+</div>
+</div>
+</section>
+<section id="registration-and-auditing" class="level2">
+<h2 class="anchored" data-anchor-id="registration-and-auditing">Registration and auditing</h2>
+<p>Any questions or problems relating to course registration should be directed to the Methodology Department staff at <a href="mailto:methodology.admin@lse.ac.uk">methodology.admin@lse.ac.uk</a>.</p>
+<p>Students interested in auditing this course should complete <a href="https://www.lse.ac.uk/Methodology/Study/Auditing">this form</a> and await a reply.</p>
+</section>
+<section id="course-format-and-scheduling" class="level2">
+<h2 class="anchored" data-anchor-id="course-format-and-scheduling">Course format and scheduling</h2>
+<p>During Autumn Term, there will be 20 hours of lectures and 15 hours of seminar. There are no lectures or seminars during week 6, which is LSE’s reading week.</p>
+<p>There is a two-hour lecture each week during the term on <strong>Wednesdays from 13:00 to 15:00 in CLM.2.02</strong> (see the <a href="https://www.lse.ac.uk/lse-information/campus-map">campus map</a>). Lecture slides and example code will be updated in advance of each week’s lecture.</p>
+<p>There is a 1.5 hour “lab-style” seminar each week during the term. See the <a href="https://info.lse.ac.uk/Current-Students/Timetables">LSE Timetable</a> for the schedule and locations for the seminars. Seminar exercises will be updated in advance of each week’s seminars. Students must attend their assigned seminar.</p>
+</section>
+<section id="course-related-communications" class="level2">
+<h2 class="anchored" data-anchor-id="course-related-communications">Course-related communications</h2>
+<section id="lse-my472-at-2025-slack" class="level3">
+<h3 class="anchored" data-anchor-id="lse-my472-at-2025-slack">LSE MY472 (AT 2025) Slack</h3>
+<p>This course uses a Slack workspace to manage communications. Announcements to the class will be sent in the <code>#announcements</code> channel of the course Slack workspace. Please be sure that you check this channel regularly, and configure your Slack settings to receive notifications.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Receiving notifications and announcements
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>You are responsible for ensuring you receive all course-related communications sent in Moodle, to your LSE email address and/or in the course Slack workspace.</p>
+</div>
+</div>
+</section>
+<section id="communication-guidelines" class="level3">
+<h3 class="anchored" data-anchor-id="communication-guidelines">Communication guidelines</h3>
+<p><strong>How should I contact the instructor(s)?</strong> We expect that will communicate with us via your LSE email address or the course Slack workspace. Please do not send us emails from personal email accounts.</p>
+<p><strong>Which instructor should I contact?</strong> For general course-related questions, you should contact the course convenor, Ryan Hübert. If you have specific questions about your seminar, you may contact your seminar instructors.</p>
+<p><strong>Which topics are appropriate for electronic messages?</strong> Please reserve your electronic messaging for short logistical questions that are easy for us to answer quickly. If you have more involved questions about course content, please sign up for office hours.</p>
+<p><strong>How should I write my messages?</strong> Please keep your messages to the instructors brief, clear, direct and professional. Do <em>not</em> send us excessively long emails written by an LLM. While it is rare, instructors sometimes receive messages that are rude, hostile or otherwise unprofessional. In these instances, we may either ignore your message or ask that you attend an in-person meeting to discuss how to improve your communication.</p>
+</section>
+</section>
+<section id="administrative-support" class="level2">
+<h2 class="anchored" data-anchor-id="administrative-support">Administrative support</h2>
+<p>If you have any administrative queries about this course or would like to book a Zoom call with the course administrator, please contact <a href="mailto:methodology.admin@lse.ac.uk">methodology.admin@lse.ac.uk</a>.</p>
+</section>
+<section id="attribution-statement" class="level2">
+<h2 class="anchored" data-anchor-id="attribution-statement">Attribution statement</h2>
+<p>The teaching materials in this course been iteratively developed by current and former instructors, including Pablo Barberá, Ken Benoit, Daniel de Kadt, Friedrich Geiecke, Ryan Hübert, Akitaka Matsuo and Thomas Robinson.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/lse-my472\.github\.io\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p><a href="https://www.lse.ac.uk/methodology">LSE Department of Methodology</a></p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>Autumn Term 2025</p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

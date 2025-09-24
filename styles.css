@@ -1,0 +1,45 @@
+/* css styles */
+
+/* Hide section labels created from directories */
+.sidebar-item-section > .sidebar-item-container > .sidebar-item-text.sidebar-link {
+  display: none;
+}
+/* Optional: reduce indent so children look flat */
+.sidebar-item-section .sidebar-item-contents {
+  padding-left: 0;
+}
+
+/* Match header/nav width to main content */
+#quarto-header .navbar .container-fluid {
+  max-width: 1024px;   /* same as your .container */
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 15px;  /* same side padding as content */
+  padding-right: 15px;
+}
+
+/* Constrain footer to 1024px and center it */
+footer.footer .nav-footer {
+  max-width: 1024px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 15px;
+  padding-right: 15px;
+  width: 100%;
+}
+
+.navbar {
+  padding-top: 0.2rem;
+  padding-bottom: 0.2rem;
+  background-color: #393d3e !important; /* your color */
+}
+.navbar .navbar-nav .nav-link,
+.navbar-brand {
+  color: #ffffff !important; /* text color */
+}
+.navbar-brand img {
+  height: 40px !important;
+  width: auto !important;
+  max-height: none !important;
+  margin-right: 8px !important;
+}
