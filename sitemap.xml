@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://lse-my472.github.io/topics.html</loc>
-    <lastmod>2025-09-24T10:58:25.393Z</lastmod>
-  </url>
-  <url>
-    <loc>https://lse-my472.github.io/index.html</loc>
-    <lastmod>2025-09-24T10:59:36.328Z</lastmod>
+    <loc>https://lse-my472.github.io/week01/index.html</loc>
+    <lastmod>2025-09-30T20:16:32.915Z</lastmod>
   </url>
   <url>
     <loc>https://lse-my472.github.io/assessments.html</loc>
-    <lastmod>2025-09-24T12:51:22.495Z</lastmod>
+    <lastmod>2025-09-30T20:23:10.118Z</lastmod>
+  </url>
+  <url>
+    <loc>https://lse-my472.github.io/index.html</loc>
+    <lastmod>2025-09-24T16:03:11.114Z</lastmod>
+  </url>
+  <url>
+    <loc>https://lse-my472.github.io/topics.html</loc>
+    <lastmod>2025-09-24T10:58:01.000Z</lastmod>
   </url>
 </urlset>
