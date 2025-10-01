@@ -1,80 +1,66 @@
 [
   {
-    "objectID": "week01/index.html",
-    "href": "week01/index.html",
-    "title": "Week 1: The Computational Core",
+    "objectID": "week11/index.html",
+    "href": "week11/index.html",
+    "title": "Week 11: Large Language Models",
     "section": "",
-    "text": "This week introduces the course, as well as some core computational tools used in data science, including directories, programming and version control.\nLecture Slides  \nSeminar Slides  \nSupporting Code\nNote: materials will be posted before lecture and seminar each week."
+    "text": "Lecture Slides  \nSupporting Code  \n\nNote: materials will be posted before lecture and seminar each week."
   },
   {
-    "objectID": "week01/index.html#additional-resources",
-    "href": "week01/index.html#additional-resources",
-    "title": "Week 1: The Computational Core",
+    "objectID": "week09/index.html",
+    "href": "week09/index.html",
+    "title": "Week 9: Audio and Image Processing",
+    "section": "",
+    "text": "Lecture Slides  \nSupporting Code  \n\nNote: materials will be posted before lecture and seminar each week."
+  },
+  {
+    "objectID": "week07/index.html",
+    "href": "week07/index.html",
+    "title": "Week 7: Scraping Static Webpages",
+    "section": "",
+    "text": "Lecture Slides  \nSupporting Code  \n\nNote: materials will be posted before lecture and seminar each week."
+  },
+  {
+    "objectID": "week04/index.html",
+    "href": "week04/index.html",
+    "title": "Week 4: Visualisation",
+    "section": "",
+    "text": "Lecture Slides  \nSupporting Code  \n\nNote: materials will be posted before lecture and seminar each week."
+  },
+  {
+    "objectID": "week02/index.html",
+    "href": "week02/index.html",
+    "title": "Week 2: Fundamentals of Digital Data",
+    "section": "",
+    "text": "This week covers the fundamentals of digital data, including bits/bytes, storage and memory, character encodings, R data types, and reading/writing digital data.\nLecture Slides  \nSupporting Code\nNote: materials will be posted before lecture and seminar each week."
+  },
+  {
+    "objectID": "week02/index.html#additional-resources",
+    "href": "week02/index.html#additional-resources",
+    "title": "Week 2: Fundamentals of Digital Data",
     "section": "Additional resources",
-    "text": "Additional resources\n\nWickham, Hadley. Nd. Advanced R, 2nd ed. Ch 3, Names and values, Chapter 4, Vectors, and Chapter 5, Subsetting. (Ch. 2-3 of the print edition)\nGitHub Docs, especially: “About GitHub and Git”, “Hello World”, and “GitHub flow”.\nGitHub. “Basic formatting syntax” (a markdown cheatsheet).\nMarkdown Guide. “Markdown Cheat Sheet.”\nNelson, Meghan. 2015. “An Intro to Git and GitHub for Beginners (Tutorial).”"
+    "text": "Additional resources\n\nWickham, Hadley and Garett Grolemund. 2017. R for Data Science: Import, Tidy, Transform, Visualize, and Model Data. Sebastopol, CA: O’Reilly. Part II Wrangle, Tibbles, Data Import, Tidy Data (Ch. 7-9 of the print edition).\nThe Tidyverse collection of packages for R.\nNote: there is a newer version of the Wickham and Grolemund text from 2023, which is available at https://r4ds.hadley.nz/.*"
   },
   {
-    "objectID": "assessments.html",
-    "href": "assessments.html",
-    "title": "Assessments and marking",
+    "objectID": "topics.html",
+    "href": "topics.html",
+    "title": "Topics",
     "section": "",
-    "text": "Please note: the information on this website is preliminary and subject to change before the first lecture."
-  },
-  {
-    "objectID": "assessments.html#assessment-schedule",
-    "href": "assessments.html#assessment-schedule",
-    "title": "Assessments and marking",
-    "section": "Assessment schedule",
-    "text": "Assessment schedule\nThere are three assessments in this course.\n\n\n\n\nType\nDue date\n\n\n\n\n1\nFormative in-class exercises\nWeekly\n\n\n2\nFormative data science project\nTBA\n\n\n3\nSummative in-person practical test (100%)\n11 December 2025\n\n\n\nAdditional details for each assessment will be sent via course announcements."
-  },
-  {
-    "objectID": "assessments.html#disability-accommodations",
-    "href": "assessments.html#disability-accommodations",
-    "title": "Assessments and marking",
-    "section": "Disability accommodations",
-    "text": "Disability accommodations\nIf you have an official disability accommodation related to exams, please contact the course convenor within the first two weeks of the term to ensure proper arrangements can be made for the in-person practical test."
-  },
-  {
-    "objectID": "assessments.html#extension-requests",
-    "href": "assessments.html#extension-requests",
-    "title": "Assessments and marking",
-    "section": "Extension requests",
-    "text": "Extension requests\nIf you would like to request an extension on an assignment, please review the department policies here.\nExtension requests must be made directly to the department at the email address listed in the department policies linked above. The instructors do not grant extension requests.\n\n\n\n\n\n\nExtensions on the in-person practical test\n\n\n\nPlease be sure that you will be available to take the in-person practical test on 11 December 2025. Except for a documented and verified emergency approved by the Department or the School, no extensions will be granted for the in-person practical test. If you do not attend the in-person practical test, we will report your absence to the School and you will need to resit during an approved resit period if you wish to receive a mark in this course."
-  },
-  {
-    "objectID": "assessments.html#marking",
-    "href": "assessments.html#marking",
-    "title": "Assessments and marking",
-    "section": "Marking",
-    "text": "Marking\nEach registered non-auditing student will receive a numerical mark in this course. This mark will be based on the student’s performance on the summative assessment only. For a taught master’s program at LSE:\n\nmarks ranging from 70 to 100 are classified as distinction;\nmarks ranging from 60 to 70 are classified as merit;\nmarks ranging from 50 to 60 are classified as pass; and\nmarks below 50 are classified as fail.\n\nPlease keep in mind that the marking scale at LSE may differ from your prior institution(s).\nFormative assessments are meant to help you develop your skills. Students may receive feedback on formative assessments in some situations. In these situations, students should expect feedback within 3 term weeks of submission, assuming they submitted on time.\nIf you are not yet familiar with the assessment system at LSE, please review LSE’s Understanding Results webpage.\nIf you are used to an American-style grading system, you might find this LSE website helpful for better understanding the marking system."
-  },
-  {
-    "objectID": "assessments.html#academic-integrity",
-    "href": "assessments.html#academic-integrity",
-    "title": "Assessments and marking",
-    "section": "Academic integrity",
-    "text": "Academic integrity\nAs scholars and educators, your instructors take academic integrity very seriously. Any academic misconduct will be dealt with in accordance with the LSE Regulations on Assessment Offences.\nIf you are unfamiliar with the norms and expectations around academic integrity at LSE (or UK universities more generally), then you should review the resources available on LSE’s website and especially the School’s Academic Integrity Awareness Week webpage."
-  },
-  {
-    "objectID": "assessments.html#generative-ai",
-    "href": "assessments.html#generative-ai",
-    "title": "Assessments and marking",
-    "section": "Generative AI",
-    "text": "Generative AI\nExcept when otherwise noted, we freely allow use of generative AI tools such as ChatGPT and Claude to support your learning (LSE’s position 3), as long as your use of these tools would not be considered academic misconduct. Academic misconduct with generative AI includes—but is not limited to—using these tools to substantially complete your work or to fabricate data or other information."
+    "text": "You can access each topic’s lecture slides via    and supporting code on GitHub via  .\n\n\n\nWeek\nTopic\nLecturer\n\n\n\n\n1\nThe Computational Core    \nRyan Hübert\n\n\n2\nFundamentals of Digital Data    \nRyan Hübert\n\n\n3\nTabular Data    \nRyan Hübert\n\n\n4\nVisualisation    \nRyan Hübert\n\n\n5\nAccessing Data in the Cloud    \nRyan Hübert\n\n\n6\nReading week (no lecture or seminars)\n\n\n\n7\nScraping Static Webpages    \nRyan Hübert\n\n\n8\nScraping Dynamic Webpages    \nRyan Hübert\n\n\n9\nAudio and Image Processing    \nRyan Hübert\n\n\n10\nText as Data    \nRyan Hübert\n\n\n11\nLarge Language Models    \nRyan Hübert"
   },
   {
     "objectID": "index.html",
     "href": "index.html",
     "title": "MY472: Data for Data Scientists",
     "section": "",
-    "text": "Please note: the information on this website is preliminary and subject to change before the first lecture."
+    "text": "Dr Ryan Hübert (course convenor)       Associate Professor, Department of Methodology\nDr Yuanmo He       LSE Fellow, Department of Methodology\nDr Thomas Robinson       Assistant Professor, Department of Methodology\nSalvatore Finizio (GTA)       PhD Student, Department of Geography and Environment\nCharlotte Kuberka (GTA)       PhD Student, Department of Government\nAsami Narita (GTA)      PhD Student, Department of Methodology\n\n\n\n\n\n\nBooking office hours\n\n\n\nAll office hours must be pre-booked via LSE’s StudentHub. Per department policy, GTA(s) do not hold regular office hours.\n\n\nKeep in mind that office hours are a limited resource. Please do not regularly book office hours and cancel them at the last minute, as this prevents other students from accessing this limited resource."
   },
   {
     "objectID": "index.html#course-instructors",
     "href": "index.html#course-instructors",
     "title": "MY472: Data for Data Scientists",
-    "section": "Course instructors",
-    "text": "Course instructors\nDr Ryan Hübert (course convenor)      Associate Professor, Department of Methodology\nDr Yuanmo He      LSE Fellow, Department of Methodology\nDr Thomas Robinson      Assistant Professor, Department of Methodology\nSalvatore Finizio (GTA)      PhD Student, Department of Geography and Environment\nCharlotte Kuberka (GTA)      PhD Student, Department of Government\nAsami Narita (GTA)    PhD Student, Department of Methodology\n\n\n\n\n\n\nBooking office hours\n\n\n\nAll office hours must be pre-booked via LSE’s StudentHub. Per department policy, GTA(s) do not hold regular office hours.\n\n\nKeep in mind that office hours are a limited resource. Please do not regularly book office hours and cancel them at the last minute, as this prevents other students from accessing this limited resource."
+    "section": "",
+    "text": "Dr Ryan Hübert (course convenor)       Associate Professor, Department of Methodology\nDr Yuanmo He       LSE Fellow, Department of Methodology\nDr Thomas Robinson       Assistant Professor, Department of Methodology\nSalvatore Finizio (GTA)       PhD Student, Department of Geography and Environment\nCharlotte Kuberka (GTA)       PhD Student, Department of Government\nAsami Narita (GTA)      PhD Student, Department of Methodology\n\n\n\n\n\n\nBooking office hours\n\n\n\nAll office hours must be pre-booked via LSE’s StudentHub. Per department policy, GTA(s) do not hold regular office hours.\n\n\nKeep in mind that office hours are a limited resource. Please do not regularly book office hours and cancel them at the last minute, as this prevents other students from accessing this limited resource."
   },
   {
     "objectID": "index.html#prerequisites",
@@ -126,10 +112,94 @@
     "text": "Attribution statement\nThe teaching materials in this course been iteratively developed by current and former instructors, including Pablo Barberá, Ken Benoit, Daniel de Kadt, Friedrich Geiecke, Ryan Hübert, Akitaka Matsuo and Thomas Robinson."
   },
   {
-    "objectID": "topics.html",
-    "href": "topics.html",
-    "title": "Topics",
+    "objectID": "assessments.html",
+    "href": "assessments.html",
+    "title": "Assessments and marking",
     "section": "",
-    "text": "Please note: the information on this website is preliminary and subject to change before the first lecture.\nWhen available, you can access each topic’s lecture slides via , seminar slides via  and supporting code via .\n\n\n\n\n\n\n\n\nWeek\nTopic\nLecturer\n\n\n\n\n1\nThe Computational Core      \nRyan Hübert\n\n\n2\nFundamentals of Digital Data      \nRyan Hübert\n\n\n3\nTabular Data      \nRyan Hübert\n\n\n4\nVisualisation      \nRyan Hübert\n\n\n5\nAccessing Data in the Cloud      \nRyan Hübert\n\n\n6\nReading week (no lecture or seminars)\n\n\n\n7\nScraping Static Webpages      \nRyan Hübert\n\n\n8\nScraping Dynamic Webpages      \nRyan Hübert\n\n\n9\nAudio and Image Processing      \nRyan Hübert\n\n\n10\nText as Data      \nRyan Hübert\n\n\n11\nLarge Language Models      \nRyan Hübert"
+    "text": "There are three assessments in this course.\n\n\n\n\nType\nDue date\n\n\n\n\n1\nFormative in-class exercises\nWeekly\n\n\n2\nFormative data science project\nTBA\n\n\n3\nSummative in-person practical test (100%)\n11 December 2025\n\n\n\nAdditional details for each assessment will be sent via course announcements."
+  },
+  {
+    "objectID": "assessments.html#assessment-schedule",
+    "href": "assessments.html#assessment-schedule",
+    "title": "Assessments and marking",
+    "section": "",
+    "text": "There are three assessments in this course.\n\n\n\n\nType\nDue date\n\n\n\n\n1\nFormative in-class exercises\nWeekly\n\n\n2\nFormative data science project\nTBA\n\n\n3\nSummative in-person practical test (100%)\n11 December 2025\n\n\n\nAdditional details for each assessment will be sent via course announcements."
+  },
+  {
+    "objectID": "assessments.html#disability-accommodations",
+    "href": "assessments.html#disability-accommodations",
+    "title": "Assessments and marking",
+    "section": "Disability accommodations",
+    "text": "Disability accommodations\nIf you have an official disability accommodation related to exams, please contact the course convenor within the first two weeks of the term to ensure proper arrangements can be made for the in-person practical test."
+  },
+  {
+    "objectID": "assessments.html#extension-requests",
+    "href": "assessments.html#extension-requests",
+    "title": "Assessments and marking",
+    "section": "Extension requests",
+    "text": "Extension requests\nIf you would like to request an extension on an assignment, please review the department policies here.\nExtension requests must be made directly to the department at the email address listed in the department policies linked above. The instructors do not grant extension requests.\n\n\n\n\n\n\nExtensions on the in-person practical test\n\n\n\nPlease be sure that you will be available to take the in-person practical test on 11 December 2025. Except for a documented and verified emergency approved by the Department or the School, no extensions will be granted for the in-person practical test. If you do not attend the in-person practical test, we will report your absence to the School and you will need to resit during an approved resit period if you wish to receive a mark in this course."
+  },
+  {
+    "objectID": "assessments.html#marking",
+    "href": "assessments.html#marking",
+    "title": "Assessments and marking",
+    "section": "Marking",
+    "text": "Marking\nEach registered non-auditing student will receive a numerical mark in this course. This mark will be based on the student’s performance on the summative assessment only. For a taught master’s program at LSE:\n\nmarks ranging from 70 to 100 are classified as distinction;\nmarks ranging from 60 to 70 are classified as merit;\nmarks ranging from 50 to 60 are classified as pass; and\nmarks below 50 are classified as fail.\n\nPlease keep in mind that the marking scale at LSE may differ from your prior institution(s).\nFormative assessments are meant to help you develop your skills. Students may receive feedback on formative assessments in some situations. In these situations, students should expect feedback within 3 term weeks of submission, assuming they submitted on time.\nIf you are not yet familiar with the assessment system at LSE, please review LSE’s Understanding Results webpage.\nIf you are used to an American-style grading system, you might find this LSE website helpful for better understanding the marking system."
+  },
+  {
+    "objectID": "assessments.html#academic-integrity",
+    "href": "assessments.html#academic-integrity",
+    "title": "Assessments and marking",
+    "section": "Academic integrity",
+    "text": "Academic integrity\nAs scholars and educators, your instructors take academic integrity very seriously. Any academic misconduct will be dealt with in accordance with the LSE Regulations on Assessment Offences.\nIf you are unfamiliar with the norms and expectations around academic integrity at LSE (or UK universities more generally), then you should review the resources available on LSE’s website and especially the School’s Academic Integrity Awareness Week webpage."
+  },
+  {
+    "objectID": "assessments.html#generative-ai",
+    "href": "assessments.html#generative-ai",
+    "title": "Assessments and marking",
+    "section": "Generative AI",
+    "text": "Generative AI\nExcept when otherwise noted, we freely allow use of generative AI tools such as ChatGPT and Claude to support your learning (LSE’s position 3), as long as your use of these tools would not be considered academic misconduct. Academic misconduct with generative AI includes—but is not limited to—using these tools to substantially complete your work or to fabricate data or other information."
+  },
+  {
+    "objectID": "week01/index.html",
+    "href": "week01/index.html",
+    "title": "Week 1: The Computational Core",
+    "section": "",
+    "text": "This week introduces the course, as well as some core computational tools used in data science, including directories, programming and version control.\nLecture Slides  \nSupporting Code\nNote: materials will be posted before lecture and seminar each week."
+  },
+  {
+    "objectID": "week01/index.html#additional-resources",
+    "href": "week01/index.html#additional-resources",
+    "title": "Week 1: The Computational Core",
+    "section": "Additional resources",
+    "text": "Additional resources\n\nWickham, Hadley. Nd. Advanced R, 2nd ed. Ch 3, Names and values, Chapter 4, Vectors, and Chapter 5, Subsetting. (Ch. 2-3 of the print edition)\nGitHub Docs, especially: “About GitHub and Git”, “Hello World”, and “GitHub flow”.\nGitHub. “Basic formatting syntax” (a markdown cheatsheet).\nMarkdown Guide. “Markdown Cheat Sheet.”\nNelson, Meghan. 2015. “An Intro to Git and GitHub for Beginners (Tutorial).”"
+  },
+  {
+    "objectID": "week03/index.html",
+    "href": "week03/index.html",
+    "title": "Week 3: Tabular Data",
+    "section": "",
+    "text": "Lecture Slides  \nSupporting Code  \n\nNote: materials will be posted before lecture and seminar each week."
+  },
+  {
+    "objectID": "week05/index.html",
+    "href": "week05/index.html",
+    "title": "Week 5: Accessing Data in the Cloud",
+    "section": "",
+    "text": "Lecture Slides  \nSupporting Code  \n\nNote: materials will be posted before lecture and seminar each week."
+  },
+  {
+    "objectID": "week08/index.html",
+    "href": "week08/index.html",
+    "title": "Week 8: Scraping Dynamic Webpages",
+    "section": "",
+    "text": "Lecture Slides  \nSupporting Code  \n\nNote: materials will be posted before lecture and seminar each week."
+  },
+  {
+    "objectID": "week10/index.html",
+    "href": "week10/index.html",
+    "title": "Week 10: Text as Data",
+    "section": "",
+    "text": "Lecture Slides  \nSupporting Code  \n\nNote: materials will be posted before lecture and seminar each week."
   }
 ]
