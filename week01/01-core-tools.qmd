@@ -1,0 +1,252 @@
+---
+title: "Seminar 1.1: Core Tools"
+subtitle: "LSE MY472: Data for Data Scientists"
+date-modified: "1 October 2025"
+date-format: "D MMMM YYYY"
+format:
+  html:
+    embed-resources: true
+    toc: true
+    mathjax: true
+execute:
+  echo: true
+  eval: false
+---
+
+This file will help you familiarise yourself with the core programming tools used in this course.
+
+## Required software
+
+### Programming software
+
+In this course, we will use the [R programming language](https://www.r-project.org/) in the [Positron](https://positron.posit.co/) IDE.
+
+R is a high level object-oriented programming language that has been developed for statistical computing.
+
+Positron is an [integrated development environment (IDE)](https://en.wikipedia.org/wiki/Integrated_development_environment) that contains a suite of tools that are useful for coding in R (as well as Python). While it is possible to write and execute R code using the basic R app (or using the command line), an IDE offers a visually compelling environment for coding, with several enhancements built in, such as integration with GitHub, plot viewing tools, integrated help documentation, and much more. 
+
+Positron was developed by Posit, the same company that owns and develops [RStudio](https://posit.co/products/open-source/rstudio/), another popular IDE for R. Positron closely resembles Microsoft's [VS Code](https://code.visualstudio.com/), which is an "all purpose" IDE that used for coding in a variety of programming languages and which is popular in industry. However, VS Code can be clunky for R, and Positron has been specifically developed to provide a smoother experience for R programming. Moreover, since many data scientists tend to use both R and Python, it offers a way to seamlessly go between these two languages within the same IDE.
+
+You should install (or update) both R and Positron. You can install or update R from <https://cran.r-project.org/>. You can install or update Positron from <https://positron.posit.co/download.html>.
+
+After you have installed/updated R, please run the following line of code to make sure that you have the current version of R.
+
+```{r}
+version$version.string
+```
+
+As of 30 September 2025, this chunk should return `R version 4.5.1 (2025-06-13)`, although if you are running this script later than this date, you may see a later version. If your computer prints a lower version number, please update R on your computer from <https://cran.r-project.org/>.
+
+Within R, you will need to install several **packages** (or **libraries**) that we will use in this course. You can read more about this [here](https://support.posit.co/hc/en-us/articles/201057987-Quick-list-of-useful-R-packages). Below, you will install some packages that we will use frequently.
+
+### Other software
+
+At times, you may be asked or prompted to install additional software that will be used for various topics in this course. For example, when we cover dynamic web scraping, you will need to install a [Java Development Kit](https://www.oracle.com/java/technologies/downloads/).
+
+We will also use [Git](https://git-scm.com/) (and [GitHub](https://github.com/)) in this course, which is described in more detail in the file `02-git-setup.qmd`.
+
+## Using Positron
+
+Like VS Code (and other IDEs, like PyCharm), Positron is what's often referred to as a "project-based" IDE. This means that, in order to work in Positron, you usually need to open a directory inside Positron first, and _then_ navigate to the file you want from inside Positron. Contrast this with other "file-based" editors or apps, like Microsoft Word, where you can find a `.docx` file in your OS's file browser (Finder on macOS and File Explorer on Windows), double-click it, and it will appears as a stand-alone document in the app.
+
+::: {.callout-note}
+This is called "project-based" instead of "directory-based" because many IDEs create hidden files inside the working directory that contain settings and customisations that the user would like to use for all work inside that directory. Just keep in mind that "project-based" just means "directory-based".
+:::
+
+There are some pros and cons of project-based IDEs. One obvious advantage of using an IDE this way is that it mimics the way that you use the command line. Recall that whenever you are using the command line, you are always in a specific directory (called your working directory) and all the commands you use are being used inside that directory. This is the recommended workflow in project-based IDEs as well. It is important to know that this is now a common way for IDEs to work, and you should adapt your workflows to it (if you haven't already).
+
+::: {.callout-tip}
+This is why some IDEs will show you a security warning (like "Do you trust the person who made this file?") whenever you attempt to simply open a file into Positron directly from your OS file browser. This is a subtle reminder from the IDE that you should not be opening individual files directly into the IDE from the OS file browser, as it creates a security risk.
+:::
+
+The smoothest way to use Positron is to open the app directly, and then select "Open Folder..." from the File menu. This means that you should get into the habit of storing files in neatly organised directories that correspond to specific workspaces you want to work in. We will do some of this in seminars this term.
+
+## Quarto
+
+In this course, we will write R code using notebooks. Specfically, we will use the [Quarto](https://quarto.org/) platform to do this. Like all notebooks, Quarto documents (`.qmd` files) are plain text files written in [markdown](https://en.wikipedia.org/wiki/Markdown), which is a simple formatting syntax to generate HTML or PDF documents. While markdown can be used in a variety of file types (including most notably `.md` files, like README files on GitHub), Quarto allows you to embed chunks of R code (and other kinds of code!) that will run when you generate an HTML or PDF file.
+
+The process of generating an HTML or PDF file from a Quarto document is called "compiling", "rendering" or "knitting" it.[^1] We refer to these compiled HTML or PDF files as "knitted HTML/PDF", "rendered HTML/PDF" or "compiled HTML/PDF". You can render (and preview) a `.qmd` file in Positron using the `Preview` button in the toolbar at the top of the file editor. In this course, we will compile Quarto documents to HTML.
+
+[^1]: The phrase "knitting" comes from the fact that Quarto documents use the "Knitr" engine to render documents.
+
+Using R in a notebook has several advantages. First, it leaves an "audit trail" of your work, including documentation explaining the steps you made. This is helpful to not only keep your own progress organised, but also make your work reproducible and more transparent. Second, it provides confirmation that all of your R code runs without any errors. If you are unable to compile your `.qmd` file to PDF or HTML, then that means means there are bugs in your code (or bad markdown syntax) that you need to fix before you will be able to compile.
+
+In MY472, you will get into the habit of using notebooks to demonstrate and document your work, including for the assessments.
+
+### Quarto versus Simple R Scripts
+
+Quarto documents allow us to embed chunks of R code into a notebook so that we can generate nice report-style documents that contain descriptive text, code and code output. Many people prefer not to embed their R code in notebooks, and instead write simple R scripts (`.R` files) that only contain R code.
+
+Either approach is acceptable for scientific computing. However, the work of a data scientist involves *communicating* the results of data analyses to wider audiences. This makes the notebook style of R coding appealing for data scientists, and it is why we use it in this course.
+
+### Quarto versus R Markdown
+
+You may have used R Markdown (`.rmd` files) in other courses. Quarto and R Markdown are very similar, and the way the documents are structured is nearly identical. You can think of Quarto as the "next generation" of R Markdown, although technically speaking, they coexist. You can choose to use either one, but Quarto has more features and has been developed to work across a range of languages (not just R). You can even make websites in Quarto! You can read about the differences [here](https://quarto.org/docs/faq/rmarkdown.html).
+
+All of the MY472 course materials focused on R coding will be provided in `.qmd` files. The materials will be written presuming you are using Quarto, but since the differences between Quarto and R Markdown are minor, this shouldn't create many problems.
+
+## Markdown
+
+The descriptive (non-code) text in a Quarto document is written using markdown, which is a kind of syntax that provides instructions for how the Quarto compiler should format the HTML or PDF document it creates. In combination with R, it will generate a document that includes the comments, the R code, and the output of running such code.
+
+### Formatting text using markdown
+
+You can review this `.qmd` file to get an idea of how markdown works. However, some common formatting you will use are given below:
+
+###### Creates headlines of varying font sizes (with \# being the largest font size)
+
+-   Creates bullet points
+
+**Hello** or **hello** create bold text, and *world* or *world* italic text.
+
+Or you can also add [hyperlinks](https://lse-my472.github.io/).
+
+::: callout-warning
+In a `.qmd` file, a hash (#) will create a heading, but *within* a code chunk (or in an `.R` file), it creates a code comment.
+:::
+
+## Embedding R chunks
+
+You can embed R code in chunks like this one, which prints the result of two simple arithmetic problems.
+
+```{r}
+print(1 + 1)
+print(2 - 2)
+```
+
+You can run a chunk of code on its own, by clicking the `Run Cell` button right above the chunk. You can also run all previous chunks by pressing `Run Above` or the next chunk by pressing `Run Next Cell`. In Positron, when you run code contained in a chunk, you will see the output of the code in the console below.
+
+You can also run specific lines of code within a chunk by highlighting the line you want to run and then pressing `ctrl + enter` in Windows or `command(⌘) + enter` in macOS.
+
+You can also include plots and graphics in chunks, for example the following simple scatterplot.
+
+```{r}
+x <- c(1, 3, 4, 5)
+y <- c(2, 6, 8, 10)
+plot(x, y)
+```
+
+If you run this chunk of code in Positron (for example, by pressing `Run Cell`), the plot will be generated inside the PLOTS panel on the bottom right corner.
+
+There are lots of options and customisations that you can set for each R code chunk you include in a Quarto document. For example, for really long and complex notebooks, it is often useful to provide labels for each chunk of code. For example, the following chunk of code is labelled "hello-chunk".
+
+```{r}
+#| label: hello-chunk
+z <- "Hello!"
+```
+
+There are several reasons you might want to label chunks of code, but we will not do it much in MY472. A full list of the various options and customisations available for R code chunks can be found at <https://quarto.org/docs/reference/cells/cells-knitr.html>.
+
+### Side note on piping syntax
+
+We will assume all students have familiarity with core R coding skills, including R syntax. One exception is that we will often use **piping** syntax in the code in this course. Piping syntax is a way of writing a series of R functions using a **piping operator** (either `%>%` or `|>`)[^2] in order to connect the steps of the series together. To read more about how this works, see chapter 3 of [*R for Data Science*](https://r4ds.hadley.nz/data-transform). You do not need to use pipes in your own code, but as an aspiring data scientist, you should become comfortable enough with them to engage with the code from this class.
+
+[^2]: Note that `|>` is the base R syntax for pipes, introduced in R version 4.1, while `%>%` is piping syntax from the `magrittr` package that predates the base R pipe. See <https://www.tidyverse.org/blog/2023/04/base-vs-magrittr-pipe/> for a discussion of the differences.
+
+Consider a simple example of two ways of doing the same thing, one without piping and one with piping.
+
+```{r}
+# Non-piping
+x <- "Hello world!"
+x <- paste(x, "Hello Mars!")
+print(x)
+
+# Piping
+"Hello world!" |> 
+  paste("Hello Mars!") |>
+  print()
+```
+
+You will not see a lot of piping until we introduce tabular data in a future week.
+
+## Execution options
+
+A major theme in this course is reproducibility. In part, this entails setting up your workflow so that others can easily engage with your work product and re-run your code without errors and without excessive runtimes, excessive computational burdens and/or repetitive code. For example, another user (or a course instructor) should be able to copy your `.qmd` file(s) to their own machine and recompile them easily.
+
+One important factor in the reproducibility pipeline for notebooks is **execution options**. Recall that you compile an HTML or PDF document with all the formatted text, code, code comments, and output from your entire `.qmd` file by clicking on `Preview`. Quarto's [execution options](https://quarto.org/docs/computations/execution-options.html) give instructions to the Quarto compiler about how to handle the code chunks.
+
+There are two major execution options you will use most frequently:
+
+-   `eval` determines whether a chunk of code is executed during the compiling process
+-   `echo` determines whether a chunk of code is printed in the compiled HTML/PDF
+-   `output` determines whether the output of an executed code chunk is printed in the compiled HTML/PDF
+
+Execution options can be set to be either `true` or `false` by writing, for example, `eval: true`. (Note: if you set `eval: false` then the `output` option does not do anything as there is no code output.) Moreover, execution options can be set either globally (for the whole notebook) or locally (for a specific chunk). Here is an example of a code chunk with local execution options, which tells the Quarto compiler not to print the code, but to evaluate it anyway and print the output.
+
+```{r}
+#| echo: false
+#| eval: true
+#| output: true
+print("The code for this chunk is hidden, but the output is not!")
+```
+
+If you have experience with R Markdown, please note that Quarto and R Markdown use different syntax for specifying code chunk options. R Markdown specifies options inside the curly brackets, as is depicted in the following code chunk:
+
+```{r, echo=FALSE, eval=TRUE, output=TRUE}
+print("The code for this chunk is hidden, but the output is not!")
+```
+
+Fortunately, Quarto will recognise and understand R Markdown syntax for chunk options, and R Markdown will recognise and understand Quarto syntax for chunk options.
+
+In the chunks above, we have defined `echo`, `eval` and `output` locally (i.e., for each chunk individually). You can also set these options globally, i.e. for all chunks in the entire document. To do this, you set the options in the document's preamble. Notice that this `.qmd` document has set `echo: true` and `eval: false`, which means that the default for all chunks is to print the code, but not evaluate it. When you set execution options locally (inside a chunk), this will override whatever global options you set in the preamble. If no execution options are set globally or locally, then Quarto will use its own default configuration which includes `echo: true`, `eval: true` and `output: true`.
+
+::: callout-tip
+In this course, Quarto documents will be set up with global execution options in the preamble. When you download a `.qmd` file to your own computer and begin working with it, you may wish to alter these settings.
+:::
+
+See [here](https://quarto.org/docs/computations/execution-options.html) for a list of code chunk execution options you can provide in Quarto, such as `echo` and `eval`. See [here](https://quarto.org/docs/computations/r.html#chunk-options) for a discussion of the differences between R Markdown and Quarto execution option syntax.
+
+## Installing packages
+
+There are a large number of packages (also called libraries) available for the R programming language. A package is simply an R script that another person developed and then made available to R users via CRAN. These packages contain functions and other objects that help you do useful things in R.
+
+Packages are sometimes referred to as "wrappers" because they typically involve making existing R functions and objects more pleasant and easier to use for a specific purpose. In other words, they *wrap around* existing R functions to provide a cleaner user experience. You will also often hear people distinguish "base R", which is a reference to all the functions and objects available in R without loading any additional packages.
+
+In this course, we'll use many R packages that are useful for various data science tasks. As you might imagine, since R packages are developed by R users, some of them are better and more reliable than others. When we need to rely on R packages, the instructors of this course have tried to find and integrate the most commonly used and stable packages available. That said, you will likely notice some occasional bugs, which is a fact of life for programmers!
+
+You can see what R packages are already installed on your computer by running the following.
+
+```{r}
+installed.packages()
+```
+
+If you want to check if a specific function is installed, you can do the following.
+
+```{r}
+"MY472" %in% installed.packages() # Not a package, so it should return false!
+```
+
+### The tidyverse
+
+One set of packages we will use *a lot* in this course is the so-called tidyverse collection of packages. Tidyverse is an umbrella term for several data management and data analysis packages developed largely by [Hadley Wickham](https://en.wikipedia.org/wiki/Hadley_Wickham) in order to advance Wickham's principles of "tidy data." In MY472, we will discuss tidy data in more detail during the week on tabular data. Additionally, `{tidyverse}` is also the name of a specific package available in R, which contains each of the component packages from the tidyverse collection. Note that we will use `{tidyverse}` to indicate the package, and tidyverse to indicate the conceptual idea.
+
+Some of the tidyverse packages are:
+
+-   [`{readr}`](https://readr.tidyverse.org/): for reading and writing data in R
+-   [`{stringr}`](https://stringr.tidyverse.org/): for working with character strings in R
+-   [`{lubridate}`](https://lubridate.tidyverse.org/): for working with dates and times in R
+-   [`{dplyr}`](https://dplyr.tidyverse.org/): for tabular data manipulations
+-   [`{tidyr}`](https://tidyr.tidyverse.org/): for "tidying up" tabular data (according to tidy data principles)
+-   [`{ggplot2}`](https://ggplot2.tidyverse.org/): for plotting data
+
+You can read more about tidyverse (and its component packages) at the website <https://www.tidyverse.org/>.
+
+You should make sure that you have each of the packages listed above installed and/or updated. You can do this by running the following code chunk
+
+```{r}
+tidyverse.packages <- c("readr", "stringr", "lubridate", "dplyr",
+  "tidyr", "ggplot2")
+install.packages(tidyverse.packages)
+```
+
+::: callout-note
+Note that you use `install.packages()` to install *and* to update packages.
+:::
+
+You can also check whether you have the most recent version of a package as follows (here, `ggplot2`).
+
+```{r}
+installed.packages()["ggplot2", "Version"]
+```
+
+This chunk should print `4.0.0`. (If it does not print the correct version, run `install.packages("ggplot2")` again to update.)

@@ -1,0 +1,98 @@
+---
+title: "Seminar 1 Exercises (Part 1)"
+subtitle: "LSE MY472: Data for Data Scientists"
+date-modified: "30 September 2025"
+date-format: "D MMMM YYYY"
+format:
+  html:
+    embed-resources: true
+    toc: true
+    mathjax: true
+execute:
+  echo: true
+  eval: true
+---
+
+## Exercise 1: getting set up
+
+**Before you do anything:** if you have not completed the onboarding survey, please do so now at <https://forms.office.com/e/vyaBW1D6mu>.
+
+If you haven't already, please:
+
+- install R from <https://cran.ma.imperial.ac.uk/>
+- install Positron from <https://positron.posit.co/>
+- set up your GitHub account
+- install Git
+
+For additional details on how to do this, please refer to the other seminar materials for the week.
+
+## Exercise 2: basic command line
+
+For this exercise, you will work in your computer's command line. macOS users should use the Terminal app and Windows users should use PowerShell. Complete the following steps.
+
+- Open your command line application, and make sure you are in your home directory. If you are not, then use the appropriate command to change to the home directory.
+
+- Create a new folder called `LSE-MY472-AT25` using the appropriate command. 
+
+- Now that you have created this new directory, navigate to it using the appropriate command and using a _relative_ directory path.
+
+- Now print the current working directory using the appropriate command. 
+
+- Navigate to your Desktop using an absolute directory path and the appropriate command.
+
+- Once your command line is at this directory, find out how many files and subdirectories are on your desktop by using the command `ls -1 | wc -l` in Terminal and `(dir . | measure).Count;` in Powershell. (If the number is high, ask yourself: is your Desktop messy, cluttered or disorganised?)
+
+- Save a copy of your entire command line output to a text file called `Seminar01_CommandLine1.txt`. Save the file into your new `LSE-MY472-AT25` directory. You can do this as follows:
+
+    - In Terminal (macOS): using the menu option `Shell > Export Text As...`, or pressing `Command(⌘)+S`
+    - In PowerShell (Windows): right click the tab at the top and select `Export text`
+
+- Quit your command line application.
+
+## Exercise 3: Git and GitHub
+
+In this exercise, you will create a repository on GitHub, clone it to you computer, and track some modifications.
+
+- While logged into your GitHub account in a webbrowser, create a private repository called `Seminar01`.
+
+- Open your computer's command line and then navigate to the `LSE-MY472-AT25` directory you created in the previous exercise, using the appropriate command. For this exercise, use an absolute path.
+
+- Once your command line is in the `LSE-MY472-AT25` directory, clone your `Seminar01` repository into this directory using the appropriate `git` command. 
+    
+    - If you have never authenticated to GitHub on your command line, you will be prompted for username and password. Please review the guidance in the document `02-git-setup.qmd`.
+
+- After doing this, open the `README.md` file and add today's date and your LSE candidate ID somewhere inside the document. Save and close it.
+
+- Switch back over to your command line, and navigate to the `Seminar01` repo folder using the appropriate command, then print your working directory.
+
+- Check the status of your files in the repo by using the appropriate `git` command. 
+
+- Now, put a copy of each of this week's seminar code (i.e., all the `.qmd` files) into the directory for your `Seminar01` repo. Again check the status of the files in the repo by using the appropriate `git` command. 
+
+- Log all the changes you have made to files in your repo by staging each file one-by-one and by committing them. When you commit, use a brief but informative message. 
+
+- Sync your changes to remote (GitHub) using the appropriate `git` command.
+
+- Check the full log of this repo using the appropriate `git` command in the command line.
+
+- Save a copy of your command line output to a text file called `Seminar01_CommandLine2.txt`, following instructions in a previous exercise. You should save this file into your `Seminar01` repository, after which you should stage, commit and push it.
+
+- Quit your command line application.
+
+## Exercise 4: launching a working directory in Positron
+
+- Open the Positron app, and then in the "File" menu select "Open Folder...". 
+
+- Find your "Seminar01" folder and open it.
+
+- Open the EXPLORER panel in Positron in the "View" menu, or by either (1) using the keyboard shortcut `Shift+Command(⌘)+E` (macOS) or `Ctrl+Shift+E` (Windows), or (2) clicking the icon on the top left that looks like:
+
+```{r}
+#| echo: false
+#| eval: true
+#| out.width: "10%"
+#| fig.align: "center"
+knitr::include_graphics("Positron-Explorer.png")
+```
+
+- In the file tree that appears on the left, find the file `03-exercises-part2.qmd` and click to open it.

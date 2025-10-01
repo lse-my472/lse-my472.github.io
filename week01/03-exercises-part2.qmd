@@ -1,0 +1,78 @@
+---
+title: "Seminar 1 Exercises (Part 2)"
+subtitle: "LSE MY472: Data for Data Scientists"
+date-modified: "1 October 2025"
+date-format: "D MMMM YYYY"
+format:
+  html:
+    embed-resources: true
+    toc: true
+    mathjax: true
+execute:
+  echo: true
+  eval: true
+---
+
+In the following exercises, there are empty code chunks. Throughout the course, many of the R exercises we give you will contain such empty chunks, which you are meant to fill with your own answers. When you put your answer into the empty chunk, please _remove_ the comment saying `# your answer goes here` (or any similar message).
+
+As a general rule, you will typically need to run each chunk after you finalise your answer in that chunk, because subsequent chunks will typically build/rely on work from previous chunks. You will also need to compile the `.qmd` to `.html` (using the Preview button above) once you have finalised your answers and/or when you want to submit them to GitHub Classrooms.
+
+## Exercise 5: directory management with R
+
+Using your computer's file navigator (Finder on macOS, File Explorer on Windows), find your `LSE-MY472-AT25` directory and copy the absolute file path to your clipboard (see lecture for how to do this). Then, create an object called `my.wdir` in the chunk below which is a string with the absolute path to your `LSE-MY472-AT25` directory. (Hint: you should paste the path you just copied.)
+
+```{r}
+# your answer goes here
+```
+
+Print a list of all the files and subdirectories inside your `wdir` directory.
+
+```{r}
+# your answer goes here
+```
+
+Write a boolean to test if the file `Seminar01_CommandLine2.txt` file is in `wdir`. 
+
+```{r}
+# your answer goes here
+```
+
+Using the `file.path()` function, create a new object `my.cl.file` which contains an absolute file path to the file `Seminar01_CommandLine2.txt`.
+
+```{r}
+# your answer goes here
+```
+
+Once you have created this file path, use it to check if the file exists.
+
+```{r}
+# your answer goes here
+```
+
+## Exercise 6: simple R debugging with LLM help
+
+Create two objects, one named `x` and one named `y`. The object `x` should be the number 10 and the object `y` should be a character string containing the number 5. Run the code in the chunk (without compiling the html document).
+
+```{r}
+# your answer goes here
+```
+
+Now, attempting to using R as a calculator, make a new object called `z` that multiplies `x` times `y`. In the chunk, set `eval: false` to override the global execution option in the preamble. Then, run the code in the chunk (without compiling the html document).
+
+```{r}
+# your answer goes here
+```
+
+You should get an error in the console below. Navigate to [m365.cloud.microsoft/chat](m365.cloud.microsoft/chat) and log in with your LSE Microsoft Outlook log in credentials. On the top right press the button "Try GPT-5" to enable OpenAI's most advanced GPT model. Then, copy all of the output you have generated in the console for this exercise and paste it into the prompt box that says "Message Copilot" and wait for a response.
+
+Copy the response you get by pressing the copy button at the bottom left of Copilot's response. Create a new text file in Positron named `CopilotResponse.txt` and paste Copilot's response into the text file. Save this file in the `Seminar01` repo.
+
+## Exercise 7: compile your solutions
+
+Once you have finalised your answers, compile this file to HTML using the Preview button. 
+
+Using the command line, stage, commit and push the following files to your `Seminar01` repo:
+
+- `CopilotResponse.txt`
+- `03-exercises-part2.qmd`
+- `03-exercises-part2.html`

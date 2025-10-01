@@ -1,0 +1,182 @@
+---
+title: "Seminar 1.2: Git and GitHub Setup"
+subtitle: "LSE MY472: Data for Data Scientists"
+date-modified: "1 October 2025"
+date-format: "D MMMM YYYY"
+format:
+  html:
+    embed-resources: true
+    toc: true
+    mathjax: true
+execute:
+  echo: true
+  eval: false
+---
+
+## Version control software
+
+In this course, we will use [Git](https://git-scm.com/), which is the most popular distributed version control system (VCS) in the world. Git can be used to archive and track versions of code, share code with multiple users (or disseminate publicly), manage edits made by a large number of individuals, and back up code to the cloud (i.e., at [GitHub.com](https://github.com/)). In this course, we will use Git in a fairly basic way. Students will use it to turn in their coursework, and to retrieve course materials.[^1] We will also, on occasion, require students to use it to back up their work to GitHub, and we strongly encourage all students to do this regularly with their course materials.
+
+[^1]: Note: you can also collect course materials directly from the website.
+
+## Registering for a GitHub account
+
+To take full advantage of the Git VCS, you will need a GitHub account. You can think of GitHub as the cloud-based storage system for code and other data that users are developing and tracking using Git. In addition to being a cloud storage website, it also offers a wide range of other tools that help users collaborate and disseminate their code.
+
+If you do not have a GitHub account, we strongly recommend that you create an anonymised account that you can use for all your courses at LSE. Please create a username in the format **LSE_XXXXX_2526** where **XXXXX** is your LSE candidate number (NOT your student ID number!), and **\_2526** indicates the academic year.
+
+::: callout-warning
+You should be sure to link your GitHub account to your LSE email address during account registration, as you may not be able to access some of the course materials with a GitHub account that is not connected to an LSE email address.
+:::
+
+You can register for a new GitHub account at <https://github.com/>
+
+### Claiming education benefits
+
+GitHub has several tiers of membership that come with different benefits, such as unlimited repositories, more cloud storage, etc. GitHub offers an elevated membership tier for affiliates of universities, which is called GitHub Education. You may need some of the benefits of this elevated membership tier while you are at LSE, so we strongly recommend you apply for student benefits via <https://github.com/education/students>.
+
+## Installing Git
+
+You also need to have Git installed on your computer.
+
+If you are using macOS, open the Terminal app, type `git` and press enter. In most cases, this will automatically install `git` if it's not already installed. If it is already installed, then a long list of Git commands will be printed for your reference. If you see this, that means Git is installed.
+
+If you are using Windows, download Git from <https://git-scm.com/download/win> and install it following the instructions. You can use the default options, unless you have other preferences (and know what you are doing).
+
+GitHub (the website) maintains a [GUI app](https://en.wikipedia.org/wiki/Graphical_user_interface) called GitHub Desktop, which you can download and install from <https://github.com/apps/desktop>. If you install this app, it will automatically install Git (the software) on your computer. Also note that Git and GitHub tools are integrated into Positron. You can read more here: <https://positron.posit.co/git.html>. Note: we will not use or support GitHub Desktop in this course, and we will only offer minimal support of Git tools in Positron.
+
+## Configuring Git
+
+When you make changes to files, Git needs to be able to connect them to a specific user as part of its version history, and it needs to be authorised to work with files in your own private repos. So, once you install Git, there are a few steps you should take to configure it on your computer.
+
+Note: these steps will not work if you have not yet installed Git!
+
+### User and email
+
+First, configure the user and email address for Git on your computer:
+
+-   Open your computer's command line (Terminal on macOS, PowerShell on Windows)
+
+-   Set your username in Git by using the command `git config --global user.name "Your Name"` (obviously you should replace with your *own* name before hitting enter!)
+
+-   Set your commit email address in Git using the command `git config --global user.email your@email.com` (again, obviously you should replace with your *own* email address before hitting enter!)
+
+### Authentication
+
+Now, you need to connect your computer's Git installation to your own GitHub account. That is, you need to authenticate to GitHub so that your computer's Git software can access your private data stored in GitHub.
+
+First, you need to make what is called a **fine-grained personal access token (PAT)**.
+
+-   In a web browser, navigate to your account settings in GitHub, available at <https://github.com/settings/profile>. (If you are prompted to log in, please do so.)
+
+-   In the menu on the left hand side, at the very bottom, select the "\<\> Developer settings" option
+
+-   Once you are on the Developer settings page, select the menu on the left for "Personal access tokens" and then select "Fine-grained tokens"
+
+-   On the top right, select "Generate new token", and when prompted, enter your username and password.
+
+-   You will need to specify a few options for your token:
+
+    -   Pick a name for your token, which will be your computer's key to access your GitHub account. You can use a name like `xx_gh_pat`, where you replace `xx` with your initials and `_gh_pat` stands for "GitHub Personal Access Token".
+
+    -   Next, choose an expiration date, which should be at least 90 days (to get through the end of Autumn Term). We do not recommend setting "No expiration," as this can create a security risk for your account. However, once your PAT expires, you will need to create a new one.
+
+    -   Select the option for "All repositories", as this will allow access to your private repos.
+
+-   In the "Permissions" menu, under the "Repositories" section, press "+ Add permissions". This is where you will specify what kind of access your computer's Git software will have. You can choose whichever options you want, but it is most secure to choose as few options as possible, just what you need. For the tasks in this course, you will need to check the options for "Administration" and "Contents". Once you have done this, you should see the following:
+
+```{r}
+#| echo: false
+#| eval: true
+#| out.width: "75%"
+#| fig.align: "center"
+knitr::include_graphics("gh-permissions.png")
+```
+
+-   Next, for the "Administration" and "Contents" permissions, change the settings from "Access: Read-only" to "Access: Read and write"
+
+-   Copy the token (it will only be visible once), and save it to your system keychain,
+
+    -   On an macOS computer, you can (and should) save your newly created PAT to the system keychain using the Keychain Access app. (Note: macOS now prompts you whether you really want to open Passwords whenever you try to open Keychain Access---just select "Open Keychain Access".)
+    -   On a Windows computer, you can (and should) save your newly created PAT to the system keychain using the Windows Credentials manager, which is in the Control Panel.
+
+::: callout-important
+You will be prompted to provide this PAT the first time you attempt to connect to a private resource on GitHub using your computer's command line. Please be sure that you have saved this somewhere and you know how to get it.
+:::
+
+## Creating a test repository
+
+You will now create a GitHub repository to ensure that the set up steps have worked.
+
+### Creating the repository on GitHub
+
+First, login to your GitHub account at <https://github.com/>. After logging in (if needed), then click on the "Create new..." button on the top right corner (which has a plus sign on it). Then select "New Repository."
+
+Select a name for your repository. The name must be unused in your GitHub account and it should not contain special characters besides uppercase/lowercase letters, numbers, underscores and/or dashes. Do not use spaces, other punctuation or special characters like "%". For this exercise, you can use the name `my_first_repo`.
+
+::: callout-warning
+You should *always* avoid using spaces, punctuation or special symbols in directory or file names, except for the ones listed above. While most modern operating systems can handle these, there is a risk that your files will become corrupted or otherwise unusable if you do not use careful naming practices.
+:::
+
+Under "Choose visibility" you can choose whether your repo is publicly visible on GitHub or not. For this exercise, select "Private" to make it visible only to you and GitHub accounts you expressly give permission.
+
+Under "Add README", toggle the switch to the On position, and a README file will be automatically generated in your repo. A README file is an important part of any repo, as it contains useful background information for those who use the files in the repo.
+
+Under "Add .gitignore", open the menu and scroll down and select the "R" option. As it sounds, Git will ignore any file in your repo that is listed in the `.gitignore` file. By selecting the "R" option, GitHub will create a `.gitignore` file with pre-filled options to ignore files commonly associated with R-based projects that users typically do not want Git to track.
+
+You can add a license, but this is not something that will be important for us in this course.
+
+Finally, click on 'Create repository' and the repo now exists on GitHub.
+
+### Cloning a repository
+
+The next step is to copy (clone) the online repository to your computer.
+
+First you need to decide where you want this repository to go on your computer. Open the command line and then navigate to the appropriate directory using `cd`. For this exercise, let's clone the repository to the Documents folder, so you should use the command `cd ~/Documents/`.
+
+Going back to the webpage for your repository on GitHub, click on the green "Code" button and copy the URL (for `https`).
+
+Then, returning to the command line, clone the repo from GitHub using the `git clone ...` command (replacing the three dots with the url you just copied.
+
+If you have never authenticated to GitHub on your computer's command line, then the command line will ask you to enter your user name and password. Enter your GitHub username, and for your password, paste your PAT (which you created above) and press enter.
+
+::: callout-important
+When you paste (or type in) your PAT, you will not see anything on the command line screen. This is because the command line is smartly protecting your password from others seeing it. You can be sure it has been entered, so do not repeatedly paste it thinking it didn't work!
+:::
+
+::: callout-note
+For some users (especially on Windows), a pop-up window will open asking you to authenticate. You can either choose to authenticate using a browser, or you can click to the access token tab and enter your PAT.
+:::
+
+Once you have authenticated (and assuming you authenticated correctly), you should see the command line print a few lines indicating that it is downloading your GitHub repository. Once this has completed, type `ls` to see what is in your Documents folder---you should notice a new directory called `my_first_repo`, which has all the repo files you just cloned from GitHub.
+
+Now navigate to this repo by using the command `cd my_first_repo`.
+
+### Editing a file
+
+Using your file browser (Finder on macOS and File Explorer on Windows), navigate to this repo directory that you just saved inside your Documents folder. Open the `README.md` file in any plain text editor (e.g., Positron, Notepad, TextEdit, etc.) and add a new line that says "This is my first edit!" (Do no include the quotation marks.) Save the file and close it.
+
+Go back to the command line and assuming you are currently in the `my_first_repo` directory, then use the command `git status` to check the status of your repository. You should see a line that says "modified: README.md".
+
+This means Git has noticed the file changed (because you edited it!), but you have not yet logged this change in the Git repository. Use the command `git add README.md` to "stage" the file, and then `git commit -m "my first edit"` to "commit" your changes. Notice that when you commit your changes you always have to include a message by writing `-m "xxxxx"` and putting your message in the quotations.
+
+::: callout-warning
+You can stage multiple files, if there are several that have been modified, by using the command `git add .` (using a period to mean *add all files available for staging*). However, this is dangerous. Do not get into the habit of indiscriminately adding all modified files, as you may end up committing and pushing private files to your GitHub account, available for all to see.
+:::
+
+Finally, `git log` to see the history of commits, which should only include the "Initial commit" (which happened when GitHub automatically created the `README.md` file when you made the repo), and then your recent file edit. Git logs contain detailed info on what has changed and when.
+
+### Syncing your changes
+
+You have now logged your file edit with Git on your local machine. However, your repository on GitHub does not yet know about this change, as you have not synced the log information (as well as the file change) to GitHub. The process of doing this is called "pushing your changes to remote". Of course, in our case, "remote" is the GitHub repository.
+
+::: callout-note
+When you push changes to GitHub, only committed changes will be pushed. So if you edited a file on your computer and forgot to run `git add` and `git commit`, then any edits you made on your computer are not logged and will not be sent to GitHub.
+:::
+
+To push your changes to GitHub, use the command `git push`. After doing this, it is now possible to review the changes in the browser which is very helpful for large code files:
+
+-   First, go to the repository page on GitHub and click on the clock symbol next to "commits" in the upper right hand corner
+-   Click on the key describing a specific commit, which could e.g. look something like "472cb9d", then you will see which lines of code changed
+
+If someone else has changed the online repository, run `git pull` to obtain the newest files.
