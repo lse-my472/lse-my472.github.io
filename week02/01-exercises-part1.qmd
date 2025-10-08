@@ -1,0 +1,84 @@
+---
+title: "Seminar 2 Exercises (Part 1)"
+subtitle: "LSE MY472: Data for Data Scientists"
+date-modified: "8 October 2025"
+date-format: "D MMMM YYYY"
+format:
+  html:
+    embed-resources: true
+    toc: true
+    mathjax: true
+execute:
+  echo: true
+  eval: true
+---
+
+## Exercise 1: Setting up Slack
+
+If you have not done so already, you should join the course Slack. You should have received an invite to your LSE email. **Also, in  your profile, please set up your Full name and your Display name to be your preferred first name and your last name.** 
+
+## Exercise 2: Setting up your seminar repo
+
+For each seminar, we will expect you to create a GitHub repository via GitHub Classrooms. In this exercise, we will show you how to do this so that you will be able to do it for future weeks. 
+
+- In your web browser, go to <https://www.github.com/> and log into the GitHub account you are using for this course. 
+
+- Open the course Slack and navigate to the `#github-classroom` channel. (Direct link, which you can bookmark if you'd like: <https://lse-my472.slack.com/archives/C09JX2BG50U>.) The first time you access the channel, you may need to indicate you wish to join it.
+
+- In this channel, one of the course instructors or GTAs will have posted a link to a GitHub Classroom assignment for this week's seminar. Copy the link, return to your web browser (where you are logged into GitHub) and navigate to the link.
+
+::: {.callout-warning}
+**Read carefully:** In the next bullet, you will connect your GitHub account to your email address. Ensure that you connect your GitHub account to **your** LSE email address. If you make a mistake, please let the course convenor know ASAP by sending a DM in Slack. While it may be surprising, students regularly misidentify their own email addresses!
+:::
+
+- The first time you do this, you should be prompted to link your GitHub account to your LSE email address. Please select your LSE email address from the list and continue.
+
+- After connecting your GitHub account to your LSE email address, you will be directed to a page where you are prompted to accept the assignment. Please accept the assignment. 
+
+- After you accept the assignment, GitHub Classroom will automatically create a private repository in your GitHub account with the name indicated. You will see a direct link to this repository on the confirmation page. Navigate to it.
+
+::: {.callout-note}
+The course instructors and GTAs will have full access to every repo you create through GitHub Classroom. They will be able to see your work, see a full log of any commits you make, etc.
+:::
+
+- You will now clone this repo into your `LSE-MY472-AT25` directory. However, you will not use the default directory name, and we will instead call the local directory with your repo `Seminar02`. To do this:
+
+  - On the repo page on GitHub, copy the HTTPS url.
+  - In your command line application, navigate to your `LSE-MY472-AT25` directory.
+  - Clone your repo by typing `git clone XXXX Seminar02`, where you replace `XXXX` with the HTTPS url you just copied from your repo on GitHub.
+
+::: {.callout-caution}
+If you have already created a `Seminar02` directory, then the `git clone` command above will fail. In this case, rename or move the existing `Seminar02` directory.
+:::
+
+## Exercise 3: Creating/modifying files with command line
+
+For this exercise, you will work in your computer's command line. You will not put your answers here, but you will upload your Terminal output to the repo.
+
+- Open your command line application, and navigate to your `Seminar02` repo.
+
+- Once your command line is inside this repo, create a new plain text file using the `echo` command. Name this file `S02_echo.txt`, which should contain the following text: I'm having fun in MY472
+
+- Then print the contents of the new file you just created by using the `cat` command.
+
+- Make a copy of this file to another directory on your computer, then navigate to that directory and verify that the copy was successful by listing the contents of that directory.
+
+- Return back to your `Seminar02` directory and then make an addition to the text file. You should add the following text: My professor prefers to be called "Ryan"
+
+::: {.callout-tip}
+You will need to include the double quotes inside your text file. To do this, you need to use _single_ quoting around the text you provide to the `echo` command. Please do not copy/paste the text from this document---manually type it into the command line.
+:::
+
+- Once again, print the contents of this text file using the `cat` command.
+
+- Create a _new_ plain text file using the `echo` command called `file_size.txt`. It should say: The S02_echo.txt file is X bytes. You should replace "X" with the number of bytes the `S02_echo.txt` file should be based on the characters you added to it. (You should base this on your calculations, not looking at the file info in your file browser.)
+
+::: {.callout-note}
+All of the characters in this text file are in the original ASCII encoding, which should help you determine how many bytes are used depending on the encoding. Terminal on macOS defaults to UTF-8, PowerShell on Windows defaults to UTF-16. Also note: PowerShell will use two bytes for line breaks and add two additional bytes at the beginning of every text file.
+:::
+
+- You will not add the `file_size.txt` file to your GitHub repo. Using the `echo` command, create a `.gitignore` file and add this file name to it.
+
+- Save a copy of your entire command line output to a text file called `Seminar02_CommandLine1.txt`. Save the file into your `Seminar02` repository. You should follow the instructions for saving output provided in Exercise 2 from Seminar 1.
+
+- Quit your command line application.

@@ -1,0 +1,209 @@
+---
+title: "Seminar 2.3: Characters and Strings"
+subtitle: "LSE MY472: Data for Data Scientists"
+date-modified: "8 October 2025" 
+date-format: "D MMMM YYYY"
+toc: true
+format:
+  html:
+    embed-resources: true
+    toc: true
+    mathjax: true
+execute:
+  echo: true
+  eval: false
+---
+
+This notebook covers character encoding and how to perform simple text searches in R using regular expressions.
+
+::: {.callout-tip}
+Reminder: be sure to adjust the global execution options above so that you will see your work when you compile. 
+:::
+
+## Set up
+
+First, we define an object with the path to our intended working directory.
+
+```{r}
+wdir <- "~/LSE-MY472-AT25/Seminar02"
+```
+
+Second, we make sure all the files we need below are downloaded in the correct location. Note that these files are on the GitHub repo for the website. We can download them directly from GitHub using the direct download URL for each file in the `week02` directory. For each of these files, the URL begins with the following:
+
+```{r}
+gh.dl.url <- "https://raw.githubusercontent.com/lse-my472/lse-my472.github.io/refs/heads/master/week02/"
+```
+
+You then paste this url to a file name to get that file's direct download link. We will need these files:
+
+```{r}
+req.files <- c("utf-examples-8.txt", "utf-examples-16.txt", "utf-examples-32.txt", "shanghai.txt")
+```
+
+So, let's iterate over each of these files, see if we have downloaded, then do so if not:
+
+```{r}
+for(rfile in req.files){
+  remote.file <- paste0(gh.dl.url, rfile)
+  local.file <- file.path(wdir,rfile)
+  if(!file.exists(local.file)){
+    download.file(remote.file, local.file)
+  }
+}
+```
+
+## Character encoding 
+
+First, we load the packages we will need:
+
+```{r}
+library("readr")
+library("stringr")
+```
+
+### Encoding digital data on the fly in R
+
+First, let's examine how special characters can affect file size. By default `readr` will write the raw bytes as they exist in R's memory. Since R uses UTF-8 encoding by default, and UTF-8 is variable width, accent will require more bytes:
+
+```{r}
+# Write a plain text file with Ryan's last name
+raw <- "Hübert" # how many bytes should you expect?
+write_file(raw, file.path(wdir, "hubert1.txt")) # note: default encoding is UTF-8
+
+# Write a plain text file with Ryan's last name, but omit the accent
+raw <- "Hubert" # how many bytes should you expect?
+write_file(raw, file.path(wdir, "hubert2.txt")) # note: default encoding is UTF-8
+```
+
+Let's look at the bytes and bits of Ryan's name:
+
+```{r}
+pryr::bytes("Hubert")
+pryr::bytes("Hübert")
+
+pryr::bits("Hubert")
+pryr::bits("Hübert")
+```
+
+You can clearly see that Ryan's name, without the umlaut is six bytes and with the umlaut it is seven bytes.
+
+You _can_ choose a different encoding for strings you create on the fly in R, but you mostly shoudln't. That said, if you did want to do it, you can do it with the `iconv()` function. Suppose we try to convert "Hübert" from UTF-8 to ASCII:
+
+```{r}
+print(iconv("Hübert", from = "UTF-8", to = "ISO-8859-1"))
+```
+
+Since "ü" is not in the ASCII encoding, note that the string now contains mojibake. If you wanted to write this (badly encoded) version of "Hübert" to a file, you can do so and open it to see the mojibake.
+
+```{r}
+write_file(iconv("Hübert", from = "UTF-8", to = "ISO-8859-1"), 
+           file.path(wdir, "hubert3.txt"))
+```
+
+### Handling file encodings in R
+
+There will be very rare situations where you would want to change _away_ from UTF-8, since UTF-8 is now widely used across computers. Let's see why through some examples.
+
+First, I wrote "&uüДሊ🫠" into three text files using different encodings:
+
+- `utf-examples-8.txt` (UTF-8): 13 bytes
+- `utf-examples-16.txt` (UTF-16): 16 bytes
+- `utf-examples-32.txt` (UTF-32): 28 bytes 
+
+First note that the UTF-32 encoded file is more than double the size of UTF-8 (just to store the same characters!). Next, let's try to open them.
+
+```{r}
+## This works
+read_file(file.path(wdir, "utf-examples-8.txt"))  # This works (sort of...)
+## These do not work
+read_file(file.path(wdir, "utf-examples-16.txt"))  # This drops most of the characters
+read_file(file.path(wdir, "utf-examples-32.txt"))  # This drops most of the characters
+```
+
+The longer the text (i.e., more characters), the worse the "bloat" from UTF-32 becomes. To see this one more time, I saved three files starting with "methodology" which contain the text from the Methodology Department's [About us](https://www.lse.ac.uk/Methodology/About-us/About-us) page. Notice that a file encoded as UTF-8 takes up 3,284 bytes of storage, but the file encoded as UTF-32 takes up 13,124 bytes. It's the exact same text, just stored more inefficiently! 
+
+So when would you ever need to use UTF-16 or UTF-32?
+
+- Some Windows applications encode in UTF-16, so it's good to know this. Note: PowerShell in Windows encodes characters using UTF-16LE.
+- It is more efficient to search in UTF-32 encoded documents (see <https://en.wikipedia.org/wiki/UTF-32>)
+
+Of course, there is a way to read text files that are not encoded with UTF-8, assuming you know the encoding. 
+
+```{r}
+enc <- guess_encoding(file.path(wdir, "utf-examples-16.txt"))
+enc <- enc$encoding[1]
+z <- read_file(file.path(wdir, "utf-examples-16.txt"), locale = locale(encoding = enc))
+print(z)
+```
+
+When you read non-UTF-8 characters into R and you "decode" them by specifying the correct encoding, they are now in R's working environment as UTF-8 encoded bytes (as all characters are, unless your computer has different R configuration settings). You can check this using `{pryr}`'s `bytes()` function, which returns 13 bytes. 
+
+```{r}
+pryr::bytes(z)
+```
+
+Looking at slide 35 of the lecture slides, you should note that when these characters are encoded with UTF-8, they will take up 13 bytes. You can also double check the specific bits (if you don't like hex codes), by doing the following:
+
+```{r}
+pryr::bits(z)
+```
+
+Unfortunately, this process does not always work. The `guess_encoding()` function is just an estimate, and sometimes it does not help at all. Let's consider another example using some Chinese characters. We will try to read a file containing the Chinese-language word "上海" (Shanghai), which is encoded with the [GB_18030](https://en.wikipedia.org/wiki/GB_18030) encoding. Let's pretend that we don't know the document's encoding and we are trying to load into R using `read_file`.
+
+This prints hexadecimal code points mapped to approximately "ÉϺ£": 
+
+```{r, error = TRUE}
+read_file(file.path(wdir, "shanghai.txt")) 
+```
+
+This does not work at all:
+
+```{r, error = TRUE}
+read_file(file.path(wdir, "shanghai.txt"), locale = locale(encoding="utf-8"))
+```
+
+This does not print the same characters:
+
+```{r, error = TRUE}
+read_file(file.path(wdir, "shanghai.txt"), locale = locale(encoding="utf-16")) 
+```
+
+Maybe R can help us?? (Nope!)
+
+```{r, error = TRUE}
+guess_encoding(file.path(wdir, "shanghai.txt"))
+```
+
+Maybe Terminal can help??
+
+```{bash, eval = FALSE}
+$ cd <path>
+$ file -I shanghai.txt
+shanghai.txt: text/plain; charset=iso-8859-1
+```
+
+No, it can't... it guesses the encoding is [ISO-8859-1](https://en.wikipedia.org/wiki/ISO/IEC_8859-1), which just extended ASCII. Clearly this is not correct, as we expect Chinese characters.
+
+If we just *happen* to know the encoding, we can finally read the file correctly:
+
+```{r}
+read_file(file.path(wdir, "shanghai.txt"), locale = locale(encoding="gb18030"))
+```
+
+What a nightmare! But if you find yourself in this situation and are lucky enough to figure out a file's encoding, you should always save a new version with UTF-8 encoding. You might even consider using a file name indicating it is encoded with UTF-8 so that the next person will thank you!
+
+Since R uses UTF-8 encoding by default, once we decode it correctly, we can save it again using UTF-8:
+
+```{r}
+shanghai <- read_file(file.path(wdir, "shanghai.txt"), locale = locale(encoding="gb18030"))
+print(shanghai)
+write_file(shanghai, file.path(wdir, "shanghai_utf-8.txt"))
+```
+
+Now that we've saved with UTF-8 encoding, let's see how much easier it is to read the file:
+
+```{r}
+read_file(file.path(wdir, "shanghai_utf-8.txt"))
+```
+
+Note here that we no longer have to specify an encoding, as R assumes it is UTF-8, and it is. We get the expected text.
