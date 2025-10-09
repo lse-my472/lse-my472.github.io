@@ -1,7 +1,7 @@
 ---
-title: "Seminar 2 Exercises (Part 1)"
+title: "Seminar 2 Exercises (Part 2)"
 subtitle: "LSE MY472: Data for Data Scientists"
-date-modified: "4 October 2025"
+date-modified: "8 October 2025"
 date-format: "D MMMM YYYY"
 format:
   html:
@@ -13,7 +13,7 @@ execute:
   eval: false
 ---
 
-Please fill the empty chunks below with your own answers. When you do this, please _remove_ the comment saying `# your answer goes here` (or any similar message).
+Please fill the empty chunks below with your own answers. When you do this, please _remove_ the comment saying `# your code goes here` (or any similar message).
 
 You will typically need to run each chunk after you finalise your answer in that chunk, because subsequent chunks will typically build/rely on work from previous chunks. 
 
@@ -28,7 +28,7 @@ Do not worry if your solutions are incomplete when you push to GitHub at the end
 Before beginning, set your working directory.
 
 ```{r}
-wdir <- "~/LSE-MY472-AT25/Seminar02"
+# your code goes here
 ```
 
 ## Exercise 4: Creating data in memory in R
@@ -36,150 +36,121 @@ wdir <- "~/LSE-MY472-AT25/Seminar02"
 Navigate to the `week02` directory in the GitHub repo for the course website: <https://github.com/lse-my472/lse-my472.github.io/tree/master/week02>. Then, make an object called `week02.files` that contains contains the file names of the `.qmd` files containing this week's seminar exercises.
 
 ```{r}
-## Your code goes here
-week02.files <- c("04-exercises-part1.qmd", "04-exercises-part2.qmd")
+# your code goes here
 ```
 
 Inspect the object type of `week02.files`, and include a comment under your code that describes what kind of R object this is.
 
 ```{r}
-## Your code goes here
-str(week02.files)
-# This is a character vector with two elements, which you can see by the fact that `str()` prints: "chr [1:2]".
+# your code goes here
 ```
 
 Load the `{pryr}` package and then find the memory address of the `week02.files` object. Save this address as a new object called `week02.files.add1`.
 
 ```{r}
-## Your code goes here
-library("pryr")
-week02.files.add1 <- address(week02.files)
+# your code goes here
 ```
 
 Now, to the `week02.files` object, add all the other `.qmd` files from the seminar, and then sort the vector in alphabetical order. 
 
 ```{r}
-week02.files <- c(week02.files, "01-setting-up.qmd")
-week02.files <- sort(week02.files)
+# your code goes here
 ```
 
 Get the memory address of `week02.files` again, and store it as a new object `week02.files.add2`. Write a logical expression to test whether the address of the object is the same as it was originally.
 
 ```{r}
-week02.files.add2 <- address(week02.files)
-week02.files.add1 == week02.files.add2
+# your code goes here
 ```
 
-<!-- # pryr::bytes(week02.files)
-# pryr::bits(week02.files) -->
-
 ## Exercise 5: Encoding on the fly
-
-<!-- https://www.bbc.com/russian/articles/c5yqzwdnw59o -->
 
 Go to the following Chinese-language news article available on the BBC website: <https://www.bbc.com/zhongwen/articles/cy502vpwqndo/simp>. Copy the headline (in large letters at the top), and then create a new object below called `headline` which is a string containing the text you copied.
 
 ```{r}
-headline <- "你应该使用哪种食用油？三个需要避免的常见错误"
+# your code goes here
 ```
 
 When you paste the text into an notebook in Positron, most modern computers will treat this as Unicode (assuming a UTF-8 encoding), so it should paste correctly.
 
-Let's now manually change the encoding from UTF-8 to a common pre-Unicode Chinese-language encoding: GB18030. To do this, use the `iconv()` function, specifying "UTF-8" as the from encoding and "GB18030" as the to encoding. Review the docs for this function by typing `?iconv` into the console.
-
-You will use `iconv` to create a new object with a newly encoded string, which you should call `headline.encoded`. Then, save this text into a new text file in your `Seminar02` directory using `write_file`
+Let's now manually change the encoding from UTF-8 to a common Chinese-language encoding: [GB18030](https://en.wikipedia.org/wiki/GB_18030). Using the `iconv()` function, create a newly encoded string called `headline.encoded`.
 
 ```{r}
-# Convert from UTF-8 to Latin-1 before writing
-# headline.encoded <- iconv(headline, from = "UTF-8", to = "windows-1251")
-headline.encoded <- iconv(headline, from = "UTF-8", to = "GB18030")
-write_file(headline.encoded, file.path(wdir, "headline_encoded.txt"))
-print(read_file(file.path(wdir, "headline_encoded.txt"), locale = locale(encoding="GB18030")))
+# your code goes here
 ```
 
-Now read the file you just saved back into R using `read_file()`. You should read the text into R twice, creating two objects `headline.read1` and `headline.read2`. For `headline.read1`, do not specify any encoding and for `headline.read1` specify the correct encoding (the one you used above). 
+Save this newly encoded text into a new text file in your `Seminar02` directory using `write_file()`
 
 ```{r}
-headline.read1 <- read_file(file.path(wdir, "headline_encoded.txt"))
-headline.read2 <- read_file(file.path(wdir, "headline_encoded.txt"), locale = locale(encoding="GB18030"))
+# your code goes here
+```
+
+Now read the file you just saved back into R using `read_file()`. You should read the text into R twice, creating two objects `headline.read1` and `headline.read2`. For `headline.read1`, do not specify any encoding and for `headline.read2` specify the correct encoding (the one you used above). 
+
+```{r}
+# your code goes here
 ```
 
 Print both `headline.read1` and `headline.read2`. Do you notice any problems?
 
 ```{r}
-print(headline.read1)
-print(headline.read2)
+# your code goes here
 ```
 
-## Exercise 6: File encodings
+## Exercise 6: Discovering file encodings
 
-There is a file in the week 2 folder on GitHub called `news_article.txt`. In your web browser, navigate to the file on GitHub. Then, click on the "Raw" button above the code on the right. Once you see the raw code, copy the URL for the file and create a new object below called `remote.file` with this URL.
+There is a file in the `week02` folder on GitHub called `news_article.txt`. Create an object called `remote.file` that contains the direct download URL for this file. Use the same process described in the Set Up section of `03-strings.qmd`. **_Do not navigate to this file directly on the GitHub website._**
 
 ```{r}
-remote.file <- "https://raw.githubusercontent.com/lse-my472/lse-my472.github.io/refs/heads/master/week02/index.html" ## CHANGE THIS
+# your code goes here
 ```
-
-::: {.callout-note}
-By clicking on the "Raw" button on GitHub, you will be directed to a URL from which you can directly download the file from inside R. We will refer to these URLs as GitHub download URLs/links.
-:::
 
 Using the `{stringr}` package, and then split the `remote.file` object into two new objects called `path.url` and `file.name`. The object `path.url` should contain the full URL to the directory on GitHub that contains the file and the `file.name` object should contain the full name of the file. There are multiple ways to do this, but one way involves the `str_split()` function in `{stringr}`.
 
 ```{r}
-library("stringr")
-
-## One approach
-path.url <- str_split(remote.file, "/")[[1]]
-file.name <- path.url[length(path.url)] 
-path.url <- path.url[1:length(path.url)-1]
-path.url <- paste0(path.url, collapse = "/")
-
-## Another approach
-path.url <- str_extract(remote.file, "^(.+?/)([^/]+[.][a-z]+)$", group = 1)
-file.name <- str_extract(remote.file, "^(.+?/)([^/]+[.][a-z]+)$", group = 2)
+# your code goes here
 ```
 
 You will soon download this file to your `Seminar02` directory. Before doing this, create a new object called `local.file` that contains the full path to where you want the file to be stored on your computer (i.e., in your `Seminar02` folder and with the file name `file.name`).
 
 ```{r}
-local.file <- file.path(wdir, file.name)
+# your code goes here
 ```
 
-Now, download the remote file to your `Seminar02` directory. 
+Write some code that checks if you already have a copy of this file in your local `Seminar02` directory, and if not, then download it to `Seminar02`. 
 
 ```{r}
-download.file(remote.file, local.file)
+# your code goes here
 ```
 
-Once you have downloaded all the files, remove all of the names you have defined in R's memory so far _except_ `wdir` and `local.file` and run R's garbage collector.
+Once you have downloaded all the files, remove all of the names you have defined in R's memory so far _except_ `wdir` and `local.file` and run R's garbage collector. Hint: subset the object that `ls()` returns by indicating you want everything except those two objects.
 
 ```{r}
-rm(list=ls()[ls() != "wdir"])
-gc()
+# your code goes here
 ```
 
-Read the file you just downloaded into R using `read_file()` using `{readr}` and print the string you just loaded using the `cat()` function, as well as the `print()` function.
+Read the file you just downloaded into R using `read_file()` using `{readr}` and print the string you just loaded using the `print()` function. When you read the file into R as an object, assign the name `news` to it.
 
 ```{r}
-## Your code goes here
+# your code goes here
 ```
 
 Figure out the encoding of the file.
 
 ```{r}
-## Your code goes here
+# your code goes here
 ```
 
-Re-read the file specifying the correct encoding and print the text using both `cat()` and `print()`. What language does it appear to be?
+Re-read the file specifying the correct encoding and print the text using `print()`. When you read in the file with the correct encoding, call the object `news.utf8`. (Why do we know it will be UTF-8? See `03-strings.qmd` for an answer!) What language does it appear to be? 
 
 ```{r}
-## Your code goes here
+# your code goes here
 ```
 
-Save a new file called `news_article_UTF8.txt` with UTF-8 encoding so that future you will be able to access the text with no problems. Try to open each file using a plain text editor on your computer and notice the difference!
+Save a new file called `news_article_UTF8.txt` (with UTF-8 encoding) so that future you will be able to access the text with no problems. Try to open each file using a plain text editor on your computer and notice the difference!
 
 ```{r}
-## Your code goes here
+# your code goes here
 ```
 
 ## Exercise 8: Some string manipulations
@@ -195,20 +166,17 @@ For the Methodology courses with course codes between MY470 and MY475, create th
 You should copy/paste the information directly from the webpage corresponding to each of these four courses.
 
 ```{r}
-my.codes <- c("MY470", "MY472", "MY474", "MY475")
-my.titles <- c("Computer Programming", "Data for Data Scientists", "Applied Machine Learning for Social Science", "Applied Deep Learning for Social Science")
-my.convenors <- c("Dr Milena Tsvetkova", "Ryan Hubert", "Dr Thomas Robinson", "Dr Thomas Robinson")
+# your code goes here
 ```
 
 There are two issues with the course convenors in `my.convenors`. First, not all of the listed course convenors have titles. Second, LSE's system does not recognise the umlaut in Ryan Hübert. Using `str_replace_all()` or `str_replace()`, fix these problems.
 
 ```{r}
-my.convenors <- str_replace(my.convenors, "^Ryan", "Dr Ryan")
-my.convenors <- str_replace(my.convenors, "Hubert", "Hübert")
+# your code goes here
 ```
 
 Next, count how many course titles contain some variation on the word "science". For this, use the `str_detect()` function.
 
 ```{r}
-str_detect(my.titles, "[Ss]cien")
+# your code goes here
 ```
