@@ -1,0 +1,282 @@
+---
+title: "Seminar 3.3: Databases and Joins"
+subtitle: "LSE MY472: Data for Data Scientists"
+date-modified: "13 October 2025" 
+date-format: "D MMMM YYYY"
+toc: true
+format:
+  html:
+    embed-resources: true
+    toc: true
+    mathjax: true
+execute:
+  echo: true
+  eval: false
+---
+
+In this notebook, we will demonstrate how to create a simple database on your computer, extract tables from it (as tibbles you can use with tidyverse), and do a couple simple queries just to show you what SQL looks like.
+
+## Set up
+
+### Load (and install) required packages
+
+```{r}
+# install.packages("DBI") # if needed
+# install.packages("RSQLite") # if needed
+
+library("tidyverse")  # for tabular data in R
+library("DBI")        # database tools for R
+library("RSQLite")    # SQL tools for R
+```
+
+### Directory management
+
+```{r}
+# Define your working directory
+wdir <- "~/LSE-MY472-AT25/Seminar03" # Unix-like (macOS, Linux)
+# Sys.setenv(R_USER = "C:/Users/HUBERTR") # Windows: tell R my home folder
+# wdir <- file.path(Sys.getenv("R_USER"), "LSE-MY472-AT25", "Seminar03") # Windows: specify directory
+```
+
+For this set of exercises, you will need to download a folder called Facebook Data from the course Moodle page (available under "Extra Materials"). The folder will download as a `.zip` file. 
+
+The next chunk assumes it downloads into your "Downloads" folder. It then moves the file to your `Seminar03` repo and unzips it.
+
+```{r}
+# File path to your download folder
+dl.folder <- "~/Downloads" # Unix-like (macOS, Linux)
+# wdir <- "~\Downloads" # Windows
+
+# Facebook zip file in the Downloads folder
+fb.file1 <- file.path(dl.folder, 'facebook-data.zip')
+
+# Where you want to move this file
+fb.file2 <- str_replace(fb.file1, dl.folder, wdir)
+
+# Iterate over files and check if they're saved locally
+if(file.exists(fb.file1)){
+  file.rename(fb.file1, fb.file2) # moves the file
+} else if(!file.exists(fb.file2)){
+  stop("You must download the file from Moodle, or specify the correct download folder path!")
+}
+
+# Unzip the file
+unzip(fb.file2, exdir = str_replace(fb.file2, ".zip", ""))
+```
+
+Note: macOS has some security features that sometimes prevent applications (like Positron) from accessing files on your Desktop, Downloads or Documents folder. If the code above creates an error, you may need to enable some settings in System Settings, under Privacy & Security > Files & Folders. You may also get a security alert when you run the code above:
+
+```{r} 
+#| echo: false
+#| eval: true
+#| out.width: "50%"
+#| fig.align: "center"
+knitr::include_graphics("positron.png")
+```
+
+If you see this message, just click "Allow."
+
+## Creating a database, adding, appending, and removing tables
+
+For this first part of the class, we will be working with a SQLite database, which is self-contained in a file within our hard drive, without any need to set up a server. 
+
+The dataset we will work with is all Facebook posts by members of the U.S. Congress in 2017, as collected from the public Pages API while it was available. 
+
+Creating a database in an `.sqlite` file and connecting to it. 
+
+```{r}
+# Create database: This will create a file in our hard drive if it does not exist already. 
+# Note, you could also name this file with a db extension like `facebook-db.db`
+db <- dbConnect(RSQLite::SQLite(), file.path(wdir, "facebook-db.sqlite"))
+```
+
+After doing this, notice that there is an object in R's working memory called `db` which is a connection to a database contained in the file `facebook-db.sqlite`. Then, we will add our first table that contains information about each member of Congress. 
+
+```{r}
+# Read the .csv file into R
+congress <- read_csv(file.path(wdir, "facebook-data/congress-facebook-2017.csv"))
+
+# Add the first table: candidate-level data on MOCs
+### Note: need to add overwrite=TRUE if you already created the DB once before
+dbWriteTable(db, "congress", congress) 
+
+# Now that the data is in the db, remove tibble from working environment
+rm(congress) 
+```
+
+Keep in mind that whenever you work with a database through R using this workflow, you will "connect" to the database and interact with it directly on disk (i.e., on your computer's storage device). In this case, we wrote a table directly to the database using the connection `db` and the function `dbWriteTable()`. The data in the database always remain in the database on disk and is not loaded into R's memory unless it is explicitly pulled it in (using for example `dbReadTable()`). This is different from how you typically do things when you read in data via, for example, `read_csv()`. When you read in a `.csv` file, it is _copied_ into R's working environment, and you work with it in memory until you explicitly write it back to disk.
+
+We can check it worked by examining the columns of the new table we created.
+
+```{r}
+# Testing that it works with a simple query
+dbListFields(db, "congress")
+```
+
+We now make a second table in our database containing all the members' Facebook posts. However, the files are too big to open them all in memory. Instead, we will open them one by one, and then _append_ them to the table. Let us see how that works...
+
+```{r}
+fls <- list.files(file.path(wdir, "facebook-data/posts"), full.names = TRUE)
+
+for (f in fls){
+  # Read file into memory
+  fb <- read_csv(f, show_col_types = FALSE, col_types = paste0(rep("c", 17), collapse = ""))
+  
+  # Adding to table in SQL database
+  ### Again note: if you have created the DB once before, then this will simply duplicate the data in the posts table!
+  dbWriteTable(db, "posts", fb, append = TRUE)
+  
+  rm(fb) # remove tibble from environment once it's in the database
+}
+```
+
+We can again test that it worked by looking at the columns in the new table we created.
+
+```{r}
+# All columns in the posts table
+dbListFields(db, "posts")
+```
+
+We can also remove tables from our database, if we have made a mistake. We will leave this commented out because we do not want to remove any tables!
+
+```{r}
+# What if we make a mistake and want to remove the table?
+# dbRemoveTable(db, "posts")
+```
+
+Whenever you finish working with a database in R using the workflow above, you should always disconnect so that you avoid inadvertently modifying the contents of your database.
+
+```{r}
+# And we close the connection for now
+dbDisconnect(db)
+rm(db) # remove it from environment
+```
+
+## Querying the database
+
+When you "query" a database, you are extracting useful information from one or more tables in that database. Since these are simple relational databases, we can query them using SQL. 
+
+Let us see how we can query our new database. First we connect using `dbConnect()`.
+
+```{r}
+db <- dbConnect(RSQLite::SQLite(), file.path(wdir, "facebook-db.sqlite"))
+```
+
+Generally, in SQL we write the query **`CLAUSES`** in capital letters and the column **`names`** in lowercase. 
+
+Suppose first we want to query the `congress` table, returing a table with all columns, but only the first six rows. This mimics the behaviour of the `head()` function. We can write this in SQL as follows. 
+
+::: {.callout-tip}
+Quarto notebooks allow for SQL code chunks, which will execute assuming a connection to a database is opened and specified.
+:::
+
+```{sql}
+#| connection: !expr if (exists("db", inherits = TRUE)) db else NULL
+SELECT * FROM congress LIMIT 6
+```
+
+We can also run SQL commands inside of R chunks using the `dbGetQuery()` function.
+
+```{r}
+dbGetQuery(db, 'SELECT * FROM congress LIMIT 6')
+```
+
+There are many, many other queries you can run. For example, you can show only certain columns. The following SQL query only shows the `name` and `party` column from `congress`.
+
+```{r}
+dbGetQuery(db, 'SELECT name, party FROM congress LIMIT 10')
+```
+
+You can also filter certain rows using conditions. For example, the following SQL query returns a table with two columns (`name` and `party`) and with rows where `party == "Republican"` (from the `congress` table).
+
+```{r}
+dbGetQuery(db, "SELECT name, party 
+           FROM congress
+           WHERE party = 'Republican'
+           LIMIT 10")
+```
+
+### Bypassing SQL
+
+We have just given you small taste of SQL queries, but SQL queries (and database engineering more generally) could take up an entire course. For our purposes, while we are interested in working with tabular data, we are not as interested in working with tabular data via SQL databases. Moreover, as mentioned in lecture, many of the functions included in tidyverse packages like `{tidyr}` and `{dplyr}` are specifically designed to mimic the kind of queries one could do with SQL.
+
+In this course, we will treat databases as _storage formats_, not as platforms to do data manipulation directly. So, our typical workflow will be to use the `dbReadTable()` function to read tabular data into R's working environment (similar to `read.csv()`). We can read the two tables in our database as follows:
+
+```{r}
+congress <- as_tibble(dbReadTable(db, "congress"))
+posts <- as_tibble(dbReadTable(db, "posts"))
+head(congress)
+head(posts)
+```
+
+If we no longer need the `db` connection because we intend to work with our two objects in R's working environment, then we should close the connection.
+
+```{r}
+dbDisconnect(db)
+rm(db)
+```
+
+Then, note that we can perform the exact same queries with base R or `{dplyr}`, as we did with SQL above.
+
+```{r}
+# Mimicking first SQL query:
+head(congress) 
+# Mimicking second SQL query:
+congress |> 
+  select(name, party) |> 
+  filter(row_number() <= 10)
+# Mimicking third SQL query:
+congress |> 
+  select(name, party) |> 
+  filter(party == "Republican") |>
+  filter(row_number() <= 10)
+```
+
+## Joins/merges
+
+In many data science contexts, you will want or need to combine data from multiple tabular datasets into one. This is known as joining (or merging). 
+
+All joins require two considerations: (1) what are the key(s)? and (2) which rows from each table do you want to keep? Recall from lecture that _keys_ are the columns that contain the same data across the tables you want to join together. 
+
+Let's see how this works via some examples. First, suppose we want to create a table that has the number of likes received on each post, on each date, and indicating the MOC's party. The first two pieces of data come from the `posts` dataset, but the last piece of data comes from `congress`, so we have to join. We will join the two tables using the `screen_name` column, which contains each member of Congress's Facebook screen name. We'll use an _inner join_, meaning we'll keep only the rows that have matching `screen_name` values in _both_ tables.
+
+```{r}
+congress |> 
+  inner_join(posts, by = c("screen_name")) |>
+  select(likes_count, party, date) |> 
+  filter(row_number() <= 10) # just show first 10
+```
+
+Why does it matter that we selected an _inner join_? Notice that there are some members of Congress listed in the `congress` table for whom we have no Facebook posts in the `posts` table:
+
+```{r}
+congress |>
+  filter(!screen_name %in% posts$screen_name) |> 
+  select(screen_name, name, party) |> 
+  distinct() # This drops duplicates if any
+```
+
+(Note that there are no posts in the `posts` table that cannot be matched to a screen name in the `congress` table.)
+
+If, instead, we had done a _full join_, then all of the screen names in the `congress` table would appear in the joined table, but they would be missing data:
+
+```{r}
+congress |> 
+  full_join(posts, by = c("screen_name")) |>
+  select(screen_name, likes_count, party, date) |> 
+  filter(is.na(likes_count)) # just show the ones with missing posts data
+```
+
+Finally, note that, in this situation, a _left join_ will give you the same table as a _full join_. You can see this by noting that the two produce tables with the same number of rows.
+
+```{r}
+congress |> 
+  full_join(posts, by = c("screen_name")) |>
+  nrow() |>
+  print()
+
+congress |> 
+  left_join(posts, by = c("screen_name")) |>
+  nrow() |>
+  print()
+```

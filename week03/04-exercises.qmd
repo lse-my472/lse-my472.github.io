@@ -1,0 +1,281 @@
+---
+title: "Seminar 2 Exercises"
+subtitle: "LSE MY472: Data for Data Scientists"
+date-modified: "8 October 2025"
+date-format: "D MMMM YYYY"
+format:
+  html:
+    embed-resources: true
+    toc: true
+    mathjax: true
+execute:
+  echo: true
+  eval: true
+---
+
+Please fill the empty chunks below with your own answers. When you do this, please _remove_ the comment saying `# your code goes here` (or any similar message).
+
+You will typically need to run each chunk after you finalise your answer in that chunk, because subsequent chunks will typically build/rely on work from previous chunks. 
+
+When the seminar ends, you will need to compile this `.qmd` to `.html` (using the Preview button above) and then add/commit/push your version of the `.qmd` file and the `.html` file to your GitHub Classrooms repository. 
+
+::: {.callout-important}
+Seminar exercises are purposefully designed to be challenging so that they can help you learn how to write code. To help you complete these exercises, you are meant to read and refer to the lecture slides, seminar materials, and even outside resources as needed. 
+:::
+
+You should push your final version to your GitHub Classroom repo before next Wednesday at 5 pm. 
+
+### Directory management
+
+Before beginning, set your working directory.
+
+```{r}
+# your code goes here
+```
+
+In these exercises, you will use the `{tidyverse}` package to work with datasets you should have downloaded previously.
+
+## Exercise 1: Tidying data
+
+In these exercises you will use several tidyverse packages. In the next code chunk, load the tidyverse packages you will use for: reading data into R, doing data manipulations, tidying tabular data, and manipulating strings. 
+
+```{r}
+# your code goes here
+``` 
+
+In the remainder of this exercise, you will tidy data and deal with an encoding problem.
+
+First, we will work with a dataset that contains population data and tuberculosis (TB) cases for several countries across several years. (This is panel data.)
+
+The dataset is available on the website at <https://lse-my472.github.io/week03/tp_data.csv>. Write a code chunk that downloads this file and saves it to your local Seminar 3 repo. The chunk should only download the file if it does not already exist in the directory.
+
+```{r}
+# your code goes here
+```
+
+Read the dataset into R as a tibble and assign the name `tb` to it. You should receive an error when you try to read it. In the chunk below, include an execution option `error: true` and allow the error message to print in your compiled HTML.
+
+```{r}
+# your code goes here
+```
+
+(This is a very common kind of problem in data science: you get a dataset from somewhere but it will not open!) Figure out the problem and fix it, using generate AI if needed. (Hint: think about what we covered last week.)
+
+```{r}
+# your code goes here
+```
+
+Once you successfully read the dataset, print it.
+
+```{r}
+# your code goes here
+```
+
+Why isn't this data tidy? Put your answer in comments in the next chunk
+
+```{r}
+# your code goes here
+```
+
+Tidy this data and save the tidy version as a new file `tb_data_tidy.csv`.
+
+```{r}
+# your code goes here
+```
+
+## Exercise 2: Working with tabular data in R
+
+In this exercise you will also use several tidyverse packages. In the next code chunk, load the tidyverse packages you will use for: reading data into R, doing data manipulations, tidying tabular data, and manipulating strings. 
+
+```{r}
+# your code goes here
+```
+
+Create two objects using the `file.path()` function that contain the full path to each of the two datasets containing economic data from the first 20 months of the Covid-19 crisis.
+
+```{r}
+# your code goes here
+```
+
+Load the dataset that contains variables on industrial production and unemployment during the Covid-19 crisis. Assign it the name `econ.data`.
+
+```{r}
+# your code goes here
+```
+
+Show the first six lines of the dataset.
+
+```{r}
+# your code goes here
+```
+
+Do not tidy this data. Calculate the highest unemployment rate for France during the time frame of this dataset. You should do this using pipes and `{dplyr}` functions to return a table with _two_ columns (`country` and `value`), and _one_ row showing the value. 
+
+```{r}
+# your code goes here
+```
+
+Now, create a function that would do this for any country. Your function should take a country name as an argument and return a single value with the highest unemployment rate (as above). Hint: your function must be able to handle situations where a user enters a country name that is capitalised or not.
+
+```{r}
+# your code goes here
+```
+
+Use this function to calculate the highest unemployment rate in Germany during the time span of this dataset. Capitalise "Germany" when you use the function.
+
+```{r}
+# your code goes here
+```
+
+**Optional:** Using `lapply()` and `do.call()`, create a tibble created by applying this function to all countries in the dataset and binding resulting rows together.
+
+```{r}
+# your code goes here
+```
+
+Now, read in the `ip.csv` dataset, tidy it and assign the name `ip.df` to this dataset. You should do this all in one pipe sequence. You should have three columns, `country`, `date` and `ip`. Do not reformat any columns yet.
+
+```{r}
+# your code goes here
+```
+
+Using the `mutate()` function in a pipe, reformat the date column to a date format. Hint: instead of using `mutate()` to create a _new_ variable, use it to recreate an existing variable (but with a new formatting).
+
+```{r}
+# your code goes here
+```
+
+Using a pipe, find the minimum value for industrial production in France. Which month was this?
+
+```{r}
+# your code goes here
+```
+
+For each country, count how many observations of industrial production data are in the dataset. Hint: you need account for some missing data.
+
+```{r}
+# your code goes here
+```
+
+**Optional:** For each country, calculate the percentage of rows in the dataset that contain data.
+
+```{r}
+# your code goes here
+```
+
+Next, add a new column to the `econ.data` dataset: the square of the industrial production.
+  
+```{r}
+# your code goes here
+```
+
+Print the first six rows to verify that the calculation looks correct.
+
+```{r}
+# your code goes here
+```
+
+## Exercise 3: Databases, grouping and summarising
+
+You will need to connect to a database for this exercise. Please load the required packages now.
+
+```{r}
+# your code goes here
+```
+
+Connect to the database you created in `03-databases.qmd`. (If you have not done this yet, please do it now.)
+
+```{r}
+# your code goes here
+```
+
+After connecting to the database, extract both tables as separate tibbles in the R working environment. Call one `members` and the other `fb.posts`.
+
+```{r}
+# your code goes here
+```
+
+Disconnect from the database now that you have read in the data into the working environment.
+
+```{r}
+# your code goes here
+```
+
+You should use `{dplyr}` and a pipe to create a table showing all the data requested below.
+
+How many posts appear in the dataset of Facebook posts from each member of Congress in the dataset? Hint: use the variable `from_name` to identify the members of Congress.
+
+```{r}
+# your code goes here
+```
+
+Now, create the same table, but order it in descending order by number of posts. 
+
+```{r}
+# your code goes here
+```
+
+Based on the number of likes, print the row corresponding to the most popular post(s). The row you print should contain the name of the member of Congress (the `from_name` variable), the number of likes and the date and time of the post. 
+
+```{r}
+# your code goes here
+```
+
+Using the `pull()` function (see documentation [here](https://dplyr.tidyverse.org/reference/pull.html)), extract and print the message from the most popular post.
+
+```{r}
+# your code goes here
+```
+
+On social media, being "ratioed" means that a post receives significantly more comments than likes, signaling that the audience largely disagrees with or disapproves of the content. Let's find out which post was ratioed the hardest in this dataset. Create a new variable in the dataset called `ratio` that has the ratio of comments to likes.
+
+```{r}
+# your code goes here
+```
+
+Create a pipe that returns the row with the highest ratio of comments to likes among all posts with more than 1000 likes. The row should include the MOC's name, the date/time, the number of comments, number of likes, and ratio.
+
+```{r}
+# your code goes here
+```
+
+Again using `pull()`, print the message that was ratioed hardest.
+
+```{r}
+# your code goes here
+```
+
+The `fb.posts` dataset contains a lot of information about posts, but it does not include some interesting variables, such as: the MOC's party and gender. Using a join function, add the party and gender of the MOC into the `fb.posts` dataset.
+
+```{r}
+# your code goes here
+```
+
+Next, create a table that displays the number of posts by political party, and then a second table that displays the number of posts by political party _and_ gender.
+ 
+```{r}
+# your code goes here
+```
+
+Next, calculate the average number of likes and comments on posts, by party.
+
+```{r}
+# your code goes here
+```
+
+Finally, calculate the number of posts per day. Arrange the output in chronological order and then show the first 10 rows.
+
+```{r}
+# your code goes here
+```
+
+## Exercise 4: Syncing your changes with Git
+
+Finalise your work by adding, committing and pushing your final changes to GitHub before next Wednesday at 5 pm.
+
+At a minimum, your `Seminar03` repo should have the following files:
+
+- All of the `.qmd` (and `.html`) files for this seminar, plus the two `.csv` datasets on economic data from Covid-19.
+- A file `tb_data.csv` that you downloaded from the internet.
+- A new file `tb_data_tidy.csv`.
+- A folder with the Facebook data.

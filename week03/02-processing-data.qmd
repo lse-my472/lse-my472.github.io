@@ -1,0 +1,584 @@
+---
+title: "Seminar 3.2: Processing Tabular Data"
+subtitle: "LSE MY472: Data for Data Scientists"
+date-modified: "14 October 2025" 
+date-format: "D MMMM YYYY"
+toc: true
+format:
+  html:
+    embed-resources: true
+    toc: true
+    mathjax: true
+execute:
+  echo: true
+  eval: false
+---
+
+## Set up
+
+Be sure to carefully review this section and complete these steps.
+
+### Load (and install) required packages
+
+```{r}
+# install.packages("readr") # if needed
+# install.packages("dplyr") # if needed
+# install.packages("tidyr") # if needed
+# install.packages("stringr") # if needed
+# install.packages("lubridate") # if needed
+
+# Loading packages from tidyverse
+library("readr")     # for reading files
+library("dplyr")     # for data manipulation
+library("tidyr")     # for tidying data (pivot)
+library("stringr")   # for sting matching
+library("lubridate") # for formatting dates
+```
+
+::: {.callout-tip}
+You can load all of the tidyverse packages at once by using `library("tidyverse")`. In this notebook we are loading them separately to emphasise which packages from tidyverse we are actually using.
+:::
+
+### GitHub Classroom
+
+In a web browser, go to <https://www.github.com/> and log into the GitHub account you are using for this course. Then, in the `#github-classroom` channel in the course Slack, copy the URL listed for Seminar 3. In the same web browser where you logged into your GitHub account, paste the URL and press enter. You will be prompted to accept the assignment for Seminar 3. Please do so, after which you will be redirected to your private repo for Seminar 3. Clone this to your computer inside your home directory's `LSE-MY472-AT25` subdirectory.
+
+::: {.callout-important}
+You must give your local repo a different name when you clone to your computer. As you did last week, you should use the command line command `git clone XXXXX Seminar03`, replacing `XXXXX` with the URL to your GitHub Classroom repo for Seminar 3.
+:::
+
+Once you have done this, please move all the seminar materials into this new directory. You can do this in your computer's file explorer (Finder in macOS and File Explorer in Windows) by dragging and dropping the files. 
+
+### Directory management
+
+Indicate your working directory in the following code chunk, which should be the absolute path to the Seminar 3 repo you just cloned to your computer above. Please review previous weeks' materials if you do not know what this means.
+
+```{r}
+wdir <- "~/LSE-MY472-AT25/Seminar03" # Unix-like (macOS, Linux)
+# Sys.setenv(R_USER = "C:/Users/HUBERTR") # Windows: tell R my home folder
+# wdir <- file.path(Sys.getenv("R_USER"), "LSE-MY472-AT25", "Seminar03") # Windows: specify directory
+```
+
+You can check that you specified the path correctly by running this code chunk. If this creates an error, it will prevent you from compiling this document to HTML. You can also see if it creates an error by running the code chunk and seeing the error in the R Console. If you receive an error, you should fix it by, verifying that you have (1) actually cloned the repo to the correct path on your computer, and (2) you specified the path correctly in the chunk above.
+
+```{r}
+if(!file.exists(wdir)){
+  stop("You did not specify a path to a valid Seminar03 directory/repo!")
+}
+```
+
+Now, check if you have all the required files in this directory. If not, then download them from the course website's GitHub repo.
+
+::: {.callout-note}
+The following chunk has a local execution option `eval: false` so that it does not _force_ unexpected downloads on a user of this `.qmd` file. You can, of course, run the lines of this chunk in the R Console (and you should). The execution option will simply prevent this chunk from running when you use the Preview button to compile to HTML.
+:::
+
+```{r}
+#| eval: false
+# File names for files we need this seminar
+req.files <- c("01-conditionals-loops-functions.qmd", "01-conditionals-loops-functions.html")
+req.files <- c(req.files, "03-databases.qmd", "03-databases.html")
+req.files <- c(req.files, "04-exercises.qmd")
+req.files <- c(req.files, "ip.csv", "ip_and_unemployment.csv")
+# GitHub download url for week 3
+gh.dl.url <- "https://raw.githubusercontent.com/lse-my472/lse-my472.github.io/refs/heads/master/week03/"
+# Iterate over files and check if they're saved locally
+for(rfile in req.files){
+  remote.file <- paste0(gh.dl.url, rfile)
+  local.file <- file.path(wdir,rfile)
+  if(!file.exists(local.file)){
+    download.file(remote.file, local.file)
+  }
+}
+```
+
+Manually verify that this `.qmd` file is in this directory as well, by looking at your file explorer.
+
+After completing the steps above, you should have:
+
+- Created a GitHub repo corresponding to this seminar, which you created through the GitHub Classroom link.
+- Cloned this GitHub repo to this directory: `~/LSE-MY472-AT25/Seminar03` (Unix-like path, Windows will look different). 
+- Moved all the seminar materials you downloaded from the course GitHub website repo into your `Seminar03` directory (which is the local copy of your GitHub Classroom repo).
+- Verified your working directory is correctly assigned to the object `wdir` above.
+- Downloaded any missing `.csv` files into your `Seminar03` directory.
+
+## Data
+
+We will analyse some macroeconomic time series from the US and Europe during the first wave of the Covid-19 crisis. The data has been downloaded in early October 2020 from FRED which is hosted by the Federal Reserve Bank of St. Louis. It contains data for 2019 (as a reference year) and 2020 up to varying points, because at the time of the download different series had been published up to different months. Full series can be found at <https://fred.stlouisfed.org/> under the following names:
+
+__Industrial production__
+
+- US: INDPRO
+- UK: GBRPROINDMISMEI
+- Germany: DEUPROINDMISMEI
+- France: FRAPROINDMISMEI
+- Spain: ESPPROINDMISMEI
+- Italy: ITAPROINDMISMEI
+
+__Unemployment rate__
+
+- US: LRHUTTTTUSM156S
+- UK: LRHUTTTTGBM156S
+- Germany: LRHUTTTTDEM156S
+- France: LRHUTTTTFRM156S
+- Spain: LRHUTTTTESM156S
+- Italy: LRHUTTTTITM156S
+
+If you download the data again for newer time periods, note that past macroeconomic data are continuously revised. Thus, also for 2019 and 2020 the values might be slightly different now.
+
+## Loading data
+
+Make sure to have the data files in your `Seminar03` directory (which also should include this script). Let's now read the industrial production dataset into R using base R's `read.csv()` function.
+
+```{r}
+# Industrial production data in format one
+ip.df <- read.csv(file.path(wdir, "ip.csv"))
+```
+
+When you load data, it is always good practice to take a quick look to make sure things look as expected. First, we'll look at the structure of the object using `str()`.
+
+```{r}
+str(ip.df)
+```
+
+We see it is a `data.frame` object with six rows and 21 columns. 
+
+It is bad practice to have columns that begin with numbers or symbols. In the `ip.csv` file, columns 2 through 21 were named with numbers and symbols (representing dates). The function `read.csv()` enforces a rule that prevents any column from beginning with a number by putting an "X" in front of it.
+
+Next, we'll look at the first six rows of the `data.frame` object using `head()`.
+
+```{r}
+head(ip.df)
+```
+
+Next, let's read in the dataset with industrial production and unemployment. 
+
+```{r}
+# Industrial production and unemployment data in format two
+ip_and_unemployment_df <- read.csv(file.path(wdir, "ip_and_unemployment.csv"))
+head(ip_and_unemployment_df)
+```
+
+::: {.callout-note}
+In R, object names can include periods (`.`) and it is considered a good naming convention by many R users. However, other common programming languages do not allow this (most notably Python), where underscores (`_`) are used instead. Notice that we have used both conventions above. In general, we will switch back and forth in this course.
+:::
+
+Another useful way to view a full dataset in Positron is to use the `View()` function. 
+
+```{r}
+#| eval: false
+View(ip)
+View(ip_and_unemployment)
+```
+
+::: {.callout-caution}
+When you use the `View()` function, it opens an entirely new window in your IDE's editor, which takes you away from your main working file. This is similar behaviour to a "pop up" window in a web browser. As a result, it is sometimes useful to set `eval: false` in chunks including `View()` so that a future user of your file does not have "pop up" datasets opening every time they compile to HTML or run the code chunks in a notebook.
+:::
+
+## Tibbles
+
+In this course, we will mostly work in the "tidyverse." In the context of tabular data, this means that they will be represented in R as `tibble` objects, not `data.frame` objects. You can read about tibbles (and find out more about differences with data frames) at <https://tibble.tidyverse.org/articles/tibble.html>.
+
+If you use the `read_csv()` function from the `{readr}` package (instead of `read.csv()` from base R), this will automatically read a `.csv` file into R as a `tibble`. But, if you already have a `data.frame`, you can "coerce" that object to a tibble using `as_tibble()`.
+
+```{r}
+# Transform data.frame to tibble
+ip <- as_tibble(ip.df)
+ip_and_unemployment <- as_tibble(ip_and_unemployment_df)
+print(ip)
+print(ip_and_unemployment)
+```
+
+::: {.callout-note}
+If you had directly read `ip.csv` into R using `read_csv()` instead of `read.csv()`, it would not have automatically renamed the columns by adding an "X" at the beginning. However, if you have "improper" column names in a tabular object in R (e.g., starting with a number or symbol, or containing spaces), you always must surround them with backticks, such as:
+```
+df$`Badly named variable`
+```
+:::
+
+## Piping syntax
+
+In modern data science in R, it is now very common to use "piping syntax" to work with tabular data. Piping syntax involves writing a series of functions which the console executes in sequence to an object, which is the first element of the pipe. Each function in the pipe is separated by the pipe operator, either `|>` or `%>%`. Loosely speaking, piping reverses the order in which a coder writes functions that they wish to apply to some object. 
+
+While this is most common in the context of tabular data, we will briefly illustrate piping syntax with a simple example where we determine the largest element in a vector:
+
+```{r}
+example_vector <- c(-42, -5, 17, 24, -34, 93, 18) # not in order
+# Two approaches
+max(example_vector)        # traditional syntax, building "outward"
+example_vector |> max()    # piping syntax, building in sequence
+```
+
+Notice that traditional syntax and piping syntax yield the same result. Piping syntax is, for the most part, a stylistic choice that is usually used to make code more "readable". 
+
+This simple example is somewhat trivial. But piping syntax is especially useful when multiple operations are done in sequence. To show this we define a function which returns the negative elements in a vector, and then compute the mean of only these values:
+
+```{r}
+# Create a function which only returns negative elements in a vector
+return_negative_elements <- function(x) {
+  return(x[x<0])
+}
+# Find the mean of negative values in example_vector
+example_vector |>
+  return_negative_elements() |>
+  mean()
+```
+
+::: {.callout-note}
+It is considered good practice to put every step in a piping sequence on a new line, where the pipe operator is at the end of the line. However, you do not _need_ to do this for piping to work. Notice that in the previous two code chunks, we did it both ways.
+:::
+
+Of course, we could have achieved the same with "traditional" syntax in several ways:
+```{r}
+# Option 1 -- a one liner
+mean(example_vector[example_vector<0])
+# Option 2 -- a different one liner
+mean(return_negative_elements(example_vector))
+# Option 3 -- sequence of lines
+result <- return_negative_elements(example_vector)
+result <- mean(result)
+```
+
+Notice that Option 3 resembles piping syntax, but unlike piping syntax, it requires us to assign a new object to complete each step of the chain.
+
+### Differences between `|>` and `%>%`
+
+There are two piping operators. The **native pipe** `|>` has been included in base R as of version 4.1. The **magrittr pipe** `%>%` is included in the `{magrittr}` package, which was the only pipe operator available before R version 4.1. There are some differences between the two pipe operators, which you can read about here <https://www.tidyverse.org/blog/2023/04/base-vs-magrittr-pipe/>.
+
+
+There is one commonly noticed difference between the two pipe operators that is worth emphasising. With `{magrittr}` piping, you can flexibly use a dot `.` as a placeholder for the object as it exists from the previous step of the pipe. Consider our previous example in which we were trying to find the maximum negative element of `example_vector`. With `%>%`, you can do the following
+
+```{r}
+example_vector %>%
+  .[.<0] %>%
+  mean()
+```
+
+This is quite convenient, but it does not work with the native pipe:
+
+```{r}
+#| error: true
+example_vector |>
+  .[.<0] |>
+  mean()
+```
+
+::: {.callout-tip}
+The execution option `error: true` in the chunk above indicates that Quarto should continue to compile the `.qmd` file if this code chunk creates an error. It will also print the error message in the compiled HTML. You should only use this option if you want to explicitly demonstrate how an error arises. Otherwise, you actually want Quarto to stop compiling HTML when there are errors in chunks, because it means you need to fix your code.
+:::
+
+Native pipe does allow for limited placeholders (see the link above), but `%>%` is far more flexible. That said, while flexible placeholders are sometimes useful, for most tabular data manipulations, the native pipe is just fine. In this course, we will mostly use the native pipe, but you are free to use whichever you prefer.
+
+## Tidying data
+
+Let's take another look at our datasets.
+
+### Industrial production dataset
+
+First, let's look at the industrial production dataset:
+
+```{r}
+print(ip)
+```
+
+Notice that this data is not tidy, since the names of columns 2 through 21 correspond to each month between January 2019 and August 2020. Month should be its _own_ variable, since this dataset is meant to contain data on industrial production for a set of six countries over the course of 20 months. Indeed, while the unit of interest in this dataset is country, it contains longitudinal data, meaning that each observation (row) should be a country-month combination.
+
+To "tidy" this tabular data, the columns need to be transformed into a new pair of variables by pivoting the table from wide to long. This requires us to use the `pivot_longer()` function from the `{tidyr}` package in the tidyverse.
+
+```{r}
+ip.tidy <- pivot_longer(ip, cols = colnames(ip)[2:length(colnames(ip))],
+                        names_to = "date", values_to = "ip")
+ip.tidy
+```
+
+Of course, you can also do the same thing using the pipe operator.
+
+```{r}
+ip.tidy <- ip |> 
+  pivot_longer(cols = colnames(ip)[2:length(colnames(ip))],
+               names_to = "date", values_to = "ip")
+ip.tidy
+```
+
+Notice that the `date` variable is quite ugly because `read.csv()` added an "X" to each date? Let's fix this by (1) removing the "X" and (2) transforming the `date` column into date format.
+
+```{r}
+## Regex "^X" says: match to letter X if it appears as the first character
+ip.tidy$date <- str_replace(ip.tidy$date, "^X", "")
+ip.tidy$date <- dmy(ip.tidy$date)
+head(ip.tidy)
+```
+
+::: {.callout-tip}
+Review the slides in the lecture about working with dates in R. It is good practice to keep all dates in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format (YYYY-MM-DD) to enable cross-country compatibility. Fortunately, when you write to csv using `write_csv()`, any date column will be written as a column of strings in ISO 8601 format.
+:::
+
+Now that this data is tidy, what is its "primary key"? (See the lecture slides for a definition.)
+
+### Industrial production and unemployment dataset
+
+Next, let us consider the dataset which contains both industrial production and unemployment rates. 
+
+```{r}
+print(ip_and_unemployment)
+```
+
+Again, let's reformat the data column:
+
+```{r}
+## Regex "^X" says: match to letter X if it appears as the first character
+ip_and_unemployment$date <- dmy(ip_and_unemployment$date)
+head(ip_and_unemployment)
+```
+
+As was the case for the industrial production dataset above, each observation in this dataset is a country-month. Fortunately, the dataset is already arranged so that each row is a country-month, as we can see below. However, there is a different problem. Notice that each country-month combination appears in two separate rows, one with data on industrial production ("ip") and one with data on unemployment. Values contained in the `series` column are actually _separate_ variables, but they are not depicted across separate columns.
+
+To fix this, we can pivot this dataset from long to wide format use the `pivot_wider()` function. We will create new columns with the names from the previous `series` column, and fill in values from the `value` column.
+
+```{r}
+ip.ue.tidy <- ip_and_unemployment |>
+  pivot_wider(names_from = series, values_from = value,
+              id_cols = c("country", "date"))
+ip.ue.tidy
+```
+
+### Non-standard evaluation in tidyverse
+
+If you are familiar with programming in base R, you will notice an odd feature in the code chunk above. For example, in the `pivot_wider()` function notice that the `names_from` argument is passed a value that is not surrounded in quotes: `names_from = series`. In the context of traditional R, this is quite unusual because it implies that there must be some assigned object named `series` in the R working environment. But notice that there isn't(!):
+
+```{r}
+ls()
+```
+
+What is going on here? How does the R console know that `series` is the name of one of the variables in `ip_and_unemployment`, and not an assigned object in the R working environment?
+
+The tidyverse collection of packages use a form of **non-standard evaluation (NSE)** that has been customised for tidyverse. (You can read more on NSE in R [here](https://adv-r.hadley.nz/metaprogramming.html).) This is known as "tidy evaluation" and it is described in detail at <https://dplyr.tidyverse.org/articles/programming.html>. 
+
+Loosely speaking, tidy evaluation is a set of rules that apply to how tidyverse functions perform certain operations. The specific example here **data masking** in which tidyverse functions treat column names as objects assigned in the R working environment (even though they are not). 
+
+This is a somewhat technical point, but you will see that it is quite useful for you as an R user. Below, we will show you some examples for how tidy evaluation (and data masking in particular) will help you write more readable and concise code.
+
+## Data manipulation with tidyverse
+
+We will now perform some very common data manipulation tasks using functions available in `{dplyr}`. As usual, note that all of these tasks can be done in base R too.
+
+::: {.callout-important}
+In this course, we will _not_ show you all the possible data manipulations that are possible with tidyverse. We highly recommend that you explore the tidyverse packages on your own to learn how to do a wider range of manipulations. In some exercises, we may ask you to figure out how to figure out a function that could be used for a task. A very good set of resources are the "cheat sheets" available for several tidyverse packages: <https://posit.co/resources/cheatsheets/>.
+:::
+
+
+### Selecting and dropping columns
+
+A (very) common task in data wrangling is to select or drop columns. This can be done very conveniently with the function `select()`. Let's first select only the date and industrial production columns:
+
+```{r}
+ip.ue.tidy |> 
+  select(date, ip)
+```
+
+The code chunk above again demonstrates an example of data masking (as used in tidy evaluation). Notice that inside the `select()` function, we can choose columns as if they were objects in the working environment (and without quotations). Contrast this with base R using standard evaluation:
+
+```{r}
+#| error: true
+ip.ue.tidy[,c("date", "ip")] # this works!
+ip.ue.tidy[,c(date, ip)] # this NSE does not work!
+```
+
+You can also use the `select()` function to drop specific columns by negating them. For example, if we want to drop the `date` column:
+
+```{r}
+ip.ue.tidy |> 
+  select(-date)
+```
+
+It is important to keep in mind that the code chunk above returns a new dataset after applying the data manipulation steps requested (in this case selecting columns). However, this new dataset will not remain in R's working environment (in memory) unless you explicitly assign a name to it:
+
+```{r}
+ip.ue.tidy.no.date <- ip.ue.tidy |> 
+  select(-date)
+```
+
+Now you can see it is in the working environment, and available to use over and over again:
+
+```{r}
+ls()
+print(ip.ue.tidy.no.date)
+```
+
+### Selecting rows
+
+Similarly, we might want to select only specific rows that meet certain conditions. This can be achieved with the `filter()` function. For example, we can select data from only the UK:
+
+```{r}
+ip.ue.tidy |> 
+  filter(country == "uk") 
+```
+
+Note here that we do have to surround "uk" with quotes because it is essentially a search term we are using to find rows. It is a _value_ contained in the table, not a name for one of the columns. For example, if you try the following it will fail because `uk` is not an object in R's working environment (or in the "masked" working environment in the pipe):
+
+```{r}
+#| error: true
+ip.ue.tidy |> 
+  filter(country == uk) 
+```
+
+This way of filtering is quite precise, but only allows you to find rows where the `country` variable exactly matches "uk". If you want to match to multiple options, you would use the `%in%` operator as follows:
+
+```{r}
+ip.ue.tidy |>
+  filter(country %in% c("uk", "france"))
+```
+
+You can also filter character columns using string matching and regular expressions. For example, you can get the exact same result as the previous code chunk with the following.
+
+```{r}
+# Using tidyverse string matching
+ip.ue.tidy |>
+  filter(str_detect(country, "(uk|france)")) # str_detect() from {stringr}
+
+# Using base R string matching (in a tidyverse pipe)
+ip.ue.tidy |>
+  filter(grepl("(uk|france)", country)) # grepl() from base R
+```
+
+Let's see one more example with a regex "wild card", just to see the power of regex for string pattern matching:
+
+```{r}
+# Find us or uk
+ip.ue.tidy |>
+  filter(str_detect(country, "^u.$"))
+```
+
+Next, let us get an idea why repeated pipe operations are so useful for data analysis and readability. Say our goal is to determine the largest month-to-month contraction in industrial production for the UK during the portion of the Covid-19 crisis for which we have data. This can be achieved by combining filter and select functions:
+
+```{r}
+ip.ue.tidy |>
+  filter(country == "uk") |>  # only look at UK data
+  filter(ip == min(ip)) |>    # extract the minimum ind. prod.
+  select(date, ip)             # just show date and value for ind. prod.
+```
+
+The strongest contraction in UK industrial production was in April 2020 that saw around a 20% decline in industrial production from the previous month.
+
+Similarly, we can determine the timing and magnitude of the largest US unemployment rate during the sample:
+
+```{r}
+ip.ue.tidy |>
+  filter(country == "us") |>
+  filter(unemployment == max(unemployment)) |>
+  select(date, unemployment)
+```
+
+In April 2020, the US had an unemployment rate of 14.7. When we select the value from the month before, we see that this was an extremely sharp month to month rise:
+
+```{r}
+ip.ue.tidy |>
+  filter(country == "us") |>
+  filter(date == "2020-03-01") |>
+  select(date, unemployment)
+```
+
+Sometimes a dataset will contain empty (`NA`) values, and you may want to drop rows with `NA` values. You can do this with the `drop_na()` function:
+
+```{r}
+# Only drop rows with missing `ip` values
+ip.ue.tidy |> 
+  drop_na(ip)
+# Drop rows with missing `ip` or `unemployment` values
+ip.ue.tidy |> 
+  drop_na(ip, unemployment)
+# Drop rows with any missing values
+ip.ue.tidy |> 
+  drop_na()
+```
+
+### Summary statistics
+
+Another frequent goal is to compute summary statistics. This can be done with the `summarise()` function. This function is very powerful, as you will see when you begin to do serious data manipulation in R.
+
+::: {.callout-tip}
+`{dplyr}` allows for users to use American spelling if they prefer. For example, the `summarize()` function is an alias for `summarise()`, and thus is identical.
+:::
+
+The following calculates the mean and standard deviation of UK industrial production from January 2019 to August 2020 (the end of our dataset):
+
+```{r}
+ip.ue.tidy |>
+  filter(country == "uk") |> 
+  select(ip) |> 
+  drop_na() |> 
+  summarise(uk_ip_mean = mean(ip), uk_ip_sd = sd(ip), uk_obs = n())
+```
+
+### Grouping
+
+Next, a very useful function is `group_by()` which creates groups of rows within the dataset. For example, since each dataset is panel data, it might be useful to group by country. For example:
+
+```{r}
+ip.ue.tidy |> 
+  group_by(country)
+```
+
+On its own, `group_by()` doesn't really do much, except mark which rows are in which groups. If we combine it with other functions, then it becomes more powerful. For example, consider combining it with `filter()` to get the first and last row in the dataset, for each country.
+
+```{r}
+ip.ue.tidy |>
+  drop_na() |>
+  group_by(country) |>
+  filter(row_number() %in% c(1,n()))
+```
+
+::: {.callout-tip}
+The `row_number()` function returns a row's row number, and the `n()` function returns the total number of rows. If the tibble is not grouped, it calculates these using the whole tibble. If the tibble is grouped, it calculates these _within_ each group.
+:::
+
+You can also use `summarise()` with `group_by()` to calculate summary statistics _within_ specified groups. For example, let's calculate the same summary statistics we did for the UK above, but for all countries.
+
+```{r}
+ip.ue.tidy |>
+  group_by(country) |> 
+  select(country, ip) |> 
+  drop_na() |> 
+  summarise(ue_mean = mean(ip), ue_sd = sd(ip), obs = n())
+```
+
+We can do the same for unemployment.
+
+```{r}
+ip.ue.tidy |>
+  group_by(country) |> 
+  select(country, unemployment) |> 
+  drop_na() |> 
+  summarise(unemployment_mean = mean(unemployment),
+            unemployment_sd = sd(unemployment), observations = n())
+```
+
+### Creating new variables
+
+In some cases we might also want to add transformations of variables or features to the dataset. This can be done with the command `mutate()`. For example, we might want to create a new variable that is a genine "month" variable, and not a date variable fixed to the first of the month.
+
+```{r}
+ip.ue.tidy |> 
+  mutate(month = paste(month(date, label = TRUE, abbr = FALSE), year(date)))
+```
+
+Note here that since we did not assign the mutated dataset to `ip.ue.tidy`, we did not preserve the change we made:
+
+```{r}
+ip.ue.tidy
+```
+
+Now, consider a more complex example. What if we want to calculate the percentage change of unemployment in each month and include it in this dataset? This would require us to calculate the change between each month and the prior month _within_ each country.
+
+```{r}
+ip.ue.tidy <- ip.ue.tidy |> 
+  arrange(country, date) |> # just in case, for the lag below
+  group_by(country) |> 
+  mutate(ue_perc_change = (unemployment/lag(unemployment) - 1) * 100) |> 
+  ungroup()
+ip.ue.tidy
+```
+
+::: {.callout-caution}
+When using `lag()` or `lead()` with time series or panel data, it is important that the observations in the dataset are sorted chronologically. In the datasets here, this should already be given, however, you might frequently encounter datasets where it is not the case. 
+:::

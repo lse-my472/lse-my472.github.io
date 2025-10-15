@@ -1,0 +1,298 @@
+---
+title: "Seminar 3.1: Conditionals and Loops in R"
+subtitle: "LSE MY472: Data for Data Scientists"
+date-modified: "14 October 2025" 
+date-format: "D MMMM YYYY"
+toc: true
+format:
+  html:
+    embed-resources: true
+    toc: true
+    mathjax: true
+execute:
+  echo: true
+  eval: false
+---
+
+This notebook continues review of key R concepts, which you should have also seen in the preparatory course.
+
+## Conditionals
+
+Conditionals execute blocks of code when certain logical conditions are met or not met. Recall the following list of logical operators from last week:
+
+```{r}
+#| eval: false
+1 != 2 # not equal to
+2 < 2 # less than
+2 <= 2 # less than or equal to
+2 > 2 # greater than
+2 >= 2 # greater than or equal to
+(2 < 2) | (2 <= 2) # or
+(2 < 2) & (2 <= 2) # and
+2 %in% c(0,3,24) # group membership
+is.na(NA) # is NA
+!is.na(42) # is not NA
+```
+
+Using these with "if" and "else" statements allows to run blocks of code depending on whether a logical condition is met or not, i.e. evaluates to true or false. In this course we might for example use conditionals while scraping to run different code depending on which site is currently accessed. 
+
+The following simple examples illustrate if statements:
+
+```{r}
+x <- 2
+if (x > 4) {
+  print("If code block reached, condition was true.")
+  example_calculation <- 73*14
+  }
+```
+
+::: {.callout-note}
+As you know, R uses curly brackets as a container for certain line of code, such as lines inside if statements, loops, and function definitions. It is considered good practice to indent lines of code contained within the curly brackets, as we have done above. Many IDEs will do this by default. However, R is _not_ sensitive to indentation (unlike, for example, Python). So, strictly speaking, you do not need to indent for the code to work, as the next example demonstrates. Indentation is crucial for readability, so it is not good data science practice to omit indentations or use excessive or arbitrary indentations.
+:::
+
+Note that no output was generated because the if statement was evaluated as false, and the print statement was therefore never reached. Now, let's see what happens if the if statement evaluates to true:
+
+```{r}
+x <- 5
+if (x > 4) {
+print("If code block reached, condition was true.")
+example_calculation <- 73*14
+}
+```
+
+There might also be an alternative block of code we would like to run in case 
+the condition is not met. This can be achieved with an if-else structure:
+
+```{r}
+x <- 3
+if (x > 4) {
+  print("If code block reached, condition was true.")
+  example_calculation <- 73*14
+} else {
+  print("Else code block reached, condition was false.")
+  example_calculation <- 37*41
+  }
+```
+
+Lastly, there can be multiple if conditions and one else condition for all other cases:
+
+```{r}
+x <- 2
+y <- 3
+if (x < y) {
+    print("First if code block reached, associated condition was true: y is greater than x.")
+  } else if (x > y) {
+    print("Second if code block reached, associated condition was true: x is greater than y.")
+  } else {
+    print("Else code block reached, none of the condition were true: x and y are equal.")
+  }
+```
+
+::: {.callout-tip}
+When you compile this `.qmd` file  to HTML, you will see that the code and output above extends beyond the right edge of the page and is not visible. However, note that you can left/right scroll inside the rendered HTML code chunk, as well as the rendered code output. If you have left/right scroll enabled on your laptop's trackpad (e.g., by swiping left or right), this is a useful thing to know!
+:::
+
+A slightly different type of an if statement is the `ifelse()` function. You can think of this as an in-line if-else statement:
+
+```{r}
+# Using an ifelse function to return an absolute value
+x <- -2
+abs_x <- ifelse(x > 0, x, -x)
+abs_x
+
+# This also works with a vector element-wise
+numbers <- c(-2, -1, 0, 1, 2)
+# converting them to absolute numbers
+abs_numbers <- ifelse(numbers > 0, numbers, -numbers)
+abs_numbers
+```
+
+A multi-condition version of `ifelse()` is the `case_when()` function from the `{dplyr}` package from tidyverse.
+
+```{r}
+library("dplyr")
+
+# Using case_when to return fizz-buzz (a classic coding exercise)
+numbers <- 1:15
+
+# We can get the remainder of a division using %%
+paste0("The remainder of 5/3 = ",5%%3)
+paste0("The remainder of 5/5 = ",5%%5)
+
+# case_when lets conditions be evaluated sequentially *until* one is met,
+# for each element of a vector
+fizzbuzz <- case_when(numbers %% 3 == 0 & numbers %% 5 == 0 ~ "fizzbuzz",
+                      numbers %% 3 == 0 ~ "fizz",
+                      numbers %% 5 == 0 ~ "buzz",
+                      TRUE ~ "") # note, it's good practice to have a default
+print(fizzbuzz)
+```
+
+Further study: A great book to review fundamental and advanced concepts in R 
+programming is Hadley Wickham's "Advanced R" <https://adv-r.hadley.nz/>
+
+## Loops
+
+We use loops whenever we need to run the same function (or chunk of code) across different units. For example, in this course we may use a loop when scraping data from multiple elements of a webpage.
+
+"For" loops are probably the most common type of loop and are easily implemented in R. Here is a very simple example.
+
+```{r}
+for (i in 1:10) {
+    print(i)
+}
+```
+
+Note the structure of a for loop:
+
+```{r}
+#| eval: false
+for (i in VECTOR) {
+    # do something with i but not necessarily
+}
+```
+
+In each iteration, i takes a different value of the VECTOR; "i" can be anything, we can e.g. also just name it number:
+
+```{r}
+for (number in 1:10) {
+    print(number)
+}
+```
+
+We can also iterate over different vectors than integers sequences with for loops:
+
+```{r}
+vector_of_texts <- c("hello", "world", "in", "a", "for", "loop")
+for (text in vector_of_texts) {
+    print(text)
+}
+```
+
+Another type of loop is the while loop, it runs for as long as a logical condition is true:
+
+```{r}
+x <- 1
+while (x < 11) {
+    print(x)
+    x <- x + 1
+}
+```
+
+This while loop mimics the for loop above. More generally, while loops are more flexible. For example, you might run a while loop until a certain user input is given and sets a condition to false. 
+
+::: {.callout-warning}
+One pitfall of while loops is that it is easy to inadvertently create what are known as "infinite loops." This can happen if the condition in the while loop will always be true. For example `while (2 < 4) {print("hello word")}` would run forever. If you inadvertently create an infinite loop, you have to manually break out of it. In Positron, you can do this by pressing the red square (stop) button on the top right of the R console.
+:::
+
+A nice feature of loops is that we can use values from the  previous iteration. For instance, we can get the first 40 terms in the Fibonacci sequence using a for loop.
+
+```{r}
+fib <- c(0, 1, rep(NA, 38)) # initialize fib sequence with a vector (0, 1, NA, NA, NA, NA, ...)
+for (i in 3:40) {
+  fib[i] <- fib[i - 1] + fib[i - 2] # note we're using values from previous iterations
+}
+fib
+```
+
+Note that here we created an empty vector to store the output of each iteration. A simpler example:
+
+```{r}
+values <- rep(NA, 10)
+for (i in 1:10) {
+    values[i] <- i
+}
+values
+```
+
+A structure that we will use often in this course is a loop that stores some data in different elements within a list. This will be very useful when the output from each iteration is a data frame, for example while downloading data from an API. For example:
+
+```{r}
+# Create empty list
+grades <- list()
+# Loop over 5 students
+for (i in 1:5) {
+  # Create data frame with grade/info for this student
+  student <- tibble(id = i,
+                    initial = sample(LETTERS, 1),
+                    grade = runif(n = 1, min = 0, max = 100))
+  grades[[i]] <- student
+}
+# Now we have a list of single line tibbles...
+class(grades)
+# We can combine (row-wise) into a single tibble
+grades <- do.call(bind_rows, grades)
+grades
+```
+
+::: {.callout-note}
+In the code above, we used tidyverse functions (`tibble()` and `bind_rows()`). It is also possible to do the same thing with base R: `data.frame()` and `rbind()`.
+:::
+
+## Functions
+
+Functions are objects just like the vectors and data frames we have worked with, so we create them using an assignment.
+
+```{r}
+times_2 <- function(x) {x * 2}
+times_2(6)
+times_2(1:5)
+```
+
+::: {.callout-note}
+When using operators or functions in R, such as `*`, you need to be careful to understand whether they are "vectorised". A vectorised operator or function will work on a single element _or_ on a vector of elements. Notice above that the `*` operator used in the function apparently works for single elements (e.g., `6 * 2 = 12`) or for vectors (e.g., `c(1,2,3,4,5) * 2 = c(2,4,6,8,10)`).
+:::
+
+We can also have multivariate inputs into functions, and return more complex objects, such as a vector or list.
+
+```{r}
+two_numbers <- function(x, y) {
+  my_sum <- x + y
+  my_product <- x * y
+  my_ratio <- x / y
+  return(c(my_sum, my_product, my_ratio))
+}
+two_numbers(4, 11.93)
+```
+
+A key conceptual feature of functions is that they have their own scope. What do you think the following cell will return?
+
+```{r}
+my_function <- function(z) {
+  z <- 2*z
+  return(z)
+}
+z <- 10
+
+# First output
+my_function(z)
+
+# Second output
+z
+```
+
+::: {.callout-important}
+Scoping is a _crucial_ idea for a programmer or data scientist to understand. We will not cover it in detail in this course, but we will assume you understand it. For a more detailed discussion of scoping, see <https://adv-r.hadley.nz/functions.html#lexical-scoping>.
+:::
+
+In well-written modular code, repeated tasks are written as functions. Functions therefore contain a wide range of possible code, e.g. conditions which allow the function to run different chunks depending on the input.
+
+```{r}
+compare_xy <- function(x, y) {
+  if (x < y) {
+    print("y is greater than x")
+  } else if (x > y) {
+    print("x is greater than y")
+  } else {
+    print("x and y are equal")
+  }
+}
+```
+
+Note that we can now reuse the code in this function for different combinations of `x` and `y`:
+
+```{r}
+compare_xy(3, 4)
+compare_xy(4, 3)
+compare_xy(1, 1)
+```
