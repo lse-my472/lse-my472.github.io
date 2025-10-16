@@ -1,7 +1,7 @@
 ---
 title: "Seminar 3.2: Processing Tabular Data"
 subtitle: "LSE MY472: Data for Data Scientists"
-date-modified: "14 October 2025" 
+date-modified: "16 October 2025" 
 date-format: "D MMMM YYYY"
 toc: true
 format:
@@ -167,7 +167,7 @@ Another useful way to view a full dataset in Positron is to use the `View()` fun
 
 ```{r}
 #| eval: false
-View(ip)
+View(ip.df)
 View(ip_and_unemployment)
 ```
 
