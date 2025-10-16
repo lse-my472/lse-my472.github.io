@@ -1,7 +1,7 @@
 ---
 title: "Seminar 2 Exercises"
 subtitle: "LSE MY472: Data for Data Scientists"
-date-modified: "8 October 2025"
+date-modified: "16 October 2025"
 date-format: "D MMMM YYYY"
 format:
   html:
@@ -25,6 +25,10 @@ Seminar exercises are purposefully designed to be challenging so that they can h
 
 You should push your final version to your GitHub Classroom repo before next Wednesday at 5 pm. 
 
+::: {.callout-warning}
+GitHub does not allow you to push files from your local repo that are too large. You can read about the file size limits [here](https://docs.github.com/en/repositories/working-with-files/managing-large-files/about-large-files-on-github). Any file that  is greater that 50MB on your computer should not be tracked by Git or pushed to GitHub. Always add these files to a `.gitignore`. 
+:::
+
 ### Directory management
 
 Before beginning, set your working directory.
@@ -47,7 +51,7 @@ In the remainder of this exercise, you will tidy data and deal with an encoding 
 
 First, we will work with a dataset that contains population data and tuberculosis (TB) cases for several countries across several years. (This is panel data.)
 
-The dataset is available on the website at <https://lse-my472.github.io/week03/tp_data.csv>. Write a code chunk that downloads this file and saves it to your local Seminar 3 repo. The chunk should only download the file if it does not already exist in the directory.
+The dataset is available on the website at <https://lse-my472.github.io/week03/tb_data.csv>. Write a code chunk that downloads this file and saves it to your local Seminar 3 repo. The chunk should only download the file if it does not already exist in the directory.
 
 ```{r}
 # your code goes here

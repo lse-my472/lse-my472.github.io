@@ -152,6 +152,23 @@ dbDisconnect(db)
 rm(db) # remove it from environment
 ```
 
+### GitHub file size limits
+
+Note that GitHub enforces file size limits. Any file bigger than 50MB should _not_ be pushed to GitHub. All files larger than this in a local repository should be added to a `.gitignore`. The database we just created is over 100MB, so please create a .gitignore file and add this file. 
+
+```{r}
+gifile <- file.path(wdir, ".gitignore")
+if(!file.exists(gifile)){
+  write_file("facebook-db.sqlite", gifile)
+} else {
+  raw <- read_file(gifile)
+  if(!grepl("facebook-db.sqlite", raw)){
+    raw <- paste0(raw,"\nfacebook-db.sqlite")
+  }
+  write_file(raw, gifile)
+}
+```
+
 ## Querying the database
 
 When you "query" a database, you are extracting useful information from one or more tables in that database. Since these are simple relational databases, we can query them using SQL. 
