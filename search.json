@@ -25,7 +25,14 @@
     "href": "week04/index.html",
     "title": "Week 4: Visualisation",
     "section": "",
-    "text": "Lecture Slides  \nSupporting Code  \n\nNote: materials will be posted before lecture and seminar each week."
+    "text": "This week provides an introduction to the core principles of visualisation, and then demonstrates how to create visualisations and maps using the {ggplot2} package in R.\nLecture Slides  \nSupporting Code\nNote: materials will be posted before lecture and seminar each week."
+  },
+  {
+    "objectID": "week04/index.html#additional-resources",
+    "href": "week04/index.html#additional-resources",
+    "title": "Week 4: Visualisation",
+    "section": "Additional resources",
+    "text": "Additional resources\n\nWickham, Hadley, Mine �etinkaya-Rundel and Garett Grolemund. 2023. R for Data Science: Import, Tidy, Transform, Visualize, and Model Data. 2nd ed. Sebastopol, CA: O’Reilly. Chs. 1, 9, 10 and 11. Available at https://r4ds.hadley.nz/.\n{ggplot2} docs\nWickham, Hadley, Danielle Navarro, and Thomas Lin Pedersen. ggplot2: Elegant Graphics for Data Analysis. 3rd ed. Available at https://ggplot2-book.org/.\nR Graph Gallery. “ggplot2.” Available at https://www.r-graph-gallery.com/ggplot2-package.html.\nTwo recent video workshops by Thomas Lin Pedersen, video 1, video 2, and the repo with associated exercises\nHealy, Kieran. 2019. Data Visualization: A Practical Introduction. Princeton, NJ: Princeton University Press, ch. 1. Book available at https://socviz.co/.\nTufte, Edward. 2001. The Visual Display of Quantitative Information. 2nd ed. Information available at https://www.edwardtufte.com/tufte/books_vdqi.\nWilkinson, Leland. 2005. The Grammar of Graphics. 2nd ed. New York: Springer, 2005. Ch. 1. E-book available from the LSE Library at https://librarysearch.lse.ac.uk/permalink/44LSE_INST/1f110cn/alma99128824410302021."
   },
   {
     "objectID": "week02/index.html",
@@ -39,7 +46,7 @@
     "href": "week02/index.html#additional-resources",
     "title": "Week 2: Fundamentals of Digital Data",
     "section": "Additional resources",
-    "text": "Additional resources\n\nWickham, Hadley and Garett Grolemund. 2017. R for Data Science: Import, Tidy, Transform, Visualize, and Model Data. Sebastopol, CA: O’Reilly. Part II Wrangle, Tibbles, Data Import, Tidy Data (Ch. 7-9 of the print edition).\nThe Tidyverse collection of packages for R.\nNote: there is a newer version of the Wickham and Grolemund text from 2023, which is available at https://r4ds.hadley.nz/.*"
+    "text": "Additional resources\n\nWickham, Hadley and Garett Grolemund. 2017, Chapter 14\nRegular expressions cheat sheet\nRegular expressions in R vignette\nRegex explainer on Youtube\nJeffrey E. F. Fried. 2006. Mastering Regular Expressions\nTwo websites for testing regex: regxr.com and regex101.com\nZentgraf, David C. n.d. “What every programmer absolutely, positively needs to know about encodings and character sets to work with text.” available at https://kunststube.net/encoding/\n{stringr} docs, the {stringr} cheatsheet and Regex with {stringr}"
   },
   {
     "objectID": "topics.html",
@@ -116,14 +123,14 @@
     "href": "assessments.html",
     "title": "Assessments and marking",
     "section": "",
-    "text": "There are three assessments in this course.\n\n\n\n\nType\nDue date\n\n\n\n\n1\nFormative in-class exercises\nWeekly\n\n\n2\nFormative data science project\nTBA\n\n\n3\nSummative in-person practical test (100%)\n11 December 2025\n\n\n\nAdditional details for each assessment will be sent via course announcements."
+    "text": "There are three assessments in this course.\n\n\n\n\n\n\n\n\n\nType\nDue date\n\n\n\n\n1\nFormative in-class exercises\nWeekly\n\n\n2\nFormative data science project (part 1)\n24 November 2025, noon London time\n\n\n\nFormative data science project (part 2)\n19 December 2025, noon London time\n\n\n3\nSummative in-person practical test (100%)\n11 December 2025\n\n\n\nAdditional details for each assessment will be sent via course announcements."
   },
   {
     "objectID": "assessments.html#assessment-schedule",
     "href": "assessments.html#assessment-schedule",
     "title": "Assessments and marking",
     "section": "",
-    "text": "There are three assessments in this course.\n\n\n\n\nType\nDue date\n\n\n\n\n1\nFormative in-class exercises\nWeekly\n\n\n2\nFormative data science project\nTBA\n\n\n3\nSummative in-person practical test (100%)\n11 December 2025\n\n\n\nAdditional details for each assessment will be sent via course announcements."
+    "text": "There are three assessments in this course.\n\n\n\n\n\n\n\n\n\nType\nDue date\n\n\n\n\n1\nFormative in-class exercises\nWeekly\n\n\n2\nFormative data science project (part 1)\n24 November 2025, noon London time\n\n\n\nFormative data science project (part 2)\n19 December 2025, noon London time\n\n\n3\nSummative in-person practical test (100%)\n11 December 2025\n\n\n\nAdditional details for each assessment will be sent via course announcements."
   },
   {
     "objectID": "assessments.html#disability-accommodations",
@@ -177,16 +184,30 @@
   {
     "objectID": "week03/index.html",
     "href": "week03/index.html",
-    "title": "Week 3: Tabular Data",
+    "title": "Week 3: Week 3: Tabular Data",
     "section": "",
-    "text": "Lecture Slides  \nSupporting Code  \n\nNote: materials will be posted before lecture and seminar each week."
+    "text": "This week provides an overview of the most common kind of data used in data science—tabular data—including an introduction to the principles of tidy data and core ideas behind database systems.\nLecture Slides  \nSupporting Code\nNote: materials will be posted before lecture and seminar each week."
+  },
+  {
+    "objectID": "week03/index.html#additional-resources",
+    "href": "week03/index.html#additional-resources",
+    "title": "Week 3: Week 3: Tabular Data",
+    "section": "Additional resources",
+    "text": "Additional resources\n\nWickham, Hadley and Garett Grolemund. 2017. R for Data Science: Import, Tidy, Transform, Visualize, and Model Data. Sebastopol, CA: O’Reilly. Part II Wrangle, Tibbles, Data Import, Tidy Data (Ch. 7-9 of the print edition).\nNote: there is a newer version of the Wickham and Grolemund text from 2023, which is available at https://r4ds.hadley.nz/.*\nThe Tidyverse collection of packages for R.\n{lubridate} docs for analysing dates in R.\nLake, P. and Crowther, P. 2013. Concise guide to databases: A Practical Introduction. London: Springer-Verlag. Chapter 1, Data, an Organizational Asset\nBeaulieu. 2009. Learning SQL. O’Reilly. (Chapter 1)\nStephens et al. 2009. Teach yourself SQL in one hour a day. Sam’s Publishing."
   },
   {
     "objectID": "week05/index.html",
     "href": "week05/index.html",
     "title": "Week 5: Accessing Data in the Cloud",
     "section": "",
-    "text": "Lecture Slides  \nSupporting Code  \n\nNote: materials will be posted before lecture and seminar each week."
+    "text": "This week provides an introduction to getting data from the cloud, including ethical considerations, data security and accessing data via APIs.\nLecture Slides  \nSupporting Code\nNote: materials will be posted before lecture and seminar each week."
+  },
+  {
+    "objectID": "week05/index.html#additional-resources",
+    "href": "week05/index.html#additional-resources",
+    "title": "Week 5: Accessing Data in the Cloud",
+    "section": "Additional resources",
+    "text": "Additional resources\n\nSeverance, Charles Russell. 2015. Introduction to Networking: How the Internet Works. Charles Severance, 2015.\nBarber� & Steinert-Threlkeld. 2018. “How to use social media data for political science research”. In The Sage handbook of research methods in political science and international relations, pages 404-423.\nRuths and Pfeffer. 2014. Social media for large studies of behavior. Science.\nTigani and Naidu. 2017. Google BigQuery Analytics. Weily. (Chapters 1-3)\nAnalyzing Big Data in less time with Google BigQuery on YouTube"
   },
   {
     "objectID": "week08/index.html",
