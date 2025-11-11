@@ -16,9 +16,16 @@
   {
     "objectID": "week07/index.html",
     "href": "week07/index.html",
-    "title": "Week 7: Scraping Static Webpages",
+    "title": "Week 7: Scraping Webpages",
     "section": "",
-    "text": "Lecture Slides  \nSupporting Code  \n\nNote: materials will be posted before lecture and seminar each week."
+    "text": "This week covers the basics of scraping webpages, including an overview of the mechanics of website source code, query languages, and automated browsers.\nLecture Slides  \nSupporting Code\nNote: materials will be posted before lecture and seminar each week."
+  },
+  {
+    "objectID": "week07/index.html#additional-resources",
+    "href": "week07/index.html#additional-resources",
+    "title": "Week 7: Scraping Webpages",
+    "section": "Additional resources",
+    "text": "Additional resources\n\nHowe, Shay. 2015. Learn to Code HTML and CSS: Develop and Style Websites. New Riders. Chs 1-8.\nKingl, Arvid. 2018. Web Scraping in R: rvest Tutorial.\nMunzert, Simon, Christian Rubba, Peter Meissner, and Dominic Nyhuis D. 2014. Automated Data Collection with R: A Practical Guide to Web Scraping and Text Mining. Hoboken, NJ/Chichester, UK:Wiley & Sons. Ch. 2-4, 9.\nDuckett, Jon. 2011. HTML and CSS: Design and Build Websites. New York: Wiley.\nXPath syntax\nRSelenium vignette\nMozilla Developer Web Docs. What is JavaScript."
   },
   {
     "objectID": "week04/index.html",
@@ -212,7 +219,7 @@
   {
     "objectID": "week08/index.html",
     "href": "week08/index.html",
-    "title": "Week 8: Scraping Dynamic Webpages",
+    "title": "Week 9: Audio and Image Processing",
     "section": "",
     "text": "Lecture Slides  \nSupporting Code  \n\nNote: materials will be posted before lecture and seminar each week."
   },
