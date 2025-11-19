@@ -2,14 +2,14 @@
   {
     "objectID": "week11/index.html",
     "href": "week11/index.html",
-    "title": "Week 11: Large Language Models",
+    "title": "Week 11: Course Review (for Exam)",
     "section": "",
     "text": "Lecture Slides  \nSupporting Code  \n\nNote: materials will be posted before lecture and seminar each week."
   },
   {
     "objectID": "week09/index.html",
     "href": "week09/index.html",
-    "title": "Week 9: Audio and Image Processing",
+    "title": "Week 9: Text as Data",
     "section": "",
     "text": "Lecture Slides  \nSupporting Code  \n\nNote: materials will be posted before lecture and seminar each week."
   },
@@ -60,7 +60,7 @@
     "href": "topics.html",
     "title": "Topics",
     "section": "",
-    "text": "You can access each topic’s lecture slides via    and supporting code on GitHub via  .\n\n\n\nWeek\nTopic\nLecturer\n\n\n\n\n1\nThe Computational Core    \nRyan Hübert\n\n\n2\nFundamentals of Digital Data    \nRyan Hübert\n\n\n3\nTabular Data    \nRyan Hübert\n\n\n4\nVisualisation    \nRyan Hübert\n\n\n5\nAccessing Data in the Cloud    \nRyan Hübert\n\n\n6\nReading week (no lecture or seminars)\n\n\n\n7\nScraping Static Webpages    \nRyan Hübert\n\n\n8\nScraping Dynamic Webpages    \nRyan Hübert\n\n\n9\nAudio and Image Processing    \nRyan Hübert\n\n\n10\nText as Data    \nRyan Hübert\n\n\n11\nLarge Language Models    \nRyan Hübert"
+    "text": "You can access each topic’s lecture slides via    and supporting code on GitHub via  .\n\n\n\nWeek\nTopic\nLecturer\n\n\n\n\n1\nThe Computational Core    \nRyan Hübert\n\n\n2\nFundamentals of Digital Data    \nRyan Hübert\n\n\n3\nTabular Data    \nRyan Hübert\n\n\n4\nVisualisation    \nRyan Hübert\n\n\n5\nAccessing Data in the Cloud    \nRyan Hübert\n\n\n6\nReading week (no lecture or seminars)\n\n\n\n7\nScraping Webpages    \nRyan Hübert\n\n\n8\nAudio and Image Processing    \nRyan Hübert\n\n\n9\nText as Data    \nRyan Hübert\n\n\n10\nLarge Language Models    \nRyan Hübert\n\n\n11\nCourse Review (for Exam)    \nRyan Hübert"
   },
   {
     "objectID": "index.html",
@@ -219,14 +219,21 @@
   {
     "objectID": "week08/index.html",
     "href": "week08/index.html",
-    "title": "Week 9: Audio and Image Processing",
+    "title": "Week 8: Audio and Image Processing",
     "section": "",
-    "text": "Lecture Slides  \nSupporting Code  \n\nNote: materials will be posted before lecture and seminar each week."
+    "text": "This week covers core topics in audio and image processing, including principles of digitisation, ingesting AV data into R, and basic manipulations of AV data.\nLecture Slides  \nSupporting Code\nNote: materials will be posted before lecture and seminar each week."
+  },
+  {
+    "objectID": "week08/index.html#additional-resources",
+    "href": "week08/index.html#additional-resources",
+    "title": "Week 8: Audio and Image Processing",
+    "section": "Additional resources",
+    "text": "Additional resources\n\nAraya-Salas, Marcelo. 2023. Bioacoustic Analysis in R: Organization for Tropical Studies. https://marce10.github.io/OTS_BIR_2023/, tutorials on sound, spectrograms and seewave.\nZhang, Zhiyong. 2019. Practical Data Processing for Social and Behavioral Research Using R. https://books.psychstat.org/rdata/index.html.\nCant�, Francisco. 2019. “The Fingerprints of Fraud: Evidence from Mexico’s 1988 Presidential Election.” American Political Science Review 113(3): 710-726. https://www.cambridge.org/core/journals/american-political-science-review/article/fingerprints-of-fraud-evidence-from-mexicos-1988-presidential-election/8F3C1BCA4C53FE85EA48E51321E339E9\nSonos. “Mono vs. Stereo Sound: What’s the Difference?” https://www.sonos.com/en-gb/blog/mono-vs-stereo-sound"
   },
   {
     "objectID": "week10/index.html",
     "href": "week10/index.html",
-    "title": "Week 10: Text as Data",
+    "title": "Week 10: Large Language Models",
     "section": "",
     "text": "Lecture Slides  \nSupporting Code  \n\nNote: materials will be posted before lecture and seminar each week."
   }
