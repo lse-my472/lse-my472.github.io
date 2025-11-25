@@ -11,7 +11,14 @@
     "href": "week09/index.html",
     "title": "Week 9: Text as Data",
     "section": "",
-    "text": "Lecture Slides  \nSupporting Code  \n\nNote: materials will be posted before lecture and seminar each week."
+    "text": "This week introduces the main approaches used for converting text into quantitative data for use in data science.\nLecture Slides  \nSupporting Code\nNote: materials will be posted before lecture and seminar each week."
+  },
+  {
+    "objectID": "week09/index.html#additional-resources",
+    "href": "week09/index.html#additional-resources",
+    "title": "Week 9: Text as Data",
+    "section": "Additional resources",
+    "text": "Additional resources\n\nKenneth Benoit. July 16, 2019. “Text as Data: An Overview” Forthcoming in Cuirini, Luigi and Robert Franzese, eds. Handbook of Research Methods in Political Science and International Relations. Thousand Oaks: Sage.\nXML\nRSS"
   },
   {
     "objectID": "week07/index.html",
